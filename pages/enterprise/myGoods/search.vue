@@ -34,7 +34,7 @@
 		<view class="content" v-show="!showHistory && !showEmpty">
 			<view class="listCon">
 				<view class="item" v-for="(item, index) in supplyList" :key="index" @click="tapdetail(item)">
-					<image class="goodsimg" :src="item.pic"
+					<image class="goodsimg" :src="item.pic[0]"
 					 mode=""></image>
 					<view class="name u-line-2">
 						{{item.title}}

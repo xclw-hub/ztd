@@ -220,7 +220,7 @@
 				enterpriseName:'长沙市九州仓储服务有限公司',
 				enterpriseID:'zhanghao_100',
 				parkState:'2',		//我的园区状态，0表示未加入园区，1表示园区正在申请状态，2表示已加入园区
-				parkName:'雨花经济开发区',
+				parkName:'后端返回为NULL',
 				src:''//图片路径
 			}
 		},
@@ -276,6 +276,21 @@
 							}
 						}else{
 							console.log(data.statusMsg)
+						}
+					}).catch(err=>{
+						console.log(err)
+					})
+					_this.$request({
+						url:'/industry/homePageIndustry',
+						data:{
+							userId:_this.$store.state.id,
+							userType:_this.$store.state.kind
+						}
+					}).then(res=>{
+						console.log('homePageIndustry')
+						console.log(res[1].data)
+						if(res[1].data){
+							_this.industryKindList=res[1].data
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -390,13 +405,22 @@
 			},
 			changeIndustryKind(){
 				// var _this=this
-				var temTime = new Date()
-				var temTime_mSecond=temTime.getTime()
-				console.log('按键时刻'+temTime_mSecond)
-				//选择行业页面点击确认后会传递数组给industryKindList，此时说明行业变更了，因此禁止按键，并开启倒计时
-				this.changeTimeClock=temTime_mSecond
-				uni.navigateTo({
-					url:'industrySelect'
+				let _this = this
+				_this.$request({
+					url:'/preferentialPolicies/industryChoose',
+					data:{
+						'industry':[],//industryKindArr,
+						'enterpriseId':_this.$store.state.id
+					}
+				}).then(res =>{
+					  let data = res[1].data
+					  if(data.statusCode == 3024){
+					  }else{
+						  console.log('不存在')
+						  uni.navigateTo({
+						  	url:'industrySelect'
+						  })
+					  }
 				})
 			},
 			applyConfirm(done) {

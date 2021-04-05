@@ -155,9 +155,9 @@
 		},
 		methods: {
 			clickBack() {
-				uni.navigateBack({
-					delta: 1
-				})
+				uni.reLaunch(
+					url:'myGoods'
+				)
 			},
 			confirm() {
 				let that = this

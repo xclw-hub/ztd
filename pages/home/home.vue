@@ -14,7 +14,7 @@
 			</view>
 			<view class="navrightCon">
 				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
-				<image class="notice" src="../../static/home/notice.png" mode=""></image>
+				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
 		<view style="height: 178rpx;">
@@ -361,6 +361,11 @@
 			}
 		},
 		methods: {
+			tapNotice(){
+				uni.navigateTo(
+					url:'../../enterprise/inform/inform.vue'
+				)
+			},
 			toDetail(pkid) {
 				console.log(pkid)
 				uni.navigateTo({

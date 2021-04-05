@@ -178,6 +178,9 @@
 							console.log('record')
 							console.log(res[1].data)
 							if(res[1].data.success == true || res[1].data.statusCode == 2000){
+								uni.reLaunch(
+									url:'informationFill'
+								)
 							}else{
 								console.log(res[1].data.statusMsg)
 							}

@@ -110,7 +110,7 @@
 			<view class="pad">
 				<view class="listCon">
 					<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail">
-						<image class="goodsimg" :src="item.pic"
+						<image class="goodsimg" :src="item.pic[0]"
 						 mode=""></image>
 						<view class="name u-line-2">
 							{{item.title}}

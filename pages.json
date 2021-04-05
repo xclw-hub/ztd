@@ -361,6 +361,14 @@
             }
         },
         {
+            "path" : "pages/enterprise/myGoods/search",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
             "path" : "pages/enterprise/myGoods/publish",
             "style" : {
                 "navigationBarTitleText" : "",
