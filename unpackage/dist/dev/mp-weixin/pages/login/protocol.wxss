@@ -1,0 +1,41 @@
+
+.uniNavBar_left image.data-v-d7804f92{
+	width: 20rpx;
+	height: 36rpx;
+}
+.uniNavBar_left.data-v-d7804f92, .uniNavBar_center.data-v-d7804f92{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.uniNavBar_center text.data-v-d7804f92{
+	white-space: nowrap;		/* 禁止换行 */
+	font-size: 36rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+}
+.content.data-v-d7804f92{
+	padding-top: 42rpx;
+	padding-left: 39rpx;
+	padding-right: 39rpx;
+	padding-bottom: 62rpx;
+}
+.content ._p.data-v-d7804f92{
+	font-size: 26rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #666666;
+	line-height: 50rpx;
+	text-indent: 40rpx;
+}
+.content #num2.data-v-d7804f92, #num3.data-v-d7804f92{
+	margin-top: 64rpx;
+}
+

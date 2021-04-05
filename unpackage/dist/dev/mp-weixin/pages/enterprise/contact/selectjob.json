@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "选择职务",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-search": "/uview-ui/components/u-search/u-search"
+  }
+}
