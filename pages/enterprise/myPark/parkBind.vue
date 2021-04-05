@@ -6,23 +6,26 @@
 			@clickLeft="clickBack"
 		>	
 			<view slot="left" class="uniNavBar_left">
-				<image src="../../../static/login/return.png"></image>
+				<image src="/static/login/return.png"></image>
 			</view>
 			<view slot="center" class="uniNavBar_center">
 				<text>选择园区</text>
 			</view>
 		</uniNavBar>
-		<view class="content">
-			<view class="park" v-for="(item, index) in parkList" :key='index' @click="applyPark(index)">
-				<view class="body">
-					<text class="parkName">{{item.title}}</text>
-					<view class="location" v-if="item.address!=null">
-						<image src="../../../static/enterprise/location.png"></image>
-						<text>{{item.address}}</text>
+		<view v-for="(item,index) in parkList" :key="index">
+			<view class="content" v-for="(park,id) in item.list" :key="id">
+				<view class="park" @click="applyPark(park.pkid,park.title)">
+					<view class="body">
+						<text class="parkName">{{park.title}}</text>
+						<view class="location">
+							<image src="../../../static/enterprise/location.png"></image>
+							<text>{{park.address}}</text>
+						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+		
 		<!-- 已入园对话框 -->
 		<uni-popup id="applyParkPopupDialog" ref="applyParkPopupDialog" type="dialog">
 			<uni-popup-dialog 
@@ -53,10 +56,23 @@
 		},
 		data() {
 			return {
-				parkName:'雨花经开区',
-				parkLocation:'湖南省长沙市雨花经济开发区',
-				parkList:[],
-				selectedParkId:0
+				bindParkId:'',//要绑定的园区的id
+				parkName:'',//要绑定的园区的名字
+				token:'',
+				parkList:[
+					/* {
+						categoryTitle:'',
+						list:[
+							{
+								pkid:'',
+								parkName:'',
+								parkLocation:''
+							}
+						]
+					} */
+				]
+				/* parkName:'雨花经开区',
+				parkLocation:'湖南省长沙市雨花经济开发区' */
 			}
 		},
 		computed:{
@@ -64,22 +80,27 @@
 				return '请确认是否要向“' + this.parkName + '”发送入园申请？申请成功后即可享受该园区带来的便捷服务。'
 			}
 		},
-		onLoad() {
+		onLoad(){
 			let _this = this
-			_this.$request({
-				url:'/parkList',
-			}).then(res =>{
-				// console.log(res[1].data.data)
-				let categoryArr = res[1].data.data
-				for(let i = 0; i < categoryArr.length; i++){
-					let parkArr = categoryArr[i].list
-					for(let j = 0; j < parkArr.length; j++){
-						_this.parkList.push(parkArr[j])
-					}
+			uni.getStorage({
+				key:'token',
+				success:function(res){
+					_this.token = res.data
+					_this.$request({
+						url:'/parkList',
+						data:{}
+					}).then(res=>{
+						console.log('parkList')
+						/* console.log(res[1].data) */
+						_this.parkList=res[1].data.data
+						console.log(_this.parkList)
+					}).catch(err=>{
+						console.log(err)
+					})
+				},
+				fail:function(err){
+					console.log(err)
 				}
-				// console.log(_this.parkList)
-			}).catch(err=>{
-				console.log(err)
 			})
 		},
 		methods: {
@@ -88,61 +109,38 @@
 					delta:1
 				})
 			},
-			applyPark(index){
-				this.parkName = this.parkList[index].title
-				this.selectedParkId = this.parkList[index].pkid
+			applyPark(pkid,parkName){
+				this.parkName=parkName
+				this.bindParkId = pkid
 				this.$refs.applyParkPopupDialog.open()
-				// console.log(index)
 			},
 			applyParkConfirm(done) {
-				// console.log('是');
-				let _this = this
-				let enterpriseId
-				// let enterpriseId = _this.$store.state.id		//暂时没考虑个人用户绑定园区
-				if(_this.$store.state.kind === '0'){
-					enterpriseId = _this.$store.state.id
-				}
-				else{
-					let info = _this.$store.state.userInfo
-					enterpriseId = info.enterpriseId
-				}
-				uni.getStorage({
-					key:'token',
-					success:function(res){
-						let token = res.data
-						console.log(token)
-						_this.$request({
-							url:'/bindPark',
-							data:{
-								id: enterpriseId,
-								parkId: _this.selectedParkId,
-								token: token
-							}
-						}).then(res =>{
-							let data = res[1].data
-							if(data.statusCode===2000){
-								console.log('成功绑定园区')
-								uni.navigateTo({
-									url:'../../home/home'
-								})
-							}
-							else{
-								uni.showToast({
-								    icon:'none',
-									position:'bottom',
-								    title: data.statusMsg
-								})
-							}
-						}).catch(err=>{
-							console.log(err)
-						})
-					},
-					fail:function(err){
-						console.log(err)
+				console.log('是');
+				let _this=this
+				_this.$request({
+					url:'/bindPark',
+					data:{
+						id:_this.$store.state.id,
+						parkId:_this.bindParkId,
+						token:_this.token,
+						parkName:_this.parkName
 					}
+				}).then(res=>{
+					if(res[1].data.statusCode == 2000){
+						console.log('bind complete')
+						// 需要执行 done 才能关闭对话框
+						done()
+						
+					}else{
+						console.log(res[1].data.statusMsg)
+					}
+				}).catch(err=>{
+					console.log(err)
 				})
-				// 需要执行 done 才能关闭对话框
-				done()
+				uni.navigateBack({
+					delta:2
+				})
+				
 			},
 			/**
 			 * 对话框取消按钮
@@ -156,7 +154,7 @@
 </script>
 
 <style>
-	.uniNavBar_center, .uniNavBar_left{
+	.uniNavBar_left, .uniNavBar_center, .uniNavBar_right{
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -175,8 +173,6 @@
 		padding-top: 40rpx;
 		padding-left: 40rpx; 
 		padding-right: 40rpx;
-		display: flex;
-		flex-direction: column;
 	}
 	.park{
 		display: flex;
@@ -187,7 +183,6 @@
 		background: linear-gradient(90deg, #2D71EC, #1854C3);
 		box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 		border-radius: 10rpx;
-		margin-bottom: 40rpx;
 	}
 	.body .parkName{
 		font-size: 40rpx;

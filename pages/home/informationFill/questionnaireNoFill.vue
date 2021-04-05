@@ -30,7 +30,7 @@
 			<view class="question">
 				<view class="question-item" v-for="(item, index) in questionnaire.content" :key="index">
 					
-					<view class="single-choice" v-if="item.kind===0">
+					<view class="single-choice" v-if="item.kind==1">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<radio-group class="single-choice-group" @change="radioChange($event,index)">
 							<view class="single-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -44,7 +44,7 @@
 						</radio-group>
 					</view>
 					
-					<view class="multiple-choice" v-else-if="item.kind===1">
+					<view class="multiple-choice" v-else-if="item.kind==2">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<checkbox-group class="multiple-choice-group" @change="checkboxChange($event,index)">
 							<label class="multiple-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -77,40 +77,119 @@
 	export default {
 		data() {
 			return {
-				questionnaire:{}
+				questionnaire:{},
+				token:'',
+				formId:'',
+				questionnaireId:''
 			};
 		},
 		onLoad: function(option) {
 			let obj=JSON.parse(option.param)
+			this.questionnaireId = option.questionnaireId
+			this.formId = option.formId
 			this.questionnaire=obj
 			console.log(this.questionnaire)
+			console.log(this.questionnaireId)
+			let _this = this
+			uni.getStorage({
+				key:'token',
+				success:function(res){
+					_this.token = res.data
+				},
+				fail:function(err){
+					console.log('没有存储token，无法获取token')
+				}
+			})
 		},
 		methods:{
 			radioChange: function(e, index) {
 				var checked = e.detail.value
-				// console.log(checked)
-				// console.log(index)
+				console.log(e)
+				console.log(checked)
 				this.questionnaire.content[index].result=checked
 				// console.log(this.questionnaire.content)
 			},
 			checkboxChange: function(e, index) {
 				var checked = e.detail.value
-				// console.log(checked)
+				console.log(checked)
+				console.log(index)
 				this.questionnaire.content[index].result=checked
 				// console.log(this.questionnaire.content)
 			},
 			bindTextAreaBlur: function(e, index) {
 				var areaValue=e.detail.value
+				console.log(index)
+				console.log(areaValue)
 				this.questionnaire.content[index].result=areaValue
 			},
 			clickBack(){
-				uni.navigateTo({
+				/* uni.navigateTo({
 					url:'./informationFill'
+				}) */
+				uni.navigateBack({
+					delta:1
+				})
+			},
+			submitQuestion(index){
+				let _this = this
+				console.log(_this.questionnaire.content[index].question+':'+_this.questionnaire.content[index].result)
+				_this.$request({
+					url:'/submitQuestion',
+					data:{
+						'token':_this.token,
+						'userType':_this.$store.state.kind,
+						'formId':_this.formId,
+						'itemType':_this.questionnaire.content[index].kind,
+						'question':_this.questionnaire.content[index].question,
+						'answer':_this.questionnaire.content[index].result
+					}
+				}).then(res =>{
+					if(res[1].data.statusCode != 2000){
+						console.log(res[1].data.statusMsg)
+					}
+				}).catch(err =>{
+					console.log(err)
 				})
 			},
 			submit(){
-				console.log(this.questionnaire.content)
-			}
+				let _this = this
+				let length = this.questionnaire.content.length
+				for(let i=0;i<length;i++){
+					this.submitQuestion(i)
+				}
+				_this.$request({
+					url:'/submitForm',
+					data:{
+						'token':_this.token,
+						'type':_this.$store.state.kind,
+						'formId':_this.formId
+					}
+				}).then(res =>{
+					if(res[1].data.statusCode != 2000){
+						console.log(res[1].data.statusMsg)
+					}else{
+						_this.$request({
+							url:'/fillInRecord',
+							data:{
+								'token':_this.token,
+								'questionnaireId':_this.questionnaireId
+							}
+						}).then(res =>{
+							console.log('record')
+							console.log(res[1].data)
+							if(res[1].data.success == true || res[1].data.statusCode == 2000){
+							}else{
+								console.log(res[1].data.statusMsg)
+							}
+						}).catch(err =>{
+							console.log(err)
+						})
+					}
+				}).catch(err =>{
+					console.log(err)
+				})
+				//console.log(this.questionnaire.content)
+			},
 		}
 	}
 </script>

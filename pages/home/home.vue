@@ -3,7 +3,7 @@
 		<view class="navbar">
 			<view class="navleftCon">
 				<view class="avatarCon" @click="enterpriseHome">
-					<image src="../../static/home/userIcon.png" mode=""></image>
+					<image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
 				</view>
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
@@ -13,7 +13,7 @@
 				</view>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode=""></image>
+				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode=""></image>
 			</view>
 		</view>
@@ -54,21 +54,20 @@
 		<view class="pad">
 
 			<view class="listCon">
-				<view class="listItem" v-for="(item,index) in 20" :key='index'>
-					<view class="leftCon">
+				<view class="listItem" v-for="(item,index) in dataList" :key='index'>
+					<view class="leftCon" @click="toDetail(item.pkid)">
 						<view class="title">
-							国内OLED发展两大阻碍因素：产能和良品率
+							{{item.title}}
 						</view>
 						<view class="desc">
-							国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。
+							{{item.synopsis}}
 						</view>
 						<view class="date">
-							2019/02/27
+							{{item.time}}
 						</view>
 					</view>
-					<view class="rightCon">
-						<image src="https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000"
-							mode=""></image>
+					<view class="rightCon" @click="toDetail(item.pkid)">
+						<image :src="item.pic" mode=""></image>
 					</view>
 				</view>
 			</view>
@@ -119,7 +118,9 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
-	import {request} from '../../util/request.js'
+	import {
+		request
+	} from '../../util/request.js'
 	export default {
 		components: {
 			uniNavBar,
@@ -136,6 +137,7 @@
 				need_placeholder: '简要描述您的专家需求',
 				diagnosis_need: '',
 				keywords: "",
+				isParked: true,
 				menuList1: [{
 					name: "会议通知",
 					icon: '../../static/home/meeting.png'
@@ -165,12 +167,55 @@
 				tabList: [],
 				tabCurrent: 0,
 				pageNumber: 1,
-				dataList: []
+				dataList: [],
+				user_logo: ''
 			}
 		},
 		onLoad(option) {
+			this.$forceUpdate()
 			let _this = this
+			console.log(_this.$store.state.id)
+			console.log(_this.$store.state.kind)
 			if (_this.$store.state.kind === '0') {
+				if (_this.$store.state.enterpriseInfo.isBindPark) {
+					_this.isParked = true
+				} else {
+					_this.isParked = false
+				}
+			} else {
+				if (_this.$store.state.userInfo.isBindPark) {
+					_this.isParked = true
+				} else {
+					_this.isParked = false
+				}
+			}
+			request({
+				url: '/industry/dataTitle',
+			}).then(res => {
+				console.log(res[1].data.data);
+				_this.tabList = res[1].data.data;
+				console.log(_this.tabList);
+				let d = {
+					industryId: _this.tabList[_this.tabCurrent].pkid,
+					keyword: _this.tabList[_this.tabCurrent].title,
+					page: _this.pageNumber,
+				}
+				request({
+					url: '/industry/dataList',
+					data: d,
+				}).then(res => {
+					console.log(res[1].data.data.list)
+					let a = _this.dataList.length
+					console.log(a)
+					_this.dataList = res[1].data.data.list
+					console.log(_this.dataList)
+				})
+			})
+			if (_this.$store.state.kind === '0') {
+				// if (_this.$store.state.id) {
+				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
+				// }
+				// console.log('头像', _this.$store.state.id, _this.user_logo)
 				_this.$request({
 					url: '/enterpriseDetail',
 					data: {
@@ -178,7 +223,7 @@
 					}
 				}).then(res => {
 					let data = res[1].data
-					console.log(data)
+					// console.log(data)
 					if (data.statusCode === 2000) {
 						let tem = {
 							enterpriseContact: data.enterpriseContact,
@@ -195,7 +240,8 @@
 							tem.isBindPark = true
 						}
 						_this.$store.commit('setEnterpriseInfo', tem)
-						console.log(_this.$store.state.enterpriseInfo)
+						// console.log(_this.$store.state.enterpriseInfo)
+						console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -203,6 +249,7 @@
 					console.log(err)
 				})
 			} else {
+				// _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
 				_this.$request({
 					url: '/contactDetail',
 					data: {
@@ -211,7 +258,7 @@
 					}
 				}).then(res => {
 					let data = res[1].data
-					console.log(res)
+					console.log(data)
 					if (!data.statusCode) {
 						let tem = {
 							contactName: data.contactName,
@@ -229,7 +276,13 @@
 							tem.isBindPark = true
 						}
 						_this.$store.commit('setUserInfo', tem)
-						console.log(_this.$store.state.userInfo)
+						if (_this.$store.state.kind === '0') {
+							console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
+							_this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo
+						} else {
+							console.log(_this.$store.state.userInfo.contactHead)
+							_this.user_logo = _this.$store.state.userInfo.contactHead
+						}
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -255,36 +308,14 @@
 					// console.log(res[1].data.data.list)
 					let a = _this.dataList.length
 					// console.log(a)
-					_this.dataList.array = res[1].data.data.list
-					// console.log(_this.dataList.array)
+					_this.dataList = res[1].data.data.list
+					// console.log(_this.dataList)
 				})
 			})
-
-			// console.log(option)
-			// let that = this
-			// let ss={
-			// 		url:'/loadImageWithToken',
-			// 		data:{
-			// 			token:'11888311eb09e1c31467236120fc3d67',
-			// 			path:'/home/ztd/iconImage/126_0_icon.jpg'
-			// 		}
-			// }
-			// request(ss).then((res)=>{
-			// 	console.log(res)
-			// 	uni.setStorage({
-			// 	    key: 'userpic',
-			// 	    data: res[1].data,
-			// 	    success: function () {
-			// 	        console.log('success');
-			// 	    }
-			// 	});
-			// 	console.log('as')
-			// })
 		},
 		onReachBottom() {
 			let _this = this
 			console.log('触底刷新')
-			this.pageNumber++
 			console.log(this.pageNumber)
 			let d = {
 				industryId: _this.tabList[_this.tabCurrent].pkid,
@@ -295,25 +326,74 @@
 				url: '/industry/dataList',
 				data: d,
 			}).then(res => {
-				console.log(res[1].data.data.list)
 				if (res[1].data.data.list.length != 0) {
 					let a = _this.dataList.length
 					console.log(a)
 					let c = 0
-					for (let b = a; b < res[1].data.data.list.length; b++) {
-						console.log(res[1].data.data.list[c])
+					for (let b = a; b < a + res[1].data.data.list.length; b++) {
 						_this.dataList.push(res[1].data.data.list[c])
 						c++
 					}
 					console.log(_this.dataList)
+					_this.pageNumber++
 				} else {
 					console.log('没有更多内容了')
+					uni.showToast({
+						title: '没有更多内容了',
+						duration: 2000,
+						icon: 'none'
+					});
 				}
 			})
 		},
+		onShow() {
+			if (this.$store.state.kind === '0') {
+				this.user_logo = '';
+				setTimeout(() => {
+					this.user_logo = this.$store.state.enterpriseInfo.enterpriseLogo
+				}, 100)
+			} else {
+				this.user_logo = '';
+				setTimeout(() => {
+					this.user_logo = this.$store.state.userInfo.contactHead
+				}, 100)
+
+			}
+		},
 		methods: {
+			toDetail(pkid) {
+				console.log(pkid)
+				uni.navigateTo({
+					url: './viewDetail/viewDetail?pkid=' + pkid
+				})
+			},
 			tapchange(index) {
+				this.dataList = []
 				this.tabCurrent = index
+				this.pageNumber = 1
+				let _this = this
+				request({
+					url: '/industry/dataTitle',
+				}).then(res => {
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+				})
 			},
 			enterSearch() {
 				uni.navigateTo({
@@ -380,13 +460,45 @@
 						break
 					case '融资助手':
 						console.log('进入融资助手页面')
-						uni.navigateTo({
-							url: 'financeAssistant/financeAssistant'
-						})
+						if (that.$store.state.kind == '1') {
+							if (!that.$store.state.userInfo.isBindPark) {
+								uni.showToast({
+									title: '企业未入园,暂无权限',
+									duration: 2000,
+									icon: 'none'
+								});
+							} else {
+								uni.navigateTo({
+									url: 'financeAssistant/financeAssistant'
+								})
+							}
+						} else {
+							if (!that.$store.state.enterpriseInfo.isBindPark) {
+								uni.navigateTo({
+									url: '../enterprise/myPark/parkApply'
+								})
+							} else {
+								uni.navigateTo({
+									url: 'financeAssistant/financeAssistant'
+								})
+							}
+						}
 						break
 					case '专家诊断':
 						console.log('进入专家诊断页面')
-						this.isShowDiagnosis = true
+						if (that.$store.state.kind == '1') {
+							if (!that.$store.state.userInfo.isBindPark) {
+								uni.showToast({
+									title: '企业未入园,暂无权限',
+									duration: 2000,
+									icon: 'none'
+								});
+							} else {
+								this.isShowDiagnosis = true
+							}
+						} else {
+							this.isShowDiagnosis = true
+						}
 						break
 					default:
 						console.log('选项出错')
@@ -410,6 +522,52 @@
 			needBlue() {
 				this.need_placeholder = '简要描述您的专家需求'
 			},
+			scan() {
+				let that = this
+				uni.scanCode({
+					success: function(res) {
+						console.log('条码内容：' + res.result);
+						if (that.$store.state.kind == '0') {
+							console.log({
+								meetingId: res.result,
+								enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+							})
+							request({
+								url: '/enterpriseSignIn',
+								data: {
+									meetingId: res.result,
+									enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+								},
+							}).then(res => {
+								console.log(res[1].data.statusMsg)
+								uni.showToast({
+									title: res[1].data.statusMsg,
+									icon: 'none',
+								});
+							})
+						} else {
+							console.log({
+								meetingId: res.result,
+								contactId: that.$store.state.id
+							})
+							request({
+								url: '/contactSignIn',
+								data: {
+									meetingId: res.result,
+									contactId: that.$store.state.id
+								},
+							}).then(res => {
+								console.log(res[1].data.statusMsg)
+								uni.showToast({
+									icon: 'none',
+									title: res[1].data.statusMsg,
+								});
+							})
+						}
+					}
+				});
+
+			},
 			clickCancel() {
 				console.log('取消')
 				this.isShowDiagnosis = false
@@ -418,7 +576,7 @@
 				console.log('确定')
 				let that = this
 				let token = uni.getStorageSync('token');
-				if (that.$store.state.kind = 1) {
+				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
 						let ss = {
 							url: '/expertDiagnosis',
@@ -430,9 +588,22 @@
 								name: that.diagnosis_name,
 								tel: that.diagnosis_phone,
 								notes: that.diagnosis_need,
-								companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername
+								companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
+								type: that.$store.state.kind
 							}
+							// data: {
+							// 	token:'11888311eb09e1c31467236120fc3d67',
+							// 	parkId: 126,
+							// 	companyId: 126,
+							// 	memberId: 126,
+							// 	name: that.diagnosis_name,
+							// 	tel: that.diagnosis_phone,
+							// 	notes: that.diagnosis_need,
+							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
+							// 	type:'0'
+							// }
 						}
+						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res)
 
@@ -455,17 +626,26 @@
 								name: that.diagnosis_name,
 								tel: that.diagnosis_phone,
 								notes: that.diagnosis_need,
-								companyTitle: that.$store.state.userInfo.enterpriseUsername
-							}
+								companyTitle: that.$store.state.userInfo.enterpriseUsername,
+								type: that.$store.state.kind
+							},
+							// data: {
+							// 	token:'11888311eb09e1c31467236120fc3d67',
+							// 	parkId: 126,
+							// 	companyId: 126,
+							// 	memberId: 126,
+							// 	name: that.diagnosis_name,
+							// 	tel: that.diagnosis_phone,
+							// 	notes: that.diagnosis_need,
+							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
+							// 	type:'0'
+							// }
 						}
+						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res)
 
 							console.log('as')
-						})
-					} else {
-						uni.navigateTo({
-							url: '../enterprise/myPark/parkBind'
 						})
 					}
 				}
@@ -496,11 +676,12 @@
 			.avatarCon {
 				width: 68rpx;
 				height: 68rpx;
-
+				border-radius: 50%;
 
 				image {
 					width: 100%;
 					height: 100%;
+					border-radius: 50%;
 				}
 			}
 

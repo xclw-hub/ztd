@@ -5,8 +5,8 @@
 			<view class="navbar-right" slot="right">  <!-- v-show收藏 -->
 				<view class="right-item">
 					<!-- <u-icon name="../../../static/moreDot.png" size="38"></u-icon> -->
-					<image class="collection" v-if="showUpImg" src="../../../static//home/uncollect.png" @click="tapshowup"></image>
-					<image class="collection" v-if="!showUpImg" src="../../../static//home/collect.png" @click="tapshowup"></image>
+					<image class="collection" v-if="!showUpImg" src="../../../static//home/uncollect.png" @click="tapshowup"></image>
+					<image class="collection" v-if="showUpImg" src="../../../static//home/collect.png" @click="tapshowup"></image>
 				</view>
 			</view>
 		</u-navbar>
@@ -14,7 +14,7 @@
 			<image src="../../../static/detail_headbg.png" mode="widthFix"></image>
 		</view>
 		<view class="swiperbar">
-			<u-swiper :list="list" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<u-swiper :list="ct.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
 		</view>
 		<view class="goodsinfo">
 			<view class="pricebar">
@@ -22,16 +22,16 @@
 					￥
 				</view>
 				<view class="price">
-					18888.00
+					{{ct.price}}
 				</view>
 			</view>
 			<view class="goodsName u-line-2">
-				厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱
+				{{ct.title}}
 			</view>
 			<view class="position">
 				<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 				<view class="city">
-					发货：广东省东莞市
+					发货：{{ct.address}}
 				</view>
 			</view>
 		</view>
@@ -43,49 +43,9 @@
 				</view>
 				<image src="../../../static/detailRight.png" mode=""></image>
 			</view>
+			<u-parse :content="ct.content" @navigate="navigate"></u-parse>
 			<view class="item">
-				产地：广东
-			</view>
-			<view class="item">
-				是否进口：否
-			</view>
-			<view class="item">
-				订货号：1
-			</view>
-			<view class="item">
-				品牌：兴华
-			</view>
-			<view class="item">
-				类型：BF
-			</view>
-
-			<view class="item">
-				尺寸：定制（cm）
-			</view>
-			<view class="item">
-				净重：定制（kg）
-			</view>
-			<view class="item">
-				最大负荷：定制（kg）
-			</view>
-			<view class="item">
-				内部尺寸：600
-			</view>
-
-			<view class="item">
-				外形尺寸：700
-			</view>
-
-			<view class="item">
-				框架材质：钣金焊接
-			</view>
-
-			<view class="item">
-				可折叠：否
-			</view>
-
-			<view class="item">
-				是否跨境出口专供货源：否
+				{{ct.content}}
 			</view>
 
 		</view>
@@ -101,7 +61,7 @@
 
 			<view class="contentCon">
 				<view class="companyName">
-					上海苍茂实业有限公司
+					{{ct.companyTitle}}
 				</view>
 				<view class="item">
 					<view class="leftcon">
@@ -111,7 +71,7 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						林丽芬 女士(销售部 经理)
+						{{ct.contacts}}
 					</view>
 				</view>
 				<view class="item">
@@ -122,7 +82,7 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						15026907667
+						{{ct.tel}}
 					</view>
 				</view>
 				<view class="item" style="border: none;">
@@ -133,7 +93,7 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						中国上海市松江区石湖荡镇长塔路945弄18号1楼U-2
+						{{ct.address}}
 					</view>
 				</view>
 			</view>
@@ -142,13 +102,16 @@
 </template>
 
 <script>
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		data() {
 			return {
 				background: {
 					backgroundColor: 'rgb(255, 255, 255,0)',
 				},
-				list: [{
+				/* list: [{
 						image: 'https://m.360buyimg.com/mobilecms/s1265x1265_jfs/t1/158549/25/3032/179759/60016b0aE036dc5e6/e02ae5289d3209b1.jpg',
 					},
 					{
@@ -157,9 +120,10 @@
 					{
 						image: 'https://m.360buyimg.com/mobilecms/s1265x1265_jfs/t1/158549/25/3032/179759/60016b0aE036dc5e6/e02ae5289d3209b1.jpg',
 					}
-				],
+				], */
 				navtitle: null,
-				showUpImg: true
+				showUpImg: true,
+				ct:{}
 			}
 		},
 		onPageScroll(e) {
@@ -171,9 +135,75 @@
 				this.navtitle = null
 			}
 		},
+		onLoad(option){
+			let _this=this
+			let that = this
+			let token = uni.getStorageSync('token');
+			let d
+				if(_this.$store.state.kind=='0'){
+					d={
+						token,
+						memberId: 1,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId,
+						type:_this.$store.state.kind,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						supplyId:option.supplyId
+					}
+				}else{
+					d={
+						token,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.userInfo.enterpriseId,
+						type:_this.$store.state.kind,
+						parkId:_this.$store.state.userInfo.parkId,
+						supplyId:option.supplyId
+					}
+				}
+			request({
+				url: '/supplyDetail',
+				data: d,
+			}).then(res => {
+				console.log(res[1].data.data)
+				_this.ct=res[1].data.data
+				_this.ct.pic = _this.ct.pic.split(',')
+				_this.showUpImg=_this.ct.collection
+			})
+		},
 		methods: {
 			tapshowup:function() {
-				this.showUpImg = !this.showUpImg;
+				let _this=this
+				let that = this
+				let token = uni.getStorageSync('token');
+				let d
+				if(_this.$store.state.kind=='0'){
+					d={
+						token,
+						memberId: 1,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId,
+						type:_this.$store.state.kind,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						supplyId:_this.ct.pkid
+					}
+				}else{
+					d={
+						token,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.userInfo.enterpriseId,
+						type:_this.$store.state.kind,
+						parkId:_this.$store.state.userInfo.parkId,
+						supplyId:_this.ct.pkid
+					}
+				} 
+				console.log(d)
+				request({
+					url: '/supplyFavorites',
+					data: d,
+				}).then(res => {
+					console.log(res[1].data.data)
+					if(res[1].data.data=='操作成功'){
+						that.showUpImg = !that.showUpImg;	
+					}
+				})
 			}
 		}
 	}

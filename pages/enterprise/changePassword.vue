@@ -55,6 +55,9 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	export default {
 		components:{uniNavBar},
+		onLoad() {
+			this.setData();
+		},
 		data() {
 			return {
 				oldPassword_placeholder:'以字母或数字开头可包含特殊符号的6~18位字符组合',
@@ -62,17 +65,79 @@
 				confirmPassword_placeholder:'以字母或数字开头可包含特殊符号的6~18位字符组合',
 				oldPassword:'',
 				newPassword:'',
-				confirmPassword:''
+				confirmPassword:'',
+				Id:'',
+				type:'',
 			}
 		},
 		methods: {
+			setData() {
+				let state = this.$store.state
+				let info = state.kind == 0 ? state.enterpriseInfo : state.userInfo
+				console.log(state)
+				this.Id = state.id
+				this.type = state.kind
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
 				})
 			},
 			confirm(){
-				console.log('确定')
+				// console.log('确定')
+				let _this=this
+				
+				if(_this.oldPassword==="" || _this.newPassword==="" || _this.confirmPassword===""){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请填写完整'
+					})
+					return false
+				}
+				if(_this.newPassword != _this.confirmPassword){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '新密码不一致'
+					})
+					return false
+				}
+				
+				uni.getStorage({
+				    key: 'token',
+				    success: function (res) {
+						let token = res.data
+				        console.log(token);
+						_this.$request({
+							url:"/changePasswordByOriginPassword",
+							data: {
+								'token':token,
+								'id':_this.Id,
+								'type':_this.type,
+								'oldPassword':_this.oldPassword,
+								'newPassword':_this.newPassword,
+							}
+						}).then(res=>{
+							console.log(res[1].data)
+							if(res[1].data.statusCode===2000){
+								uni.showToast({
+								    icon:'success',
+									position:'bottom',
+								    title: '修改成功'
+								})
+							}else{
+								uni.showToast({
+								    icon:'none',
+									position:'bottom',
+								    title: '修改失败'
+								})
+							}
+						}).catch(err=>{
+							console.log(err)
+						})
+				    }
+				});
 			},
 			oldPasswordFocus(){
 				this.oldPassword_placeholder=''

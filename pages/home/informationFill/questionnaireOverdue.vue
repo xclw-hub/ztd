@@ -32,7 +32,7 @@
 			<view class="question">
 				<view class="question-item" v-for="(item, index) in questionnaire.content" :key="index">
 					
-					<view class="single-choice" v-if="item.kind===0">
+					<view class="single-choice" v-if="item.kind==1">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<radio-group class="single-choice-group" @change="radioChange($event,index)">
 							<view class="single-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -46,7 +46,7 @@
 						</radio-group>
 					</view>
 					
-					<view class="multiple-choice" v-else-if="item.kind===1">
+					<view class="multiple-choice" v-else-if="item.kind==2">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<checkbox-group class="multiple-choice-group" @change="checkboxChange($event,index)">
 							<label class="multiple-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -118,8 +118,11 @@
 		},
 		methods:{
 			clickBack(){
-				uni.navigateTo({
+				/* uni.navigateTo({
 					url:'./informationFill'
+				}) */
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			isDelete(){
@@ -132,8 +135,24 @@
 			deleteConfirm(done) {
 				console.log('是');
 				this.isInvalid=false
-				// 需要执行 done 才能关闭对话框
-				done()
+				let _this = this
+				_this.$request({
+					url:'/deleteQuestionnaire',
+					data:{
+						'questionnaireId':_this.questionnaireId
+					}
+				}).then(res =>{
+					console.log(res[1].data)
+					if(res[1].data.statusCode != 2000){
+						console.log(res[1].data.statusMsg)
+						done()
+					}else{
+						// 需要执行 done 才能关闭对话框
+						done()
+					}
+				}).catch(err =>{
+					console.log(err)
+				})
 			},
 			/**
 			 * 对话框取消按钮

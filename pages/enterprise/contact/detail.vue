@@ -1,7 +1,7 @@
 <template>
 	<view class="mainCon">
 		<u-navbar :immersive="true" back-icon-color="#fff" title-color="#fff" :background="background" :title="navtitle"
-		 :border-bottom="false">
+			:border-bottom="false">
 			<view class="navbar-right" @click="tapshowmenu" slot="right">
 				<view class="right-item" @click="isDelete()">
 					<u-icon name="../../../static/moreDot.png" size="38"></u-icon>
@@ -15,15 +15,16 @@
 		<view class="userInfocon">
 			<view class="mainbox">
 				<view class="avatar">
-					<image src="http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg" mode=""></image>
+					<image :src="user.contactHead" mode=""></image>
 				</view>
 				<view class="name">
-					{{user.name}}
+					{{user.contactName}}
 				</view>
 				<view class="zhiwei">
-					{{user.job}}
+					{{user.position}}
 				</view>
-				<view class="sidai" style="background-image: url(../../../static/sidai.png);background-size: 100% 100%;">
+				<view class="sidai" style="background-image: url(../../../static/sidai.png);background-size: 100% 100%;"
+					v-if="user.isDefault">
 					<image src="../../../static/checkbox.png" style="padding-bottom: 10rpx;" mode=""></image>
 					<view style="color: #fff;padding-bottom: 10rpx;">
 						默认
@@ -38,7 +39,7 @@
 					注册手机号
 				</view>
 				<view class="content">
-					{{user.telephone}}
+					{{user.phoneNum}}
 				</view>
 			</view>
 			<view class="item">
@@ -51,19 +52,20 @@
 			</view>
 		</view>
 		<view class="menueBar" v-if="isShowmenu">
-			<view class="item">
+			<view class="item" @click="beLoved">
 				默认联系人
 			</view>
 			<view class="item" @click="editcontacts">
 				编辑
 			</view>
-			<view class="item" style="border: none;" v-if="dropOptionShow" @click="doDelete">
+			<view class="item" style="border: none;" @click="doDelete">
 				注销账户
 			</view>
 		</view>
 		<view class="bottomBar" @click="dial">
 			<view class="addMore">
-				<image style="width: 26rpx;height: 32rpx;margin-right: 10rpx;" src="../../../static/phone.png" mode=""></image>
+				<image style="width: 26rpx;height: 32rpx;margin-right: 10rpx;" src="../../../static/phone.png" mode="">
+				</image>
 				<view>
 					拨打电话
 				</view>
@@ -71,18 +73,9 @@
 		</view>
 		<u-mask :show="isShowmenu" @click="isShowmenu = false" z-index="55"></u-mask>
 		<uni-popup id="deletePopupDialog" ref="deletePopupDialog" type="dialog">
-			<uni-popup-dialog 
-			type="info" 
-			title="注销账号" 
-			content="确定要注销此账号吗？"
-			buttonLeftBgColor="#BDBDBD"
-			buttonRightBgColor="#FF9000"
-			textRightColor="#FFFFFF"
-			title_left="否"
-			title_right="是"
-			:before-close="true" 
-			@confirm="deleteConfirm" 
-			@close="deleteClose"></uni-popup-dialog>
+			<uni-popup-dialog type="info" title="注销账号" content="确定要注销此账号吗？" buttonLeftBgColor="#BDBDBD"
+				buttonRightBgColor="#FF9000" textRightColor="#FFFFFF" title_left="否" title_right="是"
+				:before-close="true" @confirm="deleteConfirm" @close="deleteClose"></uni-popup-dialog>
 		</uni-popup>
 	</view>
 </template>
@@ -90,8 +83,11 @@
 <script>
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
-		components:{
+		components: {
 			uniPopup,
 			uniPopupDialog
 		},
@@ -102,43 +98,118 @@
 				},
 				navtitle: '详情',
 				isShowmenu: false,
-				isInvalid:true,		//信息是否删除了
-				dropOptionShow:false,		//是否显示下拉框
-				user:{
-					name: '蒋俊廷',
-					job:'技术总监',
-					telephone:'18380748516',
-					password:'Abc123456'
-				}
-				
+				isInvalid: true, //信息是否删除了
+				dropOptionShow: false, //是否显示下拉框
+				user: {},
+				tel:'',
+				contactId:1
+
 			}
 		},
-		
+
+		onLoad(option) {
+			let that = this
+			that.tel=option.tel
+			that.contactId=option.contactId
+			request({
+				url: '/addContact/contactDetail',
+				data: {
+					phoneNum: option.tel
+				}
+			}).then(res => {
+				console.log(res[1].data)
+				that.user = res[1].data
+			})
+		},
+		onShow(){
+			let that = this
+			that.isShowmenu=false
+			request({
+				url: '/addContact/contactDetail',
+				data: {
+					phoneNum: that.tel
+				}
+			}).then(res => {
+				console.log(res[1].data)
+				that.user = res[1].data
+			})
+		},
 		methods: {
+			beLoved() {
+				let that = this
+				console.log({
+							phoneNum: that.user.phoneNum,
+							userName: that.user.contactName
+						})
+				if (that.user.isDefault == true) {
+					uni.showToast({
+						title: '此人已设置为默认联系人',
+						duration: 2000,
+						icon: 'none'
+					});
+				} else {
+					request({
+						url: '/addContact/setDefault',
+						data: {
+							phoneNum: that.user.phoneNum,
+							userName: that.user.contactName
+						}
+					}).then(res => {
+						console.log(res[1].data)
+						that.user = res[1].data
+						request({
+							url: '/addContact/contactDetail',
+							data: {
+								phoneNum: that.tel
+							}
+						}).then(res => {
+							console.log(res[1].data)
+							that.user = res[1].data
+						})
+					})
+					
+				}
+			},
 			tapshowmenu() {
 				this.isShowmenu = !this.isShowmenu;
 			},
-			dial(){
+			dial() {
 				uni.makePhoneCall({
-				    phoneNumber: '18380748516' 
+					phoneNumber: '18380748516'
 				})
 			},
-			editcontacts(){
+			editcontacts() {
+				let that =this
 				console.log('asdf')
+				console.log(that.user)
 				uni.navigateTo({
-					url:'./changeContact?name='+this.user.name+'&job='+this.user.job+'&telephone='+this.user.telephone+'&password='+this.user.password
+					url: './changeContact?name=' + that.user.contactName + '&job=' + that.user.position + '&telephone=' + that
+						.user.phoneNum+'&isDefault='+that.user.isDefault+'&contactId='+that.user.contactId
 				})
 			},
-			isDelete(){
-				this.dropOptionShow=!this.dropOptionShow
+			isDelete() {
+				this.dropOptionShow = !this.dropOptionShow
 			},
-			doDelete(){
+			doDelete() {
 				this.$refs.deletePopupDialog.open()
-				this.dropOptionShow=false
+				this.dropOptionShow = false
 			},
 			deleteConfirm(done) {
 				console.log('是');
-				this.isInvalid=false
+				let that = this
+				request({
+					url: '/addContact/delete',
+					data: {
+						phoneNum: that.user.phoneNum,
+						userName: that.user.contactName
+					}
+				}).then(res => {
+					console.log(res)
+					this.isInvalid = false
+					uni.redirectTo({
+						url: './contactList'
+					});
+				})
 				// 需要执行 done 才能关闭对话框
 				done()
 			},

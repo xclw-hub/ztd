@@ -1,10 +1,6 @@
 <template>
 	<view class="mainCon">
-		<uniNavBar
-			status-bar="true"
-			backgroundColor="#2D6BDD"
-			@clickLeft="clickBack"
-		>
+		<uniNavBar status-bar="true" backgroundColor="#2D6BDD" @clickLeft="clickBack">
 			<view slot="left" class="uniNavBar_left">
 				<image src="/static/enterprise/return.png"></image>
 			</view>
@@ -14,24 +10,23 @@
 		</uniNavBar>
 		<view>
 			<view class="listCon">
-				<view class="item" v-for="(item, index) in 10" :key="index" @click="tapdetail">
-					<image class="goodsimg" src="https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg"
-					 mode=""></image>
+				<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item)">
+					<image class="goodsimg" :src="item.pic" mode=""></image>
 					<view class="name u-line-2">
-						厂家供应 23L小型湿热试验箱 迷你型高低
+						{{item.title}}
 					</view>
 					<view class="priceCon">
 						<view class="unit">
 							￥
 						</view>
 						<view class="price">
-							18888.00
+							{{item.price}}
 						</view>
 					</view>
 					<view class="position">
 						<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 						<view class="city">
-							广东东莞
+							{{item.source}}
 						</view>
 					</view>
 				</view>
@@ -45,8 +40,11 @@
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
-		components:{
+		components: {
 			uniNavBar
 		},
 		data() {
@@ -54,37 +52,101 @@
 				keyword: "",
 				background: {
 					backgroundColor: '#2D6BDD',
-				}
+				},
+				dataList: [],
+				pageNumber: 1
 			}
 		},
 		onReachBottom() {
-
+			let _this = this
+			let that =this
+			console.log('触底刷新')
+			console.log(this.pageNumber)
+			let token = uni.getStorageSync('token');
+			let d
+			if (_this.$store.state.kind == '0') {
+				d = {
+					token,
+					memberId: 1,
+					companyId: that.$store.state.enterpriseInfo.enterpriseId,
+					type: _this.$store.state.kind,
+					parkId: _this.$store.state.enterpriseInfo.parkId,
+					page: _this.pageNumber+1
+				}
+			} else {
+				d = {
+					token,
+					memberId: that.$store.state.id,
+					companyId: that.$store.state.userInfo.enterpriseId,
+					type: _this.$store.state.kind,
+					parkId: _this.$store.state.userInfo.parkId,
+					page: _this.pageNumber+1
+				}
+			}
+			console.log(d)
+			request({
+				url: '/collectionList',
+				data: d,
+			}).then(res => {
+				console.log(res)
+				if (res[1].data.data.list.length != 0) {
+					let a = _this.dataList.length
+					console.log(a)
+					let c = 0
+					for (let b = a; b < a + res[1].data.data.list.length; b++) {
+						_this.dataList.push(res[1].data.data.list[c])
+						c++
+					}
+					console.log(_this.dataList)
+					_this.pageNumber++
+				} else {
+					console.log('没有更多内容了')
+				}
+			})
 		},
-		onLoad: function () {
-			//定时器模拟ajax异步请求数据
-			setTimeout(()=>{
-				this.filterData = data; 
-				//设置选中项
-				// 一下的注释是针对测试数据说明结构的意思，具体传入什么数据，要看你自己数据。如果data.js数据有修改，注意defaultSelected也要修改
-				//传入defaultSelected的结构不能错，错了就报错运行异常。 不想选中的请传入null
-				// this.defaultSelected = [
-				// 	[1,1,0],				//第0个菜单选中 一级菜单的第1项，二级菜单的第1项，三级菜单的第3项
-				// 	[null,null],			//第1个菜单选中 都不选中
-				// 	[1],					//第2个菜单选中 一级菜单的第1项
-				// 	[[0],[1,2,7],[1,0]],	//筛选菜单选中 第一个筛选的第0项，第二个筛选的第1,2,7项，第三个筛选的第1,0项
-				// 	[[0],[1],[1]]			//单选菜单选中 第一个筛选的第0项，第二个筛选的第1项，第三个筛选的第1项
-				// ];
-			},100);
+		onLoad: function() {
+			let _this = this
+			let that = this
+			let token = uni.getStorageSync('token');
+			let d
+			if (_this.$store.state.kind == '0') {
+				d = {
+					token,
+					memberId: 1,
+					companyId: that.$store.state.enterpriseInfo.enterpriseId,
+					type: _this.$store.state.kind,
+					parkId: _this.$store.state.enterpriseInfo.parkId,
+					page: 1
+				}
+			} else {
+				d = {
+					token,
+					memberId: that.$store.state.id,
+					companyId: that.$store.state.userInfo.enterpriseId,
+					type: _this.$store.state.kind,
+					parkId: _this.$store.state.userInfo.parkId,
+					page: 1
+				}
+			}
+			console.log(d)
+			request({
+				url: '/collectionList',
+				data: d,
+			}).then(res => {
+				console.log(res[1].data.data)
+				that.dataList = res[1].data.data.list
+
+			})
 		},
 		methods: {
-			clickBack(){
+			clickBack() {
 				uni.navigateBack({
-					delta:1
+					delta: 1
 				})
 			},
-			tapdetail() {
+			tapdetail(item) {
 				uni.navigateTo({
-					url: './supplydetail'
+					url: './supplydetail?supplyId='+item.pkid
 				})
 			}
 		}
@@ -97,29 +159,33 @@
 	}
 </style>
 <style lang="scss">
-    .uniNavBar_left{
-    	display: flex;
-    	align-items: center;
-    	justify-content: center;
-    	image{
-    		width: 36rpx;
-    		height: 36rpx;
-    	}
-    }
-    .uniNavBar_center{
-    	display: flex;
-    	align-items: center;
-    	justify-content: center;
-    	text{
-    		font-size: 36rpx;
-    		font-family: Source Han Sans CN;
-    		font-weight: 400;
-    		color: #FFFFFF;
-    	}
-    }
+	.uniNavBar_left {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		image {
+			width: 36rpx;
+			height: 36rpx;
+		}
+	}
+
+	.uniNavBar_center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		text {
+			font-size: 36rpx;
+			font-family: Source Han Sans CN;
+			font-weight: 400;
+			color: #FFFFFF;
+		}
+	}
+
 	.listCon {
 		padding: 20rpx;
-		margin-top:10px;
+		margin-top: 10px;
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
@@ -204,12 +270,12 @@
 		justify-content: center;
 		text-align: center;
 		margin-right: 26rpx;
-	
 		image {
 			width: 34rpx;
 			height: 34rpx;
 		}
+
 		.scan {}
-	
+
 	}
 </style>

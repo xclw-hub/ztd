@@ -3,18 +3,17 @@
 		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
-					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false" height="80"
-					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
+						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
 				</view>
 			</view>
 			<view class="navrightCon">
 				<div style="height: 16px;" @click="toLike">
-					<image class="scan"  src="../../../static/home/like.png" mode=""></image>
+					<image class="scan" src="../../../static/home/like.png" mode=""></image>
 				</div>
 				<div style="height: 10px;">
 					<span style="font-size: 12px;color: #FFFFFF;">感兴趣</span>
 				</div>
-				
 			</view>
 		</u-navbar>
 		<view>
@@ -28,9 +27,10 @@
 										省份
 									</view>
 									<view class="provinceList">
-										<view class="provinceItem" :class="provinceCurrent==index?'active':''"
-											v-for="(item,index) in provinceList" @click.stop="tapprovinceItem(index)">
-											{{item}}
+										<view class="provinceItem"
+											:class="provinceCurrent.title==item.title?'active':''"
+											v-for="(item,index) in provinceList" @click.stop="tapprovinceItem(item)">
+											{{item.title}}
 										</view>
 									</view>
 								</view>
@@ -39,16 +39,16 @@
 										城市
 									</view>
 									<view class="cityList">
-										<view class="cityItem" :class="cityCurrent==index?'active':''"
-											v-for="(item,index) in cityList" @click.stop="tapcityItem(index)">
-											{{item}}
+										<view class="cityItem" :class="cityCurrent.title==item.title?'active':''"
+											v-for="(item,index) in cityList" @click.stop="tapcityItem(item)">
+											{{item.title}}
 										</view>
 									</view>
 								</view>
 							</scroll-view>
 							<view class="slotbottomBar">
 								<view class="reset" @click="tapresetregion">
-									重置
+									取消
 								</view>
 								<view class="save" @click="tapsaveregion">
 									确定
@@ -64,13 +64,13 @@
 								</view>
 								<view class="priceinput">
 									<view class="inputitem">
-										<input type="number" placeholder="最低价" v-model="minprice" />
+										<input type="number" placeholder="最低价" v-model="minPrice" />
 									</view>
 									<view class="middleLine">
-			
+
 									</view>
 									<view class="inputitem">
-										<input type="number" placeholder="最高价" v-model="maxprice" />
+										<input type="number" placeholder="最高价" v-model="maxPrice" />
 									</view>
 								</view>
 								<view class="tips">
@@ -89,26 +89,25 @@
 					</u-dropdown-item>
 				</u-dropdown>
 			</view>
-			
+
 			<view class="listCon">
-				<view class="item" v-for="(item, index) in 10" :key="index" @click="tapdetail">
-					<image class="goodsimg" src="https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg"
-					 mode=""></image>
+				<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item.pkid)">
+					<image class="goodsimg" :src="item.pic[0]" mode=""></image>
 					<view class="name u-line-2">
-						厂家供应 23L小型湿热试验箱 迷你型高低
+						{{item.title}}
 					</view>
 					<view class="priceCon">
 						<view class="unit">
 							￥
 						</view>
 						<view class="price">
-							18888.00
+							{{item.price}}
 						</view>
 					</view>
 					<view class="position">
 						<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 						<view class="city">
-							广东东莞
+							{{item.source}}
 						</view>
 					</view>
 				</view>
@@ -127,126 +126,534 @@
 
 <script>
 	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue'
-	import data from '@/components/shop_dropdown/data.js';//筛选菜单数据
+	import data from '@/components/shop_dropdown/data.js'; //筛选菜单数据
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		components: {
-			'HMfilterDropdown':HMfilterDropdown 
+			'HMfilterDropdown': HMfilterDropdown
 		},
 		data() {
 			return {
-				defaultSelected:[],
-				filterData:[], //传入数据，具体数据格式，请下载示例查看
+				defaultSelected: [],
+				filterData: [], //传入数据，具体数据格式，请下载示例查看
 				keyword: "",
 				background: {
 					backgroundColor: '#2D6BDD',
 				},
 				region: "不限地区",
 				price: "不限价格",
-				provinceList: ["不限", "北京", "天津", "上海", "重庆", "河北", "辽宁", "黑龙江", "江西", "浙江", "安徽", "山东", "河南", "湖北", "江西",
-					"浙江", "安徽", "山东", "河南", "湖北"
-				],
-				cityList: ["不限"],
-				provinceCurrent: 0,
-				cityCurrent: 0,
-				minprice: "",
-				maxprice: ""
+				provinceList: [{
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				}],
+				cityList: [{
+					"pkid": 0,
+					"title": "不限"
+				}],
+				provinceCurrent: {
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				},
+				cityCurrent: {
+					"pkid": 0,
+					"title": "不限"
+				},
+				minPrice: "",
+				maxPrice: "",
+				pageNumber: 1,
+				dataList: []
+
 			}
 		},
 		onReachBottom() {
-
+			let that = this
+			let _this = this 
+			let province = this.provinceCurrent.title;
+			let city = this.cityCurrent.title;
+			if (province == "不限" && city == "不限") {
+				this.region = "不限地区";
+				let token = uni.getStorageSync('token');
+				let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+				console.log({
+					token,
+					type: that.$store.state.kind,
+					page: that.pageNumber + 1,
+					minPrice,
+					maxPrice,
+					keyword: that.keyword,
+					memberId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.parkId
+				})
+				if (that.$store.state.kind == '0') {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						},
+						
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				} else {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							memberId: that.$store.state.userInfo.parkId,
+							/* companyId: that.$store.state.enterpriseInfo.parkId */
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				}
+				return;
+			} else {
+				if (city) {
+					this.region = province + ' ' + city;
+				} else {
+					this.region = province;
+				}
+				let token = uni.getStorageSync('token');
+				let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+				console.log({
+					token,
+					type: that.$store.state.kind,
+					page: that.pageNumber + 1,
+					address: that.region,
+					minPrice,
+					maxPrice,
+					keyword: that.keyword,
+					memberId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.parkId
+				})
+				if (that.$store.state.kind == '0') {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumbe + 1,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				} else {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							memberId: that.$store.state.userInfo.parkId,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				}
+			}
 		},
-		onLoad: function () {
-			//定时器模拟ajax异步请求数据
-			setTimeout(()=>{
-				this.filterData = data; 
-				//设置选中项
-				// 一下的注释是针对测试数据说明结构的意思，具体传入什么数据，要看你自己数据。如果data.js数据有修改，注意defaultSelected也要修改
-				//传入defaultSelected的结构不能错，错了就报错运行异常。 不想选中的请传入null
-				// this.defaultSelected = [
-				// 	[1,1,0],				//第0个菜单选中 一级菜单的第1项，二级菜单的第1项，三级菜单的第3项
-				// 	[null,null],			//第1个菜单选中 都不选中
-				// 	[1],					//第2个菜单选中 一级菜单的第1项
-				// 	[[0],[1,2,7],[1,0]],	//筛选菜单选中 第一个筛选的第0项，第二个筛选的第1,2,7项，第三个筛选的第1,0项
-				// 	[[0],[1],[1]]			//单选菜单选中 第一个筛选的第0项，第二个筛选的第1项，第三个筛选的第1项
-				// ];
-			},100);
+		onLoad: function() {
+			let that = this
+			let token = uni.getStorageSync('token');
+			this.pageNumber = 1
+			let province = this.provinceCurrent.title;
+			let city = this.cityCurrent.title;
+			let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+			if (province == "不限" && city == "不限") {
+				this.region = "不限地区";
+				console.log({
+					token,
+					type: that.$store.state.kind,
+					page: that.pageNumber,
+					minPrice,
+					maxPrice,
+					keyword: that.keyword,
+					memberId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.enterpriseId
+				})
+				if (that.$store.state.kind == '0') {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							companyId: that.$store.state.enterpriseInfo.enterpriseId
+						}
+					}).then(res => {
+						console.log(res[1].data.data)
+						let gt = res[1].data.data
+						that.dataList = gt.list
+						let length = that.dataList.length
+						for(let i = 0;i<length;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+					})
+				} else {
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							memberId: that.$store.state.id,/* 
+							companyId: that.$store.state.enterpriseInfo.enterpriseId */
+						}
+					}).then(res => {
+						console.log(res[1].data.data)
+						let gt = res[1].data.data
+						that.dataList = gt
+						let length = that.dataList.length
+						for(let i = 0;i<length;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+					})
+				}
+			}
+			request({
+				url: '/supplyAddressList',
+				data: {
+					token,
+					type: that.$store.state.kind
+				},
+			}).then(res => {
+				let gt = res[1].data.data
+				let index
+				for (index in gt) {
+					that.provinceList.push(gt[index])
+				}
+			})
 		},
 		methods: {
-			toLike(){
+			toLike() {
 				uni.navigateTo({
-					url:'./like'
+					url: './like'
 				})
 			},
-			enterSearch(){
+			enterSearch() {
 				uni.navigateTo({
-					url:'search'
+					url: 'search'
 				})
 			},
 			//接收菜单结果
-			confirm(e){
+			confirm(e) {
 				this.indexArr = e.index;
 				this.valueArr = e.value;
-				
+
 			},
-			tapdetail() {
+			tapdetail(pkid) {
+				console.log(pkid)
 				uni.navigateTo({
-					url: './supplydetail'
+					url: './supplydetail?supplyId=' + pkid
 				})
 			},
-			publish(){
+			publish() {
 				// console.log("我要发布")
 				uni.navigateTo({
-					url:'./publish'
+					url: './publish'
 				})
 			},
-			tapprovinceItem(index) {
-				this.provinceCurrent = index;
+			tapprovinceItem(item) {
+				let that = this
+				that.provinceCurrent = item;
+				that.cityList = item.city
+				if (that.provinceCurrent.title == '不限') {
+					that.cityCurrent = {
+						"pkid": 0,
+						"title": "不限"
+					}
+				}
+				if (that.cityList.length == 0) {
+					that.cityCurrent = {}
+				}
 			},
-			tapcityItem(index) {
-				this.cityCurrent = index;
+			tapcityItem(item) {
+				let that = this
+				that.cityCurrent = item;
 			},
 			tapresetregion() {
-				this.provinceCurrent = 0;
-				this.cityCurrent = 0;
+				this.provinceCurrent = {
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				};
+				this.cityCurrent = {
+					"pkid": 0,
+					"title": "不限"
+				};
+				this.cityList = [{
+					"pkid": 0,
+					"title": "不限"
+				}]
 				this.region = "不限地区";
 				this.$refs.uDropdown.close();
 			},
 			tapsaveregion() {
-				let province = this.provinceList[this.provinceCurrent];
-				let city = this.cityList[this.cityCurrent];
+				this.pageNumber = 1
+				let that = this
+				let province = this.provinceCurrent.title;
+				let city = this.cityCurrent.title;
 				if (province == "不限" && city == "不限") {
 					this.region = "不限地区";
+					let token = uni.getStorageSync('token');
+					let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+					console.log({
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber,
+						minPrice,
+						maxPrice,
+						keyword: that.keyword,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId
+					})
+					if (that.$store.state.kind == '0') {
+						request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					} else {
+						request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								memberId: that.$store.state.id,
+								companyId: that.$store.state.userInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					}
 					this.$refs.uDropdown.close();
 					return;
 				} else {
-					this.region = province;
+					if (city) {
+						this.region = province + ' ' + city;
+					} else {
+						this.region = province;
+					}
+					let token = uni.getStorageSync('token');
+					let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+					console.log({
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber,
+						address: that.region,
+						minPrice,
+						maxPrice,
+						keyword: that.keyword,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.userInfo.enterpriseId
+					})
+					if (that.$store.state.kind == '0') {
+						request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								address: that.region,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					} else {
+						request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								address: that.region,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								memberId: that.$store.state.id,
+								companyId: that.$store.state.userInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					}
 					this.$refs.uDropdown.close();
 				}
 			},
 			priceCancel() {
+				let that = this
+				that.minPrice=''
+				that.maxPrice=''
+				this.price='不限价格'
 				this.$refs.uDropdown.close();
+
 			},
 			pricesave() {
-				if (this.minprice == "" || this.maxprice == "") {
+				if (this.minPrice == "" || this.maxPrice == "") {
 					return uni.showToast({
 						title: '请输入价格区间',
 						icon: 'none'
 					})
 				}
-			
-				if (this.maxprice < this.minprice) {
+
+				if (this.maxPrice < this.minPrice) {
 					return uni.showToast({
 						title: '最高价必须高于最低价',
 						icon: 'none'
 					})
 				}
-			
-				let minprice = Number(this.minprice);
-				let maxprice = Number(this.maxprice);
-			
-				this.price = minprice.toFixed(2) + '-' + maxprice.toFixed(2);
+				let minPrice = Number(this.minPrice);
+				if(this.maxPrice==''){
+					this.price = minPrice.toFixed(2) + '-' + maxPrice;
+				}else{
+					let maxPrice = Number(this.maxPrice);
+					this.price = minPrice.toFixed(2) + '-' + maxPrice.toFixed(2);
+				}
 				this.$refs.uDropdown.close();
-			}
+			},
 		}
 	}
 </script>
@@ -262,12 +669,10 @@
 		align-items: center;
 		flex: 1;
 	}
-	
 	.search-wrap {
 		margin-right: 35rpx;
 		flex: 1;
 	}
-	
 	.listCon {
 		padding: 20rpx;
 		margin-top: 20rpx;
@@ -275,7 +680,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-	
 		.item {
 			background-color: #fff;
 			width: 345rpx;
@@ -286,46 +690,38 @@
 			border-radius: 15rpx;
 			padding: 15rpx;
 			margin-bottom: 25rpx;
-	
 			.goodsimg {
 				width: 100%;
 				height: 350rpx;
 			}
-	
 			.name {
 				width: 100%;
 				font-size: 32rpx;
 			}
-	
 			.priceCon {
 				width: 100%;
 				display: flex;
 				align-items: flex-end;
-	
 				.unit {
 					color: #F02828;
 					font-size: 28rpx;
 				}
-	
 				.price {
 					font-size: 32rpx;
 					color: #F02828;
 				}
 			}
-	
 			.position {
 				width: 100%;
 				display: flex;
 				align-items: center;
 				color: #AAAAAA;
-	
 				.city {
 					margin-left: 5rpx;
 				}
 			}
 		}
 	}
-	
 	.bottomBar {
 		width: 100%;
 		display: flex;
@@ -336,7 +732,6 @@
 		height: 140rpx;
 		background-color: #F5F5F5;
 		z-index: 99;
-	
 		.addMore {
 			width: 600rpx;
 			height: 80rpx;
@@ -349,47 +744,42 @@
 			font-size: 32rpx;
 		}
 	}
-	
 	.navrightCon {
 		// display: flex;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
 		margin-right: 26rpx;
-	
 		image {
 			width: 34rpx;
 			height: 34rpx;
 		}
-	
+
 		.scan {}
-	
+
 	}
-	
+
 	.dropmenu {
 		background-color: #fff;
-	
+
 		.slot-content {
-	
+
 			.province {
 				margin-top: 35rpx;
 				display: flex;
 				align-items: flex-start;
 				padding: 0rpx 30rpx;
-	
 				.labelName {
 					color: #999999;
 					width: 100rpx;
 					font-size: 30rpx;
 				}
-	
 				.provinceList {
 					flex: 1;
 					display: flex;
 					align-items: center;
 					flex-wrap: wrap;
 					color: #666666;
-	
 					.provinceItem {
 						margin-left: 12rpx;
 						margin-right: 12rpx;
@@ -398,26 +788,22 @@
 					}
 				}
 			}
-	
 			.city {
 				display: flex;
 				align-items: flex-start;
 				padding: 0rpx 30rpx;
 				margin-top: 15rpx;
-	
 				.labelName {
 					color: #999999;
 					width: 100rpx;
 					font-size: 30rpx;
 				}
-	
 				.cityList {
 					flex: 1;
 					display: flex;
 					align-items: center;
 					flex-wrap: wrap;
 					color: #666666;
-	
 					.cityItem {
 						margin-left: 12rpx;
 						margin-right: 12rpx;
@@ -426,31 +812,28 @@
 					}
 				}
 			}
-	
 			.active {
 				color: #2D6BDD;
 				border: 1rpx solid #2D6BDD;
 				padding: 5rpx 10rpx;
 				border-radius: 6rpx;
 			}
-	
-	
+
+
 			.slotpriceCon {
 				padding: 25rpx 20rpx;
-	
+
 				.labelName {
 					font-size: 30rpx;
 					font-family: Source Han Sans CN;
 					font-weight: 400;
 					color: #999999;
 				}
-	
 				.priceinput {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					margin-top: 15rpx;
-	
 					.inputitem {
 						width: 280rpx;
 						height: 80rpx;
@@ -461,7 +844,6 @@
 						justify-content: center;
 						text-align: center;
 					}
-	
 					.middleLine {
 						width: 50rpx;
 						height: 5rpx;
@@ -469,7 +851,6 @@
 						border-radius: 2rpx;
 					}
 				}
-	
 				.tips {
 					font-size: 26rpx;
 					font-family: Source Han Sans CN;
@@ -477,14 +858,13 @@
 					color: #999999;
 					margin-top: 15rpx;
 				}
-	
+
 			}
-	
+
 			.slotbottomBar {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-	
 				.reset {
 					width: 50%;
 					line-height: 90rpx;
@@ -494,7 +874,6 @@
 					font-size: 32rpx;
 					border-top: 1rpx solid #C7C7C7;
 				}
-	
 				.save {
 					width: 50%;
 					line-height: 90rpx;

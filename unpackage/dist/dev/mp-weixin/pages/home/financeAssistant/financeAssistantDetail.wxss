@@ -101,12 +101,22 @@
   padding: 20rpx 40rpx 0 40rpx;
   line-height: 48rpx;
 }
+<<<<<<< HEAD
 .content text.data-v-612fafa9 {
+=======
+.content .fwb.data-v-612fafa9 {
+>>>>>>> rj
   font-size: 30rpx;
   font-weight: 400;
   font-family: SourceHanSansCN-Regular;
   color: #333333;
 }
+<<<<<<< HEAD
+=======
+.content .fwb image.data-v-612fafa9 {
+  width: 100%;
+}
+>>>>>>> rj
 .label.data-v-612fafa9 {
   padding: 40rpx;
   line-height: 42rpx;

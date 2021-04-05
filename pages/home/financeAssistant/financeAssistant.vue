@@ -13,27 +13,27 @@
 		</uniNavBar>
 		<view class="tabCon">
 			<view class="tabItem" :class="tabCurrent==index?'active':''" v-for="(item,index) in tabList" :key='index' @click="tapchange(index)">
-				{{item}}
+				{{item.title}}
 			</view>
 		</view>
 		<view style="height: 40rpx;">
 			
 		</view>
 		<view class="listCon">
-			<view class="listItem" v-for="(item,index) in 10" :key='index' @click="toDetail">
-				<view class="leftCon">
+			<view class="listItem" v-for="(item,index) in dataList" :key='index'>
+				<view class="leftCon" @click="toDetail(item.pkid)">
 					<view class="title">
-						国内OLED发展两大阻碍因素：产能和良品率
+						{{item.title}}
 					</view>
 					<view class="desc">
-						国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。
+												{{item.synopsis}}
 					</view>
 					<view class="date">
-						2019/02/27
+												{{item.time}}
 					</view>
 				</view>
-				<view class="rightCon">
-					<image src="https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000" mode=""></image>
+				<view class="rightCon" @click="toDetail(item.pkid)">
+											<image :src="item.pic" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -73,16 +73,16 @@
 					@focus="phoneFocus"
 					@blur="phoneBlue"/>
 			</view>
-			<view class="method">
+			<view class="method" @click="changeFirst">
 				<view class="diagnosis-phone-img">
-					<image src="../../../static/home/method.png"></image>
+					<image src="../../../static/home/method.png" @click="changeFirst"></image>
 				</view>
-               <picker @change="bindPickerChange" :value="index" :range="array" @click="changeFirst">
+               <picker @change="bindPickerChange" :value="index" :range="array" >
 					<view class="zan" v-if="isFirst">希望融资的方式</view>
 					<view class="uni-input" v-if="!isFirst">{{array[index]}}</view>
 				</picker>
 				<view class="diagnosis-phone-img">
-				<image src="../../../static/home/down.png" mode="aspectFit"></image>
+				<image src="../../../static/home/down.png" mode="aspectFit" @click="changeFirst"></image>
 				</view>
 			</view>
 			<textarea 
@@ -108,6 +108,9 @@
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		components: {
 			uniNavBar
@@ -128,8 +131,78 @@
 				diagnosis_need:'',
 				array: ['股权融资', '技术融资', '政策融资', '银行融资'],
 				index: 0,
-				options: ['股权融资', '技术融资', '政策融资', '银行融资'],
+				dataList:[],
+				pageNumber:1
 			}
+		},
+		onReachBottom() {
+			let _this = this
+			console.log('触底刷新')
+			this.pageNumber++
+						let token = uni.getStorageSync('token')
+			console.log(this.pageNumber)
+			let d = {
+				token,
+				pkid: _this.tabList[_this.tabCurrent].pkid,
+				type: _this.$store.state.kind,
+				page: _this.pageNumber,
+			}
+			request({
+				url: '/financialConsult',
+				data: d,
+			}).then(res => {
+				if (res[1].data.data.list.length != 0) {
+					let a = _this.dataList.length
+					console.log(a)
+					let c = 0
+					for (let b = a; b < a + res[1].data.data.list.length; b++) {
+						_this.dataList.push(res[1].data.data.list[c])
+						c++
+					}
+					console.log(_this.dataList)
+				} else {
+					console.log('没有更多内容了')
+				}
+			})
+		},
+		onLoad(){
+			console.log('asdf')
+			let _this = this
+			let token = uni.getStorageSync('token')
+			let parkId
+			if(_this.$store.state.kind=='0'){
+				parkId=_this.$store.state.enterpriseInfo.parkId
+			}else{
+				parkId=_this.$store.state.userInfo.parkId				
+			}
+			request({
+				url: '/Industrydata',
+				data:{
+					token,
+					type:_this.$store.state.kind,
+					parkId
+				}
+			}).then(res => {
+				console.log(res[1].data.data);
+				_this.tabList=res[1].data.data
+				let d = {
+					token,
+					pkid: _this.tabList[_this.tabCurrent].pkid,
+					type: _this.$store.state.kind,
+					page: _this.pageNumber,
+				}
+				console.log(d)
+				request({
+					url: '/financialConsult',
+					data: d,
+				}).then(res => {
+					console.log(res[1].data.data.list)
+					let a = _this.dataList.length
+					console.log(a)
+					_this.dataList = res[1].data.data.list
+					console.log(_this.dataList)
+				})
+			})
 		},
 		methods: {
 			clickBack() {
@@ -138,17 +211,54 @@
 				})
 			},
 			find() {
+				let _this = this
+				let token = uni.getStorageSync('token')
+				request({
+					url: '/financingMode',
+					data: {
+						token,
+						type:_this.$store.state.kind
+					},
+				}).then(res => {
+					_this.array=(res[1].data.data)
+					
+				})
 				// this.isFind=true
 				this.isShowDiagnosis=true;
 			},
-			toDetail(){
+			toDetail(pkid){
 				console.log('asd')
 				uni.navigateTo({
-					url:'./financeAssistantDetail'
+					url:'./financeAssistantDetail?pkid='+pkid
 				})
 			},
 			tapchange(index) {
+				this.dataList = []
 				this.tabCurrent = index
+				this.pageNumber = 1
+				let _this = this
+				request({
+					url: '/industry/dataTitle',
+				}).then(res => {
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+				})
 			},
 			clickCancel(){
 				console.log('取消')
@@ -156,17 +266,38 @@
 				this.isFirst=true
 			},
 			clickConfirm(){
+				let that = this
 				console.log('确定')
 				this.isShowDiagnosis=false
 				this.isFirst=true
+				let token = uni.getStorageSync('token')
+				let d = {
+					token,
+					parkId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.userInfo.enterpriseId,
+					memberId: that.$store.state.id,
+					name: that.diagnosis_name,
+					tel: that.diagnosis_phone,
+					content: that.diagnosis_need,
+					model:that.array[that.index],
+					companyTitle: that.$store.state.userInfo.enterpriseUsername,
+					type:that.$store.state.kind
+				}
+				console.log(d)
+				request({
+					url: '/addDemand',
+					data: d
+				}).then(res => {
+					console.log(res)
+				})
 			},
 			changeFirst(){
 				this.isFirst=false
 			},
-			   bindPickerChange(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
-			            this.index = e.target.value
-			        },
+		   bindPickerChange(e) {
+					console.log('picker发送选择改变，携带值为', e.target.value)
+					this.index = e.target.value
+				},
 		}
 	}
 </script>

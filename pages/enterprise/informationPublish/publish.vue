@@ -67,11 +67,8 @@
 					<text id="tip2">{{imageNumber}}/9</text>
 				</view>
 				<view class="upload">
-					<view class="upload-img" v-for="(item,index) in imageArr" :key="index">
-						<image :src="item" @click="preview(item)"></image>
-						<image id="delete" src="../../../static/enterprise/cancel.png" @click="deleteImg(index)"></image>
-					</view>
 					<image src="../../../static/enterprise/publishLoad.png" @click="chooseImage"></image>
+					<image v-for="(item,index) in imageArr" :src="item" :key="index" @click="preview(item)"></image>
 				</view>
 			</view>
 			<view class="address">
@@ -129,6 +126,12 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	export default {
 		components:{uniNavBar},
+		onLoad(option) {
+			this.parkId = JSON.parse(option.parkId)
+			this.companyId = JSON.parse(option.companyId)
+			// console.log(this.parkId)
+			// console.log(this.companyId)
+		},
 		data() {
 			return {
 				title_placeholder:'请输入标题',
@@ -141,17 +144,24 @@
 				description:'',
 				fontCount:0,
 				imageNumber:0,	//记录已上传的照片数量
-				imageArr:[],		//保存上传照片的路径
+				imageArr:[],		// 保存上传照片的路径，
+				imageAddr:'',					//【注意发布接口是String，详情展示再转换为数组】
 				address_placeholder:'请输入详细地址',
 				address:'',
 				contact_placeholder:'请输入联系人姓名',
 				contact:'',
 				mobilePhone_placeholder:'请输入联系人手机号',
 				mobilePhone:'',
-				publishKind:'供应'		//种类默认是供应
+				publishKind:'供应',		//种类默认是供应
+				
+				parkId:'',
+				companyId:''
 			}
 		},
 		methods: {
+			setData(){
+				// this.$data.title_placeholder = 'aaa'	
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -159,6 +169,81 @@
 			},
 			confirm(){
 				console.log("发布")
+				let _this = this
+				let decimalReg = /^\d{0,8}\.{0,1}(\d{1,2})?$/;//var decimalReg=/^[-\+]?\d{0,8}\.{0,1}(\d{1,2})?$/;
+				let reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/   //11位手机号码正则
+				// console.log(_this.price)
+				if(_this.title==="" || _this.price==="" || _this.business==="" || _this.address==="" ||
+					_this.contact==="" || _this.mobilePhone==="" || _this.description == ""){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请填写完整！'
+					})
+					return false
+				}
+				if(!reg_tel.test(_this.mobilePhone)){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请正确填写您的手机号'
+					})
+					return false
+				}
+				if(!decimalReg.test(_this.price)){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请输入有效价格'
+					})
+					return false
+				}
+				
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/Inforelease', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+				        'parkId':_this.parkId,
+				        'companyId':_this.companyId,
+						'memberId':_this.companyId,
+						'title':_this.$data.title,
+						'price':_this.price,
+						'business':_this.business,
+						'address':_this.address,
+						'contacts':_this.contact,
+						'tel':_this.mobilePhone,
+						'pic':_this.imageAddr,
+						'content':_this.description,
+						'type':_this.publishKind == '供应' ? '1' : '2'
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        console.log(res.statusCode)
+				        if(res.statusCode===200){
+				        	uni.showToast({
+				        	    icon:'success',
+				        		position:'bottom',
+				        	    title: '发布成功!'
+				        	})
+							uni.navigateTo({
+								url:'informationPublish',
+								animationType: 'pop-in',
+								animationDuration: 600
+							})
+				        }else{
+				        	uni.showToast({
+				        	    icon:'none',
+				        		position:'bottom',
+				        	    title: '发布失败'
+				        	})
+				        }
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
 			},
 			// 统计字数
 			wordStatic() {
@@ -168,10 +253,38 @@
 			chooseImage(){
 				uni.chooseImage({
 					count:9-this.imageNumber,
-					success:res=>{
-						this.imageArr=this.imageArr.concat(res.tempFilePaths) 
-						// console.log(this.imageArr)
-						this.imageNumber=this.imageArr.length
+					success:res=>{						
+						let token = 1 // uni.getStorageSync('token');
+						let length = res.tempFilePaths.length
+						let _this = this
+						
+						for(let i=0;i<length;i++){
+							uni.uploadFile({
+								url:'http://39.105.57.219:80/ztd/uploadInfoImage',
+								filePath: res.tempFilePaths[i],
+								name: 'multipartFile',  //后台接收字段名
+								formData:{
+									"token":token
+								},
+								success: (res) => {
+									// console.log('response data')
+									let data = JSON.parse(res.data)
+									// console.log(data.statusCode)
+									console.log(data.imagePath)
+									if(data.statusCode==2000){
+										_this.imageArr.push(data.imagePath)
+										_this.imageNumber = _this.imageArr.length
+										_this.imageAddr = _this.imageArr.toString()
+										console.log(_this.imageAddr)
+									}else{
+										console.log(data.statusMsg)
+									}
+								},
+								fail:(err)=>{
+									console.log(err)
+								}
+							})
+						}
 					}
 				})
 			},
@@ -181,11 +294,6 @@
 					current: index, //当前点击预览的图片
 					urls: this.imageArr //预览图片的链接
 				})
-			},
-			//删除预览的图片
-			deleteImg(index){
-				this.imageArr.splice(index,1)
-				this.imageNumber = this.imageArr.length
 			},
 			radioChange(evt){
 				this.publishKind=evt.detail.value
@@ -373,6 +481,7 @@
 		color: #AAAAAA;
 		/* line-height: 26rpx; */
 	}
+<<<<<<< HEAD
 	.upload image{
 		width: 200rpx;
 		height: 200rpx;
@@ -389,6 +498,11 @@
 		height: 40rpx;
 		top: -210rpx; 
 		right: -10rpx;
+=======
+	.uploadImg .upload image{
+		width: 200rpx;
+		height: 200rpx;
+>>>>>>> rj
 	}
 	.address{
 		/* height: 191rpx; */

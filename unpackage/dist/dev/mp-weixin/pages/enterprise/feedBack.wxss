@@ -44,7 +44,12 @@
 .problem .area.data-v-abc74bac{
 	height: 350rpx;
 	background-color: #F5F5F5;
+<<<<<<< HEAD
 	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 	padding-left: 30rpx;
 	padding-top: 30rpx;
 	padding-right: 30rpx;
@@ -112,7 +117,12 @@
 .contact .contactMethod.data-v-abc74bac{
 	height: 88rpx;
 	background: #F5F5F5;
+<<<<<<< HEAD
 	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 	padding-left: 29rpx;
 	display: -webkit-box;
 	display: -webkit-flex;

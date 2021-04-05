@@ -180,13 +180,31 @@
 				}
 				let industryKindArr= _this.selectKindArr
 				let changeTime = +new Date()
-				
-				uni.navigateTo({		//将选好的行业传到下一页面
-					url:'friendlyPolicy?changeTime='+changeTime+'&industryKindArr='+industryKindArr,
-					// url:'enterprise?obj='+encodeURIComponent(JSON.stringify(obj))
-					})
-				// 需要执行 done 才能关闭对话框
-				done()
+				_this.$request({
+					url:'/preferentialPolicies/industryChoose',
+					data:{
+						'industry':industryKindArr,
+						'enterpriseId':_this.$store.state.id
+					}
+				}).then(res =>{
+					let data =res[1].data
+					console.log('industryChoose')
+					console.log(data)
+					console.log('choose end')
+					if(data.statusCode == 2000){
+						uni.navigateTo({		//将选好的行业传到下一页面
+							url:'friendlyPolicy?changeTime='+changeTime+'&industryKindArr='+industryKindArr,
+							// url:'enterprise?obj='+encodeURIComponent(JSON.stringify(obj))
+							})
+						// 需要执行 done 才能关闭对话框
+						done()
+					}else{
+						console.log(data.statusMsg)
+					}
+					//debugger
+				}).catch(err =>{
+					console.log(err)
+				})
 			},
 			/**
 			 * 对话框取消按钮

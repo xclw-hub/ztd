@@ -32,6 +32,12 @@
     "pages/enterprise/inform/feedBackInform",
     "pages/enterprise/inform/feedBackDetail",
     "pages/enterprise/inform/enterpriseDetail",
+<<<<<<< HEAD
+=======
+    "pages/enterprise/inform/policyInform",
+    "pages/enterprise/inform/rectifyInform",
+    "pages/enterprise/inform/rectifyDetail",
+>>>>>>> rj
     "pages/enterprise/industrySelect",
     "pages/home/informationFill/informationFill",
     "pages/home/informationFill/questionnaireNoFill",
@@ -57,8 +63,26 @@
     "pages/home/financeAssistant/financeAssistantDetail",
     "pages/enterprise/contact/selectjob",
     "pages/enterprise/contact/changeContact",
+<<<<<<< HEAD
     "pages/home/meeting/addPeople",
     "pages/home/meeting/meetingNotice"
+=======
+    "pages/home/meetingInform/meetingInform",
+    "pages/home/meetingInform/meetingDetailNoApply",
+    "pages/home/meetingInform/meetingDetailApplied",
+    "pages/home/meetingInform/addParticipator",
+    "pages/personal/personal",
+    "pages/personal/inform/inform",
+    "pages/personal/inform/systemInform",
+    "pages/personal/inform/meetingInform",
+    "pages/personal/inform/feedBackInform",
+    "pages/personal/inform/policyInform",
+    "pages/personal/inform/rectifyInform",
+    "pages/personal/inform/feedBackDetail",
+    "pages/personal/inform/enterpriseDetail",
+    "pages/personal/inform/rectifyDetail",
+    "pages/home/viewDetail/viewDetail"
+>>>>>>> rj
   ],
   "subPackages": [],
   "window": {
@@ -67,5 +91,10 @@
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#F8F8F8"
   },
+<<<<<<< HEAD
   "usingComponents": {}
+=======
+  "usingComponents": {},
+  "sitemapLocation": "sitemap39.json"
+>>>>>>> rj
 }

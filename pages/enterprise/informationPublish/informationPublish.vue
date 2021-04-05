@@ -97,10 +97,12 @@
 		<view class="mask" v-if="mask_seen"></view>
 		
 		<!-- 我的服务关键字维护对话框 -->
+		<!-- TODO如何获取到弹出框里的输入？ -->
 		<uni-popup id="servicePopupDialog" ref="servicePopupDialog" type="dialog">
 			<uni-popup-dialog 
 			type="info" 
 			mode="input"
+			v-model="input"
 			title="关键字维护" 
 			placeholder="输入关键词，多个关键词请用英文“,”隔开"
 			buttonLeftBgColor="#BDBDBD"
@@ -125,53 +127,16 @@
 			uniPopup,
 			uniPopupDialog
 		},
+		onLoad() {
+			this.setData();
+		},
 		data() {
 			return {
 				list:['全部类型','供应','需求'],		//下拉菜单
 				dropListShow:false,		//是否显示下拉列表
-				serviceList:['金属切削机床','铸造机械','矿山机械','试验机','实验分析仪器','铸造机械','矿山机械','试验机',],
-				supplyList:[
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'长期回收伺服电机，欧姆龙，基恩士，费斯托，西门子等工控元件',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'本公司长期现金回收工程尾货，积压库存，回收伺服电机等',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'长期回收伺服电机，欧姆龙，基恩士，费斯托，西门子等工控元件',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'本公司长期现金回收工程尾货，积压库存，回收伺服电机等',
-						time:'2020-12-08 11:39'
-					}
-				],
+				// serviceList:['金属切削机床','铸造机械','矿山机械','试验机','实验分析仪器','铸造机械','矿山机械','试验机',],
+				serviceList:[],
+				supplyList:[],
 				mask_seen:false,		//遮罩层是否显示
 				choice:true,		//表示选择我的服务，否则表示选择供需列表
 				isActive_service:true,		//点击我的服务时的view样式
@@ -185,15 +150,24 @@
 				addressSave_seen:false,
 				addressInputColor:'#F6F6F6',
 				addressFontColor:'#888888',
-				address:'幸福西街与新顺北大街交叉口西100米',
+				address:'',
+				// address:'幸福西街与新顺北大街交叉口西100米',
 				
 				isEditPhone:true,
 				phoneSave_seen:false,
 				phoneInputColor:'#F6F6F6',
 				phoneFontColor:'#888888',
-				phone:'18051287437',
-				// keyWords:'',
-				condition:'全部类型'
+				phone:'',
+				// phone:'18051287437',
+				
+				condition:'全部类型',
+				
+				id:'',
+				pkid:'',
+				parkId:'',
+				type:0,
+	
+				input:'',
 			}
 		},
 		computed:{
@@ -217,6 +191,110 @@
 			}
 		},
 		methods: {
+			setData(){
+				// this.serviceList = ['金属切削机床','铸造机械',]
+				let state = this.$store.state
+				// console.log(state)
+				this.type = state.kind == 1 ? 0 : 1		// kind 1 个人 0 企业 、、接口里 0 个人 1 企业
+				let info = state.kind == 0 ? state.enterpriseInfo : state.userInfo
+				console.log(info)
+				this.id = info.enterpriseId
+				this.parkId = info.parkId
+				// let keyword = "abcd,bac"
+				// var m = keyword.split(",")
+				// console.log(m)
+				// this.serviceList = m
+				this.setMyService()
+				this.setList()
+			},
+			setMyService(){
+				let _this = this	
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/myService', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+				        'id':_this.id,
+				        'type':_this.type,
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        // console.log(res.data)
+						let keyword = res.data.keyword + ""
+						var m = keyword.split(",")
+						console.log(m)
+						this.serviceList = m
+						this.address = res.data.address
+						this.phone = res.data.phoneNum
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
+				// _this.$request2({
+				// 	url:"/InfoRelease/myService",
+				// 	data: {
+				// 		'id':_this.enterpriseId,
+				// 		'type':0,
+				// 	}
+				// }).then(res=>{
+				// 	console.log(res[1].data)
+				// 	if(res[1].data.statusCode===2000){
+				// 		// success
+				// 	}else{
+				// 		// 我的服务为空
+						
+				// 		// uni.showToast({
+				// 		//     icon:'none',
+				// 		// 	position:'bottom',
+				// 		//     title: '修改失败'
+				// 		// })
+				// 	}
+				// }).catch(err=>{
+				// 	console.log(err)
+				// })
+			},
+			setList(){
+				let _this = this	
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/supplyAndDemand', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+						'parkId':_this.parkId,		
+						// TODO，这个改成自动获取，还有需要把type改掉两种用户测一下，还有删除的接口,还有publish接口必填的字段没填时前端校验
+						'companyId':'',
+						'type':'',
+						'range':'',
+						'keyword':'',
+						'memberId':'',
+						'page':'',
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        console.log(res.data.data.list)
+						let list = []
+						for(let a of res.data.data.list){
+							// kind:'0',		//0是供应
+							// content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
+							// time:'2020-12-08 11:39'
+							let row = {}
+							row.pkid = a.pkid
+							row.kind = a.type == "需求" ? '1' : '0'
+							row.content = a.title
+							row.time = a.time
+							list.push(row)
+						}
+						console.log(list)
+						this.supplyList = list
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				})
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -258,9 +336,10 @@
 			},
 			// 查看供应详情
 			viewSupplyDetail(index){
-				console.log(index)
+				// console.log(this.supplyList[index].pkid)
+				let pkid = this.supplyList[index].pkid
 				uni.navigateTo({
-					url:'publishDetails'
+					url:`publishDetails?pkid=${JSON.stringify(pkid)}`
 				})
 			},
 			choose(index){
@@ -276,9 +355,35 @@
 			serviceEdit(){
 				this.$refs.servicePopupDialog.open()
 			},
-			editConfirm(done) {
-				console.log('确定');
+			editConfirm(done,value) {
+				let tmp = value
+				value = value.replace(/，/ig,',')		// 中文空格替换为英文空格
+				console.log(value)
+				// this.$refs.servicePopupDialog.input
+				// console.log(document.getElementById(servicePopupDialog))
+				// console.log('确定');
 				// 需要执行 done 才能关闭对话框
+				
+				let _this = this
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/editKeyword', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+				        'id':_this.id,
+				        'type':_this.type,
+						'keyword':value,
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        console.log(res)
+						this.serviceList = value.split(',')
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
 				done()
 			},
 			/**
@@ -299,6 +404,28 @@
 				this.addressInputColor='#F6F6F6'
 				this.addressFontColor='#888888'
 				this.addressSave_seen=false
+				console.log(this.address)
+				
+				let _this = this
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/editAddress', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+				        'id':_this.id,
+				        'type':_this.type,
+						'address':_this.address,
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        // console.log(res)
+						this.address = this.address
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
 			},
 			editPhone(){
 				this.isEditPhone=false		//开启输入框
@@ -311,11 +438,36 @@
 				this.phoneInputColor='#F6F6F6'
 				this.phoneFontColor='#888888'
 				this.phoneSave_seen=false
+				
+				console.log(this.phone)
+				
+				let _this = this
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/editPhoneNum', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+				        'id':_this.id,
+				        'type':_this.type,
+						'phoneNum':_this.phone,
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        // console.log(res.data)
+						this.phone = this.phone
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
 			},
 			publish(){
 				// console.log("我要发布")
+				let parkId = this.parkId
+				let companyId = this.id
 				uni.navigateTo({
-					url:'publish'
+					url:`publish?parkId=${JSON.stringify(parkId)}&companyId=${JSON.stringify(companyId)}`
 				})
 			}
 			

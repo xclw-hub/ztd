@@ -27,7 +27,7 @@
 		<view class="emptyResult" v-show="!showHistory && showEmpty">
 			<image src="../../static/home/emptyResult.png"></image>
 			<view class="textbox">
-				<text>没有找到关键词“机器人”的搜索结果您可以换个搜索词试试~</text>
+				<text>没有找到关键词“{{searchContent}}”的搜索结果您可以换个搜索词试试~</text>
 			</view>
 		</view>
 		
@@ -35,14 +35,14 @@
 			<view class="fix">
 				<view class="tabCon">
 					<view class="tabItem" :class="tabCurrent==index?'active':''" v-for="(item,index) in tabList" :key='index' @click="tapchange(index)">
-						{{item}}
+						{{item.title}}
 					</view>
 				</view>
 			</view>
 			
 			<view class="pad">
 				<view class="listCon">
-					<view class="listItem" v-for="(item,index) in searchArticleList" v-if="item.tab == tabList[tabCurrent]" :key='index' @click="toDetail">
+					<view class="listItem" v-for="(item,index) in dataList" :key='index' @click="toDetail(item)">
 						<view class="leftCon">
 							<view class="title">
 								<text>
@@ -56,14 +56,14 @@
 								</text>
 							</view>
 							<view class="desc">
-								{{item.quotation}}
+								{{item.synopsis}}
 							</view>
 							<view class="date">
 								{{item.time}}
 							</view>
 						</view>
 						<view class="rightCon">
-							<image :src="item.imagesrc" mode=""></image>
+							<image :src="item.pic" mode=""></image>
 						</view>
 					</view>
 				</view>
@@ -91,9 +91,12 @@
 <script>
 	export default {
 		components:{
+			
 		},
-		onLoad(){
+		onLoad(option){
 			this.readLocalStorage()
+			this.tabList = JSON.parse(option.tabList)
+			this.pageNumber=1
 		},
 		data() {
 			return {
@@ -104,68 +107,33 @@
 				searchContent:'',
 				searchPlaceholder:'请输入关键字搜索',
 				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
-				tabList: ["机器人", "人工智能","新能源汽车","5G"],
+				tabList: [],
 				tabCurrent: 0,
-				articleList:[
-					{
-						title:"新一代人工智能标准体系建设有了“时间表”和“施工图”",
-						tab:"人工智能",
-						quotation:"国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"人工智能“衰落”？专家表示尚处于“序幕”",
-						tab:"人工智能",
-						quotation:"武汉地区是我国面板行业重要集聚地之一，产能约占全国的2%，产值约占5%。受影响的企业既包括TCL华星、天马微电子、京东方等我国龙头企业，也包括精测等上游材料和装备企业。疫情爆发以来，面板产能情况备受业内关注，面板企业无疑面临着一场“大考”。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"人工智能首次发现强效抗生素 或对“无法治疗”的细菌有效",
-						tab:"人工智能",
-						quotation:"受疫情影响，我国5G网络建设、用户发展产生一定程度延缓，但5G在疫情防控中的创新应用产生了良好的示范带动作用，5G与经济社会各领域融合发展的步伐有望进一步加速。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"新一代人工智能标准体系建设有了“时间表”和“施工图”",
-						tab:"人工智能",
-						quotation:"国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"新一代人工智能标准体系建设有了“时间表”和“施工图”",
-						tab:"人工智能",
-						quotation:"国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"新一代人工智能标准体系建设有了“时间表”和“施工图”",
-						tab:"人工智能",
-						quotation:"国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					},
-					{
-						title:"新一代人工智能标准体系建设有了“时间表”和“施工图”",
-						tab:"人工智能",
-						quotation:"国内OLED技术发展水平正逐步提升，但仍存在两大制约发展的因素：产能和良品率。良品率低是导致OLED价格居高不下的主要因素，也因为良品率低导致产线产能无法扩大，不能满足下游厂商的需求，进而影响公司发展。",
-						time:"2019/02/27",
-						imagesrc:"https://img.36krcdn.com/20200410/v2_86bbf8245f754be79f3386a82b385093_img_000",
-						pagesrc:""
-					}
-				],
-				searchArticleList:[]			//点击搜索后过滤的文章列表
+				dataList:[],
+				pageNumber:1
 			}
+		},
+		onReachBottom() {
+			let _this = this
+			console.log('触底刷新')
+			this.pageNumber++
+			console.log(this.pageNumber)
+			let d = {
+				industryId: _this.tabList[_this.tabCurrent].pkid,
+				keyword: _this.searchContent,
+				page: this.pageNumber
+			}
+			request({
+				url: '/industry/dataList',
+				data: d,
+			}).then(res => {
+				if (res[1].data.data.list.length != 0) {
+					_this.dataList.concat(res[1].data.data.list)
+					console.log(_this.dataList)
+				} else {
+					console.log('没有更多内容了')
+				}
+			})
 		},
 		methods: {
 			clickBack(){
@@ -200,13 +168,29 @@
 						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyArr
 					}
 					//过滤文章列表,如果该文章的标题中包含搜索关键字则加入显示列表
-					this.searchArticleList=this.articleList.filter(item => item.title.includes(this.searchContent))
+					/* this.searchArticleList=this.articleList.filter(item => item.title.includes(this.searchContent))
 					if(this.searchArticleList.length <= 0){
 						this.showEmpty = true
 					}else{
 						this.showEmpty = false
-					}
+					} */
 					this.saveHistory()
+					let _this = this
+					_this.pageNumber=1
+					console.log(_this.searchContent)
+					_this.$request({
+						url:'/industry/dataList',
+						data:{
+							industryId:_this.tabList[_this.tabCurrent].pkid,
+							keyword: _this.searchContent,
+							page:_this.pageNumber
+						}
+					}).then(res =>{
+						console.log(res[1].data)
+						_this.dataList = res[1].data.data.list
+					}).catch(err =>{
+						console.log(err)
+					})
 				}
 			},
 			//点击历史记录进行搜索
@@ -222,6 +206,20 @@
 			},
 			tapchange(index) {
 				this.tabCurrent = index
+				let _this = this
+				_this.pageNumber=1
+				_this.$request({
+					url:'/industry/dataList',
+					data:{
+						industryId:_this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.searchContent,
+						page:_this.pageNumber
+					}
+				}).then(res =>{
+					_this.dataList = res[1].data.data.list
+				}).catch(err =>{
+					console.log(err)
+				})
 			},
 			toDetail(){
 				console.log('asd')

@@ -362,12 +362,27 @@
 	.dropList-content .dropList-content-left{
 		width: 120rpx;
 		height: 120rpx;
+<<<<<<< HEAD
 		border-radius: 50%;
 	}
 	.dropList-content-left image{
 		width: 120rpx;
 		height: 120rpx;
 		border-radius: 50%;
+=======
+		background: #2D6BDD;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.dropList-content-left text{
+		font-size: 37rpx;
+		font-family: Microsoft YaHei;
+		font-weight: 400;
+		color: #FFFFFF;
+		line-height: 56rpx;
+>>>>>>> rj
 	}
 	.dropList-content .dropList-content-right{
 		margin-left: 27rpx;

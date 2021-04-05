@@ -2,31 +2,31 @@
 	<view class="mainCon">
 		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
 			<view class="slot-wrap">
-				<view class="search-wrap">
+				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false" height="80"
 					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
 				</view>
 			</view>
 		</u-navbar>
 		<view class="listCon">
-			<view class="item" v-for="(item, index) in 10" :key='index' @click="tapdetail">
-				<image class="goodsimg" src="https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg"
+			<view class="item" v-for="(item, index) in goodsList" :key='index' @click="tapdetail(index)">
+				<image class="goodsimg" :src="item.pic"
 				 mode=""></image>
 				<view class="name u-line-2">
-					厂家供应 23L小型湿热试验箱 迷你型高低
+					{{item.title}}
 				</view>
 				<view class="priceCon">
 					<view class="unit">
 						￥
 					</view>
 					<view class="price">
-						18888.00
+						{{item.price}}
 					</view>
 				</view>
 				<view class="position">
 					<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 					<view class="city">
-						广东东莞
+						{{item.source}}
 					</view>
 				</view>
 			</view>
@@ -46,19 +46,33 @@
 	export default {
 		data() {
 			return {
+				goodsList:[],
 				keyword: "",
 				background: {
 					backgroundColor: '#2D6BDD',
 				},
+				page:1,
+				token:''
 			}
 		},
+		onLoad() {
+			this.token = uni.getStorageSync('token');
+			this.page=1
+			this.getSupplyInformationList()
+		},
 		onReachBottom() {
-
+			this.page+=1
+			this.getSupplyInformationList()
 		},
 		methods: {
-			tapdetail() {
+			tapdetail(index) {
 				uni.navigateTo({
-					url: './goodsdetail'
+					url: './goodsdetail?supplyId='+this.goodsList[index].pkid
+				})
+			},
+			enterSearch() {
+				uni.navigateTo({
+					url: 'search'
 				})
 			},
 			publish(){
@@ -66,6 +80,58 @@
 				uni.navigateTo({
 					url:'./publish'
 				})
+			},
+			getSupplyInformationList(){
+				let _this = this
+				if(_this.$store.state.kind == 0){
+					_this.$request({
+						url:'/supplyInformationList',
+						data:{
+							token:_this.token,
+							type:_this.$store.state.kind,
+							page:_this.page,
+							companyId:_this.$store.state.id
+						}
+					}).then(res =>{
+						console.log('supplyInformationList')
+						console.log(res[1].data)
+						if(res[1].data.success == true){
+							let data = res[1].data.data
+							let length = _this.goodsList.length
+							_this.goodsList.concat(data.list)
+							let len = _this.goodsList.length
+							for(let i=length;i<len;i++){
+								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							}
+						}
+					}).catch(err =>{
+						console.log(err)
+					})
+				}else{
+					_this.$request({
+						url:'/supplyInformationList',
+						data:{
+							token:_this.token,
+							type:_this.$store.state.kind,
+							page:_this.page,
+							memberId:_this.$store.state.id
+						}
+					}).then(res =>{
+						console.log('supplyInformationList')
+						console.log(res[1].data)
+						if(res[1].data.success == true){
+							let data = res[1].data.data
+							let length = _this.goodsList.length
+							_this.goodsList.concat(data.list)
+							let len = _this.goodsList.length
+							for(let i=length;i<len;i++){
+								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							}
+						}
+					}).catch(err =>{
+						console.log(err)
+					})
+				}
 			}
 		}
 	}

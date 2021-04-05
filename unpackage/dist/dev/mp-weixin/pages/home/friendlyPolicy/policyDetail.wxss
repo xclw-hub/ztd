@@ -26,7 +26,11 @@
 /* 文章场景相关 */
 .nav.data-v-e05cf404 {
   background-color: #2D6BDD;
+<<<<<<< HEAD
   padding-top: 36rpx;
+=======
+  padding-top: 56rpx;
+>>>>>>> rj
   padding-bottom: 56rpx;
   padding-left: 40rpx;
   padding-right: 40rpx;
@@ -87,13 +91,22 @@
 }
 .body.data-v-e05cf404 {
   background: #FFFFFF;
+<<<<<<< HEAD
   border-radius: 30rpx 30rpx 0px 0px;
+=======
+  -webkit-border-radius: 30rpx 30rpx 0px 0px;
+          border-radius: 30rpx 30rpx 0px 0px;
+>>>>>>> rj
   padding-top: 49rpx;
   padding-left: 39rpx;
   padding-right: 39rpx;
   position: absolute;
   overflow: scroll;
+<<<<<<< HEAD
   top: 140rpx;
+=======
+  top: 160rpx;
+>>>>>>> rj
   bottom: 0;
   padding-bottom: 47rpx;
 }
@@ -150,7 +163,12 @@
 .body .attachment.data-v-e05cf404 {
   margin-top: 44rpx;
   background: #EFF6FF;
+<<<<<<< HEAD
   border-radius: 10rpx;
+=======
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

@@ -60,11 +60,15 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	export default {
 		components:{uniNavBar},
+		onLoad() {
+			this.setData();
+		},
 		data() {
 			return {
-				phoneNumber:'17784737638',
+				phoneNumber:'',
 				newPhoneNumber:'',
 				verificationCode:'',
+				enterpriseId:'',
 				newPhoneNumber_placeholder:'请输入手机号',
 				verificationCode_placeholder:'请输入验证码',
 				verificationCode_tips:'获取验证码',
@@ -76,6 +80,60 @@
 			}
 		},
 		methods: {
+			setData() {
+				let state = this.$store.state
+				let info = state.kind == 0 ? state.enterpriseInfo : state.userInfo
+				console.log(info)
+				this.phoneNumber = info.enterprisePhoNum
+				this.enterpriseId = info.enterpriseId
+			},
+			confirm(){
+				// 确认修改手机号
+				let _this=this	
+						
+				if(_this.newPhoneNumber==='' || _this.verificationCode ===''){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请填写完整'
+					})
+					return false
+				}
+				uni.getStorage({
+				    key: 'token',
+				    success: function (res) {
+						let token = res.data
+				        console.log(token);
+						_this.$request({
+							url:"/changePhoneNumberByVerificationCode",
+							data: {
+								'token':token,
+								'id':_this.enterpriseId,
+								'type':0,
+								'newPhoneNumber':_this.newPhoneNumber,
+								'verificationCode':_this.verificationCode,
+							}
+						}).then(res=>{
+							console.log(res[1].data)
+							if(res[1].data.statusCode===2000){
+								uni.showToast({
+								    icon:'success',
+									position:'bottom',
+								    title: '修改成功'
+								})
+							}else{
+								uni.showToast({
+								    icon:'none',
+									position:'bottom',
+								    title: '修改失败'
+								})
+							}
+						}).catch(err=>{
+							console.log(err)
+						})
+				    }
+				});
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -108,30 +166,30 @@
 				}else{
 					return		//如果已经在倒计时，则不需要进行后续步骤
 				}
-				// //请求发送验证码
-				// _this.$request({
-				// 	url:"/verificationCode",
-				// 	data: {
-				// 		'phoneNumber':_this.phoneNumber
-				// 	}
-				// }).then(res=>{
-				// 	console.log(res[1].data)
-				// 	if(res[1].data.statusCode===2000){
-				// 		uni.showToast({
-				// 		    icon:'success',
-				// 			position:'bottom',
-				// 		    title: '验证码发送成功'
-				// 		})
-				// 	}else{
-				// 		uni.showToast({
-				// 		    icon:'none',
-				// 			position:'bottom',
-				// 		    title: '验证码发送失败'
-				// 		})
-				// 	}
-				// }).catch(err=>{
-				// 	console.log(err)
-				// })
+				//请求发送验证码
+				_this.$request({
+					url:"/verificationCode",
+					data: {
+						'phoneNumber':_this.newPhoneNumber		//_this.phoneNumber
+					}
+				}).then(res=>{
+					console.log(res[1].data)
+					if(res[1].data.statusCode===2000){
+						uni.showToast({
+						    icon:'success',
+							position:'bottom',
+						    title: '验证码发送成功'
+						})
+					}else{
+						uni.showToast({
+						    icon:'none',
+							position:'bottom',
+						    title: '验证码发送失败'
+						})
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
 				//开始倒计时
 				let seconds=60
 				let timer=setInterval(()=>{

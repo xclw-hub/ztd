@@ -62,7 +62,12 @@
 .navbar .navleftCon .searchBar.data-v-92bb8f34 {
   width: 468rpx;
   height: 72rpx;
+<<<<<<< HEAD
   border-radius: 15rpx;
+=======
+  -webkit-border-radius: 15rpx;
+          border-radius: 15rpx;
+>>>>>>> rj
   background-color: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -134,7 +139,11 @@
 }
 .menubar .item .name.data-v-92bb8f34 {
   color: #333333;
+<<<<<<< HEAD
   font-size: 27rpx;
+=======
+  font-size: 28rpx;
+>>>>>>> rj
 }
 .menubar2.data-v-92bb8f34 {
   display: -webkit-box;
@@ -174,7 +183,11 @@
 }
 .menubar2 .item .name.data-v-92bb8f34 {
   color: #333333;
+<<<<<<< HEAD
   font-size: 32rpx;
+=======
+  font-size: 28rpx;
+>>>>>>> rj
 }
 .labelTitle.data-v-92bb8f34 {
   padding-top: 15rpx;
@@ -214,7 +227,12 @@
 .listCon.data-v-92bb8f34 {
   padding: 20rpx;
   width: 100%;
+<<<<<<< HEAD
   box-sizing: border-box;
+=======
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+>>>>>>> rj
 }
 .listCon .listItem.data-v-92bb8f34 {
   display: -webkit-box;
@@ -225,7 +243,12 @@
   margin-bottom: 50rpx;
 }
 .listCon .listItem .leftCon.data-v-92bb8f34 {
+<<<<<<< HEAD
   box-sizing: border-box;
+=======
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+>>>>>>> rj
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
@@ -272,10 +295,34 @@
   left: 0;
   bottom: 0;
   right: 0;
+<<<<<<< HEAD
 }
 .diagnosis.data-v-92bb8f34 {
   background: #FFFFFF;
   border-radius: 20rpx;
+=======
+  z-index: 666;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+#textAreaimg.data-v-92bb8f34 {
+  width: 28rpx;
+  height: 28rpx;
+  position: absolute;
+  left: 73rpx;
+  top: 511rpx;
+}
+.diagnosis.data-v-92bb8f34 {
+  position: fixed;
+  top: 350rpx;
+  left: 0;
+  right: 0;
+  z-index: 777;
+  background: #FFFFFF;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -317,7 +364,12 @@
   height: 84rpx;
   width: 100%;
   border: 1rpx solid #AAAAAA;
+<<<<<<< HEAD
   border-radius: 10rpx;
+=======
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+>>>>>>> rj
   padding-left: 23rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -354,7 +406,12 @@
   height: 84rpx;
   width: 100%;
   border: 1rpx solid #AAAAAA;
+<<<<<<< HEAD
   border-radius: 10rpx;
+=======
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+>>>>>>> rj
   padding-left: 23rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -387,13 +444,26 @@
           flex: 1;
 }
 .diagnosis .diagnosis-need.data-v-92bb8f34 {
+<<<<<<< HEAD
+=======
+  cursor: 30;
+>>>>>>> rj
   margin-top: 38rpx;
   width: 100%;
   height: 240rpx;
   border: 1rpx solid #AAAAAA;
+<<<<<<< HEAD
   border-radius: 10rpx;
   padding: 21rpx;
   box-sizing: border-box;
+=======
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  padding: 21rpx;
+  padding-left: 64rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+>>>>>>> rj
 }
 .diagnosis .diagnosis-btn.data-v-92bb8f34 {
   margin-top: 38rpx;
@@ -412,7 +482,12 @@
   width: 280rpx;
   height: 78rpx;
   background: #BDBDBD;
+<<<<<<< HEAD
   border-radius: 39rpx;
+=======
+  -webkit-border-radius: 39rpx;
+          border-radius: 39rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -434,7 +509,12 @@
   width: 280rpx;
   height: 78rpx;
   background: #FF9000;
+<<<<<<< HEAD
   border-radius: 39rpx;
+=======
+  -webkit-border-radius: 39rpx;
+          border-radius: 39rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -469,4 +549,13 @@
   background-color: #FFFFFF;
   width: 100%;
 }
+<<<<<<< HEAD
+=======
+.nos.data-v-92bb8f34 {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+>>>>>>> rj
 

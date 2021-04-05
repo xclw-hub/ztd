@@ -66,7 +66,7 @@
 				
 				<view class="mobilePhone">
 					<view class="tips">
-						<text>联系人</text>
+						<text>联系电话</text>
 					</view>
 					<view class="detail">
 						<text id="mobilePhone">{{publish.mobilePhone}}</text>
@@ -115,31 +115,102 @@
 			uniPopup,
 			uniPopupDialog
 		},
+		onLoad(option) {
+			this.pkid = JSON.parse(option.pkid)
+			console.log(this.pkid)
+			this.setData();
+		},
 		data() {
-			return {
+			return {     
 				dropOptionShow:false,		//是否显示下拉框
-				publish:{
-					kind:'供应',
-					title:'K26A13小型本安型矿用红外热像仪 高清红外测温仪',
-					time:'2020-08-26 12:36',
-					price:'18800.00',
-					bussiness:'红外监测仪代理商K26A13在线式红外热成像测温仪',
-					address:'西辛南区甲36号楼1层2单元底商',
-					contact:'孙光洪',
-					mobilePhone:'13966763179',
-					imageArr:['../../../static/login/bg.jpg'],		//保存上传照片的路径
-					description:`K26A13在线式红外热成像测温仪采用17μm非制冷红外焦平面探测器和信号处理电路，嵌入先进的图像处理算法，具备体积小、功耗低、启动快速、成像质量优异、测温精准等特点。
+				pkid:'',
+				publish:{}
+// 				publish:{
+// 					kind:'供应',
+// 					title:'K26A13小型本安型矿用红外热像仪 高清红外测温仪',
+// 					time:'2020-08-26 12:36',
+// 					price:'18800.00',
+// 					bussiness:'红外监测仪代理商K26A13在线式红外热成像测温仪',
+// 					address:'西辛南区甲36号楼1层2单元底商',
+// 					contact:'孙光洪',
+// 					mobilePhone:'13966763179',
+// 					imageArr:['../../../static/login/bg.jpg'],		//保存上传照片的路径
+// 					description:`K26A13在线式红外热成像测温仪采用17μm非制冷红外焦平面探测器和信号处理电路，嵌入先进的图像处理算法，具备体积小、功耗低、启动快速、成像质量优异、测温精准等特点。
 
-功能特性：
-1、具备较强的穿透烟雾性能，可在较宽的环境温度范围使用；
-2、采用高帧频设计，可以观测快速移动的目标；
-3、采用自研测温校正算法，实现精确温度测量；
-4、输出全码流无损16Bit温度数据，提供客户端软件及SDK开发包。
-`
-				}
+// 功能特性：
+// 1、具备较强的穿透烟雾性能，可在较宽的环境温度范围使用；
+// 2、采用高帧频设计，可以观测快速移动的目标；
+// 3、采用自研测温校正算法，实现精确温度测量；
+// 4、输出全码流无损16Bit温度数据，提供客户端软件及SDK开发包。
+// `
+// 				}
 			}
 		},
 		methods: {
+			setData(){
+				let _this = this
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/InfoRelease/detail', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+						'pkid':_this.pkid
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        console.log(res.data.data)
+						let data = res.data.data
+						// kind:'供应',
+						// title:'K26A13小型本安型矿用红外热像仪 高清红外测温仪',
+						// time:'2020-08-26 12:36',
+						// price:'18800.00',
+						// bussiness:'红外监测仪代理商K26A13在线式红外热成像测温仪',
+						// address:'西辛南区甲36号楼1层2单元底商',
+						// contact:'孙光洪',
+						// mobilePhone:'13966763179',
+						// imageArr:['../../../static/login/bg.jpg'],		//保存上传照片的路径
+						// description:
+						
+						let detail = {}
+						detail.kind = data.type == 0 ? '需求' : '供应'
+						detail.title = data.title
+						detail.time = data.time
+						detail.price = data.price
+						detail.bussiness = data.business
+						detail.address = data.address
+						detail.contact = data.contacts
+						detail.mobilePhone = data.tel
+						let arr = data.pic.split(',')
+						detail.imageArr = arr
+						detail.description = data.content
+						this.publish = detail
+						
+						console.log(detail.imageArr)
+				    }
+				})
+			},
+			test(){
+				var img = "http://xxx/timg.jpg";
+				"http://yq.qyxqk.comblob:http://localhost:8080/d5c5e6e5-889a-408b-ba6b-4c47b4ef1459"
+				var image = new Image();
+				image.src = img;
+				image.onload = function() {
+				    //文件的Base64字符串
+				    var base64 = getBase64Image(image);
+				    console.log(base64);
+				}
+			},
+			getBase64Image(img) {
+			    var canvas = document.createElement("canvas");
+			    canvas.width = img.width;
+			    canvas.height = img.height;
+			    var ctx = canvas.getContext("2d");
+			    ctx.drawImage(img, 0, 0, img.width, img.height);
+			    var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+			    var dataURL = canvas.toDataURL("image/" + ext);
+			    return dataURL;
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -155,6 +226,36 @@
 			deleteConfirm(done) {
 				console.log('是');
 				// 需要执行 done 才能关闭对话框
+				let _this = this
+				_this.$request({
+				    url:"/InfoRelease/delSupplyAndDemand",
+				    data: {
+				        'pkid':_this.pkid
+				    }
+				    }).then(res=>{
+					// console.log(res)
+				 //    console.log(res[1].data)
+				    if(res[1].statusCode===200){
+				        uni.showToast({
+				            icon:'success',
+				            position:'bottom',
+				            title: '删除成功'
+				        })
+						uni.navigateTo({
+							url:'informationPublish',
+							animationType: 'pop-in',
+							animationDuration: 600
+						})
+				    }else{
+				        uni.showToast({
+				            icon:'none',
+				            position:'bottom',
+				            title: '删除失败'
+				        })
+				    }
+				    }).catch(err=>{
+				    console.log(err)
+				    })
 				done()
 			},
 			/**

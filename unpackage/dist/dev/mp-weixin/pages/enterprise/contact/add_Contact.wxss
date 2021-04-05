@@ -52,7 +52,12 @@
   width: 90rpx;
   height: 54rpx;
   background: #2D6BDD;
+<<<<<<< HEAD
   border-radius: 5rpx;
+=======
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

@@ -27,7 +27,12 @@
 	width: 90rpx;
 	height: 54rpx;
 	background: #2D6BDD;
+<<<<<<< HEAD
 	border-radius: 5rpx;
+=======
+	-webkit-border-radius: 5rpx;
+	        border-radius: 5rpx;
+>>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -51,7 +56,12 @@
 	margin-right: 39rpx;
 	height: 72rpx;
 	background: #F3F3F3;
+<<<<<<< HEAD
 	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -85,7 +95,12 @@
 	width: 324rpx;
 	height: 88rpx;
 	border: 1rpx solid #D8D8D8;
+<<<<<<< HEAD
 	border-radius: 44rpx;
+=======
+	-webkit-border-radius: 44rpx;
+	        border-radius: 44rpx;
+>>>>>>> rj
 	background-color: #FFFFFF;
 	color: #666666;
 	display: -webkit-box;
@@ -103,8 +118,16 @@
 .industry-list-item-true.data-v-724e33d6{
 	width: 324rpx;
 	height: 88rpx;
+<<<<<<< HEAD
 	border-radius: 44rpx;
 	box-shadow: 0rpx 3rpx 10rpx 0rpx rgba(27, 140, 255, 0.5);
+=======
+	-webkit-border-radius: 44rpx;
+	        border-radius: 44rpx;
+	-webkit-box-shadow: 0rpx 3rpx 10rpx 0rpx rgba(27, 140, 255, 0.5);
+	        box-shadow: 0rpx 3rpx 10rpx 0rpx rgba(27, 140, 255, 0.5);
+	background: -webkit-gradient(linear, left top, right top, from(#4184FF), to(#1854C3));
+>>>>>>> rj
 	background: -webkit-linear-gradient(left, #4184FF, #1854C3);
 	background: linear-gradient(90deg, #4184FF, #1854C3);
 	color: #FFFFFF;

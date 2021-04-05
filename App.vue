@@ -34,12 +34,12 @@
 						location = 'policyInform'
 						
 				}
-				uni.showToast({
-					icon: 'none',
-					position: 'bottom',
-					duration: 2000,
-					title: '../enterprise/inform/' + location
-				})
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	position: 'bottom',
+				// 	duration: 2000,
+				// 	title: '../enterprise/inform/' + location
+				// })
 				uni.navigateTo({
 					url: '../enterprise/inform/' + location
 				})

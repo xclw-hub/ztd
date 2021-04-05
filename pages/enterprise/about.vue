@@ -29,7 +29,7 @@
 				<text>用户协议及隐私政策</text>
 				<image src="../../static/enterprise/btn.png"></image>
 			</view>
-			<view class="update">
+			<view class="update" @click="update">
 				<text>检查更新</text>
 				<image src="../../static/enterprise/btn.png"></image>
 			</view>
@@ -41,12 +41,36 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	export default {
 		components:{uniNavBar},
+		onLoad(){
+			this.setData()
+		},
 		data() {
 			return {
-				
+				info:{},
 			}
 		},
 		methods: {
+			setData(){
+				uni.request({
+				    url: 'http://39.105.57.219:80/ztd/aboutUs', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+						
+				    },
+				    header: {
+						'content-type': 'application/x-www-form-urlencoded'
+				    },
+				    success: (res) => {
+				        // console.log(res)
+						this.info = res.data
+						console.log(this.info)
+						// this.serviceList = this.address
+				    },
+					fail: (err) => {
+						console.log(err)
+					}
+				});
+			},
 			//拨打电话
 			dial(){
 				uni.makePhoneCall({
@@ -63,6 +87,22 @@
 				uni.navigateTo({
 					url:'../login/protocol'
 				})
+			},
+			update(){
+				console.log('update')
+				if(this.info.needForUpdate == false){
+					uni.showToast({
+					    icon:'success',
+						position:'bottom',
+					    title: '当前已是最新版本'
+					})
+				}else{
+					uni.showToast({
+					    icon:'none',
+						position:'bottom',
+					    title: '需要更新'
+					})
+				}
 			}
 		}
 	}

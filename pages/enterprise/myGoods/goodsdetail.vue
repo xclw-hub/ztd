@@ -12,7 +12,7 @@
 			<image src="../../../static/detail_headbg.png" mode="widthFix"></image>
 		</view>
 		<view class="swiperbar">
-			<u-swiper :list="list" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<u-swiper :list="goodsDetail.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
 		</view>
 		<view class="goodsinfo">
 			<view class="pricebar">
@@ -20,16 +20,16 @@
 					￥
 				</view>
 				<view class="price">
-					18888.00
+					{{goodsDetail.price}}
 				</view>
 			</view>
 			<view class="goodsName u-line-2">
-				厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱
+				{{goodsDetail.title}}
 			</view>
 			<view class="position">
 				<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 				<view class="city">
-					发货：广东省东莞市
+					发货：{{goodsDetail.source}}
 				</view>
 			</view>
 		</view>
@@ -42,7 +42,10 @@
 				<image src="../../../static/detailRight.png" mode=""></image>
 			</view>
 			<view class="item">
-				产地：广东
+				<rich-text :nodes="goodsDetail.content"></rich-text>
+			</view>
+			<!-- <view class="item">
+				产地：{{goodsDetail.sourceid}}
 			</view>
 			<view class="item">
 				是否进口：否
@@ -84,7 +87,7 @@
 
 			<view class="item">
 				是否跨境出口专供货源：否
-			</view>
+			</view> -->
 
 		</view>
 		<view style="height: 35rpx;">
@@ -101,7 +104,7 @@
 			
 			<view class="contentCon">
 				<view class="companyName">
-					上海苍茂实业有限公司
+					{{goodsDetail.companyTitle}}
 				</view>
 				<view class="item">
 					<view class="leftcon">
@@ -111,7 +114,7 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						林丽芬 女士(销售部 经理)
+						{{goodsDetail.contacts}}
 					</view>
 				</view>
 				<view class="item">
@@ -122,7 +125,7 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						15026907667
+						{{goodsDetail.tel}}
 					</view>
 				</view>
 				<view class="item" style="border: none;">
@@ -133,13 +136,13 @@
 						</view>
 					</view>
 					<view class="rightcon">
-						中国上海市松江区石湖荡镇长塔路945弄18号1楼U-2
+						{{goodsDetail.address}}
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="menueBar" v-if="isShowmenu">
-			<view class="item">
+			<view class="item" @click="publish">
 				重新编辑
 			</view>
 			<view class="item" style="border: none;" v-if="dropOptionShow" @click="doDelete">
@@ -176,7 +179,8 @@
 				background: {
 					backgroundColor: 'rgb(255, 255, 255,0)',
 				},
-				list: [{
+				goodsDetail:{},
+				/* list: [{
 						image: 'https://m.360buyimg.com/mobilecms/s1265x1265_jfs/t1/158549/25/3032/179759/60016b0aE036dc5e6/e02ae5289d3209b1.jpg',
 					},
 					{
@@ -185,12 +189,60 @@
 					{
 						image: 'https://m.360buyimg.com/mobilecms/s1265x1265_jfs/t1/158549/25/3032/179759/60016b0aE036dc5e6/e02ae5289d3209b1.jpg',
 					}
-				],
+				], */
 				navtitle: null,
 				isShowmenu: false,
 				isInvalid:true,		//信息是否删除了
 				dropOptionShow:false,		//是否显示下拉框
+				supplyId:''
 			}
+		},
+		onLoad(option) {
+			this.supplyId=option.supplyId
+			let token = uni.getStorageSync('token');
+			let _this = this
+			if(_this.$store.state.kind == 0){
+				_this.$request({
+					url:'/supplyDetail',
+					data:{
+						token,
+						type:_this.$store.state.kind,
+						supplyId:option.supplyId,
+						memberId:0,
+						companyId:_this.$store.state.id
+					}
+				}).then(res =>{
+					console.log('supplyDetail')
+					console.log(res[1].data)
+					if(res[1].data.success == true){
+						_this.goodsDetail = res[1].data.data
+						_this.goodsDetail.pic = _this.goodsDetail.pic.split( ',' );
+					}
+				}).catch(err =>{
+					console.log(err)
+				})
+			}else{
+				_this.$request({
+					url:'/supplyDetail',
+					data:{
+						token,
+						type:_this.$store.state.kind,
+						supplyId:option.supplyId,
+						memberId:_this.$store.state.id,
+						companyId:_this.$store.state.userInfo.enterpriseId
+					}
+				}).then(res=>{
+					console.log('supplyDetail')
+					console.log(res[1].data)
+					if(res[1].data.success == true){
+						_this.goodsDetail = res[1].data.data
+						_this.goodsDetail.pic = _this.goodsDetail.pic.split( ',' );
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			}
+			
 		},
 		onPageScroll(e) {
 			if (e.scrollTop > 25) {
@@ -211,10 +263,32 @@
 			doDelete(){
 				this.$refs.deletePopupDialog.open()
 				this.dropOptionShow=false
+				
 			},
 			deleteConfirm(done) {
 				console.log('是');
 				this.isInvalid=false
+				let _this = this
+				let token = uni.getStorageSync('token');
+				this.$request({
+					url:'/deleteProduct',
+					data:{
+						token,
+						supplyId:_this.supplyId
+					}
+				}).then(res=>{
+					console.log('delete')
+					console.log(res[1].data)
+					if(res[1].data.success != true){
+						console.log(res[1].data.data)
+					}else{
+						uni.navigateBack({
+							delta:1
+						})
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
 				// 需要执行 done 才能关闭对话框
 				done()
 			},
@@ -224,6 +298,12 @@
 			deleteClose(done) {
 				console.log('否');
 				done()
+			},
+			publish() {
+				// console.log("我要发布")
+				uni.navigateTo({
+					url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)
+				})
 			},
 		}
 	}

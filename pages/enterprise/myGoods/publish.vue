@@ -17,15 +17,8 @@
 					<text>商品名称</text>
 				</view>
 				<view class="inputTitle">
-					<input
-						type="text" 
-					 	:placeholder="title_placeholder"
-					 	placeholder-class="placeholderStyle"
-					 	v-model.trim="title"
-						maxlength="80"
-					 	@focus="titleFocus"
-						@input="titleInput"
-					 	@blur="titleBlue"/>
+					<input type="text" :placeholder="title_placeholder" placeholder-class="placeholderStyle"
+						v-model.trim="title" maxlength="80" @focus="titleFocus"  @blur="titleBlue" />
 					<text class="titleLength">{{titleLength}}/80</text>
 				</view>
 				<!-- <input 
@@ -35,7 +28,6 @@
 					v-model.trim="title" 
 					@focus="titleFocus" 
 					@blur="titleBlue" /> -->
-				
 			</view>
 			<view class="uploadImg">
 				<view class="tips">
@@ -56,9 +48,9 @@
 				<text>货源</text>
 				<input type="text" :placeholder="businessaddress_placeholder" placeholder-class="placeholderStyle"
 					v-model.trim="businessaddress" @focus="businessFocus" @blur="businessBlue" :disabled="true" />
-					<view class="rightArrow">
-						<image src="../../../static/enterprise/btn.png" mode=""></image>
-					</view>
+				<view class="rightArrow">
+					<image src="../../../static/enterprise/btn.png" mode=""></image>
+				</view>
 			</view>
 			<view class="address">
 				<text>详细地址</text>
@@ -78,7 +70,7 @@
 			<view class="detailinfo">
 				<text>详细信息</text>
 				<input type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="detailinfo" @focus="detailinfoFocus" @blur="detailinfoBlue"/>
+					v-model.trim="detailinfo" @focus="detailinfoFocus" @blur="detailinfoBlue" />
 			</view>
 		</view>
 
@@ -117,6 +109,9 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue";
 	import provinceData from '../../../common/province.js';
 	import cityData from '../../../common/city.js';
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		components: {
 			uniNavBar
@@ -143,7 +138,19 @@
 				showAddress: false,
 				provinceList: provinceData,
 				cityList: cityData,
-				defaultCity: [],
+				defaultCity: []
+			}
+		},
+		onLoad(option) {
+			if(option){
+				let goodsDetail = JSON.parse(option.goodsDetail)
+				this.title = goodsDetail.title
+				this.price = goodsDetail.price
+				this.businessaddress=goodsDetail.source
+				this.address=goodsDetail.address
+				this.contact=goodsDetail.contacts
+				this.mobilePhone=goodsDetail.tel
+				this.detailinfo=goodsDetail.content
 			}
 		},
 		methods: {
@@ -153,6 +160,97 @@
 				})
 			},
 			confirm() {
+				let that = this
+				let token = uni.getStorageSync('token');
+				console.log(
+				{
+					token,
+					type: that.$store.state.kind,
+					isEdit: false,
+					parkId: that.$store.state.enterpriseInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.parkId,
+					memberId:that.$store.state.userInfo.parkId,
+					title:that.title,
+					price:that.price,
+					source:that.businessaddress,
+					address:that.address,
+					contacts:that.contact,
+					tel:that.mobilePhone,
+					pic:that.imageArr,
+					content:that.detailinfo
+				})
+				if (that.$store.state.kind == '0') {
+					console.log('supplyEdit')
+					console.log(that.imageArr)
+					request({
+						url: '/supplyEdit',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							isEdit: false,
+							parkId: that.$store.state.enterpriseInfo.parkId,
+							companyId: that.$store.state.enterpriseInfo.enterpriseId,
+							memberId:1,
+							title:that.title,
+							price:that.price,
+							source:that.businessaddress,
+							address:that.address,
+							contacts:that.contact,
+							tel:that.mobilePhone,
+							pic:that.imageArr,
+							content:that.detailinfo
+						}
+					}).then(res => {
+						console.log(res[1].data)
+						let gt = res[1].data.data
+						if(gt=='发布成功'){
+							uni.showToast({
+								title: '发布成功',
+								duration: 2000,
+								icon: 'none'
+							});
+							uni.navigateBack({
+								delta:1
+							})
+						}
+					}).catch(err=>{
+						console.log(err)
+					})
+				}else{
+					request({
+						url: '/supplyEdit',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							isEdit: false,
+							parkId: that.$store.state.userInfo.parkId,
+							companyId: that.$store.state.userInfo.enterpriseId,
+							memberId:that.$store.state.id,
+							title:that.title,
+							price:that.price,
+							source:that.businessaddress,
+							address:that.address,
+							contacts:that.contact,
+							tel:that.mobilePhone,
+							pic:that.imageArr,
+							content:that.detailinfo
+						}
+					}).then(res => {
+						console.log(res[1].data)
+						let gt = res[1].data.data
+						if(gt=='发布成功'){
+							uni.showToast({
+								title: '发布成功',
+								duration: 2000,
+								icon: 'none'
+							});
+							uni.navigateBack({
+								delta:1
+							})
+						}
+					})
+				}
 				console.log("发布")
 			},
 			// // 统计字数
@@ -161,12 +259,40 @@
 			// },
 			//选择照片并上传
 			chooseImage() {
+				console.log('chooseImage')
 				uni.chooseImage({
 					count: 5 - this.imageNumber,
 					success: res => {
-						this.imageArr = this.imageArr.concat(res.tempFilePaths)
-						// console.log(this.imageArr)
-						this.imageNumber = this.imageArr.length
+						console.log('tempFilePaths')
+						console.log(res.tempFilePaths)
+						let token = uni.getStorageSync('token');
+						let length = res.tempFilePaths.length
+						let _this = this
+						for(let i=0;i<length;i++){
+							uni.uploadFile({
+								url:'http://39.105.57.219:80/ztd/uploadProductImage',
+								filePath: res.tempFilePaths[i],
+								name: 'multipartFile',  //后台接收字段名
+								formData:{
+									"token":token
+								},
+								success: (res) => {
+									console.log('uploadFile')
+									console.log(res)
+									let data = JSON.parse(res.data)
+									console.log(data.imagePath)
+									if(data.statusCode==2000){
+										_this.imageArr.push(data.imagePath)
+										_this.imageNumber = _this.imageArr.length
+									}else{
+										console.log(data.statusMsg)
+									}
+								},
+								fail:(err)=>{
+									console.log(err)
+								}
+							})
+						}
 					}
 				})
 			},
@@ -221,7 +347,7 @@
 			},
 			tapaddress() {
 				this.showAddress = true;
-				this.defaultCity=[0,0];
+				this.defaultCity = [0, 0];
 			},
 			onpickerChange(e) {
 				var res = e.detail.value;
@@ -237,14 +363,15 @@
 				let province = provinceData[this.defaultCity[0]].label;
 				let city = cityData[this.defaultCity[0]][this.defaultCity[1]].label;
 				this.businessaddress = province + city;
-				this.showAddress=false;
-				this.defaultCity=[];
+				this.showAddress = false;
+				this.defaultCity = [];
+
 			}
 		},
-		computed:{
-			titleLength: function () {
-			  // `this` 指向 vm 实例
-			  return this.title.length
+		computed: {
+			titleLength: function() {
+				// `this` 指向 vm 实例
+				return this.title.length
 			}
 		}
 	}
@@ -291,33 +418,37 @@
 		line-height: 26rpx;
 	}
 
-	.content{
+	.content {
 		padding-left: 39rpx;
 		padding-right: 39rpx;
 		padding-bottom: 50rpx;
 	}
-	.title{
+
+	.title {
 		/* height: 191rpx; */
 		border-bottom: 1rpx solid #C7C7C7;
 		padding-top: 49rpx;
 		padding-bottom: 37rpx;
 	}
-	.tt text{
+
+	.tt text {
 		font-size: 32rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #333333;
 		line-height: 26rpx;
 	}
-	.inputTitle{
+
+	.inputTitle {
 		margin-top: 46rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 	}
-	.titleInput input{
-	}
-	.titleLength{
+
+	.titleInput input {}
+
+	.titleLength {
 		color: #AAAAAA;
 		font-size: 28rpx;
 		font-family: Source Han Sans CN;
@@ -381,11 +512,13 @@
 		padding-top: 49rpx;
 		padding-bottom: 37rpx;
 		position: relative;
-		.rightArrow{
+
+		.rightArrow {
 			position: absolute;
 			right: 0;
 			bottom: 35rpx;
-			image{
+
+			image {
 				width: 17rpx;
 				height: 30rpx;
 			}

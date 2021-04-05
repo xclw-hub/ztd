@@ -6,23 +6,24 @@
 			</view>
 		</view>
 		<view class="listCon" v-if="listNumber!=0">
-			<view class="item" v-for="(item,index) in 20" :key="index" @click="tapGodetail">
-				<view class="avatar">
-					<image src="http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg" mode=""></image>
+			<view class="item" v-for="(item,index) in contactList" :key="index">
+				<view class="avatar" @click="tapGodetail(item)">
+					<image :src="item.contactHead" mode=""></image>
 					<!-- 根据后台返回的参数在此处做条件渲染，是否显示改标志 v-if -->
-					<image class="connectIcon" src="../../../static/connectIcon.png" mode=""></image>
+					<image v-if="item.isDefault" class="connectIcon" src="../../../static/connectIcon.png" mode=""></image>
 				</view>
 				<view class="infoCon">
-					<view class="leftinfo">
+					<view class="leftinfo" @click="tapGodetail(item)">
 						<view class="name">
-							白徊
+							{{item.contactName}}
 						</view>
-						<view class="zhiwei">
-							技术总监
+						<view class="zhiwei" @click="tapGodetail(item)">
+							{{item.position}}
 						</view>
 					</view>
+					
 					<view class="phoneicon">
-						<image src="../../../static/telephone.png" mode=""></image>
+						<image src="../../../static/telephone.png" mode="" @click="makePhone(item.phoneNum)"></image>
 					</view>
 				</view>
 			</view>
@@ -46,21 +47,56 @@
 </template>
 
 <script>
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		data() {
 			return {
 				//listNumber: 1  计算属性，这里只为演示
-				listNumber: 0 //listNumber: 0时，显示联系人为空页面，添加完联系人，listNumber+1,跳到该页面显示联系人
+				listNumber: 1 ,//listNumber: 0时，显示联系人为空页面，添加完联系人，listNumber+1,跳到该页面显示联系人
+				contactList:[]
 			}
 		},
+		onShow(){
+			let _this = this
+				let that = this
+				let token = uni.getStorageSync('token');
+				let d
+				if(_this.$store.state.kind=='0'){
+					d={
+						enterpriseId: that.$store.state.enterpriseInfo.enterpriseId,
+					}
+				}else{
+					d={
+						enterpriseId: that.$store.state.userInfo.enterpriseId,
+					}
+				}
+				request({
+					url: '/addContact/existingContacts',
+					data:d
+				}).then(res=>{
+					console.log(res[1].data)
+					that.contactList=res[1].data
+					if(that.contactList.length==0){
+						that.listNumber==0
+					}
+				})
+		},
 		methods: {
-			tapGodetail() {
+			tapGodetail(item) {
+				console.log(item.contactId)
 				uni.navigateTo({
-					url: './detail'
+					url: './detail?tel='+item.phoneNum+'&contactId='+item.contactId
+				})
+			},
+			makePhone(tel){
+				uni.makePhoneCall({
+					phoneNumber:tel
 				})
 			},
 			addcontact() {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: './add_Contact'
 				})
 			}

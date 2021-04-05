@@ -32,6 +32,9 @@
 				
 			}
 		},
+		onLoad(){
+			
+		},
 		methods: {
 			clickBack(){
 				uni.navigateBack({

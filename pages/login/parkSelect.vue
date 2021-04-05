@@ -16,9 +16,9 @@
 			<view class="park" v-for="(item, index) in parkList" :key='index' @click="applyPark(index)">
 				<view class="body">
 					<text class="parkName">{{item.title}}</text>
-					<view class="location" v-if="item.address!=null">
+					<view class="location">
 						<image src="../../static/enterprise/location.png"></image>
-						<text>{{item.address}}</text>
+						<text>{{parkLocation}}</text>
 					</view>
 				</view>
 			</view>

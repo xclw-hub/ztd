@@ -104,6 +104,9 @@
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import {
+		request
+	} from '../../../util/request.js'
 	export default {
 		components: {uniNavBar},
 		data() {
@@ -121,6 +124,7 @@
 				isDefault:true,		//是否是默认联系人
 				enterpriseId:1,		//绑定的企业Id
 				token:"",
+				contactId:0,
 				checked:false// 默认联系人开启
 			}
 		},
@@ -131,14 +135,12 @@
 				console.log(data.item);
 			})
 			console.log(option)
+			this.contactId=option.contactId
 			this.phoneNumber_placeholder=option.telephone;
 			this.phoneNumber=option.telephone;			
 			this.name_placeholder=option.name;
 			this.name=option.name;			
-			this.password_placeholder=option.password;	
-			this.password=option.password;		
-			this.passwordConfirm_placeholder=option.password;	
-			this.passwordConfirm=option.password;
+			this.isDefault=option.isDefault;
 			this.position_placeholder=option.job;
 			this.position=option.job;
 		},
@@ -149,8 +151,31 @@
 				})
 			},
 			confirm(){
-				uni.navigateTo({
-					url:'contactList'
+				let that = this
+				if(that.password!=that.passwordConfirm){
+					uni.showToast({
+							        icon: 'none',
+							        title: '两次输入密码不一致'
+					})
+					return
+				}
+				let d={
+					userName:that.name,
+					phoneNum:that.phoneNumber,
+					position:that.position,
+					password:that.password,
+					isDefault:that.isDefault,
+					contactId:that.contactId
+				}
+				console.log(d)
+				request({
+					url: '/addContact/modify',
+					data: d,
+				}).then(res=>{
+					console.log(res)
+					uni.navigateBack({
+						delta: 1
+					})
 				})
 			},
 			// finish(){

@@ -62,7 +62,12 @@
 	width: 670rpx;
 	height: 88rpx;
 	border: 2rpx solid #777777;
+<<<<<<< HEAD
 	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 }
 .register_btn text.data-v-4586967a{
 	white-space: nowrap;		/* 禁止换行 */
@@ -92,8 +97,15 @@
 	width: 670rpx;
 	height: 88rpx;
 	background: #2E6BDE;
+<<<<<<< HEAD
 	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	border-radius: 10rpx;
+=======
+	-webkit-box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	        box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 }
 .enterpriseLogin_btn text.data-v-4586967a{
 	white-space: nowrap;		/* 禁止换行 */

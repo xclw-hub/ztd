@@ -36,22 +36,6 @@
 				uni.navigateTo({
 					url:'register'
 				})
-				// 获取设备CID
-				// uni.showModal({
-				//     title: '审核通过',
-				//     content: '撒擦擦打赏',
-				// 	confirmText:'添加联系人',
-				// 	cancelText:'暂不添加',
-				//     success: function (res) {
-				//         if (res.confirm) {
-				//             uni.navigateTo({
-				//             	url:'../enterprise/myPark/parkBind'
-				//             })
-				//         } else if (res.cancel) {
-				//             console.log('用户点击取消');
-				//         }
-				//     }
-				// });
 			},
 			enterpriseLogin(){
 				//进入正常登录页面

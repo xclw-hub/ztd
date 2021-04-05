@@ -144,13 +144,18 @@
 		onLoad() {
 			let info = this.$store.state.userInfo
 			console.log(info)
-			// this.src = info.enterpriseLogo
+			console.log(info.contactHead)
+			this.src = info.contactHead
+			let _this = this
 			this.personalName = info.contactName
 			this.personalPhone = info.phoneNum
 		},
 		methods: {
 			clickBack(){
-				uni.navigateTo({
+				// uni.navigateTo({
+				// 	url:'../home/home'
+				// })
+				uni.reLaunch({
 					url:'../home/home'
 				})
 			},
@@ -167,6 +172,37 @@
 			    console.log("父页面拿到了图片",e);
 				this.src = e;
 			    this.imgCropperShow = false;
+				let _this = this;
+				uni.getStorage({
+					key: 'token',
+					success: function (res) {
+						let token = res.data
+						let tempFilePaths = _this.src; 
+						 uni.uploadFile({
+							url : 'http://39.105.57.219:80/ztd/uploadIcon',
+							filePath: tempFilePaths,
+							name: 'multipartFile',
+							formData: {
+								token: token,
+								'userId': _this.$store.state.id,
+								'userType': 1
+							},
+							success : function(res){
+								//upload方法返回回来的数据是string类型，所以这里要转成json对象
+								let result = JSON.parse(res.data)
+								if (result.statusCode == 2000) {
+									_this.$store.state.userInfo.contactHead = 'http://39.105.57.219:80/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
+								}
+								console.log(_this.$store.state.userInfo.contactHead)
+								uni.showToast({title:'头像修改成功'})
+							}
+						 })
+							
+					},fail:function(res){  
+						console.log("用户取消上传文件", res)  
+					}  
+				});
+				
 			},
 			closePopList(){
 				this.popListShow=false

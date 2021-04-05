@@ -240,6 +240,48 @@
 		onLoad(option) {
 			// var obj=JSON.parse(decodeURIComponent(option.obj))		//接收注册页面传来的数据
 			// console.log(option)
+			let _this = this
+			let token
+			uni.getStorage({
+				key:'token',
+				success:function(res){
+					token = res.data
+					console.log(_this.$store.state.id)
+					console.log(_this.$store.state.kind)
+					_this.$request({
+						url:'/isBindPark',
+						data:{
+							token:token,
+							userId:13,
+							userType:1
+						}
+					}).then(res=>{
+						console.log('isbindpark')
+						console.log(res[1].data)
+						let data =res[1].data
+						if(data.statusCode == 2000){
+							if(data.isBindPark==true){
+								//已绑定园区
+								_this.parkState=2
+								_this.parkName=data.parkName
+							}else if(data.isBindPark==false){
+								if(data.parkId){
+									//未绑定但正在审核
+									_this.parkState=1
+									_this.parkName=data.parkName
+								}else{
+									//未入园
+									_this.parkState=0
+								}
+							}
+						}else{
+							console.log(data.statusMsg)
+						}
+					}).catch(err=>{
+						console.log(err)
+					})
+				}
+			})
 			if(option.industryKindArr){
 				console.log('存在')
 				this.industryKindList=option.industryKindArr.split(',')
@@ -248,14 +290,17 @@
 				console.log('不存在')
 			}
 			let info = this.$store.state.enterpriseInfo
-			console.log(info)
-			// this.src = info.enterpriseLogo
+			console.log('用户', info)
+			this.src = info.enterpriseLogo
 			this.enterpriseName = info.enterpriseName
 			this.enterpriseID = info.enterpriseId
 		},
 		methods: {
 			clickBack(){
-				uni.navigateTo({
+				// uni.navigateTo({
+				// 	url:'../home/home'
+				// })
+				uni.reLaunch({
 					url:'../home/home'
 				})
 			},
@@ -269,9 +314,61 @@
 				this.$refs.changePic.close()
 			},
 			getImg:function(e){
+				// let _this = this
+				// uni.getStorage({
+				// 	key:'token',
+				// 	success:function(res){
+				// 		_this.$request({
+				// 			url:'/uploadIcon',
+				// 			data:{
+				// 				token: res.data,
+				// 				multipartFile: e,
+				// 				userId: _this.$store.state.id,
+				// 				userType: 0
+				// 			}
+				// 		}).then(res=>{
+				// 			console.log(res)
+				// 		}).catch(err=>{
+				// 			console.log(err)
+				// 		})
+				// 	},
+				// 	fail:function(err){
+				// 		console.log(err)
+				// 	}
+				// })
 			    console.log("父页面拿到了图片",e);
 				this.src = e;
 			    this.imgCropperShow = false;
+				let _this = this;
+				uni.getStorage({
+					key: 'token',
+					success: function (res) {
+						let token = res.data
+						let tempFilePaths = _this.src; 
+						 uni.uploadFile({
+							url : 'http://39.105.57.219/ztd/uploadIcon',
+							filePath: tempFilePaths,
+							name: 'multipartFile',
+							formData: {
+								token: token,
+								'userId': _this.$store.state.enterpriseInfo.enterpriseId,
+								'userType': '0'
+							},
+							success : function(res){
+								//upload方法返回回来的数据是string类型，所以这里要转成json对象
+								let result = JSON.parse(res.data)
+								if (result.statusCode == 2000) {
+									_this.$store.state.enterpriseInfo.enterpriseLogo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.enterpriseInfo.enterpriseId+'&type=0'
+								}
+								uni.showToast({title:'头像修改成功'})
+							}
+						 })
+							
+					},fail:function(res){  
+						console.log("用户取消上传文件", res)  
+					}  
+				});
+				
 			},
 			closePopList(){
 				this.popListShow=false

@@ -24,13 +24,22 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+<<<<<<< HEAD
+=======
+page.data-v-215585d1 {
+  background: #F3F3F3;
+}
+>>>>>>> rj
 .navbar.data-v-215585d1 {
   background: #FFFFFF;
   padding-left: 39rpx;
   padding-right: 39rpx;
   padding-bottom: 26rpx;
   padding-top: 56rpx;
+<<<<<<< HEAD
   border-bottom: 8rpx solid #F3F3F3;
+=======
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -76,7 +85,12 @@
   width: 100%;
   height: 72rpx;
   background-color: #F3F3F3;
+<<<<<<< HEAD
   border-radius: 10px;
+=======
+  -webkit-border-radius: 10px;
+          border-radius: 10px;
+>>>>>>> rj
   padding-left: 21rpx;
   padding-right: 21rpx;
 }
@@ -190,7 +204,12 @@
 }
 .searchHistory .historyList .historyItem.data-v-215585d1 {
   border: 1rpx solid #BFBFBF;
+<<<<<<< HEAD
   border-radius: 5rpx;
+=======
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
+>>>>>>> rj
   height: 54rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -210,6 +229,7 @@
   font-weight: 400;
   font-family: SourceHanSansCN-Normal;
 }
+<<<<<<< HEAD
 .tabCon.data-v-215585d1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -230,6 +250,168 @@
 .tabCon .active.data-v-215585d1 {
   color: #2D6BDD;
   border-bottom: 4rpx solid #2D6BDD;
+=======
+.dropmenu.data-v-215585d1 {
+  background-color: #fff;
+}
+.dropmenu .slot-content .province.data-v-215585d1 {
+  margin-top: 35rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+  padding: 0rpx 30rpx;
+}
+.dropmenu .slot-content .province .labelName.data-v-215585d1 {
+  color: #999999;
+  width: 100rpx;
+  font-size: 30rpx;
+}
+.dropmenu .slot-content .province .provinceList.data-v-215585d1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  color: #666666;
+}
+.dropmenu .slot-content .province .provinceList .provinceItem.data-v-215585d1 {
+  margin-left: 12rpx;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+}
+.dropmenu .slot-content .city.data-v-215585d1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+  padding: 0rpx 30rpx;
+  margin-top: 15rpx;
+}
+.dropmenu .slot-content .city .labelName.data-v-215585d1 {
+  color: #999999;
+  width: 100rpx;
+  font-size: 30rpx;
+}
+.dropmenu .slot-content .city .cityList.data-v-215585d1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  color: #666666;
+}
+.dropmenu .slot-content .city .cityList .cityItem.data-v-215585d1 {
+  margin-left: 12rpx;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+}
+.dropmenu .slot-content .active.data-v-215585d1 {
+  color: #2D6BDD;
+  border: 1rpx solid #2D6BDD;
+  padding: 5rpx 10rpx;
+  -webkit-border-radius: 6rpx;
+          border-radius: 6rpx;
+}
+.dropmenu .slot-content .slotpriceCon.data-v-215585d1 {
+  padding: 25rpx 20rpx;
+}
+.dropmenu .slot-content .slotpriceCon .labelName.data-v-215585d1 {
+  font-size: 30rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+.dropmenu .slot-content .slotpriceCon .priceinput.data-v-215585d1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-top: 15rpx;
+}
+.dropmenu .slot-content .slotpriceCon .priceinput .inputitem.data-v-215585d1 {
+  width: 280rpx;
+  height: 80rpx;
+  background-color: #F3F3F3;
+  -webkit-border-radius: 15rpx;
+          border-radius: 15rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  text-align: center;
+}
+.dropmenu .slot-content .slotpriceCon .priceinput .middleLine.data-v-215585d1 {
+  width: 50rpx;
+  height: 5rpx;
+  background-color: #F3F3F3;
+  -webkit-border-radius: 2rpx;
+          border-radius: 2rpx;
+}
+.dropmenu .slot-content .slotpriceCon .tips.data-v-215585d1 {
+  font-size: 26rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+  margin-top: 15rpx;
+}
+.dropmenu .slot-content .slotbottomBar.data-v-215585d1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.dropmenu .slot-content .slotbottomBar .reset.data-v-215585d1 {
+  width: 50%;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #fff;
+  color: #666666;
+  font-size: 32rpx;
+  border-top: 1rpx solid #C7C7C7;
+}
+.dropmenu .slot-content .slotbottomBar .save.data-v-215585d1 {
+  width: 50%;
+  line-height: 90rpx;
+  background-color: #FF9000;
+  color: #fff;
+  font-size: 32rpx;
+  text-align: center;
+  border-top: 1rpx solid #FF9000;
+>>>>>>> rj
 }
 .emptyResult.data-v-215585d1 {
   line-height: 42rpx;
@@ -260,6 +442,7 @@
   color: #AAAAAA;
 }
 .listCon.data-v-215585d1 {
+<<<<<<< HEAD
   padding: 40rpx;
   width: 100%;
   box-sizing: border-box;
@@ -277,6 +460,24 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
+=======
+  padding: 20rpx;
+  padding-top: 26rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  background: #F3F3F3;
+}
+.listCon .item.data-v-215585d1 {
+  background-color: #fff;
+  width: 345rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -284,6 +485,7 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
+<<<<<<< HEAD
   -webkit-box-pack: space-evenly;
   -webkit-justify-content: space-evenly;
           justify-content: space-evenly;
@@ -329,4 +531,63 @@
 	background-color: rgba(0, 0, 0, 0.4);
 	transition: opacity 0.3s;
 } */
+=======
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-border-radius: 15rpx;
+          border-radius: 15rpx;
+  padding: 15rpx;
+  margin-bottom: 25rpx;
+}
+.listCon .item .goodsimg.data-v-215585d1 {
+  width: 100%;
+  height: 350rpx;
+}
+.listCon .item .name.data-v-215585d1 {
+  width: 100%;
+  font-size: 32rpx;
+}
+.listCon .item .priceCon.data-v-215585d1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+          align-items: flex-end;
+}
+.listCon .item .priceCon .unit.data-v-215585d1 {
+  color: #F02828;
+  font-size: 28rpx;
+}
+.listCon .item .priceCon .price.data-v-215585d1 {
+  font-size: 32rpx;
+  color: #F02828;
+}
+.listCon .item .position.data-v-215585d1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #AAAAAA;
+}
+.listCon .item .position .city.data-v-215585d1 {
+  margin-left: 5rpx;
+}
+.fix.data-v-215585d1 {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+}
+.pad.data-v-215585d1 {
+  padding-top: 80rpx;
+}
+>>>>>>> rj
 

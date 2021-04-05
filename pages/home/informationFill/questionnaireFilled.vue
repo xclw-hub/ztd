@@ -32,7 +32,7 @@
 			<view class="question">
 				<view class="question-item" v-for="(item, index) in questionnaire.content" :key="index">
 					
-					<view class="single-choice" v-if="item.kind===0">
+					<view class="single-choice" v-if="item.kind==1">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<radio-group class="single-choice-group" @change="radioChange($event,index)">
 							<view class="single-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -46,7 +46,7 @@
 						</radio-group>
 					</view>
 					
-					<view class="multiple-choice" v-else-if="item.kind===1">
+					<view class="multiple-choice" v-else-if="item.kind==2">
 						<text class="choice-question">{{index+1}}.{{item.question}}</text>
 						<checkbox-group class="multiple-choice-group" @change="checkboxChange($event,index)">
 							<label class="multiple-choice-group-item" v-for="(answerItem, anserIndex) in item.answer" :key='anserIndex'>
@@ -108,18 +108,64 @@
 			return {
 				isInvalid:true,		//信息是否删除了
 				dropOptionShow:false,		//是否显示下拉框
-				questionnaire:{}
+				questionnaire:{},
+				questionnaireId:''
 			};
 		},
 		onLoad: function(option) {
 			let obj=JSON.parse(option.param)
 			this.questionnaire=obj
+			this.questionnaireId = option.questionnaireId
 			console.log(this.questionnaire)
+			let _this = this
+			 _this.$request({
+				url:'/questionDetails',
+				data:{
+					'questionnaireId':_this.questionnaireId,
+					'enterpriseId':_this.$store.state.id
+					/* 'questionnaireId':2,
+					'enterpriseId':126 */
+				}
+			}).then(res =>{
+				console.log('questionDetails')
+				let data = res[1].data.questionToAnswer
+				console.log(res[1].data)
+				let length = data.length
+				for(let i = 0;i<length;i++){
+					let question = Object.keys(data[i])
+					let len = questionnaire.content.length
+					let index
+					for(let j=0;j<len;j++){
+						if(questionnaire.content[j].question == question){
+							index = j;break;
+						}
+					}
+					len = questionnaire.content[index].answer.length
+					let answer = Object.value(data[i])
+					for(let j=0;j<len;j++){
+						if(questionnaire.content[index].answer[j].value == answer){
+							if(questionnaire.content[index].kind == 3){
+								questionnaire.content[index].result+=answer
+								break
+							}else{
+								questionnaire.content[index].answer[j].checked = true
+								questionnaire.content[index].result += answer
+								break
+							}
+						}
+					}
+				}
+			}).catch(err =>{
+				console.log(err)
+			})
 		},
 		methods:{
 			clickBack(){
-				uni.navigateTo({
+				/* uni.navigateTo({
 					url:'./informationFill'
+				}) */
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			isDelete(){
@@ -132,8 +178,23 @@
 			deleteConfirm(done) {
 				console.log('是');
 				this.isInvalid=false
-				// 需要执行 done 才能关闭对话框
-				done()
+				let _this = this
+				_this.$request({
+					url:'/deleteQuestionnaire',
+					data:{
+						'questionnaireId':_this.questionnaireId
+					}
+				}).then(res =>{
+					console.log(res[1].data)
+					if(res[1].data.statusCode != 2000){
+						console.log(res[1].data.statusMsg)
+					}else{
+						// 需要执行 done 才能关闭对话框
+						done()
+					}
+				}).catch(err =>{
+					console.log(err)
+				})
 			},
 			/**
 			 * 对话框取消按钮

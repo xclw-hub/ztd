@@ -74,14 +74,14 @@
 				policyKind:[
 					{
 						value:'经营扶持',
-						isChoose:0,
+						isChoose:1,
 						policyList:[]
 					}, 
 					{
 						value:'减税降费',
-						isChoose:1,		//默认初始进入是选择该类政策显示
+						isChoose:0,		//默认初始进入是选择该类政策显示
 						policyList:[
-							{
+							/* {
 								description:'国家发展改革委完善农林生物质发电价格政策',
 								time:'2021-02-08'
 							},
@@ -112,7 +112,7 @@
 							{
 								description:'湖南省首家生物质发电厂并网发电年发电量2亿度',
 								time:'2021-02-01'
-							}
+							} */
 						]
 					},
 					{
@@ -162,15 +162,53 @@
 			this.$nextTick(function () {
 			  // Code that will run only after the
 			  // entire view has been rendered
-			  if(option.industryKindArr){
+			  _this.$request({
+			  	url:'/preferentialPolicies/industryChoose',
+			  	data:{
+			  		'industry':[],//industryKindArr,
+			  		'enterpriseId':_this.$store.state.id
+			  	}
+			  }).then(res =>{
+				  let data = res[1].data
+				  if(data.statusCode == 3024){
+					  console.log(data.statusMsg)
+					  _this.$request({
+					  	url:'/preferentialPolicies/list',
+					  	data:{
+					  		'enterpriseId':_this.$store.state.id,
+					  		'classification':_this.policyKind[0].value
+					  	}
+					  }).then(res =>{
+					  	console.log('onLoad list')
+					  	console.log(res[1].data)
+					  	let data =res[1].data
+					  	let length = data.length
+					  	_this.policyKind[_this.showPolicyKindIndex].policyList = []
+					  	for(let i=0;i<length;i++){
+					  		_this.policyKind[_this.showPolicyKindIndex].policyList.push({
+					  			description:data[i].title,
+					  			time:data[i].publicTime,
+					  			policyId:data[i].policyId
+					  		})
+					  	}
+					  }).catch(err =>{
+					  	console.log(err)
+					  })
+				  }else{
+					  console.log('不存在')
+					  _this.$refs.selectPopupDialog.open()
+				  }
+			  })
+			  /* if(option.industryKindArr){
 			  	console.log('存在')
 			  	console.log(option.industryKindArr)
+				
 			  	// this.industryKindList=option.industryKindArr.split(',')
 			  	// this.changeTimeClock=option.changeTime
 			  }else{
 			  	console.log('不存在')
 			  	_this.$refs.selectPopupDialog.open()
-			  }
+			  } */
 			})
 		},
 		computed:{
@@ -190,10 +228,33 @@
 				})
 			},
 			showPolicy(index){
+				let _this = this
 				for(let i=0; i<this.policyKind.length; i++){
 					this.policyKind[i].isChoose=0
 				}
 				this.policyKind[index].isChoose=1
+				_this.$request({
+					url:'/preferentialPolicies/list',
+					data:{
+						'enterpriseId':_this.$store.state.id,
+						'classification':_this.policyKind[index].value
+					}
+				}).then(res =>{
+					console.log('select list')
+					console.log(res[1].data)
+					let data =res[1].data
+					let length = data.length
+					_this.policyKind[index].policyList = []
+					for(let i=0;i<length;i++){
+						_this.policyKind[index].policyList.push({
+							description:data[i].title,
+							time:data[i].publicTime,
+							policyId:data[i].policyId
+						})
+					}
+				}).catch(err =>{
+					console.log(err)
+				})
 				// this.$refs.selectPopupDialog.open()
 			},
 			selectConfirm(done) {
@@ -216,8 +277,9 @@
 			},
 			enterPolicyDetail(index){
 				console.log(index)
+				console.log(this.policyKind[this.showPolicyKindIndex].policyList[index].policyId)
 				uni.navigateTo({
-					url:'policyDetail'
+					url:'policyDetail?policyId='+this.policyKind[this.showPolicyKindIndex].policyList[index].policyId
 				})
 			}
 		},

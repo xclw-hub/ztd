@@ -20,7 +20,7 @@
 		</uniNavBar>
 		<view class="content">
 			<view class="search">
-				<image src="../../static/enterprise/search.png"></image>
+				<image src="../../static/home/search.png"></image>
 				<input
 				 type="text"
 				 :placeholder="search_placeholder"
@@ -30,7 +30,7 @@
 				 @blur="searchBlue"/>
 			</view>
 			<view class="industry-list">
-				<view class="industry-list-item" v-for="(item, index) in industryKindList" :key='index' :class="[item.itemClass ? 'industry-list-item-true' : 'industry-list-item-false']" @click="selectKind(index)">
+				<view class="industry-list-item" v-for="(item, index) in industryKindList" :key='index' :class="[item.choice===1 ? 'industry-list-item-true' : 'industry-list-item-false']" @click="selectKind(index)">
 					<text>{{item.kind}}</text>
 				</view>
 			</view>
@@ -70,100 +70,81 @@
 				searchContent:'',
 				industryKindList:[{
 					kind:'智能制造',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'机器人',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'人工智能',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'5G',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'新能源汽车',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'能源产业',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'智能制造',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'机器人',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'集成电路及电子材料',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'工业互联网',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'人工智能',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'智能制造',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'机器人',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'人工智能',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'5G',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'新能源汽车',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'能源产业',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'智能制造',
-					choice:0,
-					itemClass:false
+					choice:0
 				},
 				{
 					kind:'机器人',
-					choice:0,
-					itemClass:false
+					choice:0
 				}],		//所有可选的行业种类列表
-				selectKindArr:[]
+				selectKindArr:[]		//已选的行业
 			}
 		},
 		methods: {
@@ -182,10 +163,8 @@
 				let _this=this
 				if(_this.industryKindList[index].choice===1){
 					_this.industryKindList[index].choice=0
-					this.industryKindList[index].itemClass=false
 				}else{
 					_this.industryKindList[index].choice=1
-					this.industryKindList[index].itemClass=true
 				}
 			},
 			confirm(){
@@ -199,19 +178,34 @@
 						_this.selectKindArr.push(_this.industryKindList[i].kind)
 					}
 				}
-				// let obj={
-				// 	'industryKindArr': _this.selectKindArr,
-				// 	'changeTime':+new Date()		//记录点击时间
-				// }
 				let industryKindArr= _this.selectKindArr
 				let changeTime = +new Date()
-				
-				uni.navigateTo({		//将选好的行业传到下一页面
-					url:'enterprise?changeTime='+changeTime+'&industryKindArr='+industryKindArr,
-					// url:'enterprise?obj='+encodeURIComponent(JSON.stringify(obj))
-					})
-				// 需要执行 done 才能关闭对话框
-				done()
+				console.log(industryKindArr)
+				_this.$request({
+					url:'/preferentialPolicies/industryChoose',
+					data:{
+						'industry':industryKindArr,
+						'enterpriseId':_this.$store.state.id
+					}
+				}).then(res =>{
+					let data =res[1].data
+					console.log('industryChoose')
+					console.log(data)
+					console.log('choose end')
+					if(data.statusCode == 2000){
+						uni.navigateTo({		//将选好的行业传到下一页面
+							url:'friendlyPolicy?changeTime='+changeTime+'&industryKindArr='+industryKindArr,
+							// url:'enterprise?obj='+encodeURIComponent(JSON.stringify(obj))
+							})
+						// 需要执行 done 才能关闭对话框
+						done()
+					}else{
+						console.log(data.statusMsg)
+					}
+					//debugger
+				}).catch(err =>{
+					console.log(err)
+				})
 			},
 			/**
 			 * 对话框取消按钮

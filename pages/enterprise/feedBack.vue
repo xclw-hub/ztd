@@ -277,20 +277,29 @@
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #333333;
+<<<<<<< HEAD
 		/* line-height: 100rpx; */
+=======
+		line-height: 100rpx;
+>>>>>>> rj
 	}
 	.uploadImg .title .tips #tip2{
 		font-size: 28rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #AAAAAA;
+<<<<<<< HEAD
 		/* line-height: 100rpx; */
+=======
+		line-height: 100rpx;
+>>>>>>> rj
 	}
 	.uploadImg .title #tip3{
 		font-size: 24rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #999999;
+<<<<<<< HEAD
 		/* line-height: 100rpx; */
 	}
 	.upload image{
@@ -309,6 +318,13 @@
 		height: 40rpx;
 		top: -210rpx; 
 		right: -10rpx;
+=======
+		line-height: 100rpx;
+	}
+	.uploadImg .upload image{
+		width: 200rpx;
+		height: 200rpx;
+>>>>>>> rj
 	}
 	.contact .tips #tip1{
 		font-size: 32rpx;

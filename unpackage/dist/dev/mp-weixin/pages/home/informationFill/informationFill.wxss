@@ -113,7 +113,12 @@ page {
   width: 72rpx;
   height: 40rpx;
   background: #2D6BDD;
+<<<<<<< HEAD
   border-radius: 5rpx;
+=======
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
+>>>>>>> rj
   margin-right: 15rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -135,7 +140,12 @@ page {
   width: 72rpx;
   height: 40rpx;
   border: 2rpx solid #2D6BDD;
+<<<<<<< HEAD
   border-radius: 5Rpx;
+=======
+  -webkit-border-radius: 5Rpx;
+          border-radius: 5Rpx;
+>>>>>>> rj
   margin-right: 15rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -157,7 +167,12 @@ page {
   width: 72rpx;
   height: 40rpx;
   background: #BFBFBF;
+<<<<<<< HEAD
   border-radius: 5rpx;
+=======
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
+>>>>>>> rj
   margin-right: 15rpx;
   display: -webkit-box;
   display: -webkit-flex;

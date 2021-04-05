@@ -29,9 +29,14 @@
   top: 0;
   left: 0;
   right: 0;
+<<<<<<< HEAD
   z-index: -10;
   background-color: #2D6BDD;
   padding-top: 36rpx;
+=======
+  background-color: #2D6BDD;
+  padding-top: 56rpx;
+>>>>>>> rj
   padding-bottom: 56rpx;
   padding-left: 40rpx;
   padding-right: 40rpx;
@@ -89,14 +94,23 @@
 }
 .body {
   background: #FFFFFF;
+<<<<<<< HEAD
   border-radius: 30rpx 30rpx 0px 0px;
+=======
+  -webkit-border-radius: 30rpx 30rpx 0px 0px;
+          border-radius: 30rpx 30rpx 0px 0px;
+>>>>>>> rj
   padding-top: 49rpx;
   padding-left: 39rpx;
   padding-right: 39rpx;
   padding-bottom: 40rpx;
   position: absolute;
   overflow: scroll;
+<<<<<<< HEAD
   top: 240rpx;
+=======
+  top: 260rpx;
+>>>>>>> rj
   bottom: 0;
 }
 .body .description {
@@ -213,9 +227,17 @@
   width: 100%;
   height: 214rpx;
   border: 1rpx solid #BEBEBE;
+<<<<<<< HEAD
   border-radius: 5rpx;
   padding: 28rpx;
   box-sizing: border-box;
+=======
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
+  padding: 28rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+>>>>>>> rj
   font-size: 28rpx;
   font-family: Source Han Sans CN;
   font-weight: 400;
@@ -225,7 +247,12 @@
 .body button {
   height: 84rpx;
   background: #2D6BDD;
+<<<<<<< HEAD
   border-radius: 10rpx;
+=======
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+>>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

@@ -4,9 +4,16 @@
 		top: 0;
 		left: 0;
 		right: 0;
+<<<<<<< HEAD
 		z-index: -10;
 		background-color: #2D6BDD;
 		padding-top: 36rpx;
+=======
+		/* z-index: -10; */
+		background-color: #2D6BDD;
+		/* padding-top: 36rpx; */
+		padding-top: 56rpx;
+>>>>>>> rj
 		padding-bottom: 56rpx;
 		padding-left: 40rpx;
 		padding-right: 40rpx;
@@ -68,7 +75,12 @@
 .body.data-v-c4f26e6c{
 		width: 100%;
 		background: #FFFFFF;
+<<<<<<< HEAD
 		border-radius: 30rpx 30rpx 0px 0px;
+=======
+		-webkit-border-radius: 30rpx 30rpx 0px 0px;
+		        border-radius: 30rpx 30rpx 0px 0px;
+>>>>>>> rj
 		/* position: relative; */
 		/* top:88rpx; */
 		/* top:-48rpx; */
@@ -76,7 +88,12 @@
 		position: absolute;
 		/* z-index: 20; */
 		overflow: scroll;
+<<<<<<< HEAD
 		top: 140rpx;
+=======
+		/* top: 140rpx; */
+		top: 160rpx;
+>>>>>>> rj
 		bottom: 0;
 }
 .body .content.data-v-c4f26e6c{
@@ -179,8 +196,15 @@
 		width: 160rpx;
 		height: 70rpx;
 		background: #FFFFFF;
+<<<<<<< HEAD
 		box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
 		border-radius: 10rpx;
+=======
+		-webkit-box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
+		        box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
+		-webkit-border-radius: 10rpx;
+		        border-radius: 10rpx;
+>>>>>>> rj
 		position:absolute;
 		top: 110rpx;
 		right: 40rpx;

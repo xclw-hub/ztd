@@ -62,7 +62,9 @@
 		components:{uniNavBar},
 		data() {
 			return {
-				questionnaire:[
+				questionnaire:[],
+				ids:[],
+				/* questionnaire:[
 					{
 						flag:0,		//未填
 						startTime:'2021-02-19  12:00',
@@ -74,7 +76,7 @@
 						discription:'为了更好地为园区企业提供便捷、高效的服务，优化营商环境，特开展此次调查问卷，请您结合自身遇到的问题，填写调查问卷。感谢您的支持',
 						content:[
 							{
-								kind:0,		//0表示单项选择题
+								kind:1,		//1表示单项选择题
 								question:'企业的性质？',
 								result:'',
 								answer:[
@@ -97,7 +99,7 @@
 								]
 							},
 							{
-								kind:1,		//1表示多项选择题
+								kind:2,		//2表示多项选择题
 								question:'企业认为最需要加强哪些方面的融资服务？',
 								result:[],
 								answer:[
@@ -120,7 +122,7 @@
 								]
 							},
 							{
-								kind:2,		//2表示问答题
+								kind:3,		//3表示问答题
 								question:'对进一步优化园区营商环境，企业希望得到 政府哪些方面的改进？',
 								result:''
 							},
@@ -252,8 +254,128 @@
 							},
 						]
 					}
-				]
+				] */
 			}
+		},
+		onLoad(option){
+			let _this = this
+			let token
+			/* uni.setStorage({
+				key:'token',
+				data:'11888311eb09e1c31467236120fc3d67'
+			}) */
+			uni.getStorage({
+				key:'token',
+				success:function(res){
+					token = res.data
+					if(token){
+						_this.$request({
+							url:'/callQuestionnaires',
+							data:{
+								'token':token,
+								'userId':_this.$store.state.id,
+								'type':_this.$store.state.kind
+							}
+						}).then(res =>{
+							if(res[1].data.statusCode != 2000){
+								console.log('callQuestionnaires')
+								console.log(res[1].data.statusMsg)
+							}
+							else{
+								let questionnaireIds = res[1].data.questionnaireIds
+								let length = questionnaireIds.length
+								for(let i = 0;i<length;i++){
+									_this.$request({
+										url:'/getQuestionDetails',
+										data:{
+											'token':token,
+											'questionnaireId':questionnaireIds[i]
+										}
+									}).then(res =>{
+										let data=res[1].data
+										if(data.success == false){
+											console.log(data.message)
+										}
+										else{
+											data = data.data
+											console.log('问卷数据：')
+											console.log(data)
+											_this.questionnaire.push({
+												formId:'',
+												flag:0,
+												startTime:data.starttime,
+												endTime:data.endtime,
+												title:data.title,
+												publisher:data.author,
+												checker:data.examine,
+												time:data.time,
+												discription:data.content,
+												content:[],
+											})
+											_this.ids.push(questionnaireIds[i])
+											let len = data.information.length
+											let index = _this.questionnaire.length - 1
+											for(let j = 0;j<len;j++){
+												_this.questionnaire[index].content.push({
+													kind:data.information[j].type,
+													question:data.information[j].title,
+													result:'',
+													answer:[]
+												})
+												for(let k = 0;k<data.information[j].options.length;k++){
+													_this.questionnaire[index].content[_this.questionnaire[index].content.length-1].answer.push({
+														value:data.information[j].options[k],
+														checked:false
+													})
+												}
+											}
+											//判断问卷类型，即已填、未填、过期
+											var endtime = new Date(_this.questionnaire[index].endTime)
+											var date = new Date()
+											if(endtime.getTime() < date.getTime()){//大于号应该为小于号
+												_this.questionnaire[index].flag = 2
+											}else{
+												_this.$request({
+													url:'/isDuplicateFill',
+													data:{
+														'token':token,
+														'userId':_this.$store.state.id,
+														'type':_this.$store.state.kind,
+														'questionnaireId':questionnaireIds[i]
+														/* 'questionnaireId':2 */
+													}
+												}).then(res =>{
+													data = res[1].data
+													console.log('问卷重复填写数据:')
+													console.log(data)
+													console.log(questionnaireIds[i])
+													if(data.statusCode != 2000){
+														_this.questionnaire[index].flag = 1
+														console.log(data.statusMsg)
+													}else{
+														_this.questionnaire[index].flag = 0
+														_this.questionnaire[index].formId = data.formId
+													}
+												}).catch(err =>{
+													console.log(err)
+												})
+											}
+										}
+									}).catch(err =>{
+										console.log(err)
+									})
+								}
+							}
+						}).catch(err =>{
+							console.log('callQuestionnaires')
+							console.log(err)
+						})
+					}
+				},
+				fail:function(err){
+					console.log('没有存储token，无法使用token登录')
+				}
+			})
 		},
 		methods:{
 			clickBack(){
@@ -275,17 +397,17 @@
 				}
 				if(obj.flag===0){		//进入未填页面
 					uni.navigateTo({
-						url:'questionnaireNoFill?param='+JSON.stringify(param)
+						url:'questionnaireNoFill?param='+JSON.stringify(param)+'&questionnaireId='+this.ids[index]+'&formId='+this.questionnaire[index].formId
 					})
 				}
 				else if(obj.flag===1){		//进入已填页面
 					uni.navigateTo({
-						url:'questionnaireFilled?param='+JSON.stringify(param)
+						url:'questionnaireFilled?param='+JSON.stringify(param)+'&questionnaireId='+this.ids[index]
 					})
 				}
 				else{		//进入过期页面
 					uni.navigateTo({
-						url:'questionnaireOverdue?param='+JSON.stringify(param)
+						url:'questionnaireOverdue?param='+JSON.stringify(param)+'&questionnaireId='+this.ids[index]
 					})
 				}
 				console.log(param)

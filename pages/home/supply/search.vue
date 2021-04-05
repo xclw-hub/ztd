@@ -6,7 +6,7 @@
 			</view>
 			<view class="navbar_search">
 				<view class="img1">
-					<image src="../../../static/home/search.png"></image>
+					<image src="../../../static/home/search.png" @click="clickSearch"></image>
 				</view>
 				<input
 				 :placeholder="searchPlaceholder"
@@ -27,7 +27,7 @@
 		<view class="emptyResult" v-show="!showHistory && showEmpty">
 			<image src="../../../static/home/emptyResult.png"></image>
 			<view class="textbox">
-				<text>没有找到关键词“机器人”的搜索结果您可以换个搜索词试试~</text>
+				<text>没有找到关键词“{{searchContent}}”的搜索结果您可以换个搜索词试试~</text>
 			</view>
 		</view>
 		
@@ -43,9 +43,9 @@
 											省份
 										</view>
 										<view class="provinceList">
-											<view class="provinceItem" :class="provinceCurrent==index?'active':''"
-												v-for="(item,index) in provinceList" :key='index'  @click.stop="tapprovinceItem(index)">
-												{{item}}
+											<view class="provinceItem" :class="provinceCurrent.title==item.title?'active':''"
+												v-for="(item,index) in provinceList" @click.stop="tapprovinceItem(item)">
+												{{item.title}}
 											</view>
 										</view>
 									</view>
@@ -54,9 +54,9 @@
 											城市
 										</view>
 										<view class="cityList">
-											<view class="cityItem" :class="cityCurrent==index?'active':''"
-												v-for="(item,index) in cityList" :key='index' @click.stop="tapcityItem(index)">
-												{{item}}
+											<view class="cityItem" :class="cityCurrent.title==item.title?'active':''"
+												v-for="(item,index) in cityList" @click.stop="tapcityItem(item)">
+												{{item.title}}
 											</view>
 										</view>
 									</view>
@@ -79,13 +79,13 @@
 									</view>
 									<view class="priceinput">
 										<view class="inputitem">
-											<input type="number" placeholder="最低价" v-model="minprice" />
+											<input type="number" placeholder="最低价" v-model="minPrice" />
 										</view>
 										<view class="middleLine">
 				
 										</view>
 										<view class="inputitem">
-											<input type="number" placeholder="最高价" v-model="maxprice" />
+											<input type="number" placeholder="最高价" v-model="maxPrice" />
 										</view>
 									</view>
 									<view class="tips">
@@ -109,8 +109,8 @@
 			
 			<view class="pad">
 				<view class="listCon">
-					<view class="item" v-for="(item, index) in searchSupplyList" :key="index" @click="tapdetail">
-						<image class="goodsimg" :src="item.imgSrc"
+					<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail">
+						<image class="goodsimg" :src="item.pic"
 						 mode=""></image>
 						<view class="name u-line-2">
 							{{item.title}}
@@ -126,7 +126,7 @@
 						<view class="position">
 							<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
 							<view class="city">
-								{{item.province}}{{item.city}}
+								{{item.source}}
 							</view>
 						</view>
 					</view>
@@ -156,9 +156,6 @@
 	export default {
 		components:{
 		},
-		onLoad(){
-			this.readLocalStorage()
-		},
 		data() {
 			return {
 				historyShowNumber:7,	//显示的历史记录的数量
@@ -170,69 +167,211 @@
 				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
 				region: "不限地区",
 				price: "不限价格",
-				provinceList: ["不限", "北京", "天津", "上海", "重庆", "河北", "辽宁", "黑龙江", "江西", "浙江", "安徽", "山东", "河南", "湖北", "江西",
-					"浙江", "安徽", "山东", "河南", "湖北"
-				],
-				cityList: ["不限"],
-				provinceCurrent: 0,
-				cityCurrent: 0,
-				minprice: "",
-				maxprice: "",
-				supplyList:[
-					{
-						title:'厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱',
-						price:18800.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},{
-						title:'厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱',
-						price:18800.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},{
-						title:'厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱',
-						price:18800.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},{
-						title:'厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱',
-						price:18800.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},{
-						title:'厂家供应 23L小型湿热试验箱 迷你型高低温交变湿热试验箱',
-						price:18800.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},
-					{
-						title:'步入式高低温恒温恒湿试验箱 大型高低温交变湿热试验箱',
-						price:280000.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},
-					{
-						title:'达人机床 工业立式多孔钻床 机床台钻 高效率 大功率厂家真销攻丝',
-						price:10000.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					},
-					{
-						title:'新款伺服电机400W 伺服定位控制系统现货批发',
-						price:1155.00,
-						province:'广东',
-						city:'东莞',
-						imgSrc:'https://img10.360buyimg.com/n1/jfs/t1/16292/24/12844/316759/5c9b2f9dEf55358d0/fe0b8cbb7e4f27d0.jpg'
-					}
-				],
-				searchSupplyList:[]			//点击搜索后过滤的文章列表
+				provinceList: [{
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				}],
+				cityList: [{
+					"pkid": 0,
+					"title": "不限"
+				}],
+				provinceCurrent: {
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				},
+				cityCurrent: {
+					"pkid": 0,
+					"title": "不限"
+				},
+				minPrice: "",
+				maxPrice: "",
+				pageNumber: 1,
+				dataList: [],
+				keyword:''
+			}
+		},
+		onLoad(){
+			this.readLocalStorage()
+			let that = this
+			let token = uni.getStorageSync('token');
+			this.pageNumber = 1
+			that.$request({
+				url: '/supplyAddressList',
+				data: {
+					token,
+					type: that.$store.state.kind
+				},
+			}).then(res => {
+				let gt = res[1].data.data
+				let index
+				for (index in gt) {
+					that.provinceList.push(gt[index])
+				}
+			})
+		},
+		onReachBottom() {
+			let that = this
+			let province = this.provinceCurrent.title;
+			let city = this.cityCurrent.title;
+			if (province == "不限" && city == "不限") {
+				this.region = "不限地区";
+				let token = uni.getStorageSync('token');
+				let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+				console.log({
+					token,
+					type: that.$store.state.kind,
+					page: that.pageNumber + 1,
+					minPrice,
+					maxPrice,
+					keyword: that.keyword,
+					memberId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.parkId
+				})
+				if (that.$store.state.kind == '0') {
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						},
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				} else {
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							memberId: that.$store.state.userInfo.parkId,
+							/* companyId: that.$store.state.enterpriseInfo.parkId */
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							console.log(_this.dataList)
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				}
+				return;
+			} else {
+				if (city) {
+					this.region = province + ' ' + city;
+				} else {
+					this.region = province;
+				}
+				let token = uni.getStorageSync('token');
+				let minPrice = Number(this.minPrice);
+				let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+				console.log({
+					token,
+					type: that.$store.state.kind,
+					page: that.pageNumber + 1,
+					address: that.region,
+					minPrice,
+					maxPrice,
+					keyword: that.keyword,
+					memberId: that.$store.state.userInfo.parkId,
+					companyId: that.$store.state.enterpriseInfo.parkId
+				})
+				if (that.$store.state.kind == '0') {
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumbe + 1,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				} else {
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							memberId: that.$store.state.userInfo.parkId,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
+				}
 			}
 		},
 		methods: {
@@ -255,6 +394,7 @@
 			// 清空搜索框的输入内容
 			clearSearchContent(){
 				this.searchContent=''
+				this.keyword=''
 				this.showHistory=true
 				this.showEmpty=false
 			},
@@ -268,12 +408,14 @@
 						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyArr
 					}
 					//过滤企业列表,如果该企业的行业种类数组中包含搜索关键字则加入显示列表
-					this.searchSupplyList=this.supplyList.filter(item => item.title.includes(this.searchContent))
+					/* this.searchSupplyList=this.supplyList.filter(item => item.title.includes(this.searchContent))
 					if(this.searchSupplyList.length <= 0){
 						this.showEmpty = true
 					}else{
 						this.showEmpty = false
-					}
+					} */
+					this.keyword = this.searchContent
+					this.tapsaveregion()
 					this.saveHistory()
 				}
 			},
@@ -315,52 +457,218 @@
 					url: './supplydetail'
 				})
 			},
-			tapprovinceItem(index) {
-				this.provinceCurrent = index;
+			tapprovinceItem(item) {
+				let that = this
+				that.provinceCurrent = item;
+				that.cityList = item.city
+				if (that.provinceCurrent.title == '不限') {
+					that.cityCurrent = {
+						"pkid": 0,
+						"title": "不限"
+					}
+				}
+				if (that.cityList.length == 0) {
+					that.cityCurrent = {}
+				}
 			},
-			tapcityItem(index) {
-				this.cityCurrent = index;
+			tapcityItem(item) {
+				let that = this
+				that.cityCurrent = item;
 			},
 			tapresetregion() {
-				this.provinceCurrent = 0;
-				this.cityCurrent = 0;
+				this.provinceCurrent = {
+					"pkid": 0,
+					"title": "不限",
+					"city": [{
+						"pkid": 0,
+						"title": "不限"
+					}]
+				};
+				this.cityCurrent = {
+					"pkid": 0,
+					"title": "不限"
+				};
+				this.cityList = [{
+					"pkid": 0,
+					"title": "不限"
+				}]
 				this.region = "不限地区";
 				this.$refs.uDropdown.close();
 			},
 			tapsaveregion() {
-				let province = this.provinceList[this.provinceCurrent];
-				let city = this.cityList[this.cityCurrent];
+				this.pageNumber = 1
+				let that = this
+				let province = this.provinceCurrent.title;
+				let city = this.cityCurrent.title;
 				if (province == "不限" && city == "不限") {
 					this.region = "不限地区";
+					let token = uni.getStorageSync('token');
+					let minPrice = Number(this.minPrice);
+					let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+					console.log({
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber,
+						minPrice,
+						maxPrice,
+						keyword: that.keyword,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId
+					})
+					if (that.$store.state.kind == '0') {
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					} else {
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								memberId: that.$store.state.id,
+								companyId: that.$store.state.userInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					}
 					this.$refs.uDropdown.close();
 					return;
 				} else {
-					this.region = province;
+					if (city) {
+						this.region = province + ' ' + city;
+					} else {
+						this.region = province;
+					}
+					let token = uni.getStorageSync('token');
+					let minPrice = Number(this.minPrice);
+					let maxPrice
+				if (that.maxPrice == '') {
+					maxPrice = 999999.99
+				} else {
+					maxPrice = Number(this.maxPrice);
+				}
+					console.log({
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber,
+						address: that.region,
+						minPrice,
+						maxPrice,
+						keyword: that.keyword,
+						memberId: that.$store.state.id,
+						companyId: that.$store.state.userInfo.enterpriseId
+					})
+					if (that.$store.state.kind == '0') {
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								address: that.region,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					} else {
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								address: that.region,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								memberId: that.$store.state.id,
+								companyId: that.$store.state.userInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
+					}
 					this.$refs.uDropdown.close();
 				}
 			},
 			priceCancel() {
+				let that = this
+				that.minPrice=''
+				that.maxPrice=''
+				this.price='不限价格'
 				this.$refs.uDropdown.close();
+			
 			},
 			pricesave() {
-				if (this.minprice == "" || this.maxprice == "") {
+				if (this.minPrice == "" || this.maxPrice == "") {
 					return uni.showToast({
 						title: '请输入价格区间',
 						icon: 'none'
 					})
 				}
 			
-				if (this.maxprice < this.minprice) {
+				if (this.maxPrice < this.minPrice) {
 					return uni.showToast({
 						title: '最高价必须高于最低价',
 						icon: 'none'
 					})
 				}
-			
-				let minprice = Number(this.minprice);
-				let maxprice = Number(this.maxprice);
-			
-				this.price = minprice.toFixed(2) + '-' + maxprice.toFixed(2);
+				let minPrice = Number(this.minPrice);
+				if(this.maxPrice==''){
+					this.price = minPrice.toFixed(2) + '-' + maxPrice;
+				}else{
+					let maxPrice = Number(this.maxPrice);
+					this.price = minPrice.toFixed(2) + '-' + maxPrice.toFixed(2);
+				}
 				this.$refs.uDropdown.close();
 			}
 		}

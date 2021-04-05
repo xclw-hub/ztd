@@ -19,7 +19,8 @@
 				</view>
 			</view>
 			<view class="content">
-				<text>{{policy.content}}</text>
+				<!-- <text>{{policy.content}}</text> -->
+				<rich-text :nodes="policy.content"></rich-text>
 				<text>附件：{{policy.attachment}}</text>
 				<text>{{policy.publisher}}</text>
 			</view>
@@ -38,6 +39,13 @@
 		data() {
 			return {
 				policy:{
+					title:'',
+					time:'',
+					serialNumber:'',
+					content:'',
+					attachment:'',
+					publisher:''
+					/* 
 					title:`国家发展改革委办公厅 关于2020年生物质发
 电补贴项目申报结果的通知
 `,
@@ -56,8 +64,31 @@
 					国家发展改革委办公厅
 国家能源局综合司
 2020年11月17日`
-				}
+				 */}
 			};
+		},
+		onLoad(option){
+			let _this = this
+			console.log('policyId')
+			console.log(option.policyId)
+			_this.$request({
+				url:'/preferentialPolicies/Detail',
+				data:{
+					'policyId':option.policyId
+				}
+			}).then(res =>{
+				console.log('policyDetail')
+				console.log(res[1].data)
+				let data = res[1].data
+				_this.policy.title = data.title
+				_this.policy.serialNumber='发改办能源〔2020〕865号'
+				_this.policy.content=data.content
+				_this.policy.attachment='2020年生物质发电中央补贴项目申报结果'
+				_this.policy.publisher=data.source
+				_this.policy.time=data.publicTime
+			}).catch(err =>{
+				console.log(err)
+			})
 		},
 		methods:{
 			clickBack(){

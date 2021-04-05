@@ -55,7 +55,12 @@
 	height: 88rpx;
 	background: #FFFFFF;
 	/* box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5); */
+<<<<<<< HEAD
 	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
 }
 .addContact text.data-v-04d95f88{
 	font-size: 34rpx;
