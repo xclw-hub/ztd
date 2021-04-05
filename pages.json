@@ -1,0 +1,565 @@
+{
+    "easycom" : {
+        "^u-(.*)" : "@/uview-ui/components/u-$1/u-$1.vue"
+    },
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+            "path" : "pages/login/index",
+            "style" : {
+                "navigationBarTitleText" : "",
+                // "navigationStyle":"default",
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/register",
+            "style" : {
+                "navigationBarTitleText" : "企业注册",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/enterpriseLogin",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/personLogin",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/phoneNumberBind",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/personVerificationCodeLogin",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/passwordForget",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/protocol",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/myPark/parkBind",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/home",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom",
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/home/search",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/contact",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/addContact",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/add_Contact",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/contactList",
+            "style" : {
+                "navigationBarTitleText" : "联系人",
+                "enablePullDownRefresh" : false,
+                "navigationBarBackgroundColor" : "#2D6BDD",
+                "navigationBarTextStyle" : "white"
+            }
+        },
+        // ,{
+        //     "path" : "pages/enterprise/contact/editContacts",
+        //     "style" :                                                                                    
+        //     {
+        //        "navigationBarTitleText": "联系人",
+        //        "enablePullDownRefresh": false,
+        //        "navigationBarBackgroundColor":"#2D6BDD",
+        //        "navigationBarTextStyle":"white"
+        //     }
+        // }
+        {
+            "path" : "pages/enterprise/contact/detail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/changePassword",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/enterprise",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/about",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/changePhoneNumber",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/feedBack",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/myPark/parkApply",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/login/parkSelect",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/informationPublish/informationPublish",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/informationPublish/publish",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/informationPublish/publishDetails",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/inform",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/systemInform",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/meetingInform",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/feedBackInform",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/feedBackDetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/inform/enterpriseDetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+		{
+		    "path" : "pages/enterprise/inform/policyInform",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/enterprise/inform/rectifyInform",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/enterprise/inform/rectifyDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+		    }
+		    
+		},
+        {
+            "path" : "pages/enterprise/industrySelect",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/informationFill/informationFill",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/informationFill/questionnaireNoFill",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/informationFill/questionnaireFilled",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/informationFill/questionnaireOverdue",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/myGoods/goodsdetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/myGoods/myGoods",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/myGoods/publish",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/supply/supply",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/supply/search",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/supply/supplydetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/supply/like",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/supply/publish",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/noticeAnnouncement/noticeAnnouncement",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/noticeAnnouncement/activityPolicydetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/noticeAnnouncement/importantNoticedetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/friendlyPolicy/friendlyPolicy",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/friendlyPolicy/industrySelect",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/friendlyPolicy/policyDetail",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/enterpriseSevice/enterpriseSevice",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : true,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/enterpriseSevice/search",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : true,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/financeAssistant/financeAssistant",
+            "style" : {
+                "navigationBarTitleText" : "",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/home/financeAssistant/financeAssistantDetail",
+            "style" : {
+                "navigationBarTitleText" : "详情",
+                "enablePullDownRefresh" : false,
+                "navigationBarBackgroundColor" : "#2D6BDD",
+                "navigationBarTextStyle" : "white"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/selectjob",
+            "style" : {
+                "navigationBarTitleText" : "选择职务",
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        },
+        {
+            "path" : "pages/enterprise/contact/changeContact",
+            "style" : {
+                "enablePullDownRefresh" : false,
+                "navigationStyle" : "custom"
+            }
+        }
+        ,{
+            "path" : "pages/home/meetingInform/meetingInform",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle" : "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/meetingInform/meetingDetailNoApply",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+        		"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/meetingInform/meetingDetailApplied",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+        		"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/meetingInform/addParticipator",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+        		"navigationStyle" : "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle" : "custom"
+            }
+            
+        }
+    ],
+    "globalStyle" : {
+        "navigationBarTextStyle" : "black",
+        "navigationBarTitleText" : "招通达",
+        // "navigationBarBackgroundColor": "#F8F8F8",
+        "navigationBarBackgroundColor" : "#FFFFFF",
+        "backgroundColor" : "#F8F8F8"
+    }
+}

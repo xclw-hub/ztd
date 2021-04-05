@@ -1,0 +1,83 @@
+
+.uniNavBar_left.data-v-412db510, .uniNavBar_center.data-v-412db510{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.uniNavBar_left image.data-v-412db510{
+	width: 36rpx;
+	height: 36rpx;
+}
+.uniNavBar_center.data-v-412db510{
+	text-align: center;
+}
+.uniNavBar_center text.data-v-412db510{
+	font-size: 36rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+.content.data-v-412db510{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.content image.data-v-412db510{
+	margin-top: 176rpx;
+	width: 531rpx;
+	height: 385rpx;
+}
+.content #tip1.data-v-412db510{
+	margin-top: 70rpx;
+	font-size: 36rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #666666;
+}
+.content #tip2.data-v-412db510{
+	margin-top: 30rpx;
+	font-size: 26rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+}
+.content .apply.data-v-412db510{
+	margin-top: 65rpx;
+	width: 580rpx;
+	height: 88rpx;
+	background: #2D6BDD;
+	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	border-radius: 10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.apply text.data-v-412db510{
+	font-size: 34rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 500;
+	color: #FFFFFF;
+}
+

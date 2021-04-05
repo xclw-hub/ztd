@@ -1,0 +1,180 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uniNavBar_left.data-v-f494f904, .uniNavBar_center.data-v-f494f904, .uniNavBar_right.data-v-f494f904 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.uniNavBar_left image.data-v-f494f904 {
+  width: 20rpx;
+  height: 36rpx;
+}
+.uniNavBar_center.data-v-f494f904 {
+  text-align: center;
+}
+.uniNavBar_center text.data-v-f494f904 {
+  font-size: 36rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+}
+.uniNavBar_right .uniNavBar_right_box.data-v-f494f904 {
+  width: 90rpx;
+  height: 54rpx;
+  background: #2D6BDD;
+  border-radius: 5rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.uniNavBar_right_box text.data-v-f494f904 {
+  font-size: 26rpx;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 32rpx;
+}
+.content.data-v-f494f904 {
+  padding-left: 39rpx;
+  padding-right: 39rpx;
+}
+/* 	.title{
+		display: flex;
+		flex-direction: column;
+		margin-top: 50rpx;
+	} */
+.title ._span.data-v-f494f904 {
+  font-size: 48rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: #333333;
+  line-height: 26rpx;
+}
+.placeholderStyle.data-v-f494f904 {
+  font-size: 28rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #AAAAAA;
+  line-height: 26rpx;
+}
+._table.data-v-f494f904 {
+  margin-top: 20rpx;
+  border-bottom: 1rpx solid #C7C7C7;
+  margin-left: 39rpx;
+  margin-right: 39rpx;
+}
+._tr.data-v-f494f904 {
+  height: 191rpx;
+  border: 1rpx solid #C7C7C7;
+}
+._tr ._span.data-v-f494f904 {
+  font-size: 32rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+  line-height: 26rpx;
+}
+.style1.data-v-f494f904 {
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  position: relative;
+}
+.style1 .rightArrow.data-v-f494f904 {
+  position: absolute;
+  right: 60rpx;
+  bottom: 0rpx;
+}
+.style1 .rightArrow image.data-v-f494f904 {
+  width: 17rpx;
+  height: 30rpx;
+}
+.style1 input.data-v-f494f904 {
+  margin-top: 46rpx;
+}
+.people.data-v-f494f904 {
+  -webkit-box-flex: 25;
+  -webkit-flex: 25;
+          flex: 25;
+  font-size: 32rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+  line-height: 26rpx;
+}
+.contactPeople.data-v-f494f904 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  /*指定垂直居中*/
+}
+.bt.data-v-f494f904 {
+  -webkit-box-flex: 10;
+  -webkit-flex: 10;
+          flex: 10;
+}
+.contactWarn.data-v-f494f904 {
+  margin-top: 46rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  height: 28rpx;
+}
+.contactWarn image.data-v-f494f904 {
+  height: 100%;
+}
+.warnContent.data-v-f494f904 {
+  padding-left: 10rpx;
+  font-size: 28rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #AAAAAA;
+  line-height: 26rpx;
+}
+
