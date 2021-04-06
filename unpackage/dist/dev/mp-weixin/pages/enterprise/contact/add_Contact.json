@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "evan-switch": "/components/evan-switch/evan-switch",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
+  }
+}

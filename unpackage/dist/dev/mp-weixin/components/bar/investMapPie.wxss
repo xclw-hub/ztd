@@ -1,0 +1,6 @@
+
+.canvasView{
+	height: inherit;
+	width: inherit;
+}
+

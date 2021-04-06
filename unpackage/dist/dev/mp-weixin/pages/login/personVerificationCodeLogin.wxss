@@ -1,0 +1,234 @@
+
+.uniNavBar_left.data-v-00d6077d, .uniNavBar_right.data-v-00d6077d{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.uniNavBar_left image.data-v-00d6077d{
+	width: 20rpx;
+	height: 36rpx;
+}
+.uniNavBar_right ._span.data-v-00d6077d{
+	white-space: nowrap;		/* 禁止换行 */
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 500;
+	color: #2D6BDD;
+	line-height: 26rpx;
+}
+.content.data-v-00d6077d{
+	padding-left: 39rpx;
+	padding-right: 39rpx;
+}
+.title.data-v-00d6077d{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	        justify-content: flex-start;
+	margin-top: 50rpx;
+}
+.title #btn.data-v-00d6077d{
+	font-size: 34rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #999999;
+	line-height: 26rpx;
+}
+.title #psw.data-v-00d6077d{
+	border-left:1rpx solid #9C9C9C;
+	padding-left: 29rpx;
+	margin-left: 29rpx;
+}
+.title #psw ._span.data-v-00d6077d{
+	font-size: 48rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 500;
+	color: #333333;
+	line-height: 26rpx;
+}
+.placeholderStyle.data-v-00d6077d{
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+	line-height: 26rpx;
+}
+._table.data-v-00d6077d
+{
+	margin-top: 20rpx;
+	border-bottom:1rpx solid #C7C7C7;
+}
+._tr.data-v-00d6077d {
+	height: 191rpx;
+	border:1rpx solid #C7C7C7;
+}
+._tr .tr_style.data-v-00d6077d{
+	margin-top: 50rpx;
+	margin-bottom: 40rpx;
+}
+._tr ._span.data-v-00d6077d{
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+	line-height: 26rpx;
+}
+._tr #phone.data-v-00d6077d{
+	margin-top: 46rpx;
+}
+.verification_magin.data-v-00d6077d{
+	margin-top: 50rpx;
+	margin-bottom: 16rpx;
+}
+.verification.data-v-00d6077d{
+	margin-top: 46rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align:center;
+	-webkit-align-items:center;
+	        align-items:center;
+}
+#area.data-v-00d6077d{
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	        flex-grow: 1;
+}
+.active1_btn.data-v-00d6077d{		/* 获取验证码按键按下前的button样式 */
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 220rpx;
+	height: 70rpx;
+	background:#FFFFFF;
+	border: 1rpx solid #2E6BDE;
+<<<<<<< HEAD
+	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
+}
+.active2_btn.data-v-00d6077d{		/* 获取验证码按键按下后的button样式 */
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 220rpx;
+	height: 70rpx;
+	background: #F5F5F5;
+<<<<<<< HEAD
+	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
+}
+.active1_tips.data-v-00d6077d{		/* 获取验证码按键按下前的span样式 */
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #2E6BDE;
+	line-height: 26rpx;
+	white-space: nowrap;		/* 禁止换行 */
+}
+.active2_tips.data-v-00d6077d{		/* 获取验证码按键按下后的span样式 */
+	font-size: 26rpx;
+	font-family: Arial;
+	font-weight: 400;
+	color: #888888;
+	line-height: 26rpx;
+	white-space: nowrap;		/* 禁止换行 */
+}
+.footer.data-v-00d6077d{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 50rpx;
+}
+.footer button.data-v-00d6077d{		
+	display: -webkit-box;		
+	display: -webkit-flex;		
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	width: 670rpx;
+	height: 88rpx;
+	background: #2E6BDE;
+<<<<<<< HEAD
+	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	border-radius: 10rpx;
+=======
+	-webkit-box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	        box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
+}
+.footer ._span.data-v-00d6077d{
+	font-size: 34rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 26rpx;
+}
+.pswForget.data-v-00d6077d{
+	margin-top: 60rpx;
+}
+.pswForget text.data-v-00d6077d{
+	font-size: 30rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #777777;
+	line-height: 26rpx;
+}
+

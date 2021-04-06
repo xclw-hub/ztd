@@ -1,0 +1,134 @@
+
+.uniNavBar_left.data-v-abc74bac, .uniNavBar_center.data-v-abc74bac, .uniNavBar_right.data-v-abc74bac{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.uniNavBar_left image.data-v-abc74bac{
+	width: 36rpx;
+	height: 36rpx;
+}
+.uniNavBar_center.data-v-abc74bac{
+	text-align: center;
+}
+.uniNavBar_center text.data-v-abc74bac{
+	font-size: 36rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+.uniNavBar_right text.data-v-abc74bac{
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 32rpx;
+}
+.content.data-v-abc74bac{
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+}
+.problem text.data-v-abc74bac{
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+	line-height: 100rpx;
+}
+.problem .area.data-v-abc74bac{
+	height: 350rpx;
+	background-color: #F5F5F5;
+<<<<<<< HEAD
+	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
+	padding-left: 30rpx;
+	padding-top: 30rpx;
+	padding-right: 30rpx;
+}
+.area textarea.data-v-abc74bac{
+	width: 100%;
+}
+.placeholderStyle.data-v-abc74bac{
+	font-size: 28rrpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+}
+.uploadImg .title.data-v-abc74bac{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.uploadImg .title .tips #tip1.data-v-abc74bac{
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+	line-height: 100rpx;
+}
+.uploadImg .title .tips #tip2.data-v-abc74bac{
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+	line-height: 100rpx;
+}
+.uploadImg .title #tip3.data-v-abc74bac{
+	font-size: 24rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #999999;
+	line-height: 100rpx;
+}
+.uploadImg .upload image.data-v-abc74bac{
+	width: 200rpx;
+	height: 200rpx;
+}
+.contact .tips #tip1.data-v-abc74bac{
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+	line-height: 100rpx;
+}
+.contact .tips #tip2.data-v-abc74bac{
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+	line-height: 100rpx;
+}
+.contact .contactMethod.data-v-abc74bac{
+	height: 88rpx;
+	background: #F5F5F5;
+<<<<<<< HEAD
+	border-radius: 10rpx;
+=======
+	-webkit-border-radius: 10rpx;
+	        border-radius: 10rpx;
+>>>>>>> rj
+	padding-left: 29rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+

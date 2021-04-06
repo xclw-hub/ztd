@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "invest-number-bar": "/components/bar/investNumberBar",
+    "invest-money-bar": "/components/bar/investMoneyBar",
+    "event-trend-bar": "/components/bar/eventTrendBar",
+    "invest-money-trend-bar": "/components/bar/investMoneyTrendBar",
+    "round-distribution-bar": "/components/bar/roundDistributionBar",
+    "invest-map-pie": "/components/bar/investMapPie",
+    "uni-popup-dialog": "/components/uni-popup/uni-popup-dialog"
+  }
+}

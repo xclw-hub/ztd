@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-navbar": "/uview-ui/components/u-navbar/u-navbar",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-mask": "/uview-ui/components/u-mask/u-mask",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "uni-popup-dialog": "/components/uni-popup/uni-popup-dialog"
+  }
+}

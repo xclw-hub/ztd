@@ -1,0 +1,122 @@
+
+page{
+	background-color: #ECECEC;
+}
+.uniNavBar_left, .uniNavBar_center{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.uniNavBar_left image{
+	width: 20rpx;
+	height: 36rpx;
+}
+.uniNavBar_center text{
+	font-size: 36rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+}
+.header{
+	margin-top: 20rpx;
+	height: 460rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	background-color: #FFFFFF;
+}
+.header #head{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.header #head image{
+	width: 150rpx;
+	height: 150rpx;
+}
+.header #head text{
+	margin-top: 27rpx;
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #999999;
+}
+.content{
+	margin-top: 20rpx;
+	/* height: 324rpx; */
+	background-color: #FFFFFF;
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+}
+.contact, .protocol, .update{
+	height: 114rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-bottom: 1rpx solid #ECECEC;
+}
+.contact .phone_btn{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.contact #phone{
+	font-size: 30rpx;
+	font-family: Arial;
+	font-weight: 400;
+	color: #666666;
+	line-height: 110rpx;
+	margin-right: 17rpx;
+}
+.contact image{
+	width: 40rpx;
+	height: 40rpx;
+}
+.protocol image{
+	width: 17rpx;
+	height: 30rpx;
+}
+.update image{
+	width: 17rpx;
+	height: 30rpx;
+}
+

@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA;AACA;AACA,uG;AACAA,UAAU,CAACC,kBAAD,CAAV,C","file":"pages/meeting/addPeople.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/meeting/addPeople.vue'\ncreatePage(Page)"],"sourceRoot":""}
