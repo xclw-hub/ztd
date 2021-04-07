@@ -157,7 +157,7 @@
 			clickBack() {
 				uni.reLaunch(
 				{
-					url:'myGoods'
+					url:'supply'
 				}
 					
 				)
