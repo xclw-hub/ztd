@@ -189,28 +189,57 @@
 					_this.isParked = false
 				}
 			}
-			request({
-				url: '/industry/dataTitle',
-			}).then(res => {
-				console.log(res[1].data.data);
-				_this.tabList = res[1].data.data;
-				console.log(_this.tabList);
-				let d = {
-					industryId: _this.tabList[_this.tabCurrent].pkid,
-					keyword: _this.tabList[_this.tabCurrent].title,
-					page: _this.pageNumber,
-				}
+			if(_this.isParked == true){
 				request({
-					url: '/industry/dataList',
-					data: d,
+					url: '/industry/dataTitle',
+					data:{
+						parkid:_this.$store.state.kind == 0 ? _this.$store.state.enterpriseInfo.parkId : _this.$store.state.userInfo.parkId
+					}
 				}).then(res => {
-					console.log(res[1].data.data.list)
-					let a = _this.dataList.length
-					console.log(a)
-					_this.dataList = res[1].data.data.list
-					console.log(_this.dataList)
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
 				})
-			})
+			}else{
+				request({
+					url: '/industry/dataTitle',
+				}).then(res => {
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+				})
+			}
+			
 			if (_this.$store.state.kind === '0') {
 				// if (_this.$store.state.id) {
 				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
@@ -363,9 +392,8 @@
 		methods: {
 			tapNotice(){
 				uni.navigateTo({
-					url:'../../enterprise/inform/inform'
-				}	
-				)
+					url:'../enterprise/inform/inform'
+				}	)
 			},
 			toDetail(pkid) {
 				console.log(pkid)
@@ -403,7 +431,7 @@
 			},
 			enterSearch() {
 				uni.navigateTo({
-					url: './search'
+					url: './search?tabList='+JSON.stringify(this.tabList)
 				})
 			},
 			enterpriseHome() {

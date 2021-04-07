@@ -12,7 +12,7 @@
 					<!-- <image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
 					<image src="../../static/enterprise/header.png" @click="changePicture" v-if="src===''"></image> -->
 					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'" mode="" @click="changePicture"></image>
-				</view>	  
+				</view>	
 				
 				<view class="name">
 					<text id="enterprise">{{enterpriseName}}</text>
@@ -136,7 +136,7 @@
 			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src == undefined  "></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
-				<button type="default" @click="choosePictrue">更换头像</button>
+				<button type="default" @click="choosePictrue">更换图片</button>
 			</view>
 			</uni-popup>
 			<!-- 申请园区对话框 -->
@@ -243,44 +243,15 @@
 			// console.log(option)
 			let _this = this
 			let token
+			this.parkName=this.$store.state.enterpriseInfo.parkName
+			this.parkState=this.$store.state.enterpriseInfo.parkState
 			uni.getStorage({
 				key:'token',
 				success:function(res){
 					token = res.data
 					console.log(_this.$store.state.id)
 					console.log(_this.$store.state.kind)
-					_this.$request({
-						url:'/isBindPark',
-						data:{
-							token:token,
-							userId:_this.$store.state.id,
-							userType:_this.$store.state.kind
-						}
-					}).then(res=>{
-						console.log('isbindpark')
-						console.log(res[1].data)
-						let data =res[1].data
-						if(data.statusCode == 2000){
-							if(data.isBindPark==true){
-								//已绑定园区
-								_this.parkState=2
-								_this.parkName=data.parkName
-							}else if(data.isBindPark==false){
-								if(data.parkId){
-									//未绑定但正在审核
-									_this.parkState=1
-									_this.parkName=data.parkName
-								}else{
-									//未入园
-									_this.parkState=0
-								}
-							}
-						}else{
-							console.log(data.statusMsg)
-						}
-					}).catch(err=>{
-						console.log(err)
-					})
+					
 					_this.$request({
 						url:'/industry/homePageIndustry',
 						data:{
@@ -553,7 +524,6 @@
 	.head image{
 		width: 160rpx;
 		height: 160rpx;
-		border-radius: 50%;
 	}
 	.head .name{
 		margin-left: 34rpx;
