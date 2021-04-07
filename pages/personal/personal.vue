@@ -93,10 +93,10 @@
 			</button>
 			<!--更换图片 -->
 			<uni-popup id="changePic" ref="changePic" type="dialog">
-			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src == undefined "></image>
+			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==''"></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
-				<button type="default" @click="choosePictrue">更换头像</button>
+				<button type="default" @click="choosePictrue">更换图片</button>
 			</view>
 			</uni-popup>
 			<gmy-img-cropper
@@ -114,7 +114,7 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
+					<image src="../../static/enterprise/header.png"></image>
 				</view>
 				<text id="popList-body-title-name">{{personalName}}</text>
 				<text id="popList-body-title-id">{{personalPhone}}</text>
@@ -243,9 +243,17 @@
 			},
 			loginOut(){
 				uni.clearStorage()
-				uni.navigateTo({
-					url:'../login/index'
-				})
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
+				switch (uni.getSystemInfoSync().platform) {
+				    case 'android':
+				        plus.runtime.quit();
+				    break;
+				    case 'ios':
+				        plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				    break;
+				}
 			}
 		}
 	}
@@ -295,7 +303,6 @@
 	.head image{
 		width: 160rpx;
 		height: 160rpx;
-		border-radius: 50%;
 	}
 	.head .name{
 		margin-left: 34rpx;

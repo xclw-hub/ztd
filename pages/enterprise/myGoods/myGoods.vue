@@ -10,7 +10,7 @@
 		</u-navbar>
 		<view class="listCon">
 			<view class="item" v-for="(item, index) in goodsList" :key='index' @click="tapdetail(index)">
-				<image class="goodsimg" :src="item.pic[0]"
+				<image class="goodsimg" :src="item.pic"
 				 mode=""></image>
 				<view class="name u-line-2">
 					{{item.title}}
@@ -94,20 +94,16 @@
 						}
 					}).then(res =>{
 						console.log('supplyInformationList')
-						console.log(res[1].data.data)
-						let gt = res[1].data.data
-						let len = _this.goodsList.length
-						if(len == 0){
-							_this.goodsList = gt.list
-						}else{
-							_this.goodsList.concat(gt.list)
+						console.log(res[1].data)
+						if(res[1].data.success == true){
+							let data = res[1].data.data
+							let length = _this.goodsList.length
+							_this.goodsList.concat(data.list)
+							let len = _this.goodsList.length
+							for(let i=length;i<len;i++){
+								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							}
 						}
-						
-						let length = _this.goodsList.length
-						for(let i = len;i<length;i++){
-							_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
-						}
-						console.log(_this.goodsList)
 					}).catch(err =>{
 						console.log(err)
 					})
@@ -118,24 +114,20 @@
 							token:_this.token,
 							type:_this.$store.state.kind,
 							page:_this.page,
-							memberId:_this.$store.state.id,
-							companyId:_this.$store.state.userInfo.enterpriseId
+							memberId:_this.$store.state.id
 						}
 					}).then(res =>{
 						console.log('supplyInformationList')
-						console.log(res[1].data.data)
-						let gt = res[1].data.data
-						let len = _this.goodsList.length
-						if(len == 0){
-							_this.goodsList = gt.list
-						}else{
-							_this.goodsList.concat(gt.list)
+						console.log(res[1].data)
+						if(res[1].data.success == true){
+							let data = res[1].data.data
+							let length = _this.goodsList.length
+							_this.goodsList.concat(data.list)
+							let len = _this.goodsList.length
+							for(let i=length;i<len;i++){
+								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							}
 						}
-						let length = _this.goodsList.length
-						for(let i = len;i<length;i++){
-							_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
-						}
-						console.log(_this.goodsList)
 					}).catch(err =>{
 						console.log(err)
 					})

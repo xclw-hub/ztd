@@ -91,10 +91,10 @@
 				<view id="park_btn">
 					<text>我的园区</text>
 					<view id="enter">
-						<view id="noEnterPark" v-if="parkState === '0'">
+						<view id="noEnterPark" v-if="parkState === '2'">
 							<text>未入园</text>
 						</view>
-						<view id="waitCheck" v-else-if="parkState === '1'">
+						<view id="waitCheck" v-else-if="parkState === '0'">
 							<text>待审核</text>
 						</view>
 						<text id="enteredPark" v-else>{{parkName}}</text>
@@ -133,7 +133,7 @@
 			</button>
 			<!--更换图片 -->
 			<uni-popup id="changePic" ref="changePic" type="dialog">
-			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src == undefined  "></image>
+			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==''"></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
 				<button type="default" @click="choosePictrue">更换图片</button>
@@ -180,7 +180,7 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
+					<image src="../../static/enterprise/header.png"></image>
 				</view>
 				<text id="popList-body-title-name">{{enterpriseName}}</text>
 				<text id="popList-body-title-id">{{enterpriseID}}</text>
@@ -205,6 +205,9 @@
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import gmyImgCropper from "../../components/gmy-img-cropper/gmy-img-cropper.vue"
+	import {
+		request
+	} from '../../util/request.js'
 	export default {
 		components: {
 		    uniPopup,
@@ -243,44 +246,38 @@
 			// console.log(option)
 			let _this = this
 			let token
-			this.parkName=this.$store.state.enterpriseInfo.parkName
-			this.parkState=this.$store.state.enterpriseInfo.parkState
+			this.parkState = this.$store.state.enterpriseInfo.parkStatus
+			this.parkName = this.$store.state.enterpriseInfo.parkName
 			uni.getStorage({
 				key:'token',
 				success:function(res){
 					token = res.data
 					console.log(_this.$store.state.id)
 					console.log(_this.$store.state.kind)
-					
 					_this.$request({
-					      url:'/industry/homePageIndustry',
-					      data:{
-					       userId:_this.$store.state.id,
-					       userType:_this.$store.state.kind
-					      }
-					     }).then(res=>{
-					      console.log('homePageIndustry')
-					      console.log(res[1].data)
-					      if(res[1].data.statusCode == 3024){
-					       _this.clockTime = res[1].data.day
-					       _this.isAbleClick = true
-					       _this.industryKindList = ['5G']
-					      }else{
-					       _this.industryKindList = res[1].data
-					       _this.isAbleClick = false
-					      }
-					     }).catch(err=>{
-					      console.log(err)
-					     })
+						url:'/industry/homePageIndustry',
+						data:{
+							userId:_this.$store.state.id,
+							userType:_this.$store.state.kind
+						}
+					}).then(res=>{
+						console.log('homePageIndustry')
+						console.log(res[1].data)
+						if(res[1].data){
+							_this.industryKindList=res[1].data
+						}
+					}).catch(err=>{
+						console.log(err)
+					})
 				}
 			})
-			/* if(option.industryKindArr){
+			if(option.industryKindArr){
 				console.log('存在')
 				this.industryKindList=option.industryKindArr.split(',')
 				this.changeTimeClock=option.changeTime
 			}else{
 				console.log('不存在')
-			} */
+			}
 			let info = _this.$store.state.enterpriseInfo
 			console.log('用户', info.enterpriseLogo)
 			_this.src = info.enterpriseLogo
@@ -304,6 +301,36 @@
 				console.log('asdf')
 			    this.$refs.gmyImgCropper.chooseImage();
 				this.$refs.changePic.close()
+			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
+				})
 			},
 			getImg:function(e){
 				// let _this = this
@@ -366,7 +393,7 @@
 				this.popListShow=false
 			},
 			openPopList(){
-				/* var nowTime = new Date()
+				var nowTime = new Date()
 				var nowTime_mSecond=nowTime.getTime()
 				var timeClock_second=(nowTime_mSecond-this.changeTimeClock)/1000
 				var timClock_minute=parseInt(timeClock_second/60)		//分钟
@@ -377,27 +404,30 @@
 				else{
 					this.isAbleClick=false
 				}
-				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒') */
+				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒')
 				this.popListShow=true
 			},
 			changeIndustryKind(){
+				// var _this=this
+				let _this = this
+				_this.$request({
+					url:'/preferentialPolicies/industryChoose',
+					data:{
+						'industry':[],//industryKindArr,
+						'enterpriseId':_this.$store.state.id
+					}
+				}).then(res =>{
+					  let data = res[1].data
+					  if(data.statusCode == 3024){
+					  }else{
+						  console.log('不存在')
 						  uni.navigateTo({
 						  	url:'industrySelect'
 						  })
+					  }
+				})
 			},
-			applyConfirm(done) {
-				console.log('我知道了');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
-			/**
-			 * 对话框取消按钮
-			 */
-			applyClose(done) {
-				console.log('取消申请');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
+
 			enterParkConfirm(done) {
 				console.log('我知道了');
 				done()
@@ -432,12 +462,12 @@
 				})
 			},
 			enterPark(){
-				if (this.parkState=='0'){		//还未加入园区
+				if (this.parkState=='2'){		//还未加入园区
 					uni.navigateTo({
 						url:'myPark/parkApply'
 					})
 				}
-				else if (this.parkState=='1'){		//正在申请园区
+				else if (this.parkState=='0'){		//正在申请园区
 					this.$refs.applyPopupDialog.open()
 				}
 				else{		//已加入园区
@@ -462,9 +492,17 @@
 			},
 			loginOut(){
 				uni.clearStorage()
-				uni.navigateTo({
-					url:'../login/index'
-				})
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
+				switch (uni.getSystemInfoSync().platform) {
+				    case 'android':
+				        plus.runtime.quit();
+				    break;
+				    case 'ios':
+				        plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				    break;
+				}
 			}
 		}
 	}
@@ -514,7 +552,6 @@
 	.head image{
 		width: 160rpx;
 		height: 160rpx;
-		border-radius: 50%;
 	}
 	.head .name{
 		margin-left: 34rpx;

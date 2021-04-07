@@ -145,60 +145,9 @@
 						phone:'123456789',
 						address:'新顺南大街31号西南60米',
 						industryKindList:['金属切削机床','铸造机械','实验分析仪器','金属切割及焊接设备','矿山机械','金属切削机床','实验分析仪器','试验机','铸造机械']
-					},
-					{
-						isShowMore:false,
-						unfoldImgSrc:'../../../static/home/unfold.png',		//展开与收起图片的地址
-						name:'长沙市湖昆工程机械有限公司',
-						phone:'',
-						address:'西新南区甲36号楼底商',
-						industryKindList:['试验机','铸造机械']
-					},
-					{
-						isShowMore:false,
-						unfoldImgSrc:'../../../static/home/unfold.png',		//展开与收起图片的地址
-						name:'长沙雄骞机械设备租赁有限公司',
-						phone:'123456',
-						address:'',
-						industryKindList:['金属切削机床','铸造机械','实验分析仪器','金属切割及焊接设备','矿山机械','金属切削机床','实验分析仪器','试验机','铸造机械']
 					}
 				],
 				supplyList:[
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'长期回收伺服电机，欧姆龙，基恩士，费斯托，西门子等工控元件',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'本公司长期现金回收工程尾货，积压库存，回收伺服电机等',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'1',		//1是需求
-						content:'长期回收伺服电机，欧姆龙，基恩士，费斯托，西门子等工控元件',
-						time:'2020-12-08 11:39'
-					},
-					{
-						kind:'0',		//0是供应
-						content:'深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-						time:'2020-12-08 11:39'
-					},
 					{
 						kind:'1',		//1是需求
 						content:'本公司长期现金回收工程尾货，积压库存，回收伺服电机等',
@@ -284,6 +233,7 @@
 				// console.log(enterpriseArr)
 				for (let i = 0; i < supplyArr.length; i++){
 					let item = {
+						pkid: supplyArr[i].pkid,
 						kind:'0',		//0是供应
 						content: supplyArr[i].title,
 						time: supplyArr[i].time
@@ -327,7 +277,7 @@
 						}).then(res =>{
 							let data = res[1].data
 							// console.log('下一页内容：')
-							// console.log(data)
+							console.log(data)
 							let enterpriseArr = data.enterpriseInfoList
 							for (let i = 0; i < enterpriseArr.length; i++){
 								let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -358,7 +308,7 @@
 						}).then(res =>{
 							let data = res[1].data
 							// console.log('下一页内容：')
-							// console.log(data)
+							console.log(data)
 							let enterpriseArr = data.enterpriseInfoList
 							for (let i = 0; i < enterpriseArr.length; i++){
 								let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -389,7 +339,7 @@
 						}).then(res =>{
 							let data = res[1].data
 							// console.log('下一页内容：')
-							// console.log(data)
+							console.log(data)
 							let enterpriseArr = data.enterpriseInfoList
 							for (let i = 0; i < enterpriseArr.length; i++){
 								let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -434,11 +384,12 @@
 						}
 					}).then(res =>{
 						let data = res[1].data.data
-						console.log('下一页内容：')
+						console.log('第:'+_this.supplyPage+'页内容是：')
 						console.log(data)
 						let supplyArr = data.list		//获取供需列表
 						for (let i = 0; i < supplyArr.length; i++){
 							let item = {
+								pkid: supplyArr[i].pkid,
 								kind:'0',		//0是供应
 								content: supplyArr[i].title,
 								time: supplyArr[i].time
@@ -547,6 +498,7 @@
 				// console.log(enterpriseArr)
 				for (let i = 0; i < supplyArr.length; i++){
 					let item = {
+						pkid: supplyArr[i].pkid,
 						kind:'0',		//0是供应
 						content: supplyArr[i].title,
 						time: supplyArr[i].time
@@ -822,6 +774,7 @@
 					// console.log(enterpriseArr)
 					for (let i = 0; i < supplyArr.length; i++){
 						let item = {
+							pkid: supplyArr[i].pkid,
 							kind:'0',		//0是供应
 							content: supplyArr[i].title,
 							time: supplyArr[i].time
@@ -883,6 +836,7 @@
 					// console.log(enterpriseArr)
 					for (let i = 0; i < supplyArr.length; i++){
 						let item = {
+							pkid: supplyArr[i].pkid,
 							kind:'0',		//0是供应
 							content: supplyArr[i].title,
 							time: supplyArr[i].time
@@ -900,14 +854,14 @@
 			},
 			// 查看供应详情
 			viewSupplyDetail(index){
-				console.log(index)
+				console.log(this.supplyList[index])
 				uni.navigateTo({
-					url:'../../enterprise/informationPublish/publishDetails'
+					url:'../../enterprise/informationPublish/publishDetails?pkid='+this.supplyList[index].pkid
 				})
 			},
 			publish(){
 				uni.navigateTo({
-					url:'../../enterprise/informationPublish/publish'
+					url:`../../enterprise/informationPublish/publish?parkId=${JSON.stringify(this.parkId)}&companyId=${JSON.stringify(this.enterpriseId)}`
 				})
 			},
 			//行业种类中点击展示更多

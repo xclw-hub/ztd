@@ -192,9 +192,10 @@
 					console.log(data)
 					console.log('choose end')
 					if(data.statusCode == 2000){
-						uni.navigateBack({
-							delta:1
-						})
+						uni.navigateTo({		//将选好的行业传到下一页面
+							url:'friendlyPolicy?changeTime='+changeTime+'&industryKindArr='+industryKindArr,
+							// url:'enterprise?obj='+encodeURIComponent(JSON.stringify(obj))
+							})
 						// 需要执行 done 才能关闭对话框
 						done()
 					}else{

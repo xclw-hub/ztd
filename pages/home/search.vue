@@ -97,7 +97,6 @@
 			this.readLocalStorage()
 			this.tabList = JSON.parse(option.tabList)
 			this.pageNumber=1
-			console.log(this.tabList)
 		},
 		data() {
 			return {
@@ -178,16 +177,7 @@
 					this.saveHistory()
 					let _this = this
 					_this.pageNumber=1
-					_this.tabCurrent=0
 					console.log(_this.searchContent)
-					let length = _this.tabList.length
-					for(let i=0;i<length;i++){
-						if(_this.tabList[i].title==_this.searchContent){
-							_this.tabCurrent=i
-							break;
-						}
-					}
-					console.log(_this.tabCurrent)
 					_this.$request({
 						url:'/industry/dataList',
 						data:{

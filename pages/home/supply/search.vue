@@ -195,28 +195,13 @@
 				maxPrice: "",
 				pageNumber: 1,
 				dataList: [],
-				keyword:'',
-				isBindPark:''
+				keyword:''
 			}
 		},
 		onLoad(){
 			this.readLocalStorage()
 			let that = this
 			let token = uni.getStorageSync('token');
-			this.$request({
-				url:'/isBindPark',
-				data:{
-					token,
-					userId:that.$store.state.id,
-					userType:that.$store.state.kind
-				}
-			}).then(res=>{
-				console.log('isbinpark')
-				console.log(res[1].data)
-				if(res[1].data.statusCode == 2000){
-					that.isBindPark = res[1].data.isBindPark
-				}
-			})
 			this.pageNumber = 1
 			that.$request({
 				url: '/supplyAddressList',
@@ -257,56 +242,28 @@
 					companyId: that.$store.state.enterpriseInfo.parkId
 				})
 				if (that.$store.state.kind == '0') {
-					if( that.isBindPark == true){
-						that.$request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumber + 1,
-								keyword:that.keyword,
-								/* companyId: that.$store.state.id */
-							},
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber + 1,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						},
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
-						})
-					}else{
-						that.$request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumber + 1,
-								keyword:that.keyword,
-								companyId: that.$store.state.id
-							},
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
-							}
-						})
-					}
-					
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
 				} else {
 					that.$request({
 						url: '/supplyInformationList',
@@ -314,8 +271,7 @@
 							token,
 							type: that.$store.state.kind,
 							page: that.pageNumber + 1,
-							keyword:that.keyword,
-							memberId: that.$store.state.id,
+							memberId: that.$store.state.userInfo.parkId,
 							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
@@ -361,62 +317,32 @@
 					companyId: that.$store.state.enterpriseInfo.parkId
 				})
 				if (that.$store.state.kind == '0') {
-					if(that.isBindPark == true){
-						that.$request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumbe + 1,
-								address: that.region,
-								minPrice,
-								maxPrice,
-								keyword: that.keyword,
-								/* companyId: that.$store.state.enterpriseInfo.parkId */
+					that.$request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumbe + 1,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							companyId: that.$store.state.enterpriseInfo.parkId
+						}
+					}).then(res => {
+						if (res[1].data.data.list.length != 0) {
+							let length = that.dataList.length
+							that.dataList.concat(res[1].data.data.list)
+							console.log(that.dataList)
+							let len = that.dataList.length
+							for(let i = length -1;i<len;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
-							}
-						})
-					}else{
-						that.$request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumbe + 1,
-								address: that.region,
-								minPrice,
-								maxPrice,
-								keyword: that.keyword,
-								companyId: that.$store.state.id
-							}
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
-							}
-						})
-					}
-					
+							that.pageNumber++
+						} else {
+							console.log('没有更多内容了')
+						}
+					})
 				} else {
 					that.$request({
 						url: '/supplyInformationList',
@@ -428,8 +354,8 @@
 							minPrice,
 							maxPrice,
 							keyword: that.keyword,
-							memberId: that.$store.state.id,
-							/* companyId: that.$store.state.enterpriseInfo.parkId */
+							memberId: that.$store.state.userInfo.parkId,
+							companyId: that.$store.state.enterpriseInfo.parkId
 						}
 					}).then(res => {
 						if (res[1].data.data.list.length != 0) {
@@ -595,50 +521,26 @@
 						companyId: that.$store.state.enterpriseInfo.enterpriseId
 					})
 					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
-							that.$request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}else{
-							that.$request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									companyId: that.$store.state.id
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}
-						
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
 					} else {
 						that.$request({
 							url: '/supplyInformationList',
@@ -650,7 +552,7 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
-								/* companyId: that.$store.state.userInfo.enterpriseId */
+								companyId: that.$store.state.userInfo.enterpriseId
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -690,52 +592,27 @@
 						companyId: that.$store.state.userInfo.enterpriseId
 					})
 					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
-							that.$request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									address: that.region,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}else{
-							that.$request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									address: that.region,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									companyId: that.$store.state.id
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}
-						
+						that.$request({
+							url: '/supplyInformationList',
+							data: {
+								token,
+								type: that.$store.state.kind,
+								page: that.pageNumber,
+								address: that.region,
+								minPrice,
+								maxPrice,
+								keyword: that.keyword,
+								companyId: that.$store.state.enterpriseInfo.enterpriseId
+							}
+						}).then(res => {
+							console.log(res[1].data.data)
+							let gt = res[1].data.data
+							that.dataList = gt.list
+							let length = that.dataList.length
+							for(let i = 0;i<length;i++){
+								that.dataList[i].pic = that.dataList[i].pic.split(',')
+							}
+						})
 					} else {
 						that.$request({
 							url: '/supplyInformationList',
@@ -748,7 +625,7 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
-								/* companyId: that.$store.state.userInfo.enterpriseId */
+								companyId: that.$store.state.userInfo.enterpriseId
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -793,7 +670,6 @@
 					this.price = minPrice.toFixed(2) + '-' + maxPrice.toFixed(2);
 				}
 				this.$refs.uDropdown.close();
-				this.tapsaveregion();
 			}
 		}
 	}

@@ -157,7 +157,7 @@
 			clickBack() {
 				uni.reLaunch(
 				{
-					url:'supply'
+					url:'myGoods'
 				}
 					
 				)
@@ -248,8 +248,8 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateTo({
-								url:'../../enterprise/myGoods/myGoods'
+							uni.navigateBack({
+								delta:1
 							})
 						}
 					})

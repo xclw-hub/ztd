@@ -81,11 +81,11 @@
 				console.log(res[1].data)
 				let data = res[1].data
 				_this.policy.title = data.title
-				_this.policy.serialNumber=data.serialNumber
+				_this.policy.serialNumber='发改办能源〔2020〕865号'
 				_this.policy.content=data.content
-				_this.policy.attachment=data.appendix
+				_this.policy.attachment='2020年生物质发电中央补贴项目申报结果'
 				_this.policy.publisher=data.source
-				_this.policy.time=_this.parseTime(data.publicTime)
+				_this.policy.time=data.publicTime
 			}).catch(err =>{
 				console.log(err)
 			})
@@ -95,16 +95,6 @@
 				uni.navigateBack({
 					delta:1
 				})
-			},
-			parseTime(timestamp){
-				let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-				let Y = date.getFullYear() + '-';
-				let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-				let D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-	
-				let strDate = Y+M+D;
-				console.log(strDate) //2020-05-08
-				return strDate;
 			}
 		}
 	}
