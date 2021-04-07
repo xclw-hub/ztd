@@ -14,7 +14,8 @@ const store = new Vuex.Store({
 			enterpriseUsername: '',		//企业账号
 			parkId: 0,		//绑定园区的ID
 			isBindPark:false,		//默认未绑定园区
-			isApplyPark:false		//默认未申请园区
+			parkStatus:2		,//0:待审核，1：入园，2：未入园
+			parkName: ''
 		},
 		userInfo:{
 			contactName: '',			//个人名称

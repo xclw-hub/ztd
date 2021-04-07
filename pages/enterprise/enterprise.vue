@@ -91,10 +91,10 @@
 				<view id="park_btn">
 					<text>我的园区</text>
 					<view id="enter">
-						<view id="noEnterPark" v-if="parkState === '0'">
+						<view id="noEnterPark" v-if="parkState === '2'">
 							<text>未入园</text>
 						</view>
-						<view id="waitCheck" v-else-if="parkState === '1'">
+						<view id="waitCheck" v-else-if="parkState === '0'">
 							<text>待审核</text>
 						</view>
 						<text id="enteredPark" v-else>{{parkName}}</text>
@@ -205,6 +205,9 @@
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import gmyImgCropper from "../../components/gmy-img-cropper/gmy-img-cropper.vue"
+	import {
+		request
+	} from '../../util/request.js'
 	export default {
 		components: {
 		    uniPopup,
@@ -243,44 +246,14 @@
 			// console.log(option)
 			let _this = this
 			let token
+			this.parkState = this.$store.state.enterpriseInfo.parkStatus
+			this.parkName = this.$store.state.enterpriseInfo.parkName
 			uni.getStorage({
 				key:'token',
 				success:function(res){
 					token = res.data
 					console.log(_this.$store.state.id)
 					console.log(_this.$store.state.kind)
-					_this.$request({
-						url:'/isBindPark',
-						data:{
-							token:token,
-							userId:_this.$store.state.id,
-							userType:_this.$store.state.kind
-						}
-					}).then(res=>{
-						console.log('isbindpark')
-						console.log(res[1].data)
-						let data =res[1].data
-						if(data.statusCode == 2000){
-							if(data.isBindPark==true){
-								//已绑定园区
-								_this.parkState=2
-								_this.parkName=data.parkName
-							}else if(data.isBindPark==false){
-								if(data.parkId){
-									//未绑定但正在审核
-									_this.parkState=1
-									_this.parkName=data.parkName
-								}else{
-									//未入园
-									_this.parkState=0
-								}
-							}
-						}else{
-							console.log(data.statusMsg)
-						}
-					}).catch(err=>{
-						console.log(err)
-					})
 					_this.$request({
 						url:'/industry/homePageIndustry',
 						data:{
@@ -328,6 +301,36 @@
 				console.log('asdf')
 			    this.$refs.gmyImgCropper.chooseImage();
 				this.$refs.changePic.close()
+			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
+				})
 			},
 			getImg:function(e){
 				// let _this = this
@@ -424,19 +427,7 @@
 					  }
 				})
 			},
-			applyConfirm(done) {
-				console.log('我知道了');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
-			/**
-			 * 对话框取消按钮
-			 */
-			applyClose(done) {
-				console.log('取消申请');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
+
 			enterParkConfirm(done) {
 				console.log('我知道了');
 				done()
@@ -471,12 +462,12 @@
 				})
 			},
 			enterPark(){
-				if (this.parkState=='0'){		//还未加入园区
+				if (this.parkState=='2'){		//还未加入园区
 					uni.navigateTo({
 						url:'myPark/parkApply'
 					})
 				}
-				else if (this.parkState=='1'){		//正在申请园区
+				else if (this.parkState=='0'){		//正在申请园区
 					this.$refs.applyPopupDialog.open()
 				}
 				else{		//已加入园区
