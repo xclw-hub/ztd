@@ -6,7 +6,7 @@
 			</view>
 			<view class="navbar_search">
 				<view class="img1">
-					<image src="../../../static/home/search.png" @click="clickSearch"></image>
+					<image src="../../../static/home/search.png"></image>
 				</view>
 				<input
 				 :placeholder="searchPlaceholder"

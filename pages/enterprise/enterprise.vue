@@ -180,7 +180,7 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image src="../../static/enterprise/header.png"></image>
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
 				</view>
 				<text id="popList-body-title-name">{{enterpriseName}}</text>
 				<text id="popList-body-title-id">{{enterpriseID}}</text>
@@ -194,7 +194,7 @@
 				</view>
 				<button @click="changeIndustryKind" :disabled="isAbleClick">
 					<text>变更行业</text>
-					<text v-if="isAbleClick">（{{clockTime}}分后可变更）</text>
+					<text v-if="isAbleClick">（{{clockTime}}天后可变更）</text>
 				</button>
 			</view>
 		</view>
@@ -238,49 +238,20 @@
 				}
 			}
 		},
-		onLoad(option) {
+		onLoad() {
 			// var obj=JSON.parse(decodeURIComponent(option.obj))		//接收注册页面传来的数据
 			// console.log(option)
 			let _this = this
 			let token
+			this.parkName=this.$store.state.enterpriseInfo.parkName
+			this.parkState=this.$store.state.enterpriseInfo.parkState
 			uni.getStorage({
 				key:'token',
 				success:function(res){
 					token = res.data
 					console.log(_this.$store.state.id)
 					console.log(_this.$store.state.kind)
-					_this.$request({
-						url:'/isBindPark',
-						data:{
-							token:token,
-							userId:_this.$store.state.id,
-							userType:_this.$store.state.kind
-						}
-					}).then(res=>{
-						console.log('isbindpark')
-						console.log(res[1].data)
-						let data =res[1].data
-						if(data.statusCode == 2000){
-							if(data.isBindPark==true){
-								//已绑定园区
-								_this.parkState=2
-								_this.parkName=data.parkName
-							}else if(data.isBindPark==false){
-								if(data.parkId){
-									//未绑定但正在审核
-									_this.parkState=1
-									_this.parkName=data.parkName
-								}else{
-									//未入园
-									_this.parkState=0
-								}
-							}
-						}else{
-							console.log(data.statusMsg)
-						}
-					}).catch(err=>{
-						console.log(err)
-					})
+					
 					_this.$request({
 						url:'/industry/homePageIndustry',
 						data:{
@@ -290,21 +261,19 @@
 					}).then(res=>{
 						console.log('homePageIndustry')
 						console.log(res[1].data)
-						if(res[1].data){
-							_this.industryKindList=res[1].data
+						if(res[1].data.statusCode == 3024){
+							_this.clockTime = res[1].data.day
+							_this.isAbleClick = true
+							_this.industryKindList = ['5G']
+						}else{
+							_this.industryKindList = res[1].data
+							_this.isAbleClick = false
 						}
 					}).catch(err=>{
 						console.log(err)
 					})
 				}
 			})
-			if(option.industryKindArr){
-				console.log('存在')
-				this.industryKindList=option.industryKindArr.split(',')
-				this.changeTimeClock=option.changeTime
-			}else{
-				console.log('不存在')
-			}
 			let info = _this.$store.state.enterpriseInfo
 			console.log('用户', info.enterpriseLogo)
 			_this.src = info.enterpriseLogo
@@ -390,7 +359,7 @@
 				this.popListShow=false
 			},
 			openPopList(){
-				var nowTime = new Date()
+				/* var nowTime = new Date()
 				var nowTime_mSecond=nowTime.getTime()
 				var timeClock_second=(nowTime_mSecond-this.changeTimeClock)/1000
 				var timClock_minute=parseInt(timeClock_second/60)		//分钟
@@ -401,28 +370,14 @@
 				else{
 					this.isAbleClick=false
 				}
-				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒')
+				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒') */
 				this.popListShow=true
 			},
 			changeIndustryKind(){
-				// var _this=this
-				let _this = this
-				_this.$request({
-					url:'/preferentialPolicies/industryChoose',
-					data:{
-						'industry':[],//industryKindArr,
-						'enterpriseId':_this.$store.state.id
-					}
-				}).then(res =>{
-					  let data = res[1].data
-					  if(data.statusCode == 3024){
-					  }else{
-						  console.log('不存在')
-						  uni.navigateTo({
-						  	url:'industrySelect'
-						  })
-					  }
-				})
+				this.popListShow = false
+			  uni.navigateTo({
+				url:'industrySelect'
+			  })
 			},
 			applyConfirm(done) {
 				console.log('我知道了');
