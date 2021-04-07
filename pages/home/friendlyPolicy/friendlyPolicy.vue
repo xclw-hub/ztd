@@ -157,19 +157,21 @@
 					}]
 			};
 		},
-		onLoad(option) {
+		onLoad() {
 			let _this=this
 			this.$nextTick(function () {
 			  // Code that will run only after the
 			  // entire view has been rendered
 			  _this.$request({
-			  	url:'/preferentialPolicies/industryChoose',
+			  	url:'/industry/homePageIndustry',
 			  	data:{
-			  		'industry':[],//industryKindArr,
-			  		'enterpriseId':_this.$store.state.id
+			  		userId:_this.$store.state.id,
+			  		userType:_this.$store.state.kind
 			  	}
 			  }).then(res =>{
 				  let data = res[1].data
+				  console.log('homePageIndustry')
+				  console.log(data)
 				  if(data.statusCode == 3024){
 					  console.log(data.statusMsg)
 					  _this.$request({

@@ -114,7 +114,7 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image src="../../static/enterprise/header.png"></image>
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
 				</view>
 				<text id="popList-body-title-name">{{personalName}}</text>
 				<text id="popList-body-title-id">{{personalPhone}}</text>

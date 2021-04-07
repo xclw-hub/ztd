@@ -180,7 +180,7 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image src="../../static/enterprise/header.png"></image>
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
 				</view>
 				<text id="popList-body-title-name">{{enterpriseName}}</text>
 				<text id="popList-body-title-id">{{enterpriseID}}</text>
@@ -253,29 +253,34 @@
 					console.log(_this.$store.state.kind)
 					
 					_this.$request({
-						url:'/industry/homePageIndustry',
-						data:{
-							userId:_this.$store.state.id,
-							userType:_this.$store.state.kind
-						}
-					}).then(res=>{
-						console.log('homePageIndustry')
-						console.log(res[1].data)
-						if(res[1].data){
-							_this.industryKindList=res[1].data
-						}
-					}).catch(err=>{
-						console.log(err)
-					})
+					      url:'/industry/homePageIndustry',
+					      data:{
+					       userId:_this.$store.state.id,
+					       userType:_this.$store.state.kind
+					      }
+					     }).then(res=>{
+					      console.log('homePageIndustry')
+					      console.log(res[1].data)
+					      if(res[1].data.statusCode == 3024){
+					       _this.clockTime = res[1].data.day
+					       _this.isAbleClick = true
+					       _this.industryKindList = ['5G']
+					      }else{
+					       _this.industryKindList = res[1].data
+					       _this.isAbleClick = false
+					      }
+					     }).catch(err=>{
+					      console.log(err)
+					     })
 				}
 			})
-			if(option.industryKindArr){
+			/* if(option.industryKindArr){
 				console.log('存在')
 				this.industryKindList=option.industryKindArr.split(',')
 				this.changeTimeClock=option.changeTime
 			}else{
 				console.log('不存在')
-			}
+			} */
 			let info = _this.$store.state.enterpriseInfo
 			console.log('用户', info.enterpriseLogo)
 			_this.src = info.enterpriseLogo
@@ -361,7 +366,7 @@
 				this.popListShow=false
 			},
 			openPopList(){
-				var nowTime = new Date()
+				/* var nowTime = new Date()
 				var nowTime_mSecond=nowTime.getTime()
 				var timeClock_second=(nowTime_mSecond-this.changeTimeClock)/1000
 				var timClock_minute=parseInt(timeClock_second/60)		//分钟
@@ -372,28 +377,13 @@
 				else{
 					this.isAbleClick=false
 				}
-				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒')
+				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒') */
 				this.popListShow=true
 			},
 			changeIndustryKind(){
-				// var _this=this
-				let _this = this
-				_this.$request({
-					url:'/preferentialPolicies/industryChoose',
-					data:{
-						'industry':[],//industryKindArr,
-						'enterpriseId':_this.$store.state.id
-					}
-				}).then(res =>{
-					  let data = res[1].data
-					  if(data.statusCode == 3024){
-					  }else{
-						  console.log('不存在')
 						  uni.navigateTo({
 						  	url:'industrySelect'
 						  })
-					  }
-				})
 			},
 			applyConfirm(done) {
 				console.log('我知道了');
