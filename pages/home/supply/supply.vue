@@ -260,6 +260,7 @@
 							type: that.$store.state.kind,
 							page: that.pageNumber + 1,
 							memberId: that.$store.state.id,
+							companyId:that.$store.state.userInfo.enterpriseId
 							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
@@ -372,6 +373,7 @@
 							maxPrice,
 							keyword: that.keyword,
 							memberId: that.$store.state.id,
+							companyId:that.$store.state.userInfo.enterpriseId
 							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
@@ -394,7 +396,7 @@
 		onLoad: function() {
 			let that = this
 			let token = uni.getStorageSync('token');
-			this.$request({
+			/* this.$request({
 				url:'/isBindPark',
 				data:{
 					token,
@@ -407,7 +409,12 @@
 				if(res[1].data.statusCode == 2000){
 					that.isBindPark = res[1].data.isBindPark
 				}
-			})
+			}) */
+			if(this.$store.state.enterpriseInfo.parkStatus != 1){
+				this.isBindPark=false
+			}else{
+				this.isBindPark=true
+			}
 			this.pageNumber = 1
 			let province = this.provinceCurrent.title;
 			let city = this.cityCurrent.title;
@@ -477,12 +484,14 @@
 							type: that.$store.state.kind,
 							page: that.pageNumber,
 							memberId: that.$store.state.id,
+							companyId:that.$store.state.userInfo.enterpriseId
 							/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
 						}
 					}).then(res => {
+						
 						console.log(res[1].data.data)
 						let gt = res[1].data.data
-						that.dataList = gt
+						that.dataList = gt.list
 						let length = that.dataList.length
 						for(let i = 0;i<length;i++){
 							that.dataList[i].pic = that.dataList[i].pic.split(',')
@@ -652,12 +661,13 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
+								companyId:that.$store.state.userInfo.enterpriseId
 								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
 							let gt = res[1].data.data
-							that.dataList = gt
+							that.dataList = gt.list
 							let length = that.dataList.length
 							for(let i = 0;i<length;i++){
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
@@ -750,12 +760,13 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
+								companyId:that.$store.state.userInfo.enterpriseId
 								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
 							let gt = res[1].data.data
-							that.dataList = gt
+							that.dataList = gt.list
 							let length = that.dataList.length
 							for(let i = 0;i<length;i++){
 								that.dataList[i].pic = that.dataList[i].pic.split(',')

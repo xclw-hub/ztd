@@ -137,7 +137,8 @@
 							enterpriseUsername: _this.$store.state.enterpriseInfo.enterpriseUsername,		//企业账号
 							parkId: _this.bindParkId,		//绑定园区的ID
 							isBindPark:false		,//默认未绑定园区
-							parkName:_this.parkName
+							parkName:_this.parkName,
+							parkStatus:0
 						}
 						_this.$store.setEnterpriseInfo(_this.$store.state, info)
 						

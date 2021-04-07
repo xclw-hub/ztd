@@ -212,9 +212,12 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
-							})
+							uni.reLaunch(
+							{
+								url:'../../enterprise/myGoods/myGoods'
+							}
+								
+							)
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -248,13 +251,17 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateTo({
+							uni.reLaunch(
+							{
 								url:'../../enterprise/myGoods/myGoods'
-							})
+							}
+								
+							)
 						}
 					})
 				}
 				console.log("发布")
+				
 			},
 			// // 统计字数
 			// wordStatic() {
