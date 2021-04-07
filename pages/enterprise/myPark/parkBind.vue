@@ -128,6 +128,20 @@
 				}).then(res=>{
 					if(res[1].data.statusCode == 2000){
 						console.log('bind complete')
+						let info = {
+							enterpriseContact: _this.$store.state.enterpriseInfo.enterpriseContact,		//企业联系人列表
+							enterpriseId: _this.$store.state.enterpriseInfo.enterpriseId,		//企业ID
+							enterpriseLogo: _this.$store.state.enterpriseInfo.enterpriseLogo,			//企业头像
+							enterpriseName: _this.$store.state.enterpriseInfo.enterpriseName,			//企业名称
+							enterprisePhoNum: _this.$store.state.enterpriseInfo.enterprisePhoNum,		//企业绑定手机号
+							enterpriseUsername: _this.$store.state.enterpriseInfo.enterpriseUsername,		//企业账号
+							parkId: _this.bindParkId,		//绑定园区的ID
+							isBindPark:false		,//默认未绑定园区
+							parkName:_this.parkName,
+							parkStatus:0
+						}
+						_this.$store.setEnterpriseInfo(_this.$store.state, info)
+						
 						// 需要执行 done 才能关闭对话框
 						done()
 						

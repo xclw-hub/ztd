@@ -209,9 +209,12 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
-							})
+							uni.reLaunch(
+							{
+								url:'myGoods'
+							}
+								
+							)
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -245,9 +248,12 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
-							})
+							uni.reLaunch(
+							{
+								url:'myGoods'
+							}
+								
+							)
 						}
 					})
 				}
