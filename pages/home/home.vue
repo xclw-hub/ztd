@@ -13,7 +13,7 @@
 				</view>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
+				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
@@ -176,6 +176,7 @@
 			let _this = this
 			console.log(_this.$store.state.id)
 			console.log(_this.$store.state.kind)
+			console.log(_this.isParked)
 			if (_this.$store.state.kind === '0') {
 				if (_this.$store.state.enterpriseInfo.isBindPark) {
 					_this.isParked = true
