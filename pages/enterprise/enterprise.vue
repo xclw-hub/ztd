@@ -9,8 +9,9 @@
 			</view>
 			<view class="head">
 				<view class="img">
-					<image src="../../static/enterprise/header.png" @click="changePicture" v-if="src==''"></image>
-					<image :src="src" @click="changePicture" v-else></image>
+					<!-- <image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
+					<image src="../../static/enterprise/header.png" @click="changePicture" v-if="src===''"></image> -->
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'" mode="" @click="changePicture"></image>
 				</view>	
 				
 				<view class="name">
@@ -220,7 +221,7 @@
 				enterpriseName:'长沙市九州仓储服务有限公司',
 				enterpriseID:'zhanghao_100',
 				parkState:'2',		//我的园区状态，0表示未加入园区，1表示园区正在申请状态，2表示已加入园区
-				parkName:'后端返回为NULL',
+				parkName:'',
 				src:''//图片路径
 			}
 		},
@@ -252,8 +253,8 @@
 						url:'/isBindPark',
 						data:{
 							token:token,
-							userId:13,
-							userType:1
+							userId:_this.$store.state.id,
+							userType:_this.$store.state.kind
 						}
 					}).then(res=>{
 						console.log('isbindpark')
@@ -304,11 +305,11 @@
 			}else{
 				console.log('不存在')
 			}
-			let info = this.$store.state.enterpriseInfo
-			console.log('用户', info)
-			this.src = info.enterpriseLogo
-			this.enterpriseName = info.enterpriseName
-			this.enterpriseID = info.enterpriseId
+			let info = _this.$store.state.enterpriseInfo
+			console.log('用户', info.enterpriseLogo)
+			_this.src = info.enterpriseLogo
+			_this.enterpriseName = info.enterpriseName
+			_this.enterpriseID = info.enterpriseId
 		},
 		methods: {
 			clickBack(){
@@ -500,9 +501,17 @@
 			},
 			loginOut(){
 				uni.clearStorage()
-				uni.navigateTo({
-					url:'../login/index'
-				})
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
+				switch (uni.getSystemInfoSync().platform) {
+				    case 'android':
+				        plus.runtime.quit();
+				    break;
+				    case 'ios':
+				        plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				    break;
+				}
 			}
 		}
 	}

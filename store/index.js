@@ -3,11 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
 	state:{
-<<<<<<< HEAD
 		kind: '',		//用户类型,'0'是企业用户，‘1’是个人用户
-=======
-		kind: '0',		//用户类型,'0'是企业用户，‘1’是个人用户
->>>>>>> rj
 		id: 0,			//登录成功后返回的ID	
 		enterpriseInfo:{
 			enterpriseContact: [],		//企业联系人列表
@@ -17,24 +13,15 @@ const store = new Vuex.Store({
 			enterprisePhoNum: '',		//企业绑定手机号
 			enterpriseUsername: '',		//企业账号
 			parkId: 0,		//绑定园区的ID
-			isBindPark:false		//默认未绑定园区
-<<<<<<< HEAD
+			isBindPark:false,		//默认未绑定园区
+			isApplyPark:false		//默认未申请园区
 		},
-		userInfo:{
-			contactName: '',			//个人名称
-			phoneNum: '',		//个人绑定手机号
-			contactHead: '',		//个人头像
-			enterpriseId: 0,		//所在企业ID
-			enterpriseLogo: '',			//企业头像
-=======
-		}, 
 		userInfo:{
 			contactName: '',			//个人名称
 			phoneNum: '',		//个人绑定手机号
 			enterpriseId: 0,		//所在企业ID
 			enterpriseLogo: '',			//企业头像
 			contactHead:'',
->>>>>>> rj
 			enterpriseName:'',		//企业名称
 			enterpriseUsername: '',		//企业账号
 			parkId: 0,		//绑定园区的ID

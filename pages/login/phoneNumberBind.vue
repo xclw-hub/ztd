@@ -83,6 +83,7 @@
 				password:"",
 				phoneNumber:"",
 				verificationCode:"",
+				industryKind:[],
 				cid:""
 			}
 		},
@@ -92,6 +93,7 @@
 			this.enterpriseName=obj.name
 			this.username=obj.account
 			this.password=obj.psw	
+			this.industryKind = obj.industryKindList
 			// 获取设备CID
 			let clientInfo = plus.push.getClientInfo();
 			this.cid = clientInfo.clientid;
@@ -172,29 +174,24 @@
 			//完成注册
 			finish(){
 				let _this=this
-				// if(_this.verificationCode===""){
-				// 	uni.showToast({
-				// 	    icon: 'none',
-				// 		position: 'bottom',
-				// 	    title: '验证码不能为空'
-				// 	})
-				// 	return false
-				// }
+				if(_this.verificationCode===""){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '验证码不能为空'
+					})
+					return false
+				}
 				_this.$request({
 					url:"/register/verificationCode",
 					data: {
-						// "enterpriseName":"任杰",
-						// "username":"rj",
-						// "password":"123456",
-						// "phoneNumber":"18842741274",
-						// "verificationCode":"112233",
-						// 'cid':'2'
 						'enterpriseName':_this.enterpriseName,
 						'username':_this.username,
 						'password':_this.password,
 						'phoneNumber':_this.phoneNumber,
 						'verificationCode':_this.verificationCode,
-						'cid':_this.cid
+						'cid':_this.cid,
+						'industryName':_this.industryKind
 					}
 				}).then(res=>{
 					let data = res[1].data

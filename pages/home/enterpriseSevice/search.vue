@@ -804,7 +804,7 @@
 			viewSupplyDetail(index){
 				console.log(index)
 				uni.navigateTo({
-					url:'../../enterprise/informationPublish/publishDetails'
+					url:'../../enterprise/informationPublish/publishDetails?pkid='+this.supplyList[index].pkid
 				})
 			},
 			publish(){

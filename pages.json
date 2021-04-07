@@ -552,10 +552,6 @@
             }
             
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> rj
         ,{
             "path" : "pages/personal/personal",
             "style" :                                                                                    
@@ -566,8 +562,6 @@
             }
             
         }
-<<<<<<< HEAD
-=======
         ,{
             "path" : "pages/personal/inform/inform",
             "style" :                                                                                    
@@ -670,7 +664,16 @@
             }
             
         }
->>>>>>> rj
+        ,{
+            "path" : "pages/login/industrySelect",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle" : "custom"
+            }
+            
+        }
     ],
     "globalStyle" : {
         "navigationBarTextStyle" : "black",

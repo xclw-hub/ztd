@@ -9,8 +9,9 @@
 			</view>
 			<view class="head">
 				<view class="img">
-					<image src="../../static/enterprise/header.png" @click="changePicture" v-if="src==''"></image>
-					<image :src="src" @click="changePicture" v-else></image>
+					<!-- <image src="../../static/enterprise/header.png" @click="changePicture" v-if="src==''"></image>
+					<image :src="src" @click="changePicture" v-else></image> -->
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'" mode="" @click="changePicture"></image>
 				</view>	
 				
 				<view class="name">
@@ -242,9 +243,17 @@
 			},
 			loginOut(){
 				uni.clearStorage()
-				uni.navigateTo({
-					url:'../login/index'
-				})
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
+				switch (uni.getSystemInfoSync().platform) {
+				    case 'android':
+				        plus.runtime.quit();
+				    break;
+				    case 'ios':
+				        plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				    break;
+				}
 			}
 		}
 	}

@@ -155,9 +155,9 @@
 		},
 		methods: {
 			clickBack() {
-				uni.reLaunch(
+				uni.reLaunch({
 					url:'myGoods'
-				)
+				})
 			},
 			confirm() {
 				let that = this

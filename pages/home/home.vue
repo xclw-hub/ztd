@@ -223,7 +223,7 @@
 					}
 				}).then(res => {
 					let data = res[1].data
-					// console.log(data)
+					console.log(data)
 					if (data.statusCode === 2000) {
 						let tem = {
 							enterpriseContact: data.enterpriseContact,
@@ -233,15 +233,24 @@
 							enterprisePhoNum: data.enterprisePhoNum,
 							enterpriseUsername: data.enterpriseUsername,
 							parkId: 0,
-							isBindPark: false
+							isBindPark: false,
+							isApplyPark: false
 						}
-						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
+
+						if(data.parkStatus===0){		//0:待审核，1：入园，2：未入园
+							tem.isBindPark = false
+							tem.isApplyPark = true
+						}else if(data.parkStatus===1){
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							tem.isApplyPark = true
+						}else{
+							tem.isBindPark = false
+							tem.isApplyPark = false		
 						}
 						_this.$store.commit('setEnterpriseInfo', tem)
-						// console.log(_this.$store.state.enterpriseInfo)
-						console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
+						console.log(_this.$store.state.enterpriseInfo)
+						// console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -362,8 +371,9 @@
 		},
 		methods: {
 			tapNotice(){
-				uni.navigateTo(
-					url:'../../enterprise/inform/inform.vue'
+				uni.navigateTo({
+					url:'../../enterprise/inform/inform'
+				}	
 				)
 			},
 			toDetail(pkid) {

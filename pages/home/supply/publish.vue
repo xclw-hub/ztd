@@ -156,7 +156,10 @@
 		methods: {
 			clickBack() {
 				uni.reLaunch(
+				{
 					url:'myGoods'
+				}
+					
 				)
 			},
 			confirm() {

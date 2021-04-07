@@ -481,28 +481,9 @@
 		color: #AAAAAA;
 		/* line-height: 26rpx; */
 	}
-<<<<<<< HEAD
-	.upload image{
-		width: 200rpx;
-		height: 200rpx;
-		margin-right: 20rpx;
-		margin-top: 20rpx;
-	}
-	.upload-img{
-		position: relative;
-		display: inline;
-	}
-	.upload-img #delete{
-		position: absolute;
-		width: 40rpx;
-		height: 40rpx;
-		top: -210rpx; 
-		right: -10rpx;
-=======
 	.uploadImg .upload image{
 		width: 200rpx;
 		height: 200rpx;
->>>>>>> rj
 	}
 	.address{
 		/* height: 191rpx; */

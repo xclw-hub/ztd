@@ -33,6 +33,16 @@
 				</tr>
 				<tr>
 					<view>
+						<span>所属行业</span>
+						<view class="industry" @click="selectIndustry">
+							<text v-if="industryShow===''">请选择行业</text>
+							<text v-else id="industryshow">{{industryShow}}</text>
+							<image src="../../static/enterprise/btn.png"></image>
+						</view>
+					</view>
+				</tr>
+				<tr>
+					<view>
 						<span>账号</span>
 						<input 
 							type="text"
@@ -85,10 +95,19 @@
 				accountNumber:"",		//账号
 				password:"",		//密码
 				passwordConfirm:"",		//确认密码
+				industryKindList:[],		//所属行业
+				industryShow:'',
 				enterpriseName_placeholder:"请输入公司名全称,注册后不可修改",
 				accountNumber_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合",
 				password_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合",
 				passwordConfirm_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合"
+			}
+		},
+		onLoad(option) {
+			if(option.industryArr){
+				this.industryShow = option.industryArr
+				this.industryKindList = option.industryArr.split(',')
+				console.log(this.industryKindList)
 			}
 		},
 		methods:{
@@ -96,6 +115,11 @@
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			selectIndustry(){
+				uni.navigateTo({
+					url:'industrySelect'
+				})
 			},
 			clickNext(){		//导航栏下一步按键
 				let patt = /^[a-zA-Z\d]/		//正则表达式
@@ -175,7 +199,8 @@
 				let obj ={
 					'name':this.enterpriseName,
 					'account':this.accountNumber,
-					'psw':this.password
+					'psw':this.password,
+					'industryKindList':this.industryKindList
 				}
 				uni.navigateTo({		//将公司名称、账号、密码传到下一页面
 					url:'phoneNumberBind?obj='+JSON.stringify(obj)
@@ -296,5 +321,31 @@
 	}
 	.statement .blue{
 		color: #2E6BDE;
+	}
+	.industry{
+		margin-top: 50rpx;
+		margin-bottom: 0rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.industry text{
+		font-size: 28rpx;
+		font-family: Source Han Sans CN;
+		font-weight: 400;
+		color: #AAAAAA;
+		line-height: 26rpx;
+	}
+	#industryshow{
+		display: block;
+		width: 650rpx;
+		white-space: nowrap; 
+		overflow: hidden; 
+		/* text-overflow: ellipsis; */
+		text-overflow: clip;
+	}
+	.industry image{
+		width: 17rpx;
+		height: 30rpx;
 	}
 </style>
