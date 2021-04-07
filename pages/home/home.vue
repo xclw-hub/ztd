@@ -383,7 +383,7 @@
 		methods: {
 			tapNotice() {
 				uni.navigateTo({
-					url: '../../enterprise/inform/inform'
+					url: '../enterprise/inform/inform'
 				})
 			},
 			toDetail(pkid) {

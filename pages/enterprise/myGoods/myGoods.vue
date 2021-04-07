@@ -97,8 +97,10 @@
 						console.log(res[1].data)
 						if(res[1].data.success == true){
 							let data = res[1].data.data
+							console.log(data.list)
 							let length = _this.goodsList.length
-							_this.goodsList.concat(data.list)
+							_this.goodsList=_this.goodsList.concat(data.list)
+							console.log(_this.goodsList)
 							let len = _this.goodsList.length
 							for(let i=length;i<len;i++){
 								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
@@ -122,7 +124,7 @@
 						if(res[1].data.success == true){
 							let data = res[1].data.data
 							let length = _this.goodsList.length
-							_this.goodsList.concat(data.list)
+							_this.goodsList=_this.goodsList.concat(data.list)
 							let len = _this.goodsList.length
 							for(let i=length;i<len;i++){
 								_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
