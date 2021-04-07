@@ -209,8 +209,8 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
+							uni.navigateTo({
+								url:'../../enterprise/myGoods/myGoods'
 							})
 						}
 					}).catch(err=>{
