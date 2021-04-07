@@ -13,7 +13,7 @@
 				</view>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
+				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
@@ -234,29 +234,23 @@
 							enterpriseUsername: data.enterpriseUsername,
 							parkId: 0,
 							isBindPark: false,
-							isApplyPark: false
+							parkStatus: data.parkStatus,
+							parkName: data.parkName
 						}
 
-						if(data.parkStatus===0){		//0:待审核，1：入园，2：未入园
-							tem.isBindPark = false
-							tem.isApplyPark = true
-						}else if(data.parkStatus===1){
+						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
-							tem.isApplyPark = true
-						}else{
+						} else {
 							tem.isBindPark = false
-							tem.isApplyPark = false		
 						}
-						_this.$store.commit('setEnterpriseInfo', tem)
-						console.log(_this.$store.state.enterpriseInfo)
-						// console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 					} else {
 						console.log(data.statusMsg)
 					}
 				}).catch(err => {
 					console.log(err)
 				})
+
 			} else {
 				// _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
 				_this.$request({
@@ -370,11 +364,10 @@
 			}
 		},
 		methods: {
-			tapNotice(){
+			tapNotice() {
 				uni.navigateTo({
-					url:'../../enterprise/inform/inform'
-				}	
-				)
+					url: '../../enterprise/inform/inform'
+				})
 			},
 			toDetail(pkid) {
 				console.log(pkid)
@@ -545,13 +538,15 @@
 						if (that.$store.state.kind == '0') {
 							console.log({
 								meetingId: res.result,
-								enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+								enterpriseId: that.$store.state.enterpriseInfo
+									.enterpriseId
 							})
 							request({
 								url: '/enterpriseSignIn',
 								data: {
 									meetingId: res.result,
-									enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+									enterpriseId: that.$store.state.enterpriseInfo
+										.enterpriseId
 								},
 							}).then(res => {
 								console.log(res[1].data.statusMsg)
@@ -590,6 +585,7 @@
 			clickConfirm() {
 				console.log('确定')
 				let that = this
+				let _this = that
 				let token = uni.getStorageSync('token');
 				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
@@ -606,17 +602,6 @@
 								companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
 								type: that.$store.state.kind
 							}
-							// data: {
-							// 	token:'11888311eb09e1c31467236120fc3d67',
-							// 	parkId: 126,
-							// 	companyId: 126,
-							// 	memberId: 126,
-							// 	name: that.diagnosis_name,
-							// 	tel: that.diagnosis_phone,
-							// 	notes: that.diagnosis_need,
-							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-							// 	type:'0'
-							// }
 						}
 						console.log(ss)
 						request(ss).then((res) => {
@@ -625,9 +610,36 @@
 							console.log('as')
 						})
 					} else {
-						uni.navigateTo({
-							url: '../enterprise/myPark/parkApply'
-						})
+						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+							uni.showModal({
+								title: '待审核',
+								content: '您加入的园区为：' + that.$store.state.enterpriseInfo.parkName,
+								confirmText: '知道了',
+								cancelText: '取消审核',
+								success: function(res) {
+									if (res.confirm) {
+										console.log('用户点击确定');
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+										request({
+											url:'/cancelBindPark',
+											data:{
+												token:token,
+												userId:_this.$store.state.id,
+												userType:_this.$store.state.kind
+											}
+										}).then(res=>{
+											console.log(res)
+										})
+										
+									}
+								}
+							});
+						}else{
+							uni.navigateTo({
+								url: '../enterprise/myPark/parkApply'
+							})
+						}
 					}
 				} else {
 					if (that.$store.state.userInfo.isBindPark) {
