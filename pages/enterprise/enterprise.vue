@@ -136,7 +136,7 @@
 			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==''"></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
-				<button type="default" @click="choosePictrue">更换图片</button>
+				<button type="default" @click="choosePictrue">更换头像</button>
 			</view>
 			</uni-popup>
 			<!-- 申请园区对话框 -->
