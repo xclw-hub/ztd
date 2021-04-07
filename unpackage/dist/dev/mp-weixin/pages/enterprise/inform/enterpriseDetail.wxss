@@ -1,5 +1,7 @@
 
 .header.data-v-63a2d983{
+	position: fixed;
+	width: 100%;
 	padding-left: 39rpx;
 	padding-right: 39rpx;
 	padding-bottom: 68rpx;
@@ -24,15 +26,20 @@
 }
 .header-body.data-v-63a2d983{
 	margin-top: 34rpx;
+	padding-bottom: 100rpx;
 }
-.header-body text.data-v-63a2d983:nth-child(1){
+.header-body .name.data-v-63a2d983{
 	display: block;
 	font-size: 40rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #FFFFFF;
 }
-.header-body text.data-v-63a2d983:nth-child(2){
+.box.data-v-63a2d983{
+	overflow: scroll;
+	height: 200rpx;
+}
+.box text.data-v-63a2d983{
 	margin-top: 34rpx;
 	display: block;
 	font-size: 26rpx;
@@ -42,17 +49,14 @@
 	line-height: 40rpx;
 }
 .content.data-v-63a2d983{
-	position: relative;
-	top: -30rpx;
-	z-index:10;
+	position: absolute;
+	overflow: scroll;
+	top: 420rpx;
+	bottom: 0;
 	/* height: 1000rpx; */
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 30rpx 30rpx 0rpx 0rpx;
-=======
 	-webkit-border-radius: 30rpx 30rpx 0rpx 0rpx;
 	        border-radius: 30rpx 30rpx 0rpx 0rpx;
->>>>>>> rj
 	padding: 48rpx 0rpx 40rpx 0rpx;
 }
 .field .field-title.data-v-63a2d983{
@@ -81,12 +85,8 @@
 	padding-left: 15rpx;
 	padding-right: 15rpx;
 	border: 1rpx solid #BFBFBF;
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 }
 .field-body-item text.data-v-63a2d983{
 	font-size: 24rpx;
@@ -114,12 +114,8 @@
 	width: 350rpx;
 	height: 72rpx;
 	border: 1rpx solid #888888;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	background-color: #FFFFFF;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -157,12 +153,8 @@
 	width: 350rpx;
 	height: 72rpx;
 	border: 1rpx solid #888888;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	background-color: #FFFFFF;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -230,12 +222,8 @@
 	width: 350rpx;
 	height: 72rpx;
 	border: 1rpx solid #888888;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	background-color: #FFFFFF;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -272,12 +260,8 @@
 .delegation.data-v-63a2d983{
 	margin: 20rpx 39rpx 40rpx 39rpx;
 	background: #2D6BDD;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 }
 .delegation text.data-v-63a2d983{
 	font-size: 32rpx;
@@ -301,12 +285,8 @@
 	width: 100%;
 	/* height: 100%; */
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 30rpx 30rpx 0px 0px;
-=======
 	-webkit-border-radius: 30rpx 30rpx 0px 0px;
 	        border-radius: 30rpx 30rpx 0px 0px;
->>>>>>> rj
 	position: fixed;
 	bottom: 0;
 	z-index: 30;

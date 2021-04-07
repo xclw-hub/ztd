@@ -1,6 +1,4 @@
 
-<<<<<<< HEAD
-=======
 .nav.data-v-194e515a{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -16,7 +14,6 @@
 	right: 0;
 	z-index: 999;
 }
->>>>>>> rj
 .uniNavBar_left.data-v-194e515a, .uniNavBar_center.data-v-194e515a{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -41,15 +38,6 @@
 	font-weight: 400;
 	color: #FFFFFF;
 }
-<<<<<<< HEAD
-.titlebox.data-v-194e515a{
-	z-index: 999;
-	position: fixed;
-	left: 0;
-	right: 0;
-}
-=======
->>>>>>> rj
 .title.data-v-194e515a{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -128,13 +116,6 @@
 	font-weight: 400;
 	color: #2D6BDD;
 }
-<<<<<<< HEAD
-/* .dropListBody{
-	position: fixed;
-	width: 100%;		
-	z-index: 30;
-} */
-=======
 .dropListBody.data-v-194e515a{
 	background-color: #FFFFFF;
 	position: fixed;
@@ -148,7 +129,6 @@
 	-webkit-flex-direction: column;
 	        flex-direction: column;
 }
->>>>>>> rj
 .dropList.data-v-194e515a{
 	height: 90rpx;
 	display: -webkit-box;
@@ -160,10 +140,6 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-<<<<<<< HEAD
-	background-color: #FFFFFF;
-=======
->>>>>>> rj
 }
 .dropList text.data-v-194e515a{
 	font-size: 28rpx;
@@ -183,12 +159,6 @@
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
 }
-<<<<<<< HEAD
-.content.data-v-194e515a{
-	padding-top: 80rpx;
-}
-=======
->>>>>>> rj
 .myService.data-v-194e515a{
 	padding-left: 30rpx;
 	padding-right: 30rpx;
@@ -218,12 +188,8 @@
 	width: 212rpx;
 	height: 64rpx;
 	border: 1rpx solid #BFBFBF;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	margin-bottom: 16rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -239,12 +205,8 @@
 	width: 212rpx;
 	height: 64rpx;
 	border: 1rpx solid #2D6BDD;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -295,12 +257,8 @@
 	height: 88rpx;
 	/* background: #F6F6F6; */
 	border: 1rpx solid #CACACA;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -347,12 +305,8 @@
 	width: 72rpx;
 	height: 40rpx;
 	background: #FF9C00;
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	display:-webkit-inline-box;
 	display:-webkit-inline-flex;
 	display:inline-flex;
@@ -396,12 +350,8 @@
 	width: 72rpx;
 	height: 40rpx;
 	background: #2E6BDE;
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	display:-webkit-inline-box;
 	display:-webkit-inline-flex;
 	display:inline-flex;
@@ -431,12 +381,8 @@
 	width: 670rpx;
 	height: 84rpx;
 	background: #2D6BDD;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

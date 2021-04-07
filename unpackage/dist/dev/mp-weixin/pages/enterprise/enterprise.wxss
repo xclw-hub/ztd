@@ -3,12 +3,8 @@
 	/* height: 390rpx; */
 	padding-left: 40rpx;
 	padding-right: 40rpx;
-<<<<<<< HEAD
-	padding-top: 66rpx;
-=======
 	padding-top: 86rpx;
 	/* padding-top: 66rpx; */
->>>>>>> rj
 	padding-bottom: 100rpx;
 	background-image: url(/static/enterprise/background.png);
 	background-repeat: no-repeat;
@@ -85,47 +81,19 @@
 	color: #FFFFFF;
 	margin-bottom: 18rpx;
 }
-<<<<<<< HEAD
-.industry-box.data-v-8755eeb4{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-}
-=======
->>>>>>> rj
 .name .industry.data-v-8755eeb4{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-<<<<<<< HEAD
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	height: 50rpx;
-	overflow: hidden;
-}
-.name .industry .noChoice.data-v-8755eeb4{
-=======
 }
 .industry .noChoice.data-v-8755eeb4{
->>>>>>> rj
 	width: 160rpx;
 	height: 50rpx;
 	/* border: 1rpx solid #FFFFFF; */
 	border: 1rpx solid transparent;
 	border-color: rgba(255, 255, 255, 0.5);
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -147,9 +115,6 @@
 	font-weight: 400;
 	color: #FFFFFF;
 }
-<<<<<<< HEAD
-.name .industry .item.data-v-8755eeb4{
-=======
 .industry .industry-box.data-v-8755eeb4{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -163,7 +128,6 @@
 	overflow: hidden;
 }
 .item.data-v-8755eeb4{
->>>>>>> rj
 	padding-left: 16rpx;
 	padding-right: 16rpx;
 	height: 50rpx;
@@ -171,12 +135,8 @@
 	border: 1rpx solid transparent;
 	border-color: rgba(255, 255, 255, 0.5);
 	/* opacity: 0.5; */
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	margin-right: 10rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -191,43 +151,13 @@
 	font-weight: 400;
 	color: #FFFFFF;
 }
-<<<<<<< HEAD
-.industry-box-item.data-v-8755eeb4{
-=======
 #item-omit.data-v-8755eeb4{
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-box-pack: end;
 	-webkit-justify-content: flex-end;
 	        justify-content: flex-end;
-<<<<<<< HEAD
-	padding-left: 16rpx;
-	padding-right: 16rpx;
-	height: 50rpx;
-	/* border: 1rpx solid #FFFFFF; */
-	border: 1rpx solid transparent;
-	border-color: rgba(255, 255, 255, 0.5);
-	/* opacity: 0.5; */
-	border-radius: 5rpx;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-}
-.industry-box-item text.data-v-8755eeb4{
-	font-size: 22rpx;
-	font-family: Source Han Sans CN;
-	font-weight: 400;
-	color: #FFFFFF;
-}
-.industry-box-item #omit.data-v-8755eeb4{
-	width: 6rpx;
-	height: 6rpx;
-	background: #FFFFFF;
-	border-radius: 50%;
-=======
 }
 #omit.data-v-8755eeb4{
 	width: 6rpx;
@@ -235,18 +165,13 @@
 	background: #FFFFFF;
 	-webkit-border-radius: 50%;
 	        border-radius: 50%;
->>>>>>> rj
 	margin-right: 2rpx;
 }
 .content.data-v-8755eeb4{
 	width: 100%;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 30rpx 30rpx 0rpx 0rpx;
-=======
 	-webkit-border-radius: 30rpx 30rpx 0rpx 0rpx;
 	        border-radius: 30rpx 30rpx 0rpx 0rpx;
->>>>>>> rj
 	/* position: relative;
 	top: -80rpx; */
 	position: absolute;
@@ -254,10 +179,6 @@
 	overflow: scroll;
 	top: 400rpx;
 	bottom: 0;
-<<<<<<< HEAD
-	padding-bottom: 51rpx;
-=======
->>>>>>> rj
 }
 .issue.data-v-8755eeb4{
 	margin-top: 28rpx;
@@ -561,12 +482,8 @@
 	width: 110rpx;
 	height: 54rpx;
 	border: 1rpx solid #A0A0A0;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -589,12 +506,8 @@
 	width: 110rpx;
 	height: 54rpx;
 	background: #2D6BDD;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -747,23 +660,15 @@
 	        align-items: center;
 }
 .logOut.data-v-8755eeb4{
-<<<<<<< HEAD
-	margin-top: 14rpx;
-=======
 	position: relative;
 	top: 50rpx;
 	margin-bottom: 50rpx;
->>>>>>> rj
 	width: 670rpx;
 	height: 88rpx;
 	background: #FFFFFF;
 	border: 2rpx solid #A0A0A0;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -805,12 +710,8 @@
 	height: 230rpx;
 	background: -webkit-linear-gradient(125deg, #1D54BC, #108CF5);
 	background: linear-gradient(-35deg, #1D54BC, #108CF5);
-<<<<<<< HEAD
-	border-radius: 20rpx 20rpx 0 0;
-=======
 	-webkit-border-radius: 20rpx 20rpx 0 0;
 	        border-radius: 20rpx 20rpx 0 0;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -851,12 +752,8 @@
 	margin-left: 75rpx;
 	margin-right: 75rpx;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 0 0 20rpx 20rpx;
-=======
 	-webkit-border-radius: 0 0 20rpx 20rpx;
 	        border-radius: 0 0 20rpx 20rpx;
->>>>>>> rj
 }
 .popList-body-content #popList-body-content-title.data-v-8755eeb4{
 	font-size: 28rpx;
@@ -877,12 +774,8 @@
 	color: #666666;
 	height: 50rpx;
 	border: 1rpx solid #BFBFBF;
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	padding-left: 16rpx;
 	padding-right: 16rpx;
 	margin-right: 10rpx;
@@ -905,12 +798,8 @@
 	/* height: 88rpx; */
 	background: #FFFFFF;
 	border: 1rpx solid #A0A0A0;
-<<<<<<< HEAD
-	border-radius: 5rpx;
-=======
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
->>>>>>> rj
 	/* display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -932,12 +821,8 @@
 	margin-top: 50rpx;
 	margin-left: 120rpx;
 	margin-right: 120rpx;
-<<<<<<< HEAD
-	border-radius: 25rpx;
-=======
 	-webkit-border-radius: 25rpx;
 	        border-radius: 25rpx;
->>>>>>> rj
 	border: 1rpx solid #FFFFFF;
 	background-color: transparent;
 	color: #FFFFFF;

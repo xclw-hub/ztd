@@ -363,9 +363,8 @@
 		methods: {
 			tapNotice(){
 				uni.navigateTo({
-					url:'../../enterprise/inform/inform'
-				}	
-				)
+					url:'../enterprise/inform/inform'
+				}	)
 			},
 			toDetail(pkid) {
 				console.log(pkid)
@@ -403,7 +402,7 @@
 			},
 			enterSearch() {
 				uni.navigateTo({
-					url: './search'
+					url: './search?tabList='+JSON.stringify(this.tabList)
 				})
 			},
 			enterpriseHome() {

@@ -60,15 +60,10 @@
 .body-detail.data-v-50647e1f{
 	margin-top: 27rpx;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
-	border-radius: 15rpx;
-=======
 	-webkit-box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
 	        box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
 	-webkit-border-radius: 15rpx;
 	        border-radius: 15rpx;
->>>>>>> rj
 	padding-left: 31rpx;
 	padding-right: 31rpx;
 }
@@ -169,12 +164,8 @@
 .dropList.data-v-50647e1f{
 	width: 100%;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 30rpx 30rpx 0px 0px;
-=======
 	-webkit-border-radius: 30rpx 30rpx 0px 0px;
 	        border-radius: 30rpx 30rpx 0px 0px;
->>>>>>> rj
 	position: fixed;
 	bottom: 0;
 	z-index: 30;
@@ -225,12 +216,8 @@
 	margin: 29rpx 39rpx 34rpx 39rpx;
 	height: 196rpx;
 	background: #F5F5F5;
-<<<<<<< HEAD
-	border-radius: 20rpx;
-=======
 	-webkit-border-radius: 20rpx;
 	        border-radius: 20rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -242,29 +229,14 @@
 .dropList-content .dropList-content-left.data-v-50647e1f{
 	width: 120rpx;
 	height: 120rpx;
-	background: #2D6BDD;
-<<<<<<< HEAD
-	border-radius: 50%;
-=======
 	-webkit-border-radius: 50%;
 	        border-radius: 50%;
->>>>>>> rj
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
 }
-.dropList-content-left text.data-v-50647e1f{
-	font-size: 37rpx;
-	font-family: Microsoft YaHei;
-	font-weight: 400;
-	color: #FFFFFF;
-	line-height: 56rpx;
+.dropList-content-left image.data-v-50647e1f{
+	width: 120rpx;
+	height: 120rpx;
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
 }
 .dropList-content .dropList-content-right.data-v-50647e1f{
 	margin-left: 27rpx;

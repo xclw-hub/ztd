@@ -132,15 +132,10 @@
 	width: 670rpx;
 	height: 88rpx;
 	background: #2E6BDE;
-<<<<<<< HEAD
-	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
-	border-radius: 10rpx;
-=======
 	-webkit-box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	        box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 }
 .footer ._span.data-v-2e202639{
 	font-size: 34rpx;

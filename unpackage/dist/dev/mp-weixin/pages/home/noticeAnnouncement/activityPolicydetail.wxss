@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page {
+.zhanwei {
   background-color: #2D6BDD;
 }
 .uniNavBar_left {
@@ -60,12 +60,8 @@ page {
   color: #FFFFFF;
 }
 .activityPolicydetail {
-<<<<<<< HEAD
-  border-radius: 30rpx 30rpx 0 0;
-=======
   -webkit-border-radius: 30rpx 30rpx 0 0;
           border-radius: 30rpx 30rpx 0 0;
->>>>>>> rj
   background: #FFFFFF;
   padding-bottom: 1rpx;
 }
@@ -134,12 +130,8 @@ page {
 }
 .activityPolicydetail .attachment {
   background: #EFF6FF;
-<<<<<<< HEAD
-  border-radius: 10rpx;
-=======
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
->>>>>>> rj
   margin: 30rpx 40rpx 40rpx 40rpx;
   padding: 5rpx 30rpx 36rpx 30rpx;
 }

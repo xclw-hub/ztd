@@ -106,12 +106,8 @@
   z-index: 998;
 }
 .uni-navbar--shadow.data-v-4afea59e {
-<<<<<<< HEAD
-  box-shadow: 0 1px 6px #ccc;
-=======
   -webkit-box-shadow: 0 1rpx 6rpx #ccc;
           box-shadow: 0 1rpx 6rpx #ccc;
->>>>>>> rj
 }
 .uni-navbar--border.data-v-4afea59e {
   border-bottom-width: 2rpx;
