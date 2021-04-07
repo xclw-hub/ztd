@@ -93,7 +93,7 @@
 			</button>
 			<!--更换图片 -->
 			<uni-popup id="changePic" ref="changePic" type="dialog">
-			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==''"></image>
+			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src == undefined "></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
 				<button type="default" @click="choosePictrue">更换头像</button>
