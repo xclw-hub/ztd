@@ -148,7 +148,8 @@
 				array: ['股权融资', '技术融资', '政策融资', '银行融资'],
 				index: 0,
 				dataList:[],
-				pageNumber:1
+				pageNumber:1,
+				joinedPark:''
 			}
 		},
 		onReachBottom() {
@@ -219,11 +220,6 @@
 					console.log(_this.dataList)
 				})
 			})
-		},
-		computed:{
-			joinedPark(){
-				return '您加入的园区为：'+this.parkName
-			},
 		},
 		methods: {
 			clickBack() {
@@ -319,17 +315,33 @@
 				this.isShowDiagnosis=false
 				this.isFirst=true
 				let token = uni.getStorageSync('token')
-				let d = {
-					token,
-					parkId: that.$store.state.userInfo.parkId,
-					companyId: that.$store.state.userInfo.enterpriseId,
-					memberId: that.$store.state.id,
-					name: that.diagnosis_name,
-					tel: that.diagnosis_phone,
-					content: that.diagnosis_need,
-					model:that.array[that.index],
-					companyTitle: that.$store.state.userInfo.enterpriseUsername,
-					type:that.$store.state.kind
+				let d
+				if(that.$store.state.kind=='0'){
+					d = {
+						token,
+						parkId: that.$store.state.enterpriseInfo.parkId,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId,
+						memberId: that.$store.state.id,
+						name: that.diagnosis_name,
+						tel: that.diagnosis_phone,
+						content: that.diagnosis_need,
+						model:that.array[that.index],
+						companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
+						type:that.$store.state.kind
+					}
+				}else{
+					d = {
+						token,
+						parkId: that.$store.state.userInfo.parkId,
+						companyId: that.$store.state.userInfo.enterpriseId,
+						memberId: that.$store.state.id,
+						name: that.diagnosis_name,
+						tel: that.diagnosis_phone,
+						content: that.diagnosis_need,
+						model:that.array[that.index],
+						companyTitle: that.$store.state.userInfo.enterpriseUsername,
+						type:that.$store.state.kind
+					}
 				}
 				console.log(d)
 				request({
