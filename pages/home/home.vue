@@ -3,7 +3,7 @@
 		<view class="navbar">
 			<view class="navleftCon">
 				<view class="avatarCon" @click="enterpriseHome">
-					<image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
+					<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
 				</view>
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
