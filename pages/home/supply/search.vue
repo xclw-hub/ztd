@@ -316,6 +316,7 @@
 							page: that.pageNumber + 1,
 							keyword:that.keyword,
 							memberId: that.$store.state.id,
+							companyId:_this.$store.state.userInfo.enterpriseId
 							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
@@ -429,6 +430,7 @@
 							maxPrice,
 							keyword: that.keyword,
 							memberId: that.$store.state.id,
+							companyId:_this.$store.state.userInfo.enterpriseId
 							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
@@ -650,12 +652,13 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
+								companyId:_this.$store.state.userInfo.enterpriseId
 								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
 							let gt = res[1].data.data
-							that.dataList = gt
+							that.dataList = gt.list
 							let length = that.dataList.length
 							for(let i = 0;i<length;i++){
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
@@ -748,12 +751,13 @@
 								maxPrice,
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
+								companyId:_this.$store.state.userInfo.enterpriseId
 								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
 							let gt = res[1].data.data
-							that.dataList = gt
+							that.dataList = gt.list
 							let length = that.dataList.length
 							for(let i = 0;i<length;i++){
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
@@ -1160,6 +1164,13 @@
 	.fix{
 		position: fixed;
 		z-index: 2;
+		width: 100%;
+	}
+	.pad {
+		padding-top: 80rpx;
+	}
+</style>
+x: 2;
 		width: 100%;
 	}
 	.pad {

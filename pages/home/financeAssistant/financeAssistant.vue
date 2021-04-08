@@ -103,17 +103,33 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup id="applyPopupDialog" ref="applyPopupDialog" type="dialog">
+			<uni-popup-dialog 
+			type="info" 
+			title="待审核" 
+			:content="joinedPark"
+			title_left="取消申请"
+			title_right="我知道了"
+			:isbuttonRightBorder="true"
+			:before-close="true" 
+			@confirm="applyConfirm" 
+			@close="applyClose"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import {
 		request
 	} from '../../../util/request.js'
 	export default {
 		components: {
-			uniNavBar
+			uniNavBar,
+			uniPopup,
+			uniPopupDialog
 		},
 		data() {
 			return {
@@ -132,7 +148,8 @@
 				array: ['股权融资', '技术融资', '政策融资', '银行融资'],
 				index: 0,
 				dataList:[],
-				pageNumber:1
+				pageNumber:1,
+				joinedPark:''
 			}
 		},
 		onReachBottom() {
@@ -211,20 +228,47 @@
 				})
 			},
 			find() {
+				this.joinedPark=this.$store.state.enterpriseInfo.parkName
 				let _this = this
+				let that = this
 				let token = uni.getStorageSync('token')
-				request({
-					url: '/financingMode',
-					data: {
-						token,
-						type:_this.$store.state.kind
-					},
-				}).then(res => {
-					_this.array=(res[1].data.data)
-					
-				})
-				// this.isFind=true
-				this.isShowDiagnosis=true;
+				console.log(that.$store.state.enterpriseInfo.parkStatus)
+				if(that.$store.state.kind=='0'){
+					if(that.$store.state.enterpriseInfo.parkStatus==1){
+						request({
+							url: '/financingMode',
+							data: {
+								token,
+								type:_this.$store.state.kind
+							},
+						}).then(res => {
+							_this.array=(res[1].data.data)
+							
+						})
+						// this.isFind=true
+						that.isShowDiagnosis=true;
+					}else if(that.$store.state.enterpriseInfo.parkStatus==2){
+						uni.navigateTo({
+							url: '../../enterprise/myPark/parkApply'
+						})
+					}else{
+						console.log('afsd')
+						that.$refs.applyPopupDialog.open()
+					}
+				}else{
+					request({
+						url: '/financingMode',
+						data: {
+							token,
+							type:that.$store.state.kind
+						},
+					}).then(res => {
+						that.array=(res[1].data.data)
+						
+					})
+					// this.isFind=true
+					that.isShowDiagnosis=true;
+				}
 			},
 			toDetail(pkid){
 				console.log('asd')
@@ -271,17 +315,33 @@
 				this.isShowDiagnosis=false
 				this.isFirst=true
 				let token = uni.getStorageSync('token')
-				let d = {
-					token,
-					parkId: that.$store.state.userInfo.parkId,
-					companyId: that.$store.state.userInfo.enterpriseId,
-					memberId: that.$store.state.id,
-					name: that.diagnosis_name,
-					tel: that.diagnosis_phone,
-					content: that.diagnosis_need,
-					model:that.array[that.index],
-					companyTitle: that.$store.state.userInfo.enterpriseUsername,
-					type:that.$store.state.kind
+				let d
+				if(that.$store.state.kind=='0'){
+					d = {
+						token,
+						parkId: that.$store.state.enterpriseInfo.parkId,
+						companyId: that.$store.state.enterpriseInfo.enterpriseId,
+						memberId: that.$store.state.id,
+						name: that.diagnosis_name,
+						tel: that.diagnosis_phone,
+						content: that.diagnosis_need,
+						model:that.array[that.index],
+						companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
+						type:that.$store.state.kind
+					}
+				}else{
+					d = {
+						token,
+						parkId: that.$store.state.userInfo.parkId,
+						companyId: that.$store.state.userInfo.enterpriseId,
+						memberId: that.$store.state.id,
+						name: that.diagnosis_name,
+						tel: that.diagnosis_phone,
+						content: that.diagnosis_need,
+						model:that.array[that.index],
+						companyTitle: that.$store.state.userInfo.enterpriseUsername,
+						type:that.$store.state.kind
+					}
 				}
 				console.log(d)
 				request({
@@ -289,6 +349,36 @@
 					data: d
 				}).then(res => {
 					console.log(res)
+				})
+			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
 				})
 			},
 			changeFirst(){
@@ -345,7 +435,7 @@
 		position: fixed;
 		display: flex;
 		height: 80rpx;
-		z-index: 999;
+		z-index: 89;
 
 		.tabItem {
 			background: #F5F5F5;

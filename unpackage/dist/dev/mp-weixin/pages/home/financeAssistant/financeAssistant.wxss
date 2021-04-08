@@ -80,7 +80,7 @@
   display: -webkit-flex;
   display: flex;
   height: 80rpx;
-  z-index: 999;
+  z-index: 89;
 }
 .tabCon .tabItem.data-v-4e88b890 {
   background: #F5F5F5;

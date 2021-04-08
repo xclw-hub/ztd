@@ -75,7 +75,8 @@
     "pages/personal/inform/feedBackDetail",
     "pages/personal/inform/enterpriseDetail",
     "pages/personal/inform/rectifyDetail",
-    "pages/home/viewDetail/viewDetail"
+    "pages/home/viewDetail/viewDetail",
+    "pages/login/industrySelect"
   ],
   "subPackages": [],
   "window": {

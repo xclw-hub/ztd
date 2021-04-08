@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/login/register"],{
 
 /***/ 51:
-/*!***********************************************************************!*\
-  !*** D:/workspace/zt/ztd/main.js?{"page":"pages%2Flogin%2Fregister"} ***!
-  \***********************************************************************/
+/*!***************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/main.js?{"page":"pages%2Flogin%2Fregister"} ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_register.default);
 /***/ }),
 
 /***/ 52:
-/*!****************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/login/register.vue ***!
-  \****************************************************/
+/*!********************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/login/register.vue ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/login/register.vue"
 /***/ }),
 
 /***/ 53:
-/*!***********************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/login/register.vue?vue&type=template&id=24dc7ac2&scoped=true& ***!
-  \***********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=template&id=24dc7ac2&scoped=true& ***!
+  \***************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 54:
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/login/register.vue?vue&type=template&id=24dc7ac2&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=template&id=24dc7ac2&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -107,9 +107,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 55:
-/*!*****************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/login/register.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123,14 +123,24 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 56:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/login/register.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 672));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -217,16 +227,30 @@ __webpack_require__.r(__webpack_exports__);
       accountNumber: "", //账号
       password: "", //密码
       passwordConfirm: "", //确认密码
+      industryKindList: [], //所属行业
+      industryShow: '',
       enterpriseName_placeholder: "请输入公司名全称,注册后不可修改",
       accountNumber_placeholder: "以字母或数字开头可包含特殊符号的6~18位字符组合",
       password_placeholder: "以字母或数字开头可包含特殊符号的6~18位字符组合",
       passwordConfirm_placeholder: "以字母或数字开头可包含特殊符号的6~18位字符组合" };
 
   },
+  onLoad: function onLoad(option) {
+    if (option.industryArr) {
+      this.industryShow = option.industryArr;
+      this.industryKindList = option.industryArr.split(',');
+      console.log(this.industryKindList);
+    }
+  },
   methods: {
     clickBack: function clickBack() {//导航栏返回按键
       uni.navigateBack({
         delta: 1 });
+
+    },
+    selectIndustry: function selectIndustry() {
+      uni.navigateTo({
+        url: 'industrySelect' });
 
     },
     clickNext: function clickNext() {//导航栏下一步按键
@@ -307,7 +331,8 @@ __webpack_require__.r(__webpack_exports__);
       var obj = {
         'name': this.enterpriseName,
         'account': this.accountNumber,
-        'psw': this.password };
+        'psw': this.password,
+        'industryKindList': this.industryKindList };
 
       uni.navigateTo({ //将公司名称、账号、密码传到下一页面
         url: 'phoneNumberBind?obj=' + JSON.stringify(obj) });
@@ -347,9 +372,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 57:
-/*!*************************************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/login/register.vue?vue&type=style&index=0&id=24dc7ac2&scoped=true&lang=css& ***!
-  \*************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=style&index=0&id=24dc7ac2&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -363,9 +388,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 58:
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/login/register.vue?vue&type=style&index=0&id=24dc7ac2&scoped=true&lang=css& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/login/register.vue?vue&type=style&index=0&id=24dc7ac2&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

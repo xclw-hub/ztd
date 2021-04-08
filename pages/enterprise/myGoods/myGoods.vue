@@ -67,7 +67,7 @@
 		methods: {
 			tapdetail(index) {
 				uni.navigateTo({
-					url: './goodsdetail?supplyId='+this.goodsList[index].pkid
+					url: './goodsde	tail?supplyId='+this.goodsList[index].pkid
 				})
 			},
 			enterSearch() {
@@ -102,7 +102,6 @@
 						}else{
 							_this.goodsList.concat(gt.list)
 						}
-						
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
 							_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')

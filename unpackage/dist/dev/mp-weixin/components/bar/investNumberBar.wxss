@@ -1,6 +1,6 @@
 
-.canvasView{
+.echarts{
 	height: inherit;
-	width: inherit;
+	/* width: inherit; */
 }
 

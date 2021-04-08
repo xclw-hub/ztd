@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/enterprise/enterprise"],{
 
 /***/ 181:
-/*!******************************************************************************!*\
-  !*** D:/workspace/zt/ztd/main.js?{"page":"pages%2Fenterprise%2Fenterprise"} ***!
-  \******************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/main.js?{"page":"pages%2Fenterprise%2Fenterprise"} ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_enterprise.default);
 /***/ }),
 
 /***/ 182:
-/*!***********************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/enterprise/enterprise.vue ***!
-  \***********************************************************/
+/*!***************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/enterprise/enterprise.vue"
 /***/ }),
 
 /***/ 183:
-/*!******************************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=template&id=8755eeb4&scoped=true& ***!
-  \******************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=template&id=8755eeb4&scoped=true& ***!
+  \**********************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 184:
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=template&id=8755eeb4&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=template&id=8755eeb4&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 679))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
     },
     gmyImgCropper: function() {
-      return __webpack_require__.e(/*! import() | components/gmy-img-cropper/gmy-img-cropper */ "components/gmy-img-cropper/gmy-img-cropper").then(__webpack_require__.bind(null, /*! @/components/gmy-img-cropper/gmy-img-cropper.vue */ 723))
+      return __webpack_require__.e(/*! import() | components/gmy-img-cropper/gmy-img-cropper */ "components/gmy-img-cropper/gmy-img-cropper").then(__webpack_require__.bind(null, /*! @/components/gmy-img-cropper/gmy-img-cropper.vue */ 1267))
     }
   }
 } catch (e) {
@@ -133,9 +133,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 185:
-/*!************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -149,14 +149,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 186:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 679));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 688));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var gmyImgCropper = function gmyImgCropper() {__webpack_require__.e(/*! require.ensure | components/gmy-img-cropper/gmy-img-cropper */ "components/gmy-img-cropper/gmy-img-cropper").then((function () {return resolve(__webpack_require__(/*! ../../components/gmy-img-cropper/gmy-img-cropper.vue */ 723));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -361,6 +361,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var gmyImgCropper = function gmyImgCropper() {__webpack_require__.e(/*! require.ensure | components/gmy-img-cropper/gmy-img-cropper */ "components/gmy-img-cropper/gmy-img-cropper").then((function () {return resolve(__webpack_require__(/*! ../../components/gmy-img-cropper/gmy-img-cropper.vue */ 1267));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -401,15 +404,14 @@ __webpack_require__.r(__webpack_exports__);
     // console.log(option)
     var _this = this;
     var token;
+    this.parkState = this.$store.state.enterpriseInfo.parkStatus;
     this.parkName = this.$store.state.enterpriseInfo.parkName;
-    this.parkState = this.$store.state.enterpriseInfo.parkState;
     uni.getStorage({
       key: 'token',
       success: function success(res) {
         token = res.data;
         console.log(_this.$store.state.id);
         console.log(_this.$store.state.kind);
-
         _this.$request({
           url: '/industry/homePageIndustry',
           data: {
@@ -455,6 +457,36 @@ __webpack_require__.r(__webpack_exports__);
       console.log('asdf');
       this.$refs.gmyImgCropper.chooseImage();
       this.$refs.changePic.close();
+    },
+    applyConfirm: function applyConfirm() {
+      console.log('queren');
+      this.$refs.applyPopupDialog.close();
+    },
+    applyClose: function applyClose() {
+      var token = uni.getStorageSync('token');
+      var that = this;
+      var _this = that;
+      console.log('用户点击取消');
+      console.log({
+        token: token,
+        userId: _this.$store.state.id,
+        userType: _this.$store.state.kind });
+
+      (0, _request.request)({
+        url: '/cancelBindPark',
+        data: {
+          token: token,
+          userId: _this.$store.state.id,
+          userType: _this.$store.state.kind } }).
+
+      then(function (res) {
+        console.log(res);
+        var data = _this.$store.state.enterpriseInfo;
+        data.parkStatus = 2;
+        _this.$store.commit('setEnterpriseInfo', data);
+        console.log(_this.$store.state.enterpriseInfo.parkStatus);
+        that.$refs.applyPopupDialog.close();
+      });
     },
     getImg: function getImg(e) {
       // let _this = this
@@ -537,19 +569,7 @@ __webpack_require__.r(__webpack_exports__);
         url: 'industrySelect' });
 
     },
-    applyConfirm: function applyConfirm(done) {
-      console.log('我知道了');
-      // 需要执行 done 才能关闭对话框
-      done();
-    },
-    /**
-        * 对话框取消按钮
-        */
-    applyClose: function applyClose(done) {
-      console.log('取消申请');
-      // 需要执行 done 才能关闭对话框
-      done();
-    },
+
     enterParkConfirm: function enterParkConfirm(done) {
       console.log('我知道了');
       done();
@@ -584,12 +604,12 @@ __webpack_require__.r(__webpack_exports__);
 
     },
     enterPark: function enterPark() {
-      if (this.parkState == '0') {//还未加入园区
+      if (this.parkState == '2') {//还未加入园区
         uni.navigateTo({
           url: 'myPark/parkApply' });
 
       } else
-      if (this.parkState == '1') {//正在申请园区
+      if (this.parkState == '0') {//正在申请园区
         this.$refs.applyPopupDialog.open();
       } else
       {//已加入园区
@@ -614,8 +634,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     loginOut: function loginOut() {
       uni.clearStorage();
-      uni.navigateTo({
-        url: '../login/index' });
+      // uni.navigateTo({
+      // 	url:'../login/index'
+      // })
+      switch (uni.getSystemInfoSync().platform) {
+        case 'android':
+          plus.runtime.quit();
+          break;
+        case 'ios':
+          plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+          break;}
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
@@ -623,9 +651,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 187:
-/*!********************************************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=style&index=0&id=8755eeb4&scoped=true&lang=css& ***!
-  \********************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=style&index=0&id=8755eeb4&scoped=true&lang=css& ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -639,9 +667,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 188:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/enterprise/enterprise.vue?vue&type=style&index=0&id=8755eeb4&scoped=true&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/enterprise/enterprise.vue?vue&type=style&index=0&id=8755eeb4&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

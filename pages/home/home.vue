@@ -3,7 +3,7 @@
 		<view class="navbar">
 			<view class="navleftCon">
 				<view class="avatarCon" @click="enterpriseHome">
-					<image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
+					<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
 				</view>
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
@@ -13,7 +13,7 @@
 				</view>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
+				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
@@ -111,6 +111,19 @@
 				</view>
 			</view>
 		</view>
+<!-- 		 弹出层，待审核 -->
+		<uni-popup id="applyPopupDialog" ref="applyPopupDialog" type="dialog">
+			<uni-popup-dialog 
+			type="info" 
+			title="待审核" 
+			:content="joinedPark"
+			title_left="取消申请"
+			title_right="我知道了"
+			:isbuttonRightBorder="true"
+			:before-close="true" 
+			@confirm="applyConfirm" 
+			@close="applyClose"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -168,7 +181,8 @@
 				tabCurrent: 0,
 				pageNumber: 1,
 				dataList: [],
-				user_logo: ''
+				user_logo: '',
+				joinedPark:''
 			}
 		},
 		onLoad(option) {
@@ -252,7 +266,7 @@
 					}
 				}).then(res => {
 					let data = res[1].data
-					// console.log(data)
+					console.log(data)
 					if (data.statusCode === 2000) {
 						let tem = {
 							enterpriseContact: data.enterpriseContact,
@@ -262,21 +276,27 @@
 							enterprisePhoNum: data.enterprisePhoNum,
 							enterpriseUsername: data.enterpriseUsername,
 							parkId: 0,
-							isBindPark: false
+							isBindPark: false,
+							parkStatus: data.parkStatus,
+							parkName: data.parkName
 						}
-						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
+
+						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+						} else {
+							tem.isBindPark = false
 						}
+						console.log(tem)
 						_this.$store.commit('setEnterpriseInfo', tem)
-						// console.log(_this.$store.state.enterpriseInfo)
-						console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 					} else {
 						console.log(data.statusMsg)
 					}
 				}).catch(err => {
 					console.log(err)
 				})
+				console.log(_this.$store.state.enterpriseInfo)
+
 			} else {
 				// _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
 				_this.$request({
@@ -390,10 +410,10 @@
 			}
 		},
 		methods: {
-			tapNotice(){
+			tapNotice() {
 				uni.navigateTo({
-					url:'../enterprise/inform/inform'
-				}	)
+					url: '../enterprise/inform/inform'
+				})
 			},
 			toDetail(pkid) {
 				console.log(pkid)
@@ -507,15 +527,9 @@
 								})
 							}
 						} else {
-							if (!that.$store.state.enterpriseInfo.isBindPark) {
-								uni.navigateTo({
-									url: '../enterprise/myPark/parkApply'
-								})
-							} else {
-								uni.navigateTo({
-									url: 'financeAssistant/financeAssistant'
-								})
-							}
+							uni.navigateTo({
+								url: 'financeAssistant/financeAssistant'
+							})
 						}
 						break
 					case '专家诊断':
@@ -556,6 +570,37 @@
 			needBlue() {
 				this.need_placeholder = '简要描述您的专家需求'
 			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind,
+						ss:_this.$store.state.enterpriseInfo
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
+				})
+			},
 			scan() {
 				let that = this
 				uni.scanCode({
@@ -564,13 +609,15 @@
 						if (that.$store.state.kind == '0') {
 							console.log({
 								meetingId: res.result,
-								enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+								enterpriseId: that.$store.state.enterpriseInfo
+									.enterpriseId
 							})
 							request({
 								url: '/enterpriseSignIn',
 								data: {
 									meetingId: res.result,
-									enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+									enterpriseId: that.$store.state.enterpriseInfo
+										.enterpriseId
 								},
 							}).then(res => {
 								console.log(res[1].data.statusMsg)
@@ -607,8 +654,11 @@
 				this.isShowDiagnosis = false
 			},
 			clickConfirm() {
+				console.log(this.$store.state.enterpriseInfo.isBindPark)
+				this.joinedPark= '您加入的园区为：'+this.$store.state.enterpriseInfo.parkName
 				console.log('确定')
 				let that = this
+				let _this = that
 				let token = uni.getStorageSync('token');
 				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
@@ -625,17 +675,6 @@
 								companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
 								type: that.$store.state.kind
 							}
-							// data: {
-							// 	token:'11888311eb09e1c31467236120fc3d67',
-							// 	parkId: 126,
-							// 	companyId: 126,
-							// 	memberId: 126,
-							// 	name: that.diagnosis_name,
-							// 	tel: that.diagnosis_phone,
-							// 	notes: that.diagnosis_need,
-							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-							// 	type:'0'
-							// }
 						}
 						console.log(ss)
 						request(ss).then((res) => {
@@ -644,9 +683,14 @@
 							console.log('as')
 						})
 					} else {
-						uni.navigateTo({
-							url: '../enterprise/myPark/parkApply'
-						})
+						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+							this.$refs.applyPopupDialog.open()
+						}else{
+							console.log('asdf')
+							uni.navigateTo({
+								url: '../enterprise/myPark/parkApply'
+							})
+						}
 					}
 				} else {
 					if (that.$store.state.userInfo.isBindPark) {
@@ -663,17 +707,6 @@
 								companyTitle: that.$store.state.userInfo.enterpriseUsername,
 								type: that.$store.state.kind
 							},
-							// data: {
-							// 	token:'11888311eb09e1c31467236120fc3d67',
-							// 	parkId: 126,
-							// 	companyId: 126,
-							// 	memberId: 126,
-							// 	name: that.diagnosis_name,
-							// 	tel: that.diagnosis_phone,
-							// 	notes: that.diagnosis_need,
-							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-							// 	type:'0'
-							// }
 						}
 						console.log(ss)
 						request(ss).then((res) => {

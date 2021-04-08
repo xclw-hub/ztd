@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/home/home"],{
 
 /***/ 115:
-/*!******************************************************************!*\
-  !*** D:/workspace/zt/ztd/main.js?{"page":"pages%2Fhome%2Fhome"} ***!
-  \******************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/main.js?{"page":"pages%2Fhome%2Fhome"} ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_home.default);
 /***/ }),
 
 /***/ 116:
-/*!***********************************************!*\
-  !*** D:/workspace/zt/ztd/pages/home/home.vue ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/home/home.vue ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/home/home.vue"
 /***/ }),
 
 /***/ 117:
-/*!******************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/home/home.vue?vue&type=template&id=92bb8f34&scoped=true& ***!
-  \******************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=template&id=92bb8f34&scoped=true& ***!
+  \**********************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 118:
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/home/home.vue?vue&type=template&id=92bb8f34&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=template&id=92bb8f34&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -93,6 +93,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniPopup: function() {
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -107,9 +130,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 119:
-/*!************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/home/home.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 120:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/home/home.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -250,7 +273,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 672));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 679));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 688));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -300,7 +336,8 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       tabCurrent: 0,
       pageNumber: 1,
       dataList: [],
-      user_logo: '' };
+      user_logo: '',
+      joinedPark: '' };
 
   },
   onLoad: function onLoad(option) {
@@ -384,7 +421,7 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
       then(function (res) {
         var data = res[1].data;
-        // console.log(data)
+        console.log(data);
         if (data.statusCode === 2000) {
           var tem = {
             enterpriseContact: data.enterpriseContact,
@@ -394,21 +431,27 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
             enterprisePhoNum: data.enterprisePhoNum,
             enterpriseUsername: data.enterpriseUsername,
             parkId: 0,
-            isBindPark: false };
+            isBindPark: false,
+            parkStatus: data.parkStatus,
+            parkName: data.parkName };
 
-          if (data.parkId) {//如果园区ID存在，则修改存储的园区ID以及是否绑定值
+
+          if (data.parkStatus === 1) {//0:待审核，1：入园，2：未入园
             tem.parkId = data.parkId;
             tem.isBindPark = true;
+          } else {
+            tem.isBindPark = false;
           }
+          console.log(tem);
           _this.$store.commit('setEnterpriseInfo', tem);
-          // console.log(_this.$store.state.enterpriseInfo)
-          console.log(_this.$store.state.enterpriseInfo.enterpriseLogo);
         } else {
           console.log(data.statusMsg);
         }
       }).catch(function (err) {
         console.log(err);
       });
+      console.log(_this.$store.state.enterpriseInfo);
+
     } else {
       // _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
       _this.$request({
@@ -639,15 +682,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
             }
           } else {
-            if (!that.$store.state.enterpriseInfo.isBindPark) {
-              uni.navigateTo({
-                url: '../enterprise/myPark/parkApply' });
+            uni.navigateTo({
+              url: 'financeAssistant/financeAssistant' });
 
-            } else {
-              uni.navigateTo({
-                url: 'financeAssistant/financeAssistant' });
-
-            }
           }
           break;
         case '专家诊断':
@@ -688,6 +725,37 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
     needBlue: function needBlue() {
       this.need_placeholder = '简要描述您的专家需求';
     },
+    applyConfirm: function applyConfirm() {
+      console.log('queren');
+      this.$refs.applyPopupDialog.close();
+    },
+    applyClose: function applyClose() {
+      var token = uni.getStorageSync('token');
+      var that = this;
+      var _this = that;
+      console.log('用户点击取消');
+      console.log({
+        token: token,
+        userId: _this.$store.state.id,
+        userType: _this.$store.state.kind,
+        ss: _this.$store.state.enterpriseInfo });
+
+      (0, _request.request)({
+        url: '/cancelBindPark',
+        data: {
+          token: token,
+          userId: _this.$store.state.id,
+          userType: _this.$store.state.kind } }).
+
+      then(function (res) {
+        console.log(res);
+        var data = _this.$store.state.enterpriseInfo;
+        data.parkStatus = 2;
+        _this.$store.commit('setEnterpriseInfo', data);
+        console.log(_this.$store.state.enterpriseInfo.parkStatus);
+        that.$refs.applyPopupDialog.close();
+      });
+    },
     scan: function scan() {
       var that = this;
       uni.scanCode({
@@ -696,13 +764,15 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           if (that.$store.state.kind == '0') {
             console.log({
               meetingId: res.result,
-              enterpriseId: that.$store.state.enterpriseInfo.enterpriseId });
+              enterpriseId: that.$store.state.enterpriseInfo.
+              enterpriseId });
 
             (0, _request.request)({
               url: '/enterpriseSignIn',
               data: {
                 meetingId: res.result,
-                enterpriseId: that.$store.state.enterpriseInfo.enterpriseId } }).
+                enterpriseId: that.$store.state.enterpriseInfo.
+                enterpriseId } }).
 
             then(function (res) {
               console.log(res[1].data.statusMsg);
@@ -739,8 +809,11 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       this.isShowDiagnosis = false;
     },
     clickConfirm: function clickConfirm() {
+      console.log(this.$store.state.enterpriseInfo.isBindPark);
+      this.joinedPark = '您加入的园区为：' + this.$store.state.enterpriseInfo.parkName;
       console.log('确定');
       var that = this;
+      var _this = that;
       var token = uni.getStorageSync('token');
       if (that.$store.state.kind == '0') {
         if (that.$store.state.enterpriseInfo.isBindPark) {
@@ -755,20 +828,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
               tel: that.diagnosis_phone,
               notes: that.diagnosis_need,
               companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
-              type: that.$store.state.kind }
+              type: that.$store.state.kind } };
 
-            // data: {
-            // 	token:'11888311eb09e1c31467236120fc3d67',
-            // 	parkId: 126,
-            // 	companyId: 126,
-            // 	memberId: 126,
-            // 	name: that.diagnosis_name,
-            // 	tel: that.diagnosis_phone,
-            // 	notes: that.diagnosis_need,
-            // 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-            // 	type:'0'
-            // }
-          };
+
           console.log(ss);
           (0, _request.request)(ss).then(function (res) {
             console.log(res);
@@ -776,9 +838,14 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
             console.log('as');
           });
         } else {
-          uni.navigateTo({
-            url: '../enterprise/myPark/parkApply' });
+          if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+            this.$refs.applyPopupDialog.open();
+          } else {
+            console.log('asdf');
+            uni.navigateTo({
+              url: '../enterprise/myPark/parkApply' });
 
+          }
         }
       } else {
         if (that.$store.state.userInfo.isBindPark) {
@@ -793,20 +860,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
               tel: that.diagnosis_phone,
               notes: that.diagnosis_need,
               companyTitle: that.$store.state.userInfo.enterpriseUsername,
-              type: that.$store.state.kind }
+              type: that.$store.state.kind } };
 
-            // data: {
-            // 	token:'11888311eb09e1c31467236120fc3d67',
-            // 	parkId: 126,
-            // 	companyId: 126,
-            // 	memberId: 126,
-            // 	name: that.diagnosis_name,
-            // 	tel: that.diagnosis_phone,
-            // 	notes: that.diagnosis_need,
-            // 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-            // 	type:'0'
-            // }
-          };
+
           console.log(_ss);
           (0, _request.request)(_ss).then(function (res) {
             console.log(res);
@@ -822,9 +878,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 /***/ }),
 
 /***/ 121:
-/*!*********************************************************************************************************!*\
-  !*** D:/workspace/zt/ztd/pages/home/home.vue?vue&type=style&index=0&id=92bb8f34&lang=scss&scoped=true& ***!
-  \*********************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=style&index=0&id=92bb8f34&lang=scss&scoped=true& ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -838,9 +894,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 122:
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/zt/ztd/pages/home/home.vue?vue&type=style&index=0&id=92bb8f34&lang=scss&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/home/home.vue?vue&type=style&index=0&id=92bb8f34&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
