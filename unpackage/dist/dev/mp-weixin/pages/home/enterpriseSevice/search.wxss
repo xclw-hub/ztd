@@ -24,8 +24,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-<<<<<<< HEAD
-=======
 .nav.data-v-70f17d78 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -41,17 +39,12 @@
   right: 0;
   z-index: 999;
 }
->>>>>>> rj
 .navbar.data-v-70f17d78 {
   background: #FFFFFF;
   padding-left: 39rpx;
   padding-right: 39rpx;
   padding-bottom: 26rpx;
-<<<<<<< HEAD
-  padding-top: 56rpx;
-=======
   padding-top: 76rpx;
->>>>>>> rj
   border-bottom: 8rpx solid #F3F3F3;
   display: -webkit-box;
   display: -webkit-flex;
@@ -63,13 +56,6 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-<<<<<<< HEAD
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-=======
->>>>>>> rj
 }
 .navbar .navbar_left.data-v-70f17d78 {
   display: -webkit-box;
@@ -101,12 +87,8 @@
   width: 100%;
   height: 72rpx;
   background-color: #F3F3F3;
-<<<<<<< HEAD
-  border-radius: 10px;
-=======
   -webkit-border-radius: 10px;
           border-radius: 10px;
->>>>>>> rj
   padding-left: 21rpx;
   padding-right: 21rpx;
 }
@@ -176,15 +158,6 @@
   font-weight: 400;
   color: #999999;
 }
-<<<<<<< HEAD
-.titlebox.data-v-70f17d78 {
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  right: 0;
-}
-=======
->>>>>>> rj
 .titlebox .title.data-v-70f17d78 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -247,12 +220,8 @@
   width: 100rpx;
   height: 52rpx;
   border: 1rpx solid #2360D1;
-<<<<<<< HEAD
-  border-radius: 26rpx;
-=======
   -webkit-border-radius: 26rpx;
           border-radius: 26rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -348,12 +317,9 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
-<<<<<<< HEAD
-=======
   position: fixed;
   left: 0;
   right: 0;
->>>>>>> rj
 }
 .titlebox .dropList .dropItem.data-v-70f17d78 {
   height: 90rpx;
@@ -375,10 +341,6 @@
   line-height: 90rpx;
 }
 .body.data-v-70f17d78 {
-<<<<<<< HEAD
-  padding-top: 95rpx;
-=======
->>>>>>> rj
   padding-left: 40rpx;
   padding-right: 40rpx;
 }
@@ -390,11 +352,7 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
-<<<<<<< HEAD
-  padding-bottom: 200rpx;
-=======
   padding-bottom: 50rpx;
->>>>>>> rj
 }
 .enterpriseList .enterpriseItem.data-v-70f17d78 {
   display: -webkit-box;
@@ -432,12 +390,8 @@
 .enterpriseList .enterpriseItem .enterpriseItem-up .enterpriseItem-up-phone.data-v-70f17d78 {
   width: 138rpx;
   height: 56rpx;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -510,12 +464,8 @@
   padding-right: 15rpx;
   height: 48rpx;
   border: 1rpx solid #BFBFBF;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
 }
 .enterpriseList .enterpriseItem .industryKindItem text.data-v-70f17d78 {
   font-size: 24rpx;
@@ -556,12 +506,8 @@
   width: 72rpx;
   height: 40rpx;
   background: #FF9C00;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: inline-flex;
@@ -584,12 +530,8 @@
   width: 72rpx;
   height: 40rpx;
   background: #2E6BDE;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: inline-flex;
@@ -646,12 +588,8 @@
   width: 670rpx;
   height: 84rpx;
   background: #2D6BDD;
-<<<<<<< HEAD
-  border-radius: 10rpx;
-=======
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -712,12 +650,8 @@
 .history .history-down .historyItem.data-v-70f17d78 {
   border: 1rpx solid #BFBFBF;
   height: 54rpx;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
   padding-left: 15rpx;
   padding-right: 15rpx;
   margin-right: 12rpx;

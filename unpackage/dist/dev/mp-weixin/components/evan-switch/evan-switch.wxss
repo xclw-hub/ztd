@@ -31,12 +31,8 @@
   border-style: solid;
   -webkit-transition: background-color 0.3s;
   transition: background-color 0.3s;
-<<<<<<< HEAD
-  box-sizing: content-box;
-=======
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
->>>>>>> rj
 }
 .evan-switch--disabled.data-v-65d8598c {
   opacity: 0.3;
@@ -46,15 +42,10 @@
   left: 0;
   top: 0;
   background-color: #fff;
-<<<<<<< HEAD
-  border-radius: 50%;
-  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-=======
   -webkit-border-radius: 50%;
           border-radius: 50%;
   -webkit-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
->>>>>>> rj
   -webkit-transition: -webkit-transform 0.3s;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;

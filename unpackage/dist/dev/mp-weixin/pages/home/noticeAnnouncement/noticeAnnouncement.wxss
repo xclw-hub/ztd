@@ -1,10 +1,6 @@
 
-<<<<<<< HEAD
-.uniNavBar_left.data-v-29e23898, .uniNavBar_center.data-v-29e23898{
-=======
 .uniNavBar_left.data-v-29e23898,
 .uniNavBar_center.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -15,16 +11,6 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-<<<<<<< HEAD
-.uniNavBar_left image.data-v-29e23898{
-	width: 36rpx;
-	height: 36rpx;
-}
-.uniNavBar_center.data-v-29e23898{
-	text-align: center;
-}
-.uniNavBar_center text.data-v-29e23898{
-=======
 .uniNavBar_left image.data-v-29e23898 {
 	width: 36rpx;
 	height: 36rpx;
@@ -33,26 +19,17 @@
 	text-align: center;
 }
 .uniNavBar_center text.data-v-29e23898 {
->>>>>>> rj
 	font-size: 36rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #FFFFFF;
 }
-<<<<<<< HEAD
-.content.data-v-29e23898{
-=======
 .content.data-v-29e23898 {
->>>>>>> rj
 	position: relative;
 	z-index: 10;
 	width: 100%;
 }
-<<<<<<< HEAD
-.title.data-v-29e23898{
-=======
 .title.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -61,11 +38,7 @@
 	-webkit-flex-direction: row;
 	        flex-direction: row;
 }
-<<<<<<< HEAD
-.active1_service.data-v-29e23898{
-=======
 .active1_service.data-v-29e23898 {
->>>>>>> rj
 	background: #F5F5F5;
 	height: 80rpx;
 	width: 50%;
@@ -78,15 +51,9 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-<<<<<<< HEAD
-	border-bottom:5rpx solid #2D6BDD;
-}
-.active2_service.data-v-29e23898{
-=======
 	border-bottom: 5rpx solid #2D6BDD;
 }
 .active2_service.data-v-29e23898 {
->>>>>>> rj
 	background: #F5F5F5;
 	height: 80rpx;
 	width: 50%;
@@ -100,11 +67,7 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-<<<<<<< HEAD
-.active1_need.data-v-29e23898{
-=======
 .active1_need.data-v-29e23898 {
->>>>>>> rj
 	background: #F5F5F5;
 	height: 80rpx;
 	width: 50%;
@@ -117,15 +80,9 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-<<<<<<< HEAD
-	border-bottom:5rpx solid #2D6BDD;
-}
-.active2_need.data-v-29e23898{
-=======
 	border-bottom: 5rpx solid #2D6BDD;
 }
 .active2_need.data-v-29e23898 {
->>>>>>> rj
 	background: #F5F5F5;
 	height: 80rpx;
 	width: 50%;
@@ -139,21 +96,13 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-<<<<<<< HEAD
-.title text.data-v-29e23898{
-=======
 .title text.data-v-29e23898 {
->>>>>>> rj
 	font-size: 30rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #2D6BDD;
 }
-<<<<<<< HEAD
-.myService .serviceList.data-v-29e23898{
-=======
 .myService .serviceList.data-v-29e23898 {
->>>>>>> rj
 	width: 100%;
 	padding-left: 30rpx;
 	padding-right: 30rpx;
@@ -165,42 +114,26 @@
 	display: inline-block;
 	width: 17rpx;
 	height: 17rpx;
-<<<<<<< HEAD
-	border-radius: 50%;
-=======
 	-webkit-border-radius: 50%;
 	        border-radius: 50%;
->>>>>>> rj
 	background-color: #fa3534;
 	margin-right: 7rpx;
 	margin-bottom: 5rpx;
 }
-<<<<<<< HEAD
-.serviceList  #message.data-v-29e23898{
-=======
 .serviceList #message.data-v-29e23898 {
->>>>>>> rj
 	font-size: 30rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #333333;
 	line-height: 42rpx;
 }
-<<<<<<< HEAD
-.myService .publishinfo.data-v-29e23898{
-=======
 .myService .publishinfo.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	margin-top: 10rpx;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #people.data-v-29e23898{
-=======
 .serviceList .publishinfo #people.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -208,22 +141,13 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #people image.data-v-29e23898{
-=======
 .serviceList .publishinfo #people image.data-v-29e23898 {
->>>>>>> rj
 	width: 24rpx;
 	height: 24rpx;
 	margin-right: 8rpx;
 	margin-top: 10rpx;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #people text.data-v-29e23898{
-=======
 .serviceList .publishinfo #people text.data-v-29e23898 {
->>>>>>> rj
-	width: 78rpx;
 	height: 26rpx;
 	font-size: 26rpx;
 	font-family: Microsoft YaHei;
@@ -232,11 +156,7 @@
 	line-height: 42rpx;
 	margin-right: 20rpx;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #time.data-v-29e23898{
-=======
 .serviceList .publishinfo #time.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -244,22 +164,13 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #time image.data-v-29e23898{
-=======
 .serviceList .publishinfo #time image.data-v-29e23898 {
->>>>>>> rj
 	width: 24rpx;
 	height: 24rpx;
 	margin-right: 8rpx;
 	margin-top: 20rpx;
 }
-<<<<<<< HEAD
-.serviceList .publishinfo #time text.data-v-29e23898{
-=======
 .serviceList .publishinfo #time text.data-v-29e23898 {
->>>>>>> rj
-	width: 204rpx;
 	height: 20rpx;
 	font-size: 26rpx;
 	font-family: Arial;
@@ -267,11 +178,7 @@
 	color: #BBBBBB;
 	line-height: 42rpx;
 }
-<<<<<<< HEAD
-.supplyList .supplyitem.data-v-29e23898{
-=======
 .supplyList .supplyitem.data-v-29e23898 {
->>>>>>> rj
 	width: 100%;
 	padding-left: 30rpx;
 	padding-right: 30rpx;
@@ -279,32 +186,20 @@
 	padding-top: 20rpx;
 	border-bottom: 20rpx solid #eee;
 }
-<<<<<<< HEAD
-.supplyitem  #message.data-v-29e23898{
-=======
 .supplyitem #message.data-v-29e23898 {
->>>>>>> rj
 	font-size: 30rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #333333;
 	line-height: 42rpx;
 }
-<<<<<<< HEAD
-.supplyList .publishinfo.data-v-29e23898{
-=======
 .supplyList .publishinfo.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	margin-top: 10rpx;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #people.data-v-29e23898{
-=======
 .supplyitem .publishinfo #people.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -312,22 +207,13 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #people image.data-v-29e23898{
-=======
 .supplyitem .publishinfo #people image.data-v-29e23898 {
->>>>>>> rj
 	width: 24rpx;
 	height: 24rpx;
 	margin-right: 8rpx;
 	margin-top: 10rpx;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #people text.data-v-29e23898{
-=======
 .supplyitem .publishinfo #people text.data-v-29e23898 {
->>>>>>> rj
-	width: 78rpx;
 	height: 26rpx;
 	font-size: 26rpx;
 	font-family: Microsoft YaHei;
@@ -336,11 +222,7 @@
 	line-height: 42rpx;
 	margin-right: 20rpx;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #time.data-v-29e23898{
-=======
 .supplyitem .publishinfo #time.data-v-29e23898 {
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -348,22 +230,13 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #time image.data-v-29e23898{
-=======
 .supplyitem .publishinfo #time image.data-v-29e23898 {
->>>>>>> rj
 	width: 24rpx;
 	height: 24rpx;
 	margin-right: 8rpx;
 	margin-top: 20rpx;
 }
-<<<<<<< HEAD
-.supplyitem .publishinfo #time text.data-v-29e23898{
-=======
 .supplyitem .publishinfo #time text.data-v-29e23898 {
->>>>>>> rj
-	width: 204rpx;
 	height: 20rpx;
 	font-size: 26rpx;
 	font-family: Arial;
@@ -372,7 +245,3 @@
 	line-height: 42rpx;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> rj

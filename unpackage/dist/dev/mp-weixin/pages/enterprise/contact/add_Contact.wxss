@@ -24,7 +24,9 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.uniNavBar_left.data-v-f494f904, .uniNavBar_center.data-v-f494f904, .uniNavBar_right.data-v-f494f904 {
+.uniNavBar_left.data-v-f494f904,
+.uniNavBar_center.data-v-f494f904,
+.uniNavBar_right.data-v-f494f904 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -52,12 +54,8 @@
   width: 90rpx;
   height: 54rpx;
   background: #2D6BDD;
-<<<<<<< HEAD
-  border-radius: 5rpx;
-=======
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -80,10 +78,10 @@
   padding-right: 39rpx;
 }
 /* 	.title{
-		display: flex;
-		flex-direction: column;
-		margin-top: 50rpx;
-	} */
+	display: flex;
+	flex-direction: column;
+	margin-top: 50rpx;
+} */
 .title ._span.data-v-f494f904 {
   font-size: 48rpx;
   font-family: Source Han Sans CN;

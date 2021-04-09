@@ -97,6 +97,8 @@
   position: absolute;
   overflow: scroll;
   top: 160rpx;
+  left: 0;
+  right: 0;
   bottom: 0;
 }
 .body .rectangle.data-v-4d9f8630 {

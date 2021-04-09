@@ -101,12 +101,8 @@
 	height: 70rpx;
 	background:#FFFFFF;
 	border: 1rpx solid #2E6BDE;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 }
 .active2_btn.data-v-6cb87ee5{		/* 获取验证码按键按下后的button样式 */
 	display: -webkit-box;
@@ -125,12 +121,8 @@
 	width: 220rpx;
 	height: 70rpx;
 	background: #F5F5F5;
-<<<<<<< HEAD
-	border-radius: 10rpx;
-=======
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 }
 .active1_tips.data-v-6cb87ee5{		/* 获取验证码按键按下前的span样式 */
 	font-size: 28rpx;
@@ -168,15 +160,10 @@
 	width: 670rpx;
 	height: 88rpx;
 	background: #2E6BDE;
-<<<<<<< HEAD
-	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
-	border-radius: 10rpx;
-=======
 	-webkit-box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	        box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 }
 .finish ._span.data-v-6cb87ee5{
 	font-size: 34rpx;

@@ -276,6 +276,7 @@
   padding-left: 41rpx;
   padding-right: 41rpx;
   padding-top: 31rpx;
+  padding-bottom: 31rpx;
 }
 .body .participatorAbout .participatorAbout-rectangle.data-v-4104c0e3 {
   position: absolute;
