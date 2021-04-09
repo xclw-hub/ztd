@@ -66,7 +66,7 @@
 				
 				<view class="mobilePhone">
 					<view class="tips">
-						<text>联系人</text>
+						<text>联系电话</text>
 					</view>
 					<view class="detail">
 						<text id="mobilePhone">{{publish.mobilePhone}}</text>
