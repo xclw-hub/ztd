@@ -85,6 +85,8 @@
 				<image src="../../../static/home/down.png" mode="aspectFit" @click="changeFirst"></image>
 				</view>
 			</view>
+			<image id="textAreaimg" src="../../../static/home/diagnosis_need.png">
+			</image>
 			<textarea 
 					class="diagnosis-need"
 					:placeholder="need_placeholder"
@@ -145,7 +147,7 @@
 				diagnosis_name:'',
 				diagnosis_phone:'',
 				diagnosis_need:'',
-				array: ['股权融资', '技术融资', '政策融资', '银行融资'],
+				array: ['股权融资', '技术融资', '政策融资', '银行融资','其他'],
 				index: 0,
 				dataList:[],
 				pageNumber:1,
@@ -455,9 +457,9 @@
 		}
 
 	}
-
 	.listCon {
-		padding: 40rpx;
+		padding: 40rpx 40rpx 100rpx 40rpx;
+		
 		width: 100%;
 		box-sizing: border-box;
 
@@ -549,6 +551,13 @@
 		z-index:20;
 		background-color: rgba(0, 0, 0, 0.4);
 		transition: opacity 0.3s;
+	}
+	#textAreaimg {
+		width: 28rpx;
+		height: 28rpx;
+		position: absolute;
+		left: 73rpx;
+		top: 511rpx;
 	}
 	.diagnosis{
 		
@@ -667,12 +676,14 @@
 			}
 		}
 		.diagnosis-need{
-			margin-top: 38rpx;
+			cursor: 30;
+			margin-top: 28rpx;
 			width: 100%;
 			height: 240rpx;
 			border: 1rpx solid #AAAAAA;
 			border-radius: 10rpx;
 			padding: 21rpx;
+			padding-left: 64rpx;
 			box-sizing: border-box;
 		}
 		.diagnosis-btn{

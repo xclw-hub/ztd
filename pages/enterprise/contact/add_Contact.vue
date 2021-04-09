@@ -60,7 +60,10 @@
 				<view class="style1">
 					<view class="contactPeople">
 						<view class='people'>默认联系人</view>
-						<view class="bt">
+						<view class="bt" v-if='unChanged'>
+							<evan-switch v-model='checked' disabled='true'></evan-switch>
+						</view>
+						<view class="bt" v-if='!unChanged'>
 							<evan-switch v-model="checked"></evan-switch>
 						</view>
 					</view>
@@ -99,11 +102,20 @@
 				isDefault: true, //是否是默认联系人
 				enterpriseId: 1, //绑定的企业Id
 				token: "",
+				unChanged:false,
 				checked: false // 默认联系人开启
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			let that = this;
+			console.log(option.a)
+			if(option.a==0){
+				that.unChanged=true
+				that.checked=true
+			}else{
+				that.unChanged=false
+				that.checked=false
+			}
 			uni.$on('zhiweiupdate', function(data) {
 				that.position = data.item;
 				console.log(data.item);
