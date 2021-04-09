@@ -62,15 +62,10 @@
 	width: 580rpx;
 	height: 88rpx;
 	background: #2D6BDD;
-<<<<<<< HEAD
-	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
-	border-radius: 10rpx;
-=======
 	-webkit-box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	        box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

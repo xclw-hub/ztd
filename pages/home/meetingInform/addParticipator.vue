@@ -85,6 +85,10 @@
 			unitPos++;
 			section = Math.floor(section / 10);
 		}
+		if((chnStr[0]=='一')&&(chnStr[1]=='十')){
+			var b = chnStr.indexOf("十");
+			chnStr=chnStr.slice(b)
+		}
 		return chnStr;
 	}
 	export default {
@@ -132,6 +136,7 @@
 			},
 		},
 		onLoad(option) {
+			console.log(SectionToChinese(10))
 			let _this = this
 			// console.log(option.meetingId)
 			//获取会议ID

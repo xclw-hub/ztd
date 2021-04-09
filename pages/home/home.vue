@@ -111,6 +111,19 @@
 				</view>
 			</view>
 		</view>
+<!-- 		 弹出层，待审核 -->
+		<uni-popup id="applyPopupDialog" ref="applyPopupDialog" type="dialog">
+			<uni-popup-dialog 
+			type="info" 
+			title="待审核" 
+			:content="joinedPark"
+			title_left="取消申请"
+			title_right="我知道了"
+			:isbuttonRightBorder="true"
+			:before-close="true" 
+			@confirm="applyConfirm" 
+			@close="applyClose"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -121,6 +134,39 @@
 	import {
 		request
 	} from '../../util/request.js'
+	var chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+	var chnUnitSection = ["", "万", "亿", "万亿", "亿亿"];
+	var chnUnitChar = ["", "十", "百", "千"];
+	
+	function SectionToChinese(section) {
+		var strIns = '',
+			chnStr = '';
+		var unitPos = 0;
+		var zero = true;
+		while (section > 0) {
+			var v = section % 10;
+			if (v === 0) {
+				if (!zero) {
+					zero = true;
+					chnStr = chnNumChar[v] + chnStr;
+				}
+			} else {
+				zero = false;
+				strIns = chnNumChar[v];
+				strIns += chnUnitChar[unitPos];
+				chnStr = strIns + chnStr;
+			}
+			unitPos++;
+			section = Math.floor(section / 10);
+		}
+		if((chnStr[0]=='一')&&(chnStr[1]=='十')){
+			var b = chnStr.indexOf("十");
+			console.log(b)
+			chnStr=chnStr.slice(b)
+			console.log(chnStr)
+		}
+		return chnStr;
+	}
 	export default {
 		components: {
 			uniNavBar,
@@ -168,10 +214,12 @@
 				tabCurrent: 0,
 				pageNumber: 1,
 				dataList: [],
-				user_logo: ''
+				user_logo: '',
+				joinedPark:''
 			}
 		},
 		onLoad(option) {
+						console.log(SectionToChinese(11))
 			this.$forceUpdate()
 			let _this = this
 			console.log(_this.$store.state.id)
@@ -181,28 +229,57 @@
 			}else{
 				_this.isParked = false
 			}
-			request({
-				url: '/industry/dataTitle',
-			}).then(res => {
-				console.log(res[1].data.data);
-				_this.tabList = res[1].data.data;
-				console.log(_this.tabList);
-				let d = {
-					industryId: _this.tabList[_this.tabCurrent].pkid,
-					keyword: _this.tabList[_this.tabCurrent].title,
-					page: _this.pageNumber,
-				}
+			if(_this.isParked == true){
 				request({
-					url: '/industry/dataList',
-					data: d,
+					url: '/industry/dataTitle',
+					data:{
+						parkid:_this.$store.state.kind == 0 ? _this.$store.state.enterpriseInfo.parkId : _this.$store.state.userInfo.parkId
+					}
 				}).then(res => {
-					console.log(res[1].data.data.list)
-					let a = _this.dataList.length
-					console.log(a)
-					_this.dataList = res[1].data.data.list
-					console.log(_this.dataList)
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
 				})
-			})
+			}else{
+				request({
+					url: '/industry/dataTitle',
+				}).then(res => {
+					console.log(res[1].data.data);
+					_this.tabList = res[1].data.data;
+					console.log(_this.tabList);
+					let d = {
+						industryId: _this.tabList[_this.tabCurrent].pkid,
+						keyword: _this.tabList[_this.tabCurrent].title,
+						page: _this.pageNumber,
+					}
+					request({
+						url: '/industry/dataList',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+				})
+			}
+			
 			if (_this.$store.state.kind === '0') {
 				// if (_this.$store.state.id) {
 				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
@@ -215,7 +292,7 @@
 					}
 				}).then(res => {
 					let data = res[1].data
-					// console.log(data)
+					console.log(data)
 					if (data.statusCode === 2000) {
 						let tem = {
 							enterpriseContact: data.enterpriseContact,
@@ -225,21 +302,27 @@
 							enterprisePhoNum: data.enterprisePhoNum,
 							enterpriseUsername: data.enterpriseUsername,
 							parkId: 0,
-							isBindPark: false
+							isBindPark: false,
+							parkStatus: data.parkStatus,
+							parkName: data.parkName
 						}
-						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
+
+						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+						} else {
+							tem.isBindPark = false
 						}
+						console.log(tem)
 						_this.$store.commit('setEnterpriseInfo', tem)
-						// console.log(_this.$store.state.enterpriseInfo)
-						console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 					} else {
 						console.log(data.statusMsg)
 					}
 				}).catch(err => {
 					console.log(err)
 				})
+				console.log(_this.$store.state.enterpriseInfo)
+
 			} else {
 				// _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
 				_this.$request({
@@ -353,11 +436,10 @@
 			}
 		},
 		methods: {
-			tapNotice(){
+			tapNotice() {
 				uni.navigateTo({
-					url:'../../enterprise/inform/inform'
-				}	
-				)
+					url: '../enterprise/inform/inform'
+				})
 			},
 			toDetail(pkid) {
 				console.log(pkid)
@@ -395,7 +477,7 @@
 			},
 			enterSearch() {
 				uni.navigateTo({
-					url: './search'
+					url: './search?tabList='+JSON.stringify(this.tabList)
 				})
 			},
 			enterpriseHome() {
@@ -471,15 +553,9 @@
 								})
 							}
 						} else {
-							if (!that.$store.state.enterpriseInfo.isBindPark) {
-								uni.navigateTo({
-									url: '../enterprise/myPark/parkApply'
-								})
-							} else {
-								uni.navigateTo({
-									url: 'financeAssistant/financeAssistant'
-								})
-							}
+							uni.navigateTo({
+								url: 'financeAssistant/financeAssistant'
+							})
 						}
 						break
 					case '专家诊断':
@@ -520,6 +596,37 @@
 			needBlue() {
 				this.need_placeholder = '简要描述您的专家需求'
 			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind,
+						ss:_this.$store.state.enterpriseInfo
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
+				})
+			},
 			scan() {
 				let that = this
 				uni.scanCode({
@@ -528,13 +635,15 @@
 						if (that.$store.state.kind == '0') {
 							console.log({
 								meetingId: res.result,
-								enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+								enterpriseId: that.$store.state.enterpriseInfo
+									.enterpriseId
 							})
 							request({
 								url: '/enterpriseSignIn',
 								data: {
 									meetingId: res.result,
-									enterpriseId: that.$store.state.enterpriseInfo.enterpriseId
+									enterpriseId: that.$store.state.enterpriseInfo
+										.enterpriseId
 								},
 							}).then(res => {
 								console.log(res[1].data.statusMsg)
@@ -571,8 +680,11 @@
 				this.isShowDiagnosis = false
 			},
 			clickConfirm() {
+				console.log(this.$store.state.enterpriseInfo.isBindPark)
+				this.joinedPark= '您加入的园区为：'+this.$store.state.enterpriseInfo.parkName
 				console.log('确定')
 				let that = this
+				let _this = that
 				let token = uni.getStorageSync('token');
 				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
@@ -589,17 +701,6 @@
 								companyTitle: that.$store.state.enterpriseInfo.enterpriseUsername,
 								type: that.$store.state.kind
 							}
-							// data: {
-							// 	token:'11888311eb09e1c31467236120fc3d67',
-							// 	parkId: 126,
-							// 	companyId: 126,
-							// 	memberId: 126,
-							// 	name: that.diagnosis_name,
-							// 	tel: that.diagnosis_phone,
-							// 	notes: that.diagnosis_need,
-							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-							// 	type:'0'
-							// }
 						}
 						console.log(ss)
 						request(ss).then((res) => {
@@ -608,9 +709,14 @@
 							console.log('as')
 						})
 					} else {
-						uni.navigateTo({
-							url: '../enterprise/myPark/parkApply'
-						})
+						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+							this.$refs.applyPopupDialog.open()
+						}else{
+							console.log('asdf')
+							uni.navigateTo({
+								url: '../enterprise/myPark/parkApply'
+							})
+						}
 					}
 				} else {
 					if (that.$store.state.userInfo.isBindPark) {
@@ -627,17 +733,6 @@
 								companyTitle: that.$store.state.userInfo.enterpriseUsername,
 								type: that.$store.state.kind
 							},
-							// data: {
-							// 	token:'11888311eb09e1c31467236120fc3d67',
-							// 	parkId: 126,
-							// 	companyId: 126,
-							// 	memberId: 126,
-							// 	name: that.diagnosis_name,
-							// 	tel: that.diagnosis_phone,
-							// 	notes: that.diagnosis_need,
-							// 	companyTitle: that.$store.state.userInfo.enterpriseUsername,
-							// 	type:'0'
-							// }
 						}
 						console.log(ss)
 						request(ss).then((res) => {

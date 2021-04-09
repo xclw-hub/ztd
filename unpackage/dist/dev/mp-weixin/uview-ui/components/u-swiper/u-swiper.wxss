@@ -66,12 +66,8 @@
   width: 14rpx;
   height: 14rpx;
   margin: 0 6rpx;
-<<<<<<< HEAD
-  border-radius: 20rpx;
-=======
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
->>>>>>> rj
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.3);
@@ -83,12 +79,8 @@
   width: 14rpx;
   height: 14rpx;
   margin: 0 6rpx;
-<<<<<<< HEAD
-  border-radius: 20rpx;
-=======
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
->>>>>>> rj
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.3);
@@ -101,12 +93,8 @@
   padding: 6rpx 16rpx;
   line-height: 1;
   background-color: rgba(0, 0, 0, 0.3);
-<<<<<<< HEAD
-  border-radius: 100rpx;
-=======
   -webkit-border-radius: 100rpx;
           border-radius: 100rpx;
->>>>>>> rj
   font-size: 26rpx;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -123,12 +111,8 @@
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   overflow: hidden;
-<<<<<<< HEAD
-  box-sizing: content-box;
-=======
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
->>>>>>> rj
   position: relative;
 }
 .u-swiper-title.data-v-a5b2d580 {

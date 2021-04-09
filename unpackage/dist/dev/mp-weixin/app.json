@@ -32,12 +32,9 @@
     "pages/enterprise/inform/feedBackInform",
     "pages/enterprise/inform/feedBackDetail",
     "pages/enterprise/inform/enterpriseDetail",
-<<<<<<< HEAD
-=======
     "pages/enterprise/inform/policyInform",
     "pages/enterprise/inform/rectifyInform",
     "pages/enterprise/inform/rectifyDetail",
->>>>>>> rj
     "pages/enterprise/industrySelect",
     "pages/home/informationFill/informationFill",
     "pages/home/informationFill/questionnaireNoFill",
@@ -45,6 +42,7 @@
     "pages/home/informationFill/questionnaireOverdue",
     "pages/enterprise/myGoods/goodsdetail",
     "pages/enterprise/myGoods/myGoods",
+    "pages/enterprise/myGoods/search",
     "pages/enterprise/myGoods/publish",
     "pages/home/supply/supply",
     "pages/home/supply/search",
@@ -63,10 +61,6 @@
     "pages/home/financeAssistant/financeAssistantDetail",
     "pages/enterprise/contact/selectjob",
     "pages/enterprise/contact/changeContact",
-<<<<<<< HEAD
-    "pages/home/meeting/addPeople",
-    "pages/home/meeting/meetingNotice"
-=======
     "pages/home/meetingInform/meetingInform",
     "pages/home/meetingInform/meetingDetailNoApply",
     "pages/home/meetingInform/meetingDetailApplied",
@@ -81,8 +75,8 @@
     "pages/personal/inform/feedBackDetail",
     "pages/personal/inform/enterpriseDetail",
     "pages/personal/inform/rectifyDetail",
-    "pages/home/viewDetail/viewDetail"
->>>>>>> rj
+    "pages/home/viewDetail/viewDetail",
+    "pages/login/industrySelect"
   ],
   "subPackages": [],
   "window": {
@@ -91,10 +85,5 @@
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#F8F8F8"
   },
-<<<<<<< HEAD
   "usingComponents": {}
-=======
-  "usingComponents": {},
-  "sitemapLocation": "sitemap39.json"
->>>>>>> rj
 }

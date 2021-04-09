@@ -207,13 +207,6 @@
   position: fixed;
   top: 150rpx;
   right: 25rpx;
-<<<<<<< HEAD
-  border-radius: 20rpx;
-  background-color: #fff;
-  z-index: 99;
-  padding: 10rpx 15rpx;
-  box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
-=======
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
   background-color: #fff;
@@ -221,7 +214,6 @@
   padding: 10rpx 15rpx;
   -webkit-box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
           box-shadow: 0rpx 0rpx 20rpx 0rpx rgba(122, 122, 122, 0.32);
->>>>>>> rj
 }
 .menueBar .item.data-v-638552ad {
   width: 100%;

@@ -15,7 +15,10 @@
 		<view class="userInfocon">
 			<view class="mainbox">
 				<view class="avatar">
-					<image :src="user.contactHead" mode=""></image>
+					<image :src="user.contactHead" mode="" v-if='user.contactHead!=0'></image>
+					<view class="ss" v-else>
+						{{user.contactName|fristName}}
+					</view>
 				</view>
 				<view class="name">
 					{{user.contactName}}
@@ -133,6 +136,11 @@
 				console.log(res[1].data)
 				that.user = res[1].data
 			})
+		},
+		filters: {
+		  fristName: function (value) {
+			return value[0]
+		  }
 		},
 		methods: {
 			beLoved() {
@@ -260,6 +268,17 @@
 			image {
 				width: 160rpx;
 				height: 160rpx;
+				border-radius: 50%;
+			}
+			.ss {
+				background-color: #2D6BDD;
+				color: #FFFFFF;
+				font-size: 40rpx;
+				width: 160rpx;
+				height: 160rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				border-radius: 50%;
 			}
 		}

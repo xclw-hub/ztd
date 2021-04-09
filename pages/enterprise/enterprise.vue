@@ -16,7 +16,7 @@
 				
 				<view class="name">
 					<text id="enterprise">{{enterpriseName}}</text>
-					<text id="id">{{enterpriseID}}</text>
+					<text id="id">{{enterpriseUsername}}</text>
 					<view class="industry">
 						<view class="noChoice" @click="changeIndustryKind" v-if="isEmptyList">
 							<image src="../../static/enterprise/box.png"></image>
@@ -134,7 +134,7 @@
 			<view style="width:100vw;height: 50px;opacity:0;"></view>
 			<!--更换图片 -->
 			<uni-popup id="changePic" ref="changePic" type="dialog">
-			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==''"></image>
+			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==undefined"></image>
 			<image :src="src" @click="changePicture" mode="aspectFit" v-else></image>
 			<view class="changePicture">
 				<button type="default" @click="choosePictrue">更换图片</button>
@@ -181,10 +181,10 @@
 		<view class="popList-body" v-if="popListShow">
 			<view class="popList-body-title">
 				<view id="popList-body-title-img">
-					<image src="../../static/enterprise/header.png"></image>
+					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
 				</view>
 				<text id="popList-body-title-name">{{enterpriseName}}</text>
-				<text id="popList-body-title-id">{{enterpriseID}}</text>
+				<text id="popList-body-title-id">{{enterpriseUsername}}</text>
 			</view>
 			<view class="popList-body-content">
 				<text id="popList-body-content-title">所属行业</text>
@@ -206,6 +206,9 @@
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import gmyImgCropper from "../../components/gmy-img-cropper/gmy-img-cropper.vue"
+	import {
+		request
+	} from '../../util/request.js'
 	export default {
 		components: {
 		    uniPopup,
@@ -220,7 +223,8 @@
 				popListShow:false,		//显示行业种类选择弹框
 				industryKindList:[],		//所有已选的行业种类列表
 				enterpriseName:'长沙市九州仓储服务有限公司',
-				enterpriseID:'zhanghao_100',
+				enterpriseID:0,
+				enterpriseUsername:'zhanghao_100',
 				parkState:'2',		//我的园区状态，0表示未加入园区，1表示园区正在申请状态，2表示已加入园区
 				parkName:'',
 				src:''//图片路径
@@ -239,7 +243,7 @@
 				}
 			}
 		},
-		onLoad(option) {
+		onLoad() {
 			// var obj=JSON.parse(decodeURIComponent(option.obj))		//接收注册页面传来的数据
 			// console.log(option)
 			let _this = this
@@ -329,6 +333,7 @@
 			_this.src = info.enterpriseLogo
 			_this.enterpriseName = info.enterpriseName
 			_this.enterpriseID = info.enterpriseId
+			_this.enterpriseUsername = info.enterpriseUsername
 		},
 		methods: {
 			clickBack(){
@@ -347,6 +352,36 @@
 				console.log('asdf')
 			    this.$refs.gmyImgCropper.chooseImage();
 				this.$refs.changePic.close()
+			},
+			applyConfirm(){
+				console.log('queren')
+				this.$refs.applyPopupDialog.close()
+			},
+			applyClose(){
+				let token = uni.getStorageSync('token');
+				let that = this
+				let _this = that
+				console.log('用户点击取消');
+				console.log({
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					})
+				request({
+					url:'/cancelBindPark',
+					data:{
+						token:token,
+						userId:_this.$store.state.id,
+						userType:_this.$store.state.kind
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					that.$refs.applyPopupDialog.close()
+				})
 			},
 			getImg:function(e){
 			    console.log("父页面拿到了图片",e);
@@ -387,7 +422,7 @@
 				this.popListShow=false
 			},
 			openPopList(){
-				var nowTime = new Date()
+				/* var nowTime = new Date()
 				var nowTime_mSecond=nowTime.getTime()
 				var timeClock_second=(nowTime_mSecond-this.changeTimeClock)/1000
 				var timClock_minute=parseInt(timeClock_second/60)		//分钟
@@ -398,42 +433,16 @@
 				else{
 					this.isAbleClick=false
 				}
-				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒')
+				console.log('上次变更时间为：'+this.changeTimeClock+'毫秒') */
 				this.popListShow=true
 			},
 			changeIndustryKind(){
-				// var _this=this
-				let _this = this
-				_this.$request({
-					url:'/preferentialPolicies/industryChoose',
-					data:{
-						'industry':[],//industryKindArr,
-						'enterpriseId':_this.$store.state.id
-					}
-				}).then(res =>{
-					  let data = res[1].data
-					  if(data.statusCode == 3024){
-					  }else{
-						  console.log('不存在')
-						  uni.navigateTo({
-						  	url:'industrySelect'
-						  })
-					  }
-				})
+				this.popListShow = false
+			  uni.navigateTo({
+				url:'industrySelect'
+			  })
 			},
-			applyConfirm(done) {
-				console.log('我知道了');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
-			/**
-			 * 对话框取消按钮
-			 */
-			applyClose(done) {
-				console.log('取消申请');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
+
 			enterParkConfirm(done) {
 				console.log('我知道了');
 				done()
@@ -468,12 +477,12 @@
 				})
 			},
 			enterPark(){
-				if (this.parkState=='0'){		//还未加入园区
+				if (this.parkState=='2'){		//还未加入园区
 					uni.navigateTo({
 						url:'myPark/parkApply'
 					})
 				}
-				else if (this.parkState=='1'){		//正在申请园区
+				else if (this.parkState=='0'){		//正在申请园区
 					this.$refs.applyPopupDialog.open()
 				}
 				else{		//已加入园区
@@ -501,6 +510,14 @@
 				uni.navigateTo({
 					url:'../login/index'
 				})
+				// switch (uni.getSystemInfoSync().platform) {
+				//     case 'android':
+				//         plus.runtime.quit();
+				//     break;
+				//     case 'ios':
+				//         plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				//     break;
+				// }
 			}
 		}
 	}

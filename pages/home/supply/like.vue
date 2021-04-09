@@ -11,7 +11,7 @@
 		<view>
 			<view class="listCon">
 				<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item)">
-					<image class="goodsimg" :src="item.pic" mode=""></image>
+					<image class="goodsimg" :src="item.pic[0]" mode=""></image>
 					<view class="name u-line-2">
 						{{item.title}}
 					</view>
@@ -90,12 +90,11 @@
 			}).then(res => {
 				console.log(res)
 				if (res[1].data.data.list.length != 0) {
-					let a = _this.dataList.length
-					console.log(a)
-					let c = 0
-					for (let b = a; b < a + res[1].data.data.list.length; b++) {
-						_this.dataList.push(res[1].data.data.list[c])
-						c++
+					let length = _this.dataList.length
+					_this.dataList.concat(res[1].data.data.list)
+					let len = _this.dataList.length
+					for(let i = length;i<len;i++){
+						_this.dataList[i].pic = _this.dataList[i].pic.split(',')
 					}
 					console.log(_this.dataList)
 					_this.pageNumber++
@@ -135,7 +134,10 @@
 			}).then(res => {
 				console.log(res[1].data.data)
 				that.dataList = res[1].data.data.list
-
+				let len = _this.dataList.length
+				for(let i = 0;i<len;i++){
+					_this.dataList[i].pic = _this.dataList[i].pic.split(',')
+				}
 			})
 		},
 		methods: {

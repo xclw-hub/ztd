@@ -54,7 +54,9 @@
 					@click="startLogin"
 			><span>登录</span></button>
 			<view class="pswForget">
+				<view class="tip"></view>
 				<text @click="passwordForget">忘记密码</text>
+				<view class="tip"></view>
 			</view>
 		</view>
 	</view>
@@ -300,12 +302,21 @@
 	}
 	.pswForget{
 		margin-top: 60rpx;
+		display: flex;
+		align-items: center;
 	}
 	.pswForget text{
+		margin-left: 30rpx;
+		margin-right: 30rpx;
 		font-size: 30rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #777777;
 		line-height: 26rpx;
+	}
+	.pswForget .tip{
+		width: 100rpx;
+		height: 1rpx;
+		background: #E3E3E3;
 	}
 </style>

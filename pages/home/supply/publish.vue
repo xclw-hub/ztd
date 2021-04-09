@@ -219,9 +219,12 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
-							})
+							uni.reLaunch(
+							{
+								url:'../../enterprise/myGoods/myGoods'
+							}
+								
+							)
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -255,13 +258,17 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.navigateBack({
-								delta:1
-							})
+							uni.reLaunch(
+							{
+								url:'../../enterprise/myGoods/myGoods'
+							}
+								
+							)
 						}
 					})
 				}
 				console.log("发布")
+				
 			},
 			// // 统计字数
 			// wordStatic() {
@@ -492,9 +499,22 @@
 		/* line-height: 26rpx; */
 	}
 
-	.uploadImg .upload image {
+	.upload image{
 		width: 200rpx;
 		height: 200rpx;
+		margin-right: 20rpx;
+		margin-top: 20rpx;
+	}
+	.upload-img{
+		position: relative;
+		display: inline;
+	}
+	.upload-img #delete{
+		position: absolute;
+		width: 40rpx;
+		height: 40rpx;
+		top: -210rpx; 
+		right: -10rpx;
 	}
 
 	.price {

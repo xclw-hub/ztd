@@ -57,12 +57,8 @@
   height: 80rpx;
   color: #fff;
   background-color: #2D6BDD;
-<<<<<<< HEAD
-  border-radius: 10rpx;
-=======
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -96,12 +92,8 @@
   height: 80rpx;
   color: #fff;
   background-color: #2D6BDD;
-<<<<<<< HEAD
-  border-radius: 10rpx;
-=======
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
->>>>>>> rj
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -131,12 +123,8 @@
 .listCon .item .avatar image.data-v-3e29180c {
   width: 100rpx;
   height: 100rpx;
-<<<<<<< HEAD
-  border-radius: 50%;
-=======
   -webkit-border-radius: 50%;
           border-radius: 50%;
->>>>>>> rj
 }
 .listCon .item .avatar .connectIcon.data-v-3e29180c {
   width: 30rpx;
@@ -162,12 +150,8 @@
   border-bottom: 1rpx solid #E9E9E9;
   height: 100rpx;
   padding-left: 40rpx;
-<<<<<<< HEAD
-  box-sizing: content-box;
-=======
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
->>>>>>> rj
 }
 .listCon .item .infoCon .leftinfo.data-v-3e29180c {
   height: 100rpx;
@@ -190,12 +174,8 @@
   color: #777777;
   font-size: 28rpx;
   border: 1rpx solid #888888;
-<<<<<<< HEAD
-  border-radius: 7rpx;
-=======
   -webkit-border-radius: 7rpx;
           border-radius: 7rpx;
->>>>>>> rj
   padding: 3rpx 6rpx;
   text-align: center;
 }

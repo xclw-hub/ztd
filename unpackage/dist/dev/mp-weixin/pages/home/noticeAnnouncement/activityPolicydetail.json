@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
+    "u-parse": "/uview-ui/components/u-parse/u-parse",
     "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
   }
 }

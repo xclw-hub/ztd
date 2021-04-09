@@ -4,10 +4,7 @@
   "navigationBarBackgroundColor": "#2D6BDD",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-<<<<<<< HEAD
-=======
     "u-parse": "/components/feng-parse/parse",
->>>>>>> rj
     "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
   }
 }

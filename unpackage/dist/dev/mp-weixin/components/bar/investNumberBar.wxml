@@ -1,1 +1,1 @@
-<view class="_div"><view data-ref="chart" class="canvasView _div vue-ref"></view></view>
+<view class="content"><view class="echarts" prop="{{option}}" change:prop="{{echarts.updateEcharts}}" id="echarts"></view></view>

@@ -2,12 +2,8 @@
 .uni-popup-dialog.data-v-2fab037e {
 	width: 670rpx;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	border-radius: 20rpx;
-=======
 	-webkit-border-radius: 20rpx;
 	        border-radius: 20rpx;
->>>>>>> rj
 	padding-top: 40rpx;
 	padding-bottom: 45rpx;
 	display: -webkit-box;
@@ -95,12 +91,8 @@
 .uni-dialog-button-left.data-v-2fab037e{
 	width: 280rpx;
 	height: 78rpx;
-<<<<<<< HEAD
-	border-radius: 39rpx;
-=======
 	-webkit-border-radius: 39rpx;
 	        border-radius: 39rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -115,12 +107,8 @@
 .uni-dialog-button-right.data-v-2fab037e{
 	width: 280rpx;
 	height: 78rpx;
-<<<<<<< HEAD
-	border-radius: 39rpx;
-=======
 	-webkit-border-radius: 39rpx;
 	        border-radius: 39rpx;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -150,12 +138,8 @@
 	width: 580rpx;
 	height: 250rpx;
 	border: 1rpx solid #AAAAAA;
-<<<<<<< HEAD
-	border-radius: 10px;
-=======
 	-webkit-border-radius: 10px;
 	        border-radius: 10px;
->>>>>>> rj
 	padding-top: 28rpx;
 	padding-left: 27rpx;
 	padding-right: 75rpx;

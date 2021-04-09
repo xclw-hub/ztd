@@ -40,12 +40,6 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-<<<<<<< HEAD
-.body image.data-v-717ff59a{
-	width: 90rpx;
-	height: 90rpx;
-	margin-right:24rpx ;
-=======
 .body .img.data-v-717ff59a{
 	width: 90rpx;
 	height: 90rpx;
@@ -60,7 +54,6 @@
 .img image.data-v-717ff59a{
 	width: 90rpx;
 	height: 90rpx;
->>>>>>> rj
 }
 .body .bodyRight.data-v-717ff59a{
 	height: inherit;
@@ -74,12 +67,9 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-<<<<<<< HEAD
-=======
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
->>>>>>> rj
 	border-bottom:1rpx solid #E9E9E9;
 }
 .bodyRight .title.data-v-717ff59a{
@@ -110,15 +100,6 @@
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-<<<<<<< HEAD
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
-}
-.bodyContent .information.data-v-717ff59a{
-	max-width: 512rpx;
-=======
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
@@ -128,7 +109,6 @@
 }
 .bodyContent .information.data-v-717ff59a{
 	width: 522rpx;
->>>>>>> rj
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -141,12 +121,8 @@
 	width: 32rpx;
 	height: 32rpx;
 	background: #F44F4F;
-<<<<<<< HEAD
-	border-radius: 50%;
-=======
 	-webkit-border-radius: 50%;
 	        border-radius: 50%;
->>>>>>> rj
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -158,11 +134,8 @@
 	        justify-content: center;
 }
 .bodyContent .informationCount text.data-v-717ff59a{
-<<<<<<< HEAD
-=======
 	/* display: flex;
 	justify-self: center; */
->>>>>>> rj
 	font-size: 20rpx;
 	font-family: Arial;
 	font-weight: 400;

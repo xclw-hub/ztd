@@ -8,9 +8,13 @@
 		<view class="listCon" v-if="listNumber!=0">
 			<view class="item" v-for="(item,index) in contactList" :key="index">
 				<view class="avatar" @click="tapGodetail(item)">
-					<image :src="item.contactHead" mode=""></image>
+					<image :src="item.contactHead" mode="" v-if='item.contactHead!=0'></image>
+					<view class="ss" v-else>
+						{{item.contactName|fristName}}
+					</view>
 					<!-- 根据后台返回的参数在此处做条件渲染，是否显示改标志 v-if -->
-					<image v-if="item.isDefault" class="connectIcon" src="../../../static/connectIcon.png" mode=""></image>
+					<image v-if="item.isDefault" class="connectIcon" src="../../../static/connectIcon.png" mode="">
+					</image>
 				</view>
 				<view class="infoCon">
 					<view class="leftinfo" @click="tapGodetail(item)">
@@ -21,7 +25,7 @@
 							{{item.position}}
 						</view>
 					</view>
-					
+
 					<view class="phoneicon">
 						<image src="../../../static/telephone.png" mode="" @click="makePhone(item.phoneNum)"></image>
 					</view>
@@ -54,50 +58,56 @@
 		data() {
 			return {
 				//listNumber: 1  计算属性，这里只为演示
-				listNumber: 1 ,//listNumber: 0时，显示联系人为空页面，添加完联系人，listNumber+1,跳到该页面显示联系人
-				contactList:[]
+				listNumber: 1, //listNumber: 0时，显示联系人为空页面，添加完联系人，listNumber+1,跳到该页面显示联系人
+				contactList: [],
+				src: 'sdaf'
 			}
 		},
-		onShow(){
+		filters: {
+		  fristName: function (value) {
+			return value[0]
+		  }
+		},
+		onShow() {
 			let _this = this
-				let that = this
-				let token = uni.getStorageSync('token');
-				let d
-				if(_this.$store.state.kind=='0'){
-					d={
-						enterpriseId: that.$store.state.enterpriseInfo.enterpriseId,
-					}
-				}else{
-					d={
-						enterpriseId: that.$store.state.userInfo.enterpriseId,
-					}
+			let that = this
+			let token = uni.getStorageSync('token');
+			let d
+			if (_this.$store.state.kind == '0') {
+				d = {
+					enterpriseId: that.$store.state.enterpriseInfo.enterpriseId,
 				}
-				request({
-					url: '/addContact/existingContacts',
-					data:d
-				}).then(res=>{
-					console.log(res[1].data)
-					that.contactList=res[1].data
-					if(that.contactList.length==0){
-						that.listNumber==0
-					}
-				})
+			} else {
+				d = {
+					enterpriseId: that.$store.state.userInfo.enterpriseId,
+				}
+			}
+			request({
+				url: '/addContact/existingContacts',
+				data: d
+			}).then(res => {
+				that.contactList = res[1].data
+				console.log(that.contactList)
+				if (that.contactList.length == 0) {
+					that.listNumber = 0
+				}
+			})
 		},
 		methods: {
 			tapGodetail(item) {
 				console.log(item.contactId)
 				uni.navigateTo({
-					url: './detail?tel='+item.phoneNum+'&contactId='+item.contactId
+					url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId
 				})
 			},
-			makePhone(tel){
+			makePhone(tel) {
 				uni.makePhoneCall({
-					phoneNumber:tel
+					phoneNumber: tel
 				})
 			},
 			addcontact() {
 				uni.redirectTo({
-					url: './add_Contact'
+					url: './add_Contact?a=' + this.listNumber
 				})
 			}
 		}
@@ -179,6 +189,18 @@
 				image {
 					width: 100rpx;
 					height: 100rpx;
+					border-radius: 50%;
+				}
+				
+				.ss {
+					background-color: #2D6BDD;
+					color: #FFFFFF;
+					font-size: 40rpx;
+					width: 100rpx;
+					height: 100rpx;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 					border-radius: 50%;
 				}
 

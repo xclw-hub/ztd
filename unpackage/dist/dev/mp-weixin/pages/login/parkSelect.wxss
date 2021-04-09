@@ -26,8 +26,6 @@
 	padding-top: 40rpx;
 	padding-left: 40rpx; 
 	padding-right: 40rpx;
-<<<<<<< HEAD
-=======
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -35,7 +33,6 @@
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
 	        flex-direction: column;
->>>>>>> rj
 }
 .park{
 	display: -webkit-box;
@@ -49,12 +46,6 @@
 	        align-items: center;
 	width: 100%;
 	height: 220rpx;
-<<<<<<< HEAD
-	background: -webkit-linear-gradient(left, #2D71EC, #1854C3);
-	background: linear-gradient(90deg, #2D71EC, #1854C3);
-	box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(27, 140, 255, 0.5);
-	border-radius: 10rpx;
-=======
 	background: -webkit-gradient(linear, left top, right top, from(#2D71EC), to(#1854C3));
 	background: -webkit-linear-gradient(left, #2D71EC, #1854C3);
 	background: linear-gradient(90deg, #2D71EC, #1854C3);
@@ -63,7 +54,6 @@
 	-webkit-border-radius: 10rpx;
 	        border-radius: 10rpx;
 	margin-bottom: 40rpx;
->>>>>>> rj
 }
 .body .parkName{
 	font-size: 40rpx;

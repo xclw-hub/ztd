@@ -61,15 +61,10 @@
 	margin-top: 27rpx;
 	height: 202rpx;
 	background: #FFFFFF;
-<<<<<<< HEAD
-	box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
-	border-radius: 15rpx;
-=======
 	-webkit-box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
 	        box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
 	-webkit-border-radius: 15rpx;
 	        border-radius: 15rpx;
->>>>>>> rj
 	padding-left: 31rpx;
 	padding-right: 31rpx;
 }
