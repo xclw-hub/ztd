@@ -1,23 +1,27 @@
 <template>
 	<view class="content">
-		<view class="head">
-			<image class="logo" src="/static/login/logo.png"></image>
+		<image class="head" src="../../static/login/bg.jpg"></image>
+		<image class="logo" src="/static/login/logo.png"></image>
+		<view class="slogan">
+			<text>沟通零距离</text>
+			<text>需求一键达</text>
 		</view>
-		<text class="slogan">沟通零距离  需求一键达</text>
 		<view class="body">
-			<button 
-					class="register_btn"
-					type="default"
-					@click="register"
-			><text>企业注册</text></button>
 			<button
 					class="enterpriseLogin_btn"
 					type="default"
 					@click="enterpriseLogin"
 			><text>企业账号登录</text></button>
+			<button 
+					class="register_btn"
+					type="default"
+					@click="register"
+			><text>企业注册</text></button>
 		</view>
 		<view class="personLogin_btn">
+			<view class="tip"></view>
 			<text @click="personLogin">个人账号登录</text>
+			<view class="tip"></view>
 		</view>
 	</view>
 </template>
@@ -54,12 +58,6 @@
 </script>
 
 <style scoped>
-	.content{
-		background-image:url(../../static/login/bg.jpg);
-		background-repeat: no-repeat;
-		/* background-repeat:repeat-x; */
-		background-size: 100% 480rpx;
-	}
 	.content, .head, .body{
 		display: flex;
 		flex-direction: column;
@@ -67,20 +65,24 @@
 		justify-content: center;
 	}
 	.head{
-		width: 670rpx;
-		height: 670rpx;
+		width: 100%;
+		height: 500rpx;
 	}
 	.logo {
+		margin-top: 93rpx;
 		height: 122rpx;
 		width: 350rpx;
-		margin-top:529rpx ;
 		font-size: 36rpx;
 		color: #8f8f94;
 	}
 	.slogan{
-		margin-top: 25rpx;
-		width: 354rpx;
+		margin-top: 44rpx;
+		width: 350rpx;
 		height: 29rpx;
+		display: flex;
+		justify-content: space-between;
+	}
+	.slogan text{
 		font-size: 30rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
@@ -92,6 +94,7 @@
 		margin-top: 90rpx;
 	}
 	.register_btn{
+		margin-top: 40rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -116,7 +119,6 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		margin-top: 40rpx;
 		width: 670rpx;
 		height: 88rpx;
 		background: #2E6BDE;
@@ -135,13 +137,21 @@
 	}
 	.personLogin_btn{
 		margin-top: 153rpx;
-		margin-bottom: 30rpx;
+		display: flex;
+		align-items: center;
 	}
 	.personLogin_btn text{
+		margin-left: 30rpx;
+		margin-right: 30rpx;
 		font-size: 30rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #666666;
 		line-height: 26rpx;
+	}
+	.personLogin_btn .tip{
+		width: 100rpx;
+		height: 1rpx;
+		background: #E3E3E3;
 	}
 </style>
