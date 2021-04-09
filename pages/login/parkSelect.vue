@@ -18,7 +18,7 @@
 					<text class="parkName">{{item.title}}</text>
 					<view class="location">
 						<image src="../../static/enterprise/location.png"></image>
-						<text>{{parkLocation}}</text>
+						<text>{{item.address}}</text>
 					</view>
 				</view>
 			</view>
@@ -77,7 +77,7 @@
 						_this.parkList.push(parkArr[j])
 					}
 				}
-				// console.log(_this.parkList)
+				console.log(_this.parkList)
 			}).catch(err=>{
 				console.log(err)
 			})

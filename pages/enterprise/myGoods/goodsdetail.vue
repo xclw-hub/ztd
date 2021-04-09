@@ -445,7 +445,7 @@
 
 			.item {
 				display: flex;
-				align-items: center;
+				// align-items: center;
 				border-bottom: 1rpx solid #E5E5E5;
 				padding: 30rpx 10rpx;
 

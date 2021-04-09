@@ -16,7 +16,7 @@
 				
 				<view class="name">
 					<text id="enterprise">{{enterpriseName}}</text>
-					<text id="id">{{enterpriseID}}</text>
+					<text id="id">{{enterpriseUsername}}</text>
 					<view class="industry">
 						<view class="noChoice" @click="changeIndustryKind" v-if="isEmptyList">
 							<image src="../../static/enterprise/box.png"></image>
@@ -183,7 +183,7 @@
 					<image :src="src!= undefined ? src : '../../static/enterprise/header.png'"></image>
 				</view>
 				<text id="popList-body-title-name">{{enterpriseName}}</text>
-				<text id="popList-body-title-id">{{enterpriseID}}</text>
+				<text id="popList-body-title-id">{{enterpriseUsername}}</text>
 			</view>
 			<view class="popList-body-content">
 				<text id="popList-body-content-title">所属行业</text>
@@ -222,7 +222,8 @@
 				popListShow:false,		//显示行业种类选择弹框
 				industryKindList:[''],		//所有已选的行业种类列表
 				enterpriseName:'长沙市九州仓储服务有限公司',
-				enterpriseID:'zhanghao_100',
+				enterpriseID:0,
+				enterpriseUsername:'zhanghao_100',
 				parkState:'2',		//我的园区状态，0表示未加入园区，1表示园区正在申请状态，2表示已加入园区
 				parkName:'',
 				src:''//图片路径
@@ -281,6 +282,7 @@
 			_this.src = info.enterpriseLogo
 			_this.enterpriseName = info.enterpriseName
 			_this.enterpriseID = info.enterpriseId
+			_this.enterpriseUsername = info.enterpriseUsername
 		},
 		methods: {
 			clickBack(){
@@ -476,17 +478,17 @@
 			},
 			loginOut(){
 				uni.clearStorage()
-				// uni.navigateTo({
-				// 	url:'../login/index'
-				// })
-				switch (uni.getSystemInfoSync().platform) {
-				    case 'android':
-				        plus.runtime.quit();
-				    break;
-				    case 'ios':
-				        plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
-				    break;
-				}
+				uni.navigateTo({
+					url:'../login/index'
+				})
+				// switch (uni.getSystemInfoSync().platform) {
+				//     case 'android':
+				//         plus.runtime.quit();
+				//     break;
+				//     case 'ios':
+				//         plus.ios.import('UIApplication').sharedApplication().performSelector('exit');
+				//     break;
+				// }
 			}
 		}
 	}
