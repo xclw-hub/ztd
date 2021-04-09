@@ -458,6 +458,9 @@
 		flex-direction: row;
 		justify-content: space-between;
 	}
+	.inputTitle input{
+		width: 100%;
+	} 
 
 	.titleInput input {}
 

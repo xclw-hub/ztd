@@ -291,11 +291,11 @@
 	table
 	{
 		margin-top: 20rpx;
-		border-bottom:1rpx solid #C7C7C7;
+		border-bottom:1px solid #C7C7C7;
 	}
 	tr {
 		height: 191rpx;
-		border:1rpx solid #C7C7C7;
+		border:1px solid #C7C7C7;
 	}
 	tr view{
 		margin-top: 50rpx;

@@ -2,9 +2,13 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+		//#ifdef APP-PLUS 
 			let _this = this
 			let location = ''
-		//#ifdef APP-PLUS  
+			setTimeout(()=>{
+				plus.navigator.closeSplashscreen();
+			},1500);
+		
 			var info = plus.push.getClientInfo();
 			console.log( JSON.stringify( info ) );
 			   /* 5+  push 消息推送 ps:使用:H5+的方式监听，实现推送*/  

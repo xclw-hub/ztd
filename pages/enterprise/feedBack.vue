@@ -332,4 +332,7 @@
 		display: flex;
 		align-items: center;
 	}
+	.contactMethod input{
+		width: 100%;
+	}
 </style>

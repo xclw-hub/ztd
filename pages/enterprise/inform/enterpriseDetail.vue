@@ -174,105 +174,7 @@
 								{value: 4, name: '浙江省（4）'},
 								{value: 3, name: '四川省（3）'}
 							],
-			}
-		},
-		onLoad(option) {
-			let _this = this
-			let obj = JSON.parse(option.obj)
-			_this.$request({
-				url:'/noticeService/mechanismDetail',
-				data:{
-					companyId: obj.companyId,
-					pkid: obj.pkid
-				}
-			}).then(res=>{
-				let data = res[1].data.data
-				console.log(data)
-				_this.enterpriseName = data.title
-				_this.content = data.content
-				// _this.investField = data.InvestmentField
-			}).catch(err=>{
-				console.log(err)
-			})
-		},
-		methods: {
-			setOption(){
-				
-			},
-			clickBack(){
-				uni.navigateBack({
-					delta:1
-				})
-			},
-			viewAllInvestNumber(){
-				this.investNumberShow=true
-			},
-			investNumberCloseDropList(){
-				this.investNumberShow=false
-			},
-			viewAllInvestMoney(){
-				this.investMoneyShow=true
-			},
-			investMoneyCloseDropList(){
-				this.investMoneyShow=false
-			},
-			viewAllRoundDistribution(){
-				this.roundDistributionShow=true
-			},
-			roundDistributionyCloseDropList(){
-				this.roundDistributionShow=false
-			},
-			// 委任对接
-			delegation(){
-				this.$refs.delegationPopupDialog.open()
-			},
-			delegationConfirm(done) {
-				console.log('确定');
-				// 需要执行 done 才能关闭对话框
-				done()
-			},
-			/**
-			 * 对话框取消按钮
-			 */
-			delegationClose(done) {
-				console.log('取消');
-				done()
-			}
-		},
-		computed:{
-			showInvestNumberDataX(){
-				return this.investNumberDataX.slice(0,7)
-			},
-			showInvestNumberDataY(){
-				return this.investNumberDataY.slice(0,7)
-			},
-			showInvestMoneyDataX(){
-				return this.investMoneyDataX.slice(0,7)
-			},
-			showInvestMoneyDataY(){
-				return this.investMoneyDataY.slice(0,7)
-			},
-			showRoundDistributionDataX(){
-				return this.roundDistributionDataX.slice(0,7)
-			},
-			showRoundDistributionDataY(){
-				return this.roundDistributionDataY.slice(0,7)
-			}
-		}
-	}
-</script>
-
-<script module="echarts" lang="renderjs">
-	import * as echarts from 'echarts';//整体引用
-	let myChart1,myChartAll1,myChart2,myChartAll2,myChart3,myChart4,myChart5,myChart6,myChartAll3
-	export default {
-		mounted() {
-			this.initEcharts()
-		},
-		methods: {
-			initEcharts () {
-				//投资数量分布
-				var investNumberOption = {
+				investNumberOption : {
 					grid: {
 						left: '0%',
 						// right: '0%',
@@ -287,8 +189,8 @@
 					},
 					yAxis: {
 						type: 'category',
-						// data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-						data: this.showInvestNumberDataX,
+						data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
+						// data: this.investNumberDataX,
 						axisLabel: {
 								show: true,
 								color: '#777777',
@@ -306,54 +208,51 @@
 							}
 					},
 					series: [
-						{
-							type: 'bar',
-							// data: [1746, 1326, 916, 696, 436, 376, 215],
-							data: this.showInvestNumberDataY,
-							// barWidth:9, 		//无法同时设置宽度和间距
-							barCategoryGap:'60%',
-							label: {
-									show: true,
-									formatter:function(params){ //标签内容
-										let str=''
-										let number = params.value
-										console.log(this)
-										while(number > 1000){
-										    if(number%1000 == 0){
-										        str = '000' + str
-										        number = parseInt(number/1000)
-										    }
-										    else{
-										        str = String(number%1000) + str
-										        number = parseInt(number/1000)
-										    }
-										      str = ',' + str
-										}
-										str = String(number) + str
-										return str
-									},
-									position: 'right',
-									fontSize: 11,
-									color:'#777777'
-							},
-							itemStyle: {
-									borderRadius:[0, 9, 9, 0],
-									// color:'#7466CC'
-									color: new echarts.graphic.LinearGradient(
-													1, 0, 0, 1,
-													[
-														{offset: 0, color: '#7466CC'},
-														{offset: 1, color: '#AD85FF'}
-													]
-									)
-							},
-						}	
-					]
+					{
+						type: 'bar',
+						data: [1746, 1326, 916, 696, 436, 376, 215],
+						// data: this.investNumberDataY,
+						// barWidth:9, 		//无法同时设置宽度和间距
+						barCategoryGap:'60%',
+						label: {
+								show: true,
+								formatter:function(params){ //标签内容
+									let str=''
+									let number = params.value
+									console.log(this)
+									while(number > 1000){
+									    if(number%1000 == 0){
+									        str = '000' + str
+									        number = parseInt(number/1000)
+									    }
+									    else{
+									        str = String(number%1000) + str
+									        number = parseInt(number/1000)
+									    }
+									      str = ',' + str
+									}
+									str = String(number) + str
+									return str
+								},
+								position: 'right',
+								fontSize: 11,
+								color:'#777777'
+						},
+						itemStyle: {
+								borderRadius:[0, 9, 9, 0],
+								// color:'#7466CC'
+								color: new echarts.graphic.LinearGradient(
+												1, 0, 0, 1,
+												[
+													{offset: 0, color: '#7466CC'},
+													{offset: 1, color: '#AD85FF'}
+												]
+								)
+						},
+					}	
+				]
 				},
-				myChart1 = echarts.init(document.getElementById('echarts1'))
-				myChart1.setOption(investNumberOption);
-				//完整投资数量分布
-				var allInvestNumberOption = {
+				allInvestNumberOption : {
 					grid: {
 						left: '0%',
 						// right: '0%',
@@ -368,7 +267,7 @@
 					},
 					yAxis: {
 						type: 'category',
-						data: this.investNumberDataX,
+						data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
 						axisLabel: {
 								show: true,
 								color: '#777777',
@@ -388,7 +287,7 @@
 					series: [
 						{
 							type: 'bar',
-							data: this.investNumberDataY,
+							data: [1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215],
 							// barWidth:9, 		//无法同时设置宽度和间距
 							barCategoryGap:'60%',
 							label: {
@@ -428,10 +327,7 @@
 						}	
 					]
 				},
-				myChartAll1 = echarts.init(document.getElementById('echartsAll1'))
-				myChartAll1.setOption(allInvestNumberOption);
-				//投资金额分布
-				var investMoneyOption = {
+				investMoneyOption : {
 				    grid: {
 				        left: '0%',
 				        // right: '0%',
@@ -446,7 +342,7 @@
 				    },
 				    yAxis: {
 				        type: 'category',
-						data: this.showInvestMoneyDataX,
+						data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
 						axisLabel: {
 						        show: true,
 								color: '#777777',
@@ -466,7 +362,7 @@
 				    series: [
 				        {
 				            type: 'bar',
-							data: this.showInvestMoneyDataY,
+							data: [1746, 1326, 916, 696, 436, 376, 215],
 							// barWidth:9, 		//无法同时设置宽度和间距
 							barCategoryGap:'60%',
 							label: {
@@ -506,10 +402,7 @@
 						}	
 				    ]
 				},
-				myChart2 = echarts.init(document.getElementById('echarts2'))
-				myChart2.setOption(investMoneyOption);
-				// 完整投资金额分布
-				var allInvestMoneyOption = {
+				allInvestMoneyOption : {
 				    grid: {
 				        left: '0%',
 				        // right: '0%',
@@ -524,7 +417,7 @@
 				    },
 				    yAxis: {
 				        type: 'category',
-						data: this.investMoneyDataX,
+						data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
 						axisLabel: {
 						        show: true,
 								color: '#777777',
@@ -544,7 +437,7 @@
 				    series: [
 				        {
 				            type: 'bar',
-							data: this.investMoneyDataY,
+							data: [1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215],
 							// barWidth:9, 		//无法同时设置宽度和间距
 							barCategoryGap:'60%',
 							label: {
@@ -584,10 +477,7 @@
 						}	
 				    ]
 				},
-				myChartAll2 = echarts.init(document.getElementById('echartsAll2'))
-				myChartAll2.setOption(allInvestMoneyOption);
-				// 事件趋势
-				var eventTrendOption = {
+				eventTrendOption : {
 					grid: {
 						left: '0%',
 						right: '0%',
@@ -603,7 +493,7 @@
 					xAxis: [
 						{
 							type: 'category',
-							data: this.eventTrendDataX,
+							data: ['2015', '2016', '2017', '2018', '2019'],
 							axisPointer: {
 								type: 'shadow'
 							},
@@ -651,7 +541,7 @@
 						{
 							name: '融资事件（起）',
 							type: 'bar',
-							data:this.eventTrendDataY1,
+							data:[ 35, 70, 92, 79, 70],
 							// barWidth:9, 		//无法同时设置宽度和间距
 							barCategoryGap:'90%',
 							label: {
@@ -678,17 +568,14 @@
 							name: '增速',
 							type: 'line',
 							yAxisIndex: 1,
-							data:this.eventTrendDataY2,
+							data:[-1, -1.5, -2, -0.7, 1.5],
 							itemStyle: {
 								color: '#FFB922'
 							},
 						}
 					]
 				},
-				myChart3 = echarts.init(document.getElementById('echarts3'))
-				myChart3.setOption(eventTrendOption);
-				// 投资额趋势
-				var investMoneyTrendOption = {
+				investMoneyTrendOption : {
 					grid: {
 					    left: '0%',
 					    right: '0%',
@@ -704,7 +591,7 @@
 					xAxis: [
 						{
 							type: 'category',
-							data: this.investMoneyTrendDataX,
+							data: ['2015', '2016', '2017', '2018', '2019'],
 							axisPointer: {
 								type: 'shadow'
 							},
@@ -752,7 +639,7 @@
 						{
 							name: '融资金额（万元）',
 							type: 'bar',
-							data:this.investMoneyTrendDataY1,
+							data:[ 35, 70, 92, 79, 70],
 							// barWidth:9, 		//无法同时设置宽度和间距
 							barCategoryGap:'90%',
 							label: {
@@ -779,7 +666,7 @@
 							name: '增速',
 							type: 'line',
 							yAxisIndex: 1,
-							data:this.investMoneyTrendDataY2,
+							data:[-1, -1.5, -2, -0.7, 1.5],
 							// data:this.yDataLine,
 							itemStyle: {
 								color: '#FFB922'
@@ -787,8 +674,121 @@
 						}
 					]
 				},
+			}
+		},
+		onLoad(option) {
+			let _this = this
+			let obj = JSON.parse(option.obj)
+			_this.$request({
+				url:'/noticeService/mechanismDetail',
+				data:{
+					companyId: obj.companyId,
+					pkid: obj.pkid
+				}
+			}).then(res=>{
+				let data = res[1].data.data
+				console.log(data)
+				_this.enterpriseName = data.title
+				_this.content = data.content
+				// _this.investField = data.InvestmentField
+			}).catch(err=>{
+				console.log(err)
+			})
+		},
+		computed:{
+			showInvestNumberDataX(){
+				return this.investNumberDataX.slice(0,7)
+			},
+			showInvestNumberDataY(){
+				return this.investNumberDataY.slice(0,7)
+			},
+			showInvestMoneyDataX(){
+				return this.investMoneyDataX.slice(0,7)
+			},
+			showInvestMoneyDataY(){
+				return this.investMoneyDataY.slice(0,7)
+			},
+			showRoundDistributionDataX(){
+				return this.roundDistributionDataX.slice(0,7)
+			},
+			showRoundDistributionDataY(){
+				return this.roundDistributionDataY.slice(0,7)
+			}
+		},
+		methods: {
+			setOption(){
+				
+			},
+			clickBack(){
+				uni.navigateBack({
+					delta:1
+				})
+			},
+			viewAllInvestNumber(){
+				this.investNumberShow=true
+			},
+			investNumberCloseDropList(){
+				this.investNumberShow=false
+			},
+			viewAllInvestMoney(){
+				this.investMoneyShow=true
+			},
+			investMoneyCloseDropList(){
+				this.investMoneyShow=false
+			},
+			viewAllRoundDistribution(){
+				this.roundDistributionShow=true
+			},
+			roundDistributionyCloseDropList(){
+				this.roundDistributionShow=false
+			},
+			// 委任对接
+			delegation(){
+				this.$refs.delegationPopupDialog.open()
+			},
+			delegationConfirm(done) {
+				console.log('确定');
+				// 需要执行 done 才能关闭对话框
+				done()
+			},
+			/**
+			 * 对话框取消按钮
+			 */
+			delegationClose(done) {
+				console.log('取消');
+				done()
+			}
+		}
+	}
+</script>
+
+<script module="echarts" lang="renderjs">
+	import * as echarts from 'echarts';//整体引用
+	let myChart1,myChartAll1,myChart2,myChartAll2,myChart3,myChart4,myChart5,myChart6,myChartAll3
+	export default {
+		mounted() {
+			this.initEcharts()
+		},
+		methods: {
+			initEcharts () {
+				//投资数量分布
+				myChart1 = echarts.init(document.getElementById('echarts1'))
+				myChart1.setOption(this.investNumberOption);
+				//完整投资数量分布
+				myChartAll1 = echarts.init(document.getElementById('echartsAll1'))
+				myChartAll1.setOption(this.allInvestNumberOption);
+				//投资金额分布
+				myChart2 = echarts.init(document.getElementById('echarts2'))
+				myChart2.setOption(this.investMoneyOption);
+				// 完整投资金额分布
+				myChartAll2 = echarts.init(document.getElementById('echartsAll2'))
+				myChartAll2.setOption(this.allInvestMoneyOption);
+				// 事件趋势
+				myChart3 = echarts.init(document.getElementById('echarts3'))
+				myChart3.setOption(this.eventTrendOption);
+				// 投资额趋势
 				myChart4 = echarts.init(document.getElementById('echarts4'))
-				myChart4.setOption(investMoneyTrendOption);
+				myChart4.setOption(this.investMoneyTrendOption);
 				//轮次分布
 				function sumArray(arr){
 					let result = 0
@@ -879,7 +879,7 @@
 				    ]
 				},
 				myChart5 = echarts.init(document.getElementById('echarts5'))
-				myChart5.setOption(roundDistributionOption);
+				myChart5.setOption(this.roundDistributionOption);
 				//完整轮次分布
 				var allRoundDistributionOption = {
 				    grid: {
@@ -957,7 +957,7 @@
 				    ]
 				},
 				myChartAll3 = echarts.init(document.getElementById('echartsAll3'))
-				myChartAll3.setOption(allRoundDistributionOption);
+				myChartAll3.setOption(this.allRoundDistributionOption);
 				//重点投资地图（饼状图）
 				function sumArrayPie(arr){
 					let result = 0
@@ -1016,7 +1016,7 @@
 					]
 				}
 				myChart6 = echarts.init(document.getElementById('echarts6'))
-				myChart6.setOption(investMapOption);
+				myChart6.setOption(this.investMapOption);
 			}
 		}
 	}
