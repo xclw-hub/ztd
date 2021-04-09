@@ -223,8 +223,8 @@
 		},
 		methods:{
 			clickBack(){
-				uni.navigateTo({
-					url:'../home'
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			showPolicy(index){

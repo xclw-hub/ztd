@@ -108,7 +108,8 @@
 							data:{
 								id: enterpriseId,
 								parkId: _this.selectedParkId,
-								token: token
+								token: token,
+								parkName:_this.parkName
 							}
 						}).then(res =>{
 							let data = res[1].data

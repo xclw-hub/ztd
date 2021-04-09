@@ -1,19 +1,19 @@
 <template>
 	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
 		<view class="navbar">
+			<view class="avatarCon" @click="enterpriseHome">
+				<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
+			</view>
 			<view class="navleftCon">
-				<view class="avatarCon" @click="enterpriseHome">
-					<image :src="user_logo!='' ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
-				</view>
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
 					<view class="searchInput">
 						<input type="text" v-model="keywords" placeholder="请输入搜索关键词" />
 					</view>
 				</view>
+				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-show="isParked"></image>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode="" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
@@ -176,18 +176,10 @@
 			let _this = this
 			console.log(_this.$store.state.id)
 			console.log(_this.$store.state.kind)
-			if (_this.$store.state.kind === '0') {
-				if (_this.$store.state.enterpriseInfo.isBindPark) {
-					_this.isParked = true
-				} else {
-					_this.isParked = false
-				}
-			} else {
-				if (_this.$store.state.userInfo.isBindPark) {
-					_this.isParked = true
-				} else {
-					_this.isParked = false
-				}
+			if(_this.$store.state.enterpriseInfo.parkStatus==1){
+				_this.isParked = true
+			}else{
+				_this.isParked = false
 			}
 			request({
 				url: '/industry/dataTitle',
@@ -662,7 +654,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.navbar {
+	/* .navbar {
 		width: 100%;
 		background-color: #2E6BDE;
 		padding-top: 66rpx;
@@ -723,8 +715,74 @@
 				height: 46rpx;
 			}
 
-			.scan {}
 
+			.notice {
+				margin-left: 20rpx;
+			}
+		}
+	} */
+	.navbar{
+		width: 100%;
+		background-color: #2E6BDE;
+		padding-top: 66rpx;
+		padding-bottom: 42rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: fixed;
+		top: 0;
+		z-index: 555;
+		.avatarCon {
+			justify-item : flex-start;
+			width: 68rpx;
+			height: 68rpx;
+			border-radius: 50%;
+			align-items: center;
+			margin-left: 20rpx;
+			image {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+		}
+		.navleftCon{
+			display: flex;
+			align-items: center;
+			flex: 1;
+			.searchBar {
+				width: 100%;
+				height: 72rpx;
+				border-radius: 15rpx;
+				background-color: #fff;
+				display: flex;
+				align-items: center;
+				padding: 0 20rpx;
+				margin-left: 20rpx;
+				.searchImg {
+					width: 30rpx;
+					height: 30rpx;
+				}
+				.searchInput {
+					margin-left: 15rpx;
+				}
+			}
+			.scan{
+				margin-left: 22rpx;
+				width: 55rpx;
+				height: 46rpx;
+			}
+		}
+		.navrightCon {
+			display: flex;
+			align-items: center;
+			margin-right: 40rpx;
+			justify-item : flex-end;
+			image {
+				width: 41rpx;
+				height: 46rpx;
+			}
+		
+		
 			.notice {
 				margin-left: 20rpx;
 			}

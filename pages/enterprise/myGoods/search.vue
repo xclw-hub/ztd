@@ -67,7 +67,7 @@
 					</view>
 				</view>
 				<view @click="hideHistory">
-					<image src="../../../static/home/hidehistory.png"></image>
+					<image src="../../../static/home/hidehistory.png" v-show="historyArr.length>defaultNumber"></image>
 				</view>
 			</view>
 		</view>

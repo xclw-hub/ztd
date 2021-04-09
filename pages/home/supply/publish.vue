@@ -35,8 +35,11 @@
 					<text id="tip2">{{imageNumber}}/5</text>
 				</view>
 				<view class="upload">
-					<image src="../../../static/enterprise/publishLoad.png" @click="chooseImage"></image>
-					<image v-for="(item,index) in imageArr" :src="item" :key="index" @click="preview(item)"></image>
+					<view class="upload-img" v-for="(item,index) in imageArr" :key="index">
+						<image :src="item" @click="preview(item)"></image>
+						<image id="delete" src="../../../static/enterprise/cancel.png" @click="deleteImg(index)"></image>
+					</view>
+					<image src="../../../static/enterprise/uploadImage.png" @click="chooseImage" v-show="imageNumber<5"></image>
 				</view>
 			</view>
 			<view class="price">
@@ -161,6 +164,10 @@
 				}
 					
 				)
+			},
+			deleteImg(index){
+				this.imageArr.splice(index,1)
+				this.imageNumber--
 			},
 			confirm() {
 				let that = this
