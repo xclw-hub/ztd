@@ -536,6 +536,7 @@
 	.head image{
 		width: 160rpx;
 		height: 160rpx;
+		border-radius: 50%;
 	}
 	.head .name{
 		margin-left: 34rpx;
