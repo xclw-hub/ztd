@@ -67,7 +67,7 @@
 					<input 
 					v-bind:style="{color : phoneFontColor}"
 					:disabled="isEditPhone"
-					type="text"
+					type="number"
 					v-model.trim="phone"
 					/>
 					<image src="../../../static/enterprise/save.png" @click="editPhone"></image>
@@ -130,12 +130,16 @@
 		onLoad() {
 			this.setData();
 		},
+		onShow() {
+			this.$store.flag = 0
+			this.setData()
+		},
 		data() {
 			return {
 				list:['全部类型','供应','需求'],		//下拉菜单
 				dropListShow:false,		//是否显示下拉列表
 				// serviceList:['金属切削机床','铸造机械','矿山机械','试验机','实验分析仪器','铸造机械','矿山机械','试验机',],
-				serviceList:[],
+				serviceList:['暂无服务'],
 				supplyList:[],
 				mask_seen:false,		//遮罩层是否显示
 				choice:true,		//表示选择我的服务，否则表示选择供需列表

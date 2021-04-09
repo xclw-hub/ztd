@@ -66,7 +66,7 @@
 				
 				<view class="mobilePhone">
 					<view class="tips">
-						<text>联系电话</text>
+						<text>联系人</text>
 					</view>
 					<view class="detail">
 						<text id="mobilePhone">{{publish.mobilePhone}}</text>
@@ -236,16 +236,18 @@
 					// console.log(res)
 				 //    console.log(res[1].data)
 				    if(res[1].statusCode===200){
+						this.$store.flag = 1
 				        uni.showToast({
 				            icon:'success',
-				            position:'bottom',
+				        	position:'bottom',
+				        	duration: 500,
 				            title: '删除成功'
 				        })
-						uni.navigateTo({
-							url:'informationPublish',
-							animationType: 'pop-in',
-							animationDuration: 600
-						})
+				        setTimeout(function(){
+				        	uni.navigateBack({
+				        		delta:1
+				        	})
+				        },500)
 				    }else{
 				        uni.showToast({
 				            icon:'none',
