@@ -198,11 +198,12 @@
 			setData(){
 				// this.serviceList = ['金属切削机床','铸造机械',]
 				let state = this.$store.state
-				// console.log(state)
+				console.log('state')
+				console.log(state)
+				this.id = state.id
 				this.type = state.kind == 1 ? 0 : 1		// kind 1 个人 0 企业 、、接口里 0 个人 1 企业
 				let info = state.kind == 0 ? state.enterpriseInfo : state.userInfo
-				console.log(info)
-				this.id = info.enterpriseId
+				// console.log(info)
 				this.parkId = info.parkId
 				// let keyword = "abcd,bac"
 				// var m = keyword.split(",")
@@ -228,7 +229,9 @@
 						let keyword = res.data.keyword + ""
 						var m = keyword.split(",")
 						console.log(m)
-						this.serviceList = m
+						if(m[0] != "undefined"){
+							this.serviceList = m
+						}
 						this.address = res.data.address
 						this.phone = res.data.phoneNum
 				    },

@@ -181,8 +181,11 @@
 						detail.address = data.address
 						detail.contact = data.contacts
 						detail.mobilePhone = data.tel
-						let arr = data.pic.split(',')
-						detail.imageArr = arr
+						// console.log(data.pic)
+						if(data.pic != null){
+							let arr = data.pic.split(',')
+							detail.imageArr = arr
+						}
 						detail.description = data.content
 						this.publish = detail
 						
