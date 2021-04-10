@@ -13,7 +13,7 @@
 			</view>
 		</uniNavBar>
 		<view class="kind">
-			<view class="kind-detail" v-for="(item, index) in kind" :key="index" :class="[isChoose[index] ? activeClass_bg : 'active2_bg']">
+			<view class="kind-detail" v-for="(item, index) in kind" :key="index" :class="[isChoose[index] ? activeClass_bg : 'active2_bg']" @click="chooseKind(index)">
 				<text :class="[isChoose[index] ? activeClass_font : 'active2_font']">{{item}}</text>
 			</view>
 		</view>
@@ -51,45 +51,43 @@
 				activeClass_font:'active1_font',
 				kind:['自动化装备','数控机床','智能生产','矿山机械'],
 				enterpriseDetail:[
-					{
-						title:'和光投资',
-						Fieldlist:['5G终端设备','5G文娱','5G教育','智能教育'],
-						investment:'5',
-						investmentTotal:'17',
-						recentInvestment:'鲜果壹号',
-						RegionalRanking:0,
-						pkid: 0,
-						registeredcapital: 0
-					}
+					// {
+					// 	title:'和光投资',
+					// 	Fieldlist:['5G终端设备','5G文娱','5G教育','智能教育'],
+					// 	investment:'5',
+					// 	investmentTotal:'17',
+					// 	recentInvestment:'鲜果壹号',
+					// 	RegionalRanking:0,
+					// 	pkid: 0,
+					// 	registeredcapital: 0
+					// }
 				],
+				parkId:0,
+				pkid:0
 			}
 		},
 		onLoad(option) {
+			this.pkid = Number(option.pkid)
+			if(this.$store.state.kind==='0'){
+				this.parkId = this.$store.state.enterpriseInfo.parkId
+			}
+			else{
+				this.parkId = this.$store.state.userInfo.parkId
+			}
+			console.log(this.pkid)
+			console.log(this.parkId)
 			let _this = this
-			let obj = JSON.parse(option.obj) 
 			_this.$request({
 				url:'/noticeService/mechanismList',
 				data:{
-					parkId: obj.parkId,
-					title: obj.title,
-					// title: '长沙千景智能设备有限公司',
+					parkId: _this.parkId,
+					// title: '自动化装备'
+					title: '长沙千景智能设备有限公司',
 					// parkId: 4
 				}
 			}).then(res=>{
 				let data = res[1].data.data[0]
 				console.log(data)
-				if(data.title === '自动化装备'){
-					_this.isChoose= [true,false,false,false]
-				}
-				else if(data.title === '数控机床'){
-					_this.isChoose= [false,true,false,false]
-				}
-				else if(data.title === '智能生产'){
-					_this.isChoose= [false,false,true,false]
-				}
-				else{
-					_this.isChoose= [false,false,false,true]
-				}
 				_this.enterpriseDetail = data.mechanismlist
 			}).catch(err=>{
 				console.log(err)
@@ -102,13 +100,27 @@
 				})
 			},
 			// 类型展示按钮事件
-			// chooseKind(index){
-			// 	console.log(index)
-			// 	let len=this.kind.length
-			// 	this.isChoose=[false,false,false,false]
-			// 	this.isChoose[index]=true
-			// 	console.log(this.isChoose)
-			// },
+			chooseKind(index){
+				this.isChoose=[false,false,false,false]
+				this.isChoose[index]=true
+				console.log(this.kind[index])
+				let _this = this
+				_this.$request({
+					url:'/noticeService/mechanismList',
+					data:{
+						parkId: _this.parkId,
+						title: _this.kind[index],
+						// title: '长沙千景智能设备有限公司',
+						// parkId: 4
+					}
+				}).then(res=>{
+					let data = res[1].data.data[0]
+					console.log(data)
+					_this.enterpriseDetail = data.mechanismlist
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
 			ViewPriseDetail(index){
 				let _this = this
 				let enterpriseId
@@ -120,7 +132,8 @@
 				}
 				let obj = {
 					companyId: enterpriseId,
-					pkid: _this.enterpriseDetail[index].pkid
+					pkid: _this.enterpriseDetail[index].pkid,
+					companyTitle: _this.enterpriseDetail[index].title
 				}
 				uni.navigateTo({
 					url:'enterpriseDetail?obj='+JSON.stringify(obj) 

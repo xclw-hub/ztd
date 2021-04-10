@@ -2,8 +2,8 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
-		//#ifdef APP-PLUS 
 			let _this = this
+		//#ifdef APP-PLUS 
 			let location = ''
 			setTimeout(()=>{
 				plus.navigator.closeSplashscreen();

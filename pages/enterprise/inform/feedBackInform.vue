@@ -186,12 +186,8 @@
 				})
 			},
 			viewFeedBack(index){
-				let obj = {
-					parkId:4,
-					title:'长沙千景智能设备有限公司'
-				}
 				uni.navigateTo({
-					url:"feedBackDetail?obj="+JSON.stringify(obj)
+					url:"feedBackDetail?pkid="+this.feedBackInformArr[index].pkid
 				})
 			},
 			closeDropList(){

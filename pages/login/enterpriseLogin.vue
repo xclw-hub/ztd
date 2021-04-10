@@ -74,7 +74,7 @@
 				eye_src: "/static/login/eye-no.png",
 				enterpriseAccount:"",		//企业账号
 				password:""		,//密码
-				cid: "qweqweqwewqe"		//设备CID
+				cid: ""		//设备CID
 			}
 		},
 		onLoad() {

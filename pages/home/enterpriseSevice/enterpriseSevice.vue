@@ -423,6 +423,7 @@
 			console.log(_this.isPark)
 			console.log(_this.parkId)
 			console.log(_this.enterpriseId)
+			console.log('userID:'+_this.$store.state.id)
 			_this.enterprisePage = 1		//每次进入都先加载第一页
 			_this.$request({
 				url:'/enterpriseService/enterpriseListInner',
