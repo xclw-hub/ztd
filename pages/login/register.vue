@@ -103,22 +103,19 @@
 				passwordConfirm_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合"
 			}
 		},
-		/* onLoad(option) {
-			if(option.industryArr){
-				this.industryShow = option.industryArr
-				this.industryKindList = option.industryArr.split(',')
-				console.log(this.industryKindList)
-			}
-		},*/
-		onShow(){
-			console.log('industryKindList')
-			console.log(industryKindList)
-			let length = this.industryKindList.length
-			for(let i=0;i<length-1;i++){
-				this.industryShow+=this.industryKindList[i]+','
-			}
-			this.industryShow+=this.industryKindList[length-1]
-		}, 
+		onLoad() {
+			let _this = this
+			uni.$on('industryUpdate', function(data) {
+				_this.industryKindList = data.item
+				let length = _this.industryKindList.length
+				_this.industryShow=''
+				for(let i=0;i<length-1;i++){
+					_this.industryShow+=_this.industryKindList[i]+','
+				}
+				_this.industryShow+=_this.industryKindList[length-1]
+				console.log(data.item);
+			})
+		},
 		methods:{
 			clickBack(){		//导航栏返回按键
 				uni.navigateBack({

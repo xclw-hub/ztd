@@ -261,6 +261,8 @@
 				_this.$store.state.enterpriseInfo.parkStatus=res[1].data.parkStatus
 				_this.parkState =res[1].data.parkStatus
 				if(_this.parkState!=2){
+					_this.$store.state.enterpriseInfo.parkId=res[1].data.parkId
+					_this.$store.state.userInfo.parkId=res[1].data.parkId
 					if(res[1].data.parkName == undefined){
 						_this.parkName = ''
 						_this.$store.state.enterpriseInfo.parkName=''

@@ -190,62 +190,6 @@
 			let _this = this
 			console.log(_this.$store.state.id)
 			console.log(_this.$store.state.kind)
-			if(_this.$store.state.enterpriseInfo.parkStatus==1){
-				_this.isParked = true
-			}else{
-				_this.isParked = false
-			}
-			if(_this.isParked == true){
-				request({
-					url: '/industry/dataTitle',
-					data:{
-						parkid:_this.$store.state.kind == 0 ? _this.$store.state.enterpriseInfo.parkId : _this.$store.state.userInfo.parkId
-					}
-				}).then(res => {
-					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
-					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
-						page: _this.pageNumber,
-					}
-					request({
-						url: '/industry/dataList',
-						data: d,
-					}).then(res => {
-						console.log(res[1].data.data.list)
-						let a = _this.dataList.length
-						console.log(a)
-						_this.dataList = res[1].data.data.list
-						console.log(_this.dataList)
-					})
-				})
-			}else{
-				request({
-					url: '/industry/dataTitle',
-				}).then(res => {
-					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
-					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
-						page: _this.pageNumber,
-					}
-					request({
-						url: '/industry/dataList',
-						data: d,
-					}).then(res => {
-						console.log(res[1].data.data.list)
-						let a = _this.dataList.length
-						console.log(a)
-						_this.dataList = res[1].data.data.list
-						console.log(_this.dataList)
-					})
-				})
-			}
-			
 			if (_this.$store.state.kind === '0') {
 				// if (_this.$store.state.id) {
 				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
@@ -276,8 +220,55 @@
 						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							request({
+								url: '/industry/dataTitle',
+								data:{
+									parkid:data.parkId
+								}
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						} else {
 							tem.isBindPark = false
+							request({
+								url: '/industry/dataTitle',
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						}
 						console.log(tem)
 						_this.$store.commit('setEnterpriseInfo', tem)
@@ -315,6 +306,54 @@
 						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							request({
+								url: '/industry/dataTitle',
+								data:{
+									parkid:data.parkId
+								}
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
+						}else{
+							request({
+								url: '/industry/dataTitle',
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						}
 						_this.$store.commit('setUserInfo', tem)
 						if (_this.$store.state.kind === '0') {
@@ -331,28 +370,6 @@
 					console.log(err)
 				})
 			}
-			request({
-				url: '/industry/dataTitle',
-			}).then(res => {
-				// console.log(res[1].data.data);
-				_this.tabList = res[1].data.data;
-				// console.log(_this.tabList);
-				let d = {
-					industryId: _this.tabList[_this.tabCurrent].pkid,
-					keyword: _this.tabList[_this.tabCurrent].title,
-					page: _this.pageNumber,
-				}
-				request({
-					url: '/industry/dataList',
-					data: d,
-				}).then(res => {
-					// console.log(res[1].data.data.list)
-					let a = _this.dataList.length
-					// console.log(a)
-					_this.dataList = res[1].data.data.list
-					// console.log(_this.dataList)
-				})
-			})
 		},
 		onReachBottom() {
 			let _this = this
