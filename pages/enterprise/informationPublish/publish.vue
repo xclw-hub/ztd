@@ -67,8 +67,11 @@
 					<text id="tip2">{{imageNumber}}/9</text>
 				</view>
 				<view class="upload">
-					<image src="../../../static/enterprise/publishLoad.png" @click="chooseImage"></image>
-					<image v-for="(item,index) in imageArr" :src="item" :key="index" @click="preview(item)"></image>
+					<view class="upload-img" v-for="(item,index) in imageArr" :key="index">
+						<image :src="item" @click="preview(item)"></image>
+						<image id="delete" src="../../../static/enterprise/cancel.png" @click="deleteImg(index)"></image>
+					</view>
+					<image src="../../../static/enterprise/uploadImage.png" @click="chooseImage" v-show="imageNumber<9"></image>
 				</view>
 			</view>
 			<view class="address">
@@ -166,6 +169,10 @@
 				uni.navigateBack({
 					delta:1
 				})
+			},
+			deleteImg(index){
+				this.imageArr.splice(index,1)
+				this.imageNumber--
 			},
 			confirm(){
 				console.log("发布")
@@ -458,7 +465,7 @@
 		color: #AAAAAA;
 		line-height: 26rpx;
 	}
-	.uploadImg{
+	/* .uploadImg{
 		margin-top: 50rpx;
 	}
 	.uploadImg .tips{
@@ -466,6 +473,50 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 30rpx;
+	} */
+	.uploadImg {
+		margin-top: 50rpx;
+	}
+	
+	.uploadImg .tips {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 30rpx;
+	}
+	
+	.tips #tip1 {
+		font-size: 32rpx;
+		font-family: Source Han Sans CN;
+		font-weight: 400;
+		color: #333333;
+		/* line-height: 100rpx; */
+	}
+	
+	.tips #tip2 {
+		font-size: 28rpx;
+		font-family: Source Han Sans CN;
+		font-weight: 400;
+		color: #AAAAAA;
+		/* line-height: 26rpx; */
+	}
+	
+	.upload image{
+		width: 200rpx;
+		height: 200rpx;
+		margin-right: 20rpx;
+		margin-top: 20rpx;
+	}
+	.upload-img{
+		position: relative;
+		display: inline;
+	}
+	.upload-img #delete{
+		position: absolute;
+		width: 40rpx;
+		height: 40rpx;
+		top: -210rpx; 
+		right: -10rpx;
 	}
 	.tips #tip1{
 		font-size: 32rpx;

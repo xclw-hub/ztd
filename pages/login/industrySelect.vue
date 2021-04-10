@@ -20,7 +20,7 @@
 		</uniNavBar>
 		<view class="content">
 			<view class="search">
-				<image src="/static/home/search.png"></image>
+				<image @click="clickSearch" class="img1" src="../../static/home/search.png"></image>
 				<input
 				 type="text"
 				 :placeholder="search_placeholder"
@@ -28,9 +28,10 @@
 				 v-model.trim="searchContent"
 				 @focus="searchFocus"
 				 @blur="searchBlue"/>
+				 <image class="img2" @click="clearSearchContent" v-show="searchContent!=''" src="../../static/enterprise/cancel.png"></image>
 			</view>
 			<view class="industry-list">
-				<view class="industry-list-item" v-for="(item, index) in industryKindList" :key='index' :class="[item.choice===1 ? 'industry-list-item-true' : 'industry-list-item-false']" @click="selectKind(index)">
+				<view class="industry-list-item" v-for="(item, index) in searchResult" :key='index' :class="[item.choice===1 ? 'industry-list-item-true' : 'industry-list-item-false']" @click="selectKind(index)">
 					<text>{{item.kind}}</text>
 				</view>
 			</view>
@@ -68,86 +69,79 @@
 			return {
 				search_placeholder:'搜索行业名称',
 				searchContent:'',
+				searchResult:[],
 				industryKindList:[{
-					kind:'智能制造',
-					choice:0
-				},
-				{
-					kind:'机器人',
-					choice:0
-				},
-				{
-					kind:'人工智能',
-					choice:0
-				},
-				{
-					kind:'5G',
-					choice:0
-				},
-				{
-					kind:'新能源汽车',
-					choice:0
-				},
-				{
-					kind:'能源产业',
-					choice:0
-				},
-				{
-					kind:'智能制造',
-					choice:0
-				},
-				{
-					kind:'机器人',
-					choice:0
-				},
-				{
-					kind:'集成电路及电子材料',
-					choice:0
-				},
-				{
-					kind:'工业互联网',
-					choice:0
-				},
-				{
-					kind:'人工智能',
-					choice:0
-				},
-				{
-					kind:'智能制造',
-					choice:0
-				},
-				{
-					kind:'机器人',
-					choice:0
-				},
-				{
-					kind:'人工智能',
-					choice:0
-				},
-				{
-					kind:'5G',
-					choice:0
-				},
-				{
-					kind:'新能源汽车',
-					choice:0
-				},
-				{
-					kind:'能源产业',
-					choice:0
-				},
-				{
-					kind:'智能制造',
-					choice:0
-				},
-				{
-					kind:'机器人',
-					choice:0
-				}],		//所有可选的行业种类列表
+						kind:'人工智能',
+						choice:0
+					},
+					{
+						kind:'智能制造',
+						choice:0
+					},
+					{
+						kind:'工业互联网',
+						choice:0
+					},
+					{
+						kind:'信息通信',
+						choice:0
+					},
+					{
+						kind:'集成电路及电子材料',
+						choice:0
+					},
+					{
+						kind:'云计算及大数据',
+						choice:0
+					},
+					{
+						kind:'新材料',
+						choice:0
+					},
+					{
+						kind:'生物医药',
+						choice:0
+					},
+					{
+						kind:'新能源汽车',
+						choice:0
+					},
+					{
+						kind:'能源产业',
+						choice:0
+					},
+					{
+						kind:'节能环保',
+						choice:0
+					},
+					{
+						kind:'企业服务',
+						choice:0
+					},
+					{
+						kind:'其他',
+						choice:0
+					}],		//所有可选的行业种类列表
 				selectKindArr:[]		//已选的行业
 			}
 		},
+		onLoad(){
+			this.searchResult = this.industryKindList
+		},
 		methods: {
+			clearSearchContent(){
+				this.searchContent=''
+				this.searchResult=this.industryKindList
+			},
+			clickSearch(){
+				this.searchResult = []
+				let length = this.industryKindList.length
+				for(let i = 0;i<length;i++){
+					if(this.industryKindList[i].kind.indexOf(this.searchContent)>=0){
+						this.searchResult.push(this.industryKindList[i])
+					}
+				}
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -178,8 +172,35 @@
 						_this.selectKindArr.push(_this.industryKindList[i].kind)
 					}
 				}
-				uni.navigateTo({
-					url:'./register?industryArr='+_this.selectKindArr
+				let industryKindArr= _this.selectKindArr
+				let changeTime = +new Date()
+				_this.$request({
+					url:'/preferentialPolicies/industryChoose',
+					data:{
+						'industry':industryKindArr,
+						'enterpriseId':_this.$store.state.id
+					}
+				}).then(res =>{
+					let data =res[1].data
+					console.log('industryChoose')
+					console.log(data)
+					console.log('choose end')
+					if(data.statusCode == 2000){
+						var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+						prevPage.$vm.industryKindList=_this.selectKindArr
+						uni.navigateBack({
+							delta:1
+						})
+						// 需要执行 done 才能关闭对话框
+						done()
+					}else{
+						console.log(data.statusMsg)
+					}
+					//debugger
+				}).catch(err =>{
+					console.log(err)
 				})
 			},
 			/**
@@ -239,9 +260,15 @@
 		align-items: center;
 		padding-left: 21rpx;
 	}
-	.search image{
+	.img1{
 		width: 30rpx;
 		height: 30rpx;
+		margin-right: 15rpx;
+	}
+	.img2{
+		width: 30rpx;
+		height: 30rpx;
+		margin-left: auto;
 		margin-right: 15rpx;
 	}
 	.placeholderStyle{

@@ -122,7 +122,7 @@
 						'cid': _this.cid
 						// 'username': 'ztd',
 						// 'password': '123456',
-						// 'cid': 'the second cid'
+						 /* 'cid': 'the second cid' */
 					}
 				}).then(res=>{
 					let data = res[1].data

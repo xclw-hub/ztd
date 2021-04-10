@@ -141,7 +141,9 @@
 							parkStatus:0
 						}
 						_this.$store.setEnterpriseInfo(_this.$store.state, info)
-						
+						uni.navigateBack({
+							delta:2
+						})
 						// 需要执行 done 才能关闭对话框
 						done()
 						
@@ -151,10 +153,6 @@
 				}).catch(err=>{
 					console.log(err)
 				})
-				uni.navigateBack({
-					delta:2
-				})
-				
 			},
 			/**
 			 * 对话框取消按钮

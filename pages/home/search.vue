@@ -81,7 +81,7 @@
 					</view>
 				</view>
 				<view @click="hideHistory">
-					<image src="../../static/home/hidehistory.png"></image>
+					<image src="../../static/home/hidehistory.png" v-show="historyArr.length>defaultNumber"></image>
 				</view>
 			</view>
 		</view>
@@ -166,7 +166,7 @@
 					// 如果该搜索记录为新记录则加入历史记录数组
 					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
-						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyArr
+						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyShowNumber
 					}
 					//过滤文章列表,如果该文章的标题中包含搜索关键字则加入显示列表
 					/* this.searchArticleList=this.articleList.filter(item => item.title.includes(this.searchContent))

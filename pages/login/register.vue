@@ -103,13 +103,22 @@
 				passwordConfirm_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合"
 			}
 		},
-		onLoad(option) {
+		/* onLoad(option) {
 			if(option.industryArr){
 				this.industryShow = option.industryArr
 				this.industryKindList = option.industryArr.split(',')
 				console.log(this.industryKindList)
 			}
-		},
+		},*/
+		onShow(){
+			console.log('industryKindList')
+			console.log(industryKindList)
+			let length = this.industryKindList.length
+			for(let i=0;i<length-1;i++){
+				this.industryShow+=this.industryKindList[i]+','
+			}
+			this.industryShow+=this.industryKindList[length-1]
+		}, 
 		methods:{
 			clickBack(){		//导航栏返回按键
 				uni.navigateBack({
@@ -196,14 +205,41 @@
 					})
 					return false
 				}
-				let obj ={
-					'name':this.enterpriseName,
-					'account':this.accountNumber,
-					'psw':this.password,
-					'industryKindList':this.industryKindList
-				}
-				uni.navigateTo({		//将公司名称、账号、密码传到下一页面
-					url:'phoneNumberBind?obj='+JSON.stringify(obj)
+				let _this = this
+				_this.$request({
+					url:'/register/verificationName',
+					data:{
+						enterpriseName:_this.enterpriseName,
+						username:_this.accountNumber
+					}
+				}).then(res=>{
+					if(res[1].data.statusCode == 3007){
+						uni.showToast({
+						    icon: 'none',
+							position:'bottom',
+						    title: '账户名已被使用'
+						})
+					}else if(res[1].data.statusCode == 3006){
+						uni.showToast({
+						    icon: 'none',
+							position:'bottom',
+						    title: '公司名称已被注册'
+						})
+					}else if(res[1].data.statusCode == 2000){
+						let obj ={
+							'name':this.enterpriseName,
+							'account':this.accountNumber,
+							'psw':this.password,
+							'industryKindList':this.industryKindList
+						}
+						uni.navigateTo({		//将公司名称、账号、密码传到下一页面
+							url:'phoneNumberBind?obj='+JSON.stringify(obj)
+						})
+					}else{
+						console.log(data.statusMsg)
+					}
+				}).catch(err=>{
+					console.log(err)
 				})
 			},
 			enterpriseNameFocus(){		//输入栏聚焦

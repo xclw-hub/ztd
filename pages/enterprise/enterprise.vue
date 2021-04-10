@@ -91,10 +91,10 @@
 				<view id="park_btn">
 					<text>我的园区</text>
 					<view id="enter">
-						<view id="noEnterPark" v-if="parkState === '2'">
+						<view id="noEnterPark" v-if="parkState == 2">
 							<text>未入园</text>
 						</view>
-						<view id="waitCheck" v-else-if="parkState === '0'">
+						<view id="waitCheck" v-else-if="parkState == 0">
 							<text>待审核</text>
 						</view>
 						<text id="enteredPark" v-else>{{parkName}}</text>
@@ -131,6 +131,7 @@
 			<button class="logOut" @click="loginOut">
 				<text>退出登录</text>
 			</button>
+			<view style="width:100vw;height: 50px;opacity:0;"></view>
 			<!--更换图片 -->
 			<uni-popup id="changePic" ref="changePic" type="dialog">
 			<image src="../../static/enterprise/header.png" mode="aspectFit" v-if="src==undefined"></image>
@@ -194,7 +195,7 @@
 				</view>
 				<button @click="changeIndustryKind" :disabled="isAbleClick">
 					<text>变更行业</text>
-					<text v-if="isAbleClick">（{{clockTime}}天后可变更）</text>
+					<text v-if="isAbleClick && clockTime!=-1">（{{clockTime}}天后可变更）</text>
 				</button>
 			</view>
 		</view>
@@ -220,7 +221,7 @@
 				changeTimeClock:0,
 				isAbleClick:false,		//是否禁用选择行业按键
 				popListShow:false,		//显示行业种类选择弹框
-				industryKindList:[''],		//所有已选的行业种类列表
+				industryKindList:[],		//所有已选的行业种类列表
 				enterpriseName:'长沙市九州仓储服务有限公司',
 				enterpriseID:0,
 				enterpriseUsername:'zhanghao_100',
@@ -235,7 +236,7 @@
 			},
 			isEmptyList(){
 				//由于数组是由字符串转化过来，当该字符串为空时，得到的数组也会有一个空值，此时的数组长度也为1
-				if(this.industryKindList[0]===''){		
+				if(this.industryKindList.length==0){		
 					return true
 				}else{
 					return false
@@ -246,37 +247,87 @@
 			// var obj=JSON.parse(decodeURIComponent(option.obj))		//接收注册页面传来的数据
 			// console.log(option)
 			let _this = this
-			let token
-			this.parkState = this.$store.state.enterpriseInfo.parkStatus
-			this.parkName = this.$store.state.enterpriseInfo.parkName
-			uni.getStorage({
-				key:'token',
-				success:function(res){
-					token = res.data
-					console.log(_this.$store.state.id)
-					console.log(_this.$store.state.kind)
-					_this.$request({
-						url:'/industry/homePageIndustry',
-						data:{
-							userId:_this.$store.state.id,
-							userType:_this.$store.state.kind
-						}
-					}).then(res=>{
-						console.log('homePageIndustry')
-						console.log(res[1].data)
-						if(res[1].data.statusCode == 3024){
-							_this.clockTime = res[1].data.day
-							_this.isAbleClick = true
-							_this.industryKindList = res[1].data.industryNameList
-						}else{
-							_this.industryKindList = res[1].data.industryNameList
-							_this.isAbleClick = false
-						}
-					}).catch(err=>{
-						console.log(err)
-					})
+			let token = uni.getStorageSync('token')
+			_this.$request({
+				url:'/isBindPark',
+				data:{
+					token,
+					userId:_this.$store.state.id,
+					userType:_this.$store.state.kind
 				}
+			}).then(res=>{
+				console.log('isbindpark')
+				console.log(res)
+				_this.$store.state.enterpriseInfo.parkStatus=res[1].data.parkStatus
+				_this.parkState =res[1].data.parkStatus
+				if(_this.parkState!=2){
+					if(res[1].data.parkName == undefined){
+						_this.parkName = ''
+						_this.$store.state.enterpriseInfo.parkName=''
+					}else{
+						_this.parkName = res[1].data.parkName
+						_this.$store.state.enterpriseInfo.parkName=res[1].data.parkName
+					}
+				}
+			}).catch(err=>{
+				console.log(err)
 			})
+			console.log(_this.$store.state.id)
+			console.log(_this.$store.state.kind)
+			if(_this.$store.state.kind==0){
+				_this.$request({
+					url:'/industry/homePageIndustry',
+					data:{
+						userId:_this.$store.state.id,
+						userType:0
+					}
+				}).then(res=>{
+					console.log('homePageIndustry')
+					console.log(res[1].data)
+					if(res[1].data.statusCode == 3024){
+						_this.clockTime = res[1].data.day
+						_this.isAbleClick = true
+						_this.industryKindList = res[1].data.industryNameList
+					}else{
+						_this.industryKindList = res[1].data.industryNameList
+						_this.isAbleClick = false
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			}else{
+				_this.$request({
+					url:'/industry/homePageIndustry',
+					data:{
+						userId:_this.$store.state.userInfo.enterpriseId,
+						userType:0
+					}
+				}).then(res=>{
+					console.log('homePageIndustry')
+					console.log(res[1].data)
+					if(res[1].data.industryNameList!=[] && res[1].data.industryNameList!=undefined && res[1].data.industryNameList!=null){
+						_this.$request({
+							url:'/industry/homePageIndustry',
+							data:{
+								userId:_this.$store.state.id,
+								userType:1
+							}
+						}).then(res=>{
+							console.log('homePageIndustry')
+							console.log(res[1].data)
+							_this.isAbleClick = false
+							_this.industryKindList = res[1].data.industryNameList
+							_this.clockTime=-1
+						}).catch(err=>{
+							console.log(err)
+						})
+					}else{
+						this.industryKindList=[]
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			}
 			let info = _this.$store.state.enterpriseInfo
 			console.log('用户', info.enterpriseLogo)
 			_this.src = info.enterpriseLogo
@@ -333,28 +384,6 @@
 				})
 			},
 			getImg:function(e){
-				// let _this = this
-				// uni.getStorage({
-				// 	key:'token',
-				// 	success:function(res){
-				// 		_this.$request({
-				// 			url:'/uploadIcon',
-				// 			data:{
-				// 				token: res.data,
-				// 				multipartFile: e,
-				// 				userId: _this.$store.state.id,
-				// 				userType: 0
-				// 			}
-				// 		}).then(res=>{
-				// 			console.log(res)
-				// 		}).catch(err=>{
-				// 			console.log(err)
-				// 		})
-				// 	},
-				// 	fail:function(err){
-				// 		console.log(err)
-				// 	}
-				// })
 			    console.log("父页面拿到了图片",e);
 				this.src = e;
 			    this.imgCropperShow = false;
@@ -494,7 +523,7 @@
 	}
 </script>
 
-<style scoped>
+<style lang="scss">
 	.header{
 		/* height: 390rpx; */
 		padding-left: 40rpx;
@@ -531,6 +560,14 @@
 		flex-direction: row;
 		align-items:center;
 	}
+	.enterprise-name{
+		overflow: hidden;
+		-webkit-line-clamp: 1;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+
 	.head .img{
 		width: 160rpx;
 		height: 160rpx;
@@ -924,7 +961,6 @@
 	.logOut{
 		position: relative;
 		top: 50rpx;
-		margin-bottom: 50rpx;
 		width: 670rpx;
 		height: 88rpx;
 		background: #FFFFFF;
@@ -1061,5 +1097,4 @@
 		background-color: transparent;
 		color: #FFFFFF;
 	}
-	
 </style>
