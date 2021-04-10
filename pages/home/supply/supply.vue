@@ -201,32 +201,32 @@
 					memberId: that.$store.state.userInfo.parkId,
 					companyId: that.$store.state.enterpriseInfo.parkId
 				})
-				if (that.$store.state.kind == '0') {
-					if(that.isBindPark == true){
-						request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumber + 1,
-								/* companyId: that.$store.state.enterpriseInfo.parkId */
-							},
-							
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
-							}
-						})
-					}else{
+				/* if (that.$store.state.kind == '0') {
+					if(that.isBindPark == true){ */
+				request({
+					url: '/supplyInformationList',
+					data: {
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber + 1,
+						/* companyId: that.$store.state.enterpriseInfo.parkId */
+					},
+					
+				}).then(res => {
+					if (res[1].data.data.list.length != 0) {
+						let length = that.dataList.length
+						that.dataList.concat(res[1].data.data.list)
+						console.log(that.dataList)
+						let len = that.dataList.length
+						for(let i = length -1;i<len;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+						that.pageNumber++
+					} else {
+						console.log('没有更多内容了')
+					}
+				})
+					/* }else{
 						request({
 							url: '/supplyInformationList',
 							data: {
@@ -250,9 +250,9 @@
 								console.log('没有更多内容了')
 							}
 						})
-					}
+					} */
 					
-				} else {
+				/* } else {
 					request({
 						url: '/supplyInformationList',
 						data: {
@@ -261,7 +261,7 @@
 							page: that.pageNumber + 1,
 							memberId: that.$store.state.id,
 							companyId:that.$store.state.userInfo.enterpriseId
-							/* companyId: that.$store.state.enterpriseInfo.parkId */
+							
 						}
 					}).then(res => {
 						if (res[1].data.data.list.length != 0) {
@@ -277,7 +277,7 @@
 							console.log('没有更多内容了')
 						}
 					})
-				}
+				} */
 				return;
 			} else {
 				if (city) {
@@ -304,35 +304,35 @@
 					/* memberId: that.$store.state.userInfo.parkId, */
 					/* companyId: that.$store.state.enterpriseInfo.parkId */
 				})
-				if (that.$store.state.kind == '0') {
-					if(that.isBindPark){
-						request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumbe + 1,
-								address: that.region,
-								minPrice,
-								maxPrice,
-								keyword: that.keyword,
-								/* companyId: that.$store.state.enterpriseInfo.parkId */
-							}
-						}).then(res => {
-							if (res[1].data.data.list.length != 0) {
-								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
-								console.log(that.dataList)
-								let len = that.dataList.length
-								for(let i = length -1;i<len;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-								that.pageNumber++
-							} else {
-								console.log('没有更多内容了')
-							}
-						})
-					}else{
+				/* if (that.$store.state.kind == '0') {
+					if(that.isBindPark){ */
+				request({
+					url: '/supplyInformationList',
+					data: {
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumbe + 1,
+						address: that.region,
+						minPrice,
+						maxPrice,
+						keyword: that.keyword,
+						/* companyId: that.$store.state.enterpriseInfo.parkId */
+					}
+				}).then(res => {
+					if (res[1].data.data.list.length != 0) {
+						let length = that.dataList.length
+						that.dataList.concat(res[1].data.data.list)
+						console.log(that.dataList)
+						let len = that.dataList.length
+						for(let i = length -1;i<len;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+						that.pageNumber++
+					} else {
+						console.log('没有更多内容了')
+					}
+				})
+					/* }else{
 						request({
 							url: '/supplyInformationList',
 							data: {
@@ -359,9 +359,9 @@
 								console.log('没有更多内容了')
 							}
 						})
-					}
+					} */
 					
-				} else {
+				/* } else {
 					request({
 						url: '/supplyInformationList',
 						data: {
@@ -374,7 +374,7 @@
 							keyword: that.keyword,
 							memberId: that.$store.state.id,
 							companyId:that.$store.state.userInfo.enterpriseId
-							/* companyId: that.$store.state.enterpriseInfo.parkId */
+							
 						}
 					}).then(res => {
 						if (res[1].data.data.list.length != 0) {
@@ -390,19 +390,19 @@
 							console.log('没有更多内容了')
 						}
 					})
-				}
+				} */
 			}
 		},
 		onLoad: function() {
 			let that = this
 			let token = uni.getStorageSync('token');
-			if(this.$store.state.enterpriseInfo.parkStatus != 1){
+			/* if(this.$store.state.enterpriseInfo.parkStatus != 1){
 				this.isBindPark=false
 			}else{
 				this.isBindPark=true
-			}
+			} */
 			this.pageNumber = 1
-			let province = this.provinceCurrent.title;
+			/* let province = this.provinceCurrent.title;
 			let city = this.cityCurrent.title;
 			let minPrice = Number(this.minPrice);
 				let maxPrice
@@ -424,25 +424,25 @@
 					companyId: that.$store.state.enterpriseInfo.enterpriseId
 				})
 				if (that.$store.state.kind == '0') {
-					if(that.isBindPark == true){
-						request({
-							url: '/supplyInformationList',
-							data: {
-								token,
-								type: that.$store.state.kind,
-								page: that.pageNumber,
-								/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
-							}
-						}).then(res => {
-							console.log(res[1].data.data)
-							let gt = res[1].data.data
-							that.dataList = gt.list
-							let length = that.dataList.length
-							for(let i = 0;i<length;i++){
-								that.dataList[i].pic = that.dataList[i].pic.split(',')
-							}
-						})
-					}else{
+					if(that.isBindPark == true){ */
+				request({
+					url: '/supplyInformationList',
+					data: {
+						token,
+						type: that.$store.state.kind,
+						page: that.pageNumber,
+						/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
+					}
+				}).then(res => {
+					console.log(res[1].data.data)
+					let gt = res[1].data.data
+					that.dataList = gt.list
+					let length = that.dataList.length
+					for(let i = 0;i<length;i++){
+						that.dataList[i].pic = that.dataList[i].pic.split(',')
+					}
+				})
+					/* }else{
 						request({
 							url: '/supplyInformationList',
 							data: {
@@ -460,9 +460,9 @@
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
 						})
-					}
+					} */
 					
-				} else {
+				/* } else {
 					request({
 						url: '/supplyInformationList',
 						data: {
@@ -471,7 +471,7 @@
 							page: that.pageNumber,
 							memberId: that.$store.state.id,
 							companyId:that.$store.state.userInfo.enterpriseId
-							/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
+							
 						}
 					}).then(res => {
 						
@@ -484,7 +484,7 @@
 						}
 					})
 				}
-			}
+			} */
 			request({
 				url: '/supplyAddressList',
 				data: {
@@ -591,29 +591,29 @@
 						/* memberId: that.$store.state.id, */
 						/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
 					})
-					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
-							request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}else{
+					/* if (that.$store.state.kind == '0') {
+						if(that.isBindPark == true){ */
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
+						}
+					}).then(res => {
+						console.log(res[1].data.data)
+						let gt = res[1].data.data
+						that.dataList = gt.list
+						let length = that.dataList.length
+						for(let i = 0;i<length;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+					})
+						/* }else{
 							request({
 								url: '/supplyInformationList',
 								data: {
@@ -634,9 +634,9 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 							})
-						}
+						} */
 						
-					} else {
+					/* } else {
 						request({
 							url: '/supplyInformationList',
 							data: {
@@ -648,7 +648,7 @@
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
 								companyId:that.$store.state.userInfo.enterpriseId
-								/* companyId: that.$store.state.userInfo.enterpriseId */
+								
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -659,7 +659,7 @@
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
 						})
-					}
+					} */
 					this.$refs.uDropdown.close();
 					return;
 				} else {
@@ -687,30 +687,30 @@
 						/* memberId: that.$store.state.id, */
 						/* companyId: that.$store.state.userInfo.enterpriseId */
 					})
-					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
-							request({
-								url: '/supplyInformationList',
-								data: {
-									token,
-									type: that.$store.state.kind,
-									page: that.pageNumber,
-									address: that.region,
-									minPrice,
-									maxPrice,
-									keyword: that.keyword,
-									/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
-								}
-							}).then(res => {
-								console.log(res[1].data.data)
-								let gt = res[1].data.data
-								that.dataList = gt.list
-								let length = that.dataList.length
-								for(let i = 0;i<length;i++){
-									that.dataList[i].pic = that.dataList[i].pic.split(',')
-								}
-							})
-						}else{
+					/* if (that.$store.state.kind == '0') {
+						if(that.isBindPark == true){ */
+					request({
+						url: '/supplyInformationList',
+						data: {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							address: that.region,
+							minPrice,
+							maxPrice,
+							keyword: that.keyword,
+							/* companyId: that.$store.state.enterpriseInfo.enterpriseId */
+						}
+					}).then(res => {
+						console.log(res[1].data.data)
+						let gt = res[1].data.data
+						that.dataList = gt.list
+						let length = that.dataList.length
+						for(let i = 0;i<length;i++){
+							that.dataList[i].pic = that.dataList[i].pic.split(',')
+						}
+					})
+						/* }else{
 							request({
 								url: '/supplyInformationList',
 								data: {
@@ -732,9 +732,9 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 							})
-						}
+						} */
 						
-					} else {
+					/* } else {
 						request({
 							url: '/supplyInformationList',
 							data: {
@@ -747,7 +747,7 @@
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
 								companyId:that.$store.state.userInfo.enterpriseId
-								/* companyId: that.$store.state.userInfo.enterpriseId */
+								
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -758,7 +758,7 @@
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
 						})
-					}
+					} */
 					this.$refs.uDropdown.close();
 				}
 			},
