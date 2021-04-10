@@ -105,7 +105,8 @@
 				dropOptionShow: false, //是否显示下拉框
 				user: {},
 				tel:'',
-				contactId:1
+				contactId:1,
+				a:0
 
 			}
 		},
@@ -114,6 +115,8 @@
 			let that = this
 			that.tel=option.tel
 			that.contactId=option.contactId
+			that.a= option.a
+			console.log(that.a)
 			request({
 				url: '/addContact/contactDetail',
 				data: {
@@ -141,6 +144,15 @@
 		  fristName: function (value) {
 			return value[0]
 		  }
+		},
+		computed:{
+			unChanged: function () {
+				if(this.a==1){
+					return true
+				}else{
+					return false
+				}
+			}
 		},
 		methods: {
 			beLoved() {
@@ -189,10 +201,10 @@
 			editcontacts() {
 				let that =this
 				console.log('asdf')
-				console.log(that.user)
+				console.log(that.a)
 				uni.navigateTo({
 					url: './changeContact?name=' + that.user.contactName + '&job=' + that.user.position + '&telephone=' + that
-						.user.phoneNum+'&isDefault='+that.user.isDefault+'&contactId='+that.user.contactId
+						.user.phoneNum+'&isDefault='+that.user.isDefault+'&contactId='+that.user.contactId+'&a='+that.a
 				})
 			},
 			isDelete() {

@@ -134,39 +134,6 @@
 	import {
 		request
 	} from '../../util/request.js'
-	var chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
-	var chnUnitSection = ["", "万", "亿", "万亿", "亿亿"];
-	var chnUnitChar = ["", "十", "百", "千"];
-	
-	function SectionToChinese(section) {
-		var strIns = '',
-			chnStr = '';
-		var unitPos = 0;
-		var zero = true;
-		while (section > 0) {
-			var v = section % 10;
-			if (v === 0) {
-				if (!zero) {
-					zero = true;
-					chnStr = chnNumChar[v] + chnStr;
-				}
-			} else {
-				zero = false;
-				strIns = chnNumChar[v];
-				strIns += chnUnitChar[unitPos];
-				chnStr = strIns + chnStr;
-			}
-			unitPos++;
-			section = Math.floor(section / 10);
-		}
-		if((chnStr[0]=='一')&&(chnStr[1]=='十')){
-			var b = chnStr.indexOf("十");
-			console.log(b)
-			chnStr=chnStr.slice(b)
-			console.log(chnStr)
-		}
-		return chnStr;
-	}
 	export default {
 		components: {
 			uniNavBar,
@@ -219,7 +186,6 @@
 			}
 		},
 		onLoad(option) {
-						console.log(SectionToChinese(11))
 			this.$forceUpdate()
 			let _this = this
 			console.log(_this.$store.state.id)
@@ -548,23 +514,9 @@
 						break
 					case '融资助手':
 						console.log('进入融资助手页面')
-						if (that.$store.state.kind == '1') {
-							if (!that.$store.state.userInfo.isBindPark) {
-								uni.showToast({
-									title: '企业未入园,暂无权限',
-									duration: 2000,
-									icon: 'none'
-								});
-							} else {
-								uni.navigateTo({
-									url: 'financeAssistant/financeAssistant'
-								})
-							}
-						} else {
-							uni.navigateTo({
-								url: 'financeAssistant/financeAssistant'
-							})
-						}
+						uni.navigateTo({
+							url: 'financeAssistant/financeAssistant'
+						})
 						break
 					case '专家诊断':
 						console.log('进入专家诊断页面')
@@ -579,7 +531,13 @@
 								this.isShowDiagnosis = true
 							}
 						} else {
-							this.isShowDiagnosis = true
+							if (!that.$store.state.enterpriseInfo.isBindPark) {
+								uni.navigateTo({
+									url: '../enterprise/myPark/parkApply'
+								})
+							} else {
+								this.isShowDiagnosis = true
+							}
 						}
 						break
 					default:
@@ -694,6 +652,28 @@
 				let that = this
 				let _this = that
 				let token = uni.getStorageSync('token');
+					
+				if(that.diagnosis_name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的姓名",
+					});
+					return
+				}
+				if(that.diagnosis_phone==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的联系方式",
+					});
+					return
+				}
+				if(that.diagnosis_name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的专家需求",
+					});
+					return
+				}
 				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
 						let ss = {

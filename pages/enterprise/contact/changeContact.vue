@@ -32,7 +32,8 @@
 							placeholder-class="placeholderStyle"
 							v-model="name"
 							@focus="nameFocus"
-							@blur="nameBlue"/>
+							@blur="nameBlue"
+							disabled="true"/>
 					</view>
 				</tr>
 				<tr>
@@ -83,20 +84,23 @@
 							@blur="passwordConfirmBlue"/>
 					</view>
 				</tr>
-				<tr>
-					<view class="style1">
-						<view class="contactPeople">
-							<view class='people'>默认联系人</view>
-							<view class="bt">
-								<evan-switch v-model="checked"></evan-switch>
-							</view>
+			<tr>
+				<view class="style1">
+					<view class="contactPeople">
+						<view class='people'>默认联系人</view>
+						<view class="bt" v-if='unChanged'>
+							<evan-switch v-model='checked' disabled='true'></evan-switch>
 						</view>
-						<view class="contactWarn">
-							<image src="../../../static/enterprise/tan.png" mode="heightFix"></image>
-							<view class='warnContent'>默认联系人即为日后配合园区工作的业务人员</view>
+						<view class="bt" v-if='!unChanged'>
+							<evan-switch v-model="checked"></evan-switch>
 						</view>
 					</view>
-				</tr>
+					<view class="contactWarn">
+						<image src="../../../static/enterprise/tan.png" mode="heightFix"></image>
+						<view class='warnContent'>默认联系人即为日后配合园区工作的业务人员</view>
+					</view>
+				</view>
+			</tr>
 			</table>
 		</view>
 	</view>
@@ -125,24 +129,28 @@
 				enterpriseId:1,		//绑定的企业Id
 				token:"",
 				contactId:0,
-				checked:false// 默认联系人开启
+				unChanged:false,
+				checked: true // 默认联系人开启
 			}
 		},
 		onLoad(option) {
 			let that=this;
-			uni.$on('zhiweiupdate', function(data) {
-				that.position=data.item;
-				console.log(data.item);
-			})
 			console.log(option)
-			this.contactId=option.contactId
-			this.phoneNumber_placeholder=option.telephone;
-			this.phoneNumber=option.telephone;			
-			this.name_placeholder=option.name;
-			this.name=option.name;			
-			this.isDefault=option.isDefault;
-			this.position_placeholder=option.job;
-			this.position=option.job;
+			that.contactId=option.contactId
+			that.phoneNumber_placeholder=option.telephone;
+			that.phoneNumber=option.telephone;			
+			that.name_placeholder=option.name;
+			that.name=option.name;			
+			that.position_placeholder=option.job;
+			that.position=option.job;
+			that.a=option.a
+			if(option.a==1){
+				that.unChanged=true
+				that.checked=true
+			}else{
+				that.unChanged=false
+				that.checked=option.isDefault;
+			}
 		},
 		methods: {
 			clickBack(){
@@ -152,10 +160,33 @@
 			},
 			confirm(){
 				let that = this
-				if(that.password!=that.passwordConfirm){
+				if (that.password != that.passwordConfirm) {
 					uni.showToast({
-							        icon: 'none',
-							        title: '两次输入密码不一致'
+						icon: 'none',
+						title: '两次输入密码不一致'
+					})
+					return
+				}
+				if(that.name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入联系人姓名",
+					});
+					return
+				}
+				if(that.position==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请选择职位",
+					});
+					return
+				}
+				let reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/   //11位手机号码正则
+				if(!reg_tel.test(that.phoneNumber)){
+					uni.showToast({
+					    icon: 'none',
+						position: 'bottom',
+					    title: '请正确填写您的手机号'
 					})
 					return
 				}
@@ -164,7 +195,7 @@
 					phoneNum:that.phoneNumber,
 					position:that.position,
 					password:that.password,
-					isDefault:that.isDefault,
+					isDefault:that.checked,
 					contactId:that.contactId
 				}
 				console.log(d)

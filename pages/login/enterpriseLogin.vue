@@ -74,13 +74,13 @@
 				eye_src: "/static/login/eye-no.png",
 				enterpriseAccount:"",		//企业账号
 				password:""		,//密码
-				cid: ""		//设备CID
+				cid: "fhisfhio"		//设备CID
 			}
 		},
 		onLoad() {
 			// 获取设备CID
 			let clientInfo = plus.push.getClientInfo();
-			this.cid = clientInfo.clientid;
+			// this.cid = clientInfo.clientid;
 		},
 		methods: {
 			clickBack(){

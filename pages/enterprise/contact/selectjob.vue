@@ -18,8 +18,18 @@
 		data() {
 			return {
 				keyword: "",
-				list: ["总经理（总裁）", "副总经理", "人力资源总监", "财务总监", "营销总监", "总经理（总裁）", "副总经理", "人力资源总监", "财务总监", "营销总监", "总经理（总裁）",
-					"副总经理", "人力资源总监", "财务总监", "营销总监"
+				list: ["总经理（总裁）",
+					"副总经理",
+					"技术总监",
+					"总经理助理",
+					"运营总监",
+					"生产总监",
+					"销售总监",
+					"市场总监（CMO）",
+					"营销总监",
+					"财务总监（CFO）",
+					"人力资源总监",
+					"其他"
 				]
 			}
 		},
@@ -27,11 +37,13 @@
 			onsearch() {
 				console.log('搜索了')
 			},
-			tapsel(item){
+			tapsel(item) {
 				uni.navigateBack({
-					delta:1
+					delta: 1
 				})
-				 uni.$emit('zhiweiupdate',{item:item});
+				uni.$emit('zhiweiupdate', {
+					item: item
+				});
 			}
 		}
 	}

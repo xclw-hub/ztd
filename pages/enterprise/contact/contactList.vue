@@ -21,7 +21,7 @@
 						<view class="name">
 							{{item.contactName}}
 						</view>
-						<view class="zhiwei" @click="tapGodetail(item)">
+						<view class="zhiwei">
 							{{item.position}}
 						</view>
 					</view>
@@ -54,6 +54,15 @@
 	import {
 		request
 	} from '../../../util/request.js'
+	function debounce(fn,delay){
+	    let timer = null //借助闭包
+	    return function() {
+	        if(timer){
+	            clearTimeout(timer) 
+	        }
+	        timer = setTimeout(fn,delay) // 简化写法
+	    }
+	}
 	export default {
 		data() {
 			return {
@@ -90,15 +99,19 @@
 				console.log(that.contactList)
 				if (that.contactList.length == 0) {
 					that.listNumber = 0
+				}else{
+					that.listNumber=that.contactList.length
 				}
 			})
 		},
 		methods: {
 			tapGodetail(item) {
 				console.log(item.contactId)
-				uni.navigateTo({
-					url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId
-				})
+				debounce(
+					uni.navigateTo({
+						url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId+'&a='+this.listNumber
+					}),1000
+				)
 			},
 			makePhone(tel) {
 				uni.makePhoneCall({
