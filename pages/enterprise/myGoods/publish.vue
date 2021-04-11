@@ -44,8 +44,8 @@
 			</view>
 			<view class="price">
 				<text>价格（元）</text>
-				<input type="text" :placeholder="price_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="price" @focus="priceFocus" @blur="priceBlue" />
+				<input type="number" min="0" max="999999.99" step="0.01"  :placeholder="price_placeholder" placeholder-class="placeholderStyle"
+					v-model.trim="price" @focus="priceFocus" @blur="priceBlue" @input="changeValue()"/>
 			</view>
 			<view class="business" @click="tapaddress">
 				<text>货源</text>
@@ -58,22 +58,22 @@
 			<view class="address">
 				<text>详细地址</text>
 				<input type="text" :placeholder="address_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="address" @focus="addressFocus" @blur="addressBlue" />
+					v-model.trim="address" maxlength="100" @focus="addressFocus" @blur="addressBlue" />
 			</view>
 			<view class="contact">
 				<text>联系人</text>
 				<input type="text" :placeholder="contact_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="contact" @focus="contactFocus" @blur="contactBlue" />
+					v-model.trim="contact" maxlength="20" @focus="contactFocus" @blur="contactBlue" />
 			</view>
 			<view class="mobilePhone">
 				<text>移动电话</text>
-				<input type="text" :placeholder="mobilePhone_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="mobilePhone" @focus="mobilePhoneFocus" @blur="mobilePhoneBlue" />
+				<input type="number" :placeholder="mobilePhone_placeholder" placeholder-class="placeholderStyle"
+					v-model.trim="mobilePhone" maxlength="11" @focus="mobilePhoneFocus" @blur="mobilePhoneBlue" />
 			</view>
 			<view class="detailinfo">
 				<text>详细信息</text>
 				<input type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="detailinfo" @focus="detailinfoFocus" @blur="detailinfoBlue" />
+					v-model.trim="detailinfo" maxlength="1000" @focus="detailinfoFocus" @blur="detailinfoBlue" />
 			</view>
 		</view>
 
@@ -144,17 +144,17 @@
 				defaultCity: []
 			}
 		},
-		onLoad(option) {
-			if(option){
-				let goodsDetail = JSON.parse(option.goodsDetail)
-				this.title = goodsDetail.title
-				this.price = goodsDetail.price
-				this.businessaddress=goodsDetail.source
-				this.address=goodsDetail.address
-				this.contact=goodsDetail.contacts
-				this.mobilePhone=goodsDetail.tel
-				this.detailinfo=goodsDetail.content
-			}
+		onLoad() {
+			// if(option){
+			// 	let goodsDetail = JSON.parse(option.goodsDetail)
+			// 	this.title = goodsDetail.title
+			// 	this.price = goodsDetail.price
+			// 	this.businessaddress=goodsDetail.source
+			// 	this.address=goodsDetail.address
+			// 	this.contact=goodsDetail.contacts
+			// 	this.mobilePhone=goodsDetail.tel
+			// 	this.detailinfo=goodsDetail.content
+			// }
 		},
 		methods: {
 			clickBack() {
@@ -162,9 +162,40 @@
 					url:'myGoods'
 				})
 			},
+			changeValue(){
+				// that.price=Number(this.price).toFixed(2);
+				console.log('abcd')
+			},
 			confirm() {
 				let that = this
 				let token = uni.getStorageSync('token');
+				console.log(that.price)
+				if(that.mobilePhone.length!= 11){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '移动电话错误'
+					})
+					return false
+				}
+				if(that.imageNumber== 0){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '至少上传一张图片'
+					})
+					return false
+				}
+				if((that.price<=0)||(that.price>999999.99)){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '价格不在有效价格范围'
+					})
+					return false
+				}
+				that.price=Number(that.price).toFixed(2); //保留两位小数
+				console.log(that.price)
 				console.log(
 				{
 					token,

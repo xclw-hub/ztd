@@ -14,7 +14,7 @@
             "alwaysShowBeforeRender" : true,
             "waiting" : false,
             "autoclose" : true,
-            "delay" : 0
+            "delay" :1.5
         },
         /* 模块配置 */
         "modules" : {

@@ -95,6 +95,7 @@
 					let len = _this.dataList.length
 					for(let i = length;i<len;i++){
 						_this.dataList[i].pic = _this.dataList[i].pic.split(',')
+						_this.dataList[i].price = Number(_this.dataList[i].price).toFixed(2);
 					}
 					console.log(_this.dataList)
 					_this.pageNumber++
@@ -137,6 +138,7 @@
 				let len = _this.dataList.length
 				for(let i = 0;i<len;i++){
 					_this.dataList[i].pic = _this.dataList[i].pic.split(',')
+					_this.dataList[i].price = Number(_this.dataList[i].price).toFixed(2);
 				}
 			})
 		},

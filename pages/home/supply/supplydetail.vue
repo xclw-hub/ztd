@@ -85,8 +85,8 @@
 						{{ct.tel}}
 					</view>
 				</view>
-				<view class="item" style="border: none;">
-					<view class="leftcon">
+				<view class="item" style="border: none;" id="itemAddress">
+					<view class="leftcon" id="tip">
 						<image src="../../../static/address.png" mode=""></image>
 						<view class="labelName">
 							详细地址
@@ -167,6 +167,7 @@
 				_this.ct=res[1].data.data
 				_this.ct.pic = _this.ct.pic.split(',')
 				_this.showUpImg=_this.ct.collection
+				_this.ct.price = Number(_this.ct.price).toFixed(2);
 			})
 		},
 		methods: {
@@ -283,7 +284,7 @@
 	}
 
 	.detailInfo {
-		padding: 20rpx;
+		padding: 40rpx 20rpx 40rpx 20rpx;
 
 		.labelHead {
 			display: flex;
@@ -339,43 +340,51 @@
 			margin: 20rpx auto;
 			background-image: url(../../../static/connectBg.png);
 			background-size: 100% 100%;
-			padding: 20rpx;
+			padding: 20rpx 30rpx;
 
 			.companyName {
 				font-size: 40rpx;
 				color: #333;
 				font-weight: bold;
 				border-bottom: 1rpx solid #E5E5E5;
-				padding: 20rpx 10rpx;
+				padding: 20rpx 20rpx;
+				front-family:Source Han Sans CN;
 			}
 
 			.item {
 				display: flex;
 				align-items: center;
 				border-bottom: 1rpx solid #E5E5E5;
-				padding: 20rpx 10rpx;
-
+				padding: 30rpx 20rpx;
+			
 				.leftcon {
 					display: flex;
 					align-items: center;
 					width: 250rpx;
-
+			
 					image {
 						width: 30rpx;
 						height: 30rpx;
 						margin-right: 10rpx;
 					}
-
+			
 					.labelName {
 						font-size: 32rpx;
 						color: #666666;
 					}
 				}
-
+			
 				.rightcon {
 					flex: 1;
 					color: #666666;
 					font-size: 32rpx;
+				}
+			}
+			#itemAddress{
+				// padding:0;
+				align-items: flex-start;
+				.leftcon{
+					
 				}
 			}
 		}

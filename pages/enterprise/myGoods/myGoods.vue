@@ -67,7 +67,7 @@
 		methods: {
 			tapdetail(index) {
 				uni.navigateTo({
-					url: './goodsde	tail?supplyId='+this.goodsList[index].pkid
+					url: './goodsdetail?supplyId='+this.goodsList[index].pkid
 				})
 			},
 			enterSearch() {
@@ -105,6 +105,7 @@
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
 							_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							_this.goodsList[i].price = Number(_this.goodsList[i].price).toFixed(2);
 						}
 						console.log(_this.goodsList)
 					}).catch(err =>{
@@ -133,6 +134,7 @@
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
 							_this.goodsList[i].pic = _this.goodsList[i].pic.split(',')
+							_this.goodsList[i].price = Number(_this.goodsList[i].price).toFixed(2);
 						}
 						console.log(_this.goodsList)
 					}).catch(err =>{

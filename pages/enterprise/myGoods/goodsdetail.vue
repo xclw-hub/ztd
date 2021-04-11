@@ -128,8 +128,8 @@
 						{{goodsDetail.tel}}
 					</view>
 				</view>
-				<view class="item" style="border: none;">
-					<view class="leftcon">
+				<view class="item" style="border: none;" id="itemAddress">
+					<view class="leftcon" id="tip">
 						<image src="../../../static/address.png" mode=""></image>
 						<view class="labelName">
 							详细地址
@@ -217,6 +217,7 @@
 					if(res[1].data.success == true){
 						_this.goodsDetail = res[1].data.data
 						_this.goodsDetail.pic = _this.goodsDetail.pic.split( ',' );
+						_this.goodsDetail.price = Number(_this.goodsDetail.price).toFixed(2);
 					}
 				}).catch(err =>{
 					console.log(err)
@@ -237,6 +238,7 @@
 					if(res[1].data.success == true){
 						_this.goodsDetail = res[1].data.data
 						_this.goodsDetail.pic = _this.goodsDetail.pic.split( ',' );
+						_this.goodsDetail.price = Number(_this.goodsDetail.price).toFixed(2);
 					}
 				}).catch(err=>{
 					console.log(err)
@@ -376,7 +378,7 @@
 	}
 
 	.detailInfo {
-		padding: 20rpx;
+		padding: 40rpx 20rpx 40rpx 20rpx;
 		.labelHead {
 			display: flex;
 			justify-content: center;
@@ -431,23 +433,23 @@
 			margin: 20rpx auto;
 			background-image: url(../../../static/connectBg.png);
 			background-size: 100% 100%;
-			padding: 20rpx;
+			padding: 20rpx 30rpx;
 
 			.companyName {
 				font-size: 34rpx;
 				color: #333;
 				font-weight: bold;
 				border-bottom: 1rpx solid #E5E5E5;
-				padding: 20rpx 10rpx;
+				padding: 20rpx 20rpx;
 				padding-bottom: 40rpx;
 				padding-top: 30rpx;
+				front-family:Source Han Sans CN;
 			}
-
 			.item {
 				display: flex;
-				// align-items: center;
+				align-items: center;
 				border-bottom: 1rpx solid #E5E5E5;
-				padding: 30rpx 10rpx;
+				padding: 30rpx 20rpx;
 
 				.leftcon {
 					display: flex;
@@ -470,6 +472,13 @@
 					flex: 1;
 					color: #666666;
 					font-size: 32rpx;
+				}
+			}
+			#itemAddress{
+				// padding:0;
+				align-items: flex-start;
+				.leftcon{
+					
 				}
 			}
 		}
