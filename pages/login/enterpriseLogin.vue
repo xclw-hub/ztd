@@ -80,7 +80,7 @@
 		onLoad() {
 			// 获取设备CID
 			let clientInfo = plus.push.getClientInfo();
-			// this.cid = clientInfo.clientid;
+			this.cid = clientInfo.clientid;
 		},
 		methods: {
 			clickBack(){
