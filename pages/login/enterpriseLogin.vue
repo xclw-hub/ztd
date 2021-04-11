@@ -74,7 +74,7 @@
 				eye_src: "/static/login/eye-no.png",
 				enterpriseAccount:"",		//企业账号
 				password:""		,//密码
-				cid: "fhisfhio"		//设备CID
+				cid: ""		//设备CID
 			}
 		},
 		onLoad() {
@@ -122,7 +122,7 @@
 						'cid': _this.cid
 						// 'username': 'ztd',
 						// 'password': '123456',
-						 /* 'cid': 'the second cid' */
+						// 'cid': 'the second cid'
 					}
 				}).then(res=>{
 					let data = res[1].data
