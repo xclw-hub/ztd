@@ -1118,7 +1118,7 @@
 				.popup-participator-right-no{
 					width: 106rpx;
 					height: 60rpx;
-					border: 1rpx solid #888888;
+					border: 1px solid #888888;
 					border-radius: 5rpx;
 					display: flex;
 					justify-content: center;

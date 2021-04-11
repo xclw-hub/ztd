@@ -173,35 +173,13 @@
 					}
 				}
 				let industryKindArr= _this.selectKindArr
-				let changeTime = +new Date()
-				_this.$request({
-					url:'/preferentialPolicies/industryChoose',
-					data:{
-						'industry':industryKindArr,
-						'enterpriseId':_this.$store.state.id
-					}
-				}).then(res =>{
-					let data =res[1].data
-					console.log('industryChoose')
-					console.log(data)
-					console.log('choose end')
-					if(data.statusCode == 2000){
-						var pages = getCurrentPages();
-						var currPage = pages[pages.length - 1]; //当前页面
-						var prevPage = pages[pages.length - 2]; //上一个页面
-						prevPage.$vm.industryKindList=_this.selectKindArr
-						uni.navigateBack({
-							delta:1
-						})
-						// 需要执行 done 才能关闭对话框
-						done()
-					}else{
-						console.log(data.statusMsg)
-					}
-					//debugger
-				}).catch(err =>{
-					console.log(err)
+				uni.navigateBack({
+					delta:1
 				})
+				uni.$emit('industryUpdate',{item:industryKindArr});
+				// 需要执行 done 才能关闭对话框
+				done()
+					//debugger
 			},
 			/**
 			 * 对话框取消按钮
