@@ -284,8 +284,8 @@
 					if(res[1].data.success != true){
 						console.log(res[1].data.data)
 					}else{
-						uni.navigateBack({
-							delta:1
+						uni.reLaunch({
+							url:'myGoods'
 						})
 					}
 				}).catch(err=>{
