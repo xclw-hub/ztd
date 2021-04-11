@@ -185,7 +185,6 @@
 				if(!reg_tel.test(that.phoneNumber)){
 					uni.showToast({
 					    icon: 'none',
-						position: 'bottom',
 					    title: '请正确填写您的手机号'
 					})
 					return
@@ -204,9 +203,16 @@
 					data: d,
 				}).then(res=>{
 					console.log(res)
-					uni.navigateBack({
-						delta: 1
-					})
+					if(res[1].data.statusCode==2000){
+						uni.navigateBack({
+							delta: 1
+						})
+					}else{
+						uni.showToast({
+						    icon: 'none',
+						    title: res[1].data.statusMsg
+						})
+					}
 				})
 			},
 			// finish(){
