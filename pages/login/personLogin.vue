@@ -77,13 +77,13 @@
 				eye_src: "/static/login/eye-no.png",
 				phoneNumber:"",		//个人手机号
 				password:"",		//密码
-				cid:'fhisfhio'		//设备CID
+				cid:''		//设备CID
 			}
 		},
 		onLoad() {
 			// 获取设备CID
 			let clientInfo = plus.push.getClientInfo();
-			// this.cid = clientInfo.clientid;
+			this.cid = clientInfo.clientid;
 		},
 		methods: {
 			clickBack(){

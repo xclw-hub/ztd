@@ -200,6 +200,62 @@
 					})
 					return false
 				}
+				if(that.title===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入商品名称'
+					})
+					return false
+				}
+				if(that.price===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入价格'
+					})
+					return false
+				}
+				if(that.businessaddress===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请选择货源'
+					})
+					return false
+				}
+				if(that.address===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入详细地址'
+					})
+					return false
+				}
+				if(that.contact===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入联系人'
+					})
+					return false
+				}
+				if(that.mobilePhone===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入移动电话'
+					})
+					return false
+				}
+				if(that.detailinfo===""){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '请输入详细信息'
+					})
+					return false
+				}
 				that.price=Number(that.price).toFixed(2); //保留两位小数
 				console.log(that.price)
 				console.log(

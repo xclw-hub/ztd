@@ -31,7 +31,7 @@
 				</view>
 			</view>
 		</view>
-		<view style="height: 200rpx;text-align: center;color: #AAAAAA;font-size: 33rpx;">
+		<view style="height: 200rpx;text-align: center;color: #AAAAAA;font-size: 33rpx;" v-if="goodsList.length!=0">
 			上拉加载更多
 		</view>
 		<view class="bottomBar">
