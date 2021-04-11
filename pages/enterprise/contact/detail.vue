@@ -15,7 +15,10 @@
 		<view class="userInfocon">
 			<view class="mainbox">
 				<view class="avatar">
-					<image :src="user.contactHead" mode=""></image>
+					<image :src="user.contactHead" mode="" v-if='user.contactHead!=0'></image>
+					<view class="ss" v-else>
+						{{user.contactName|fristName}}
+					</view>
 				</view>
 				<view class="name">
 					{{user.contactName}}
@@ -102,7 +105,8 @@
 				dropOptionShow: false, //是否显示下拉框
 				user: {},
 				tel:'',
-				contactId:1
+				contactId:1,
+				a:0
 
 			}
 		},
@@ -111,6 +115,8 @@
 			let that = this
 			that.tel=option.tel
 			that.contactId=option.contactId
+			that.a= option.a
+			console.log(that.a)
 			request({
 				url: '/addContact/contactDetail',
 				data: {
@@ -133,6 +139,20 @@
 				console.log(res[1].data)
 				that.user = res[1].data
 			})
+		},
+		filters: {
+		  fristName: function (value) {
+			return value[0]
+		  }
+		},
+		computed:{
+			unChanged: function () {
+				if(this.a==1){
+					return true
+				}else{
+					return false
+				}
+			}
 		},
 		methods: {
 			beLoved() {
@@ -181,10 +201,10 @@
 			editcontacts() {
 				let that =this
 				console.log('asdf')
-				console.log(that.user)
+				console.log(that.a)
 				uni.navigateTo({
 					url: './changeContact?name=' + that.user.contactName + '&job=' + that.user.position + '&telephone=' + that
-						.user.phoneNum+'&isDefault='+that.user.isDefault+'&contactId='+that.user.contactId
+						.user.phoneNum+'&isDefault='+that.user.isDefault+'&contactId='+that.user.contactId+'&a='+that.a
 				})
 			},
 			isDelete() {
@@ -260,6 +280,17 @@
 			image {
 				width: 160rpx;
 				height: 160rpx;
+				border-radius: 50%;
+			}
+			.ss {
+				background-color: #2D6BDD;
+				color: #FFFFFF;
+				font-size: 40rpx;
+				width: 160rpx;
+				height: 160rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				border-radius: 50%;
 			}
 		}

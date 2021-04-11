@@ -39,7 +39,7 @@
 						<image :src="item" @click="preview(item)"></image>
 						<image id="delete" src="../../../static/enterprise/cancel.png" @click="deleteImg(index)"></image>
 					</view>
-					<image src="../../../static/enterprise/uploadImage.png" @click="chooseImage"></image>
+					<image src="../../../static/enterprise/uploadImage.png" @click="chooseImage" v-show="imageNumber<5"></image>
 				</view>
 			</view>
 			<view class="price">
@@ -165,6 +165,10 @@
 			changeValue(){
 				// that.price=Number(this.price).toFixed(2);
 				console.log('abcd')
+			},
+			deleteImg(index){
+				this.imageArr.splice(index,1)
+				this.imageNumber--
 			},
 			confirm() {
 				let that = this
@@ -342,6 +346,11 @@
 					current: index, //当前点击预览的图片
 					urls: this.imageArr //预览图片的链接
 				})
+			},
+			//删除预览的图片
+			deleteImg(index){
+				this.imageArr.splice(index,1)
+				this.imageNumber = this.imageArr.length
 			},
 			titleFocus() {
 				this.title_placeholder = ''

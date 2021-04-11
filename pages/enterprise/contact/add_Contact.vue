@@ -60,7 +60,10 @@
 				<view class="style1">
 					<view class="contactPeople">
 						<view class='people'>默认联系人</view>
-						<view class="bt">
+						<view class="bt" v-if='unChanged'>
+							<evan-switch v-model='checked' disabled='true'></evan-switch>
+						</view>
+						<view class="bt" v-if='!unChanged'>
 							<evan-switch v-model="checked"></evan-switch>
 						</view>
 					</view>
@@ -96,14 +99,22 @@
 				phoneNumber: "", //手机号
 				password: "", //密码
 				passwordConfirm: "",
-				isDefault: true, //是否是默认联系人
 				enterpriseId: 1, //绑定的企业Id
 				token: "",
+				unChanged:false,
 				checked: false // 默认联系人开启
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			let that = this;
+			console.log(option.a)
+			if(option.a==0){
+				that.unChanged=true
+				that.checked=true
+			}else{
+				that.unChanged=false
+				that.checked=false
+			}
 			uni.$on('zhiweiupdate', function(data) {
 				that.position = data.item;
 				console.log(data.item);
@@ -124,6 +135,28 @@
 					})
 					return
 				}
+				if(that.name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入联系人姓名",
+					});
+					return
+				}
+				if(that.position==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请选择职位",
+					});
+					return
+				}
+				let reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/   //11位手机号码正则
+				if(!reg_tel.test(that.phoneNumber)){
+					uni.showToast({
+					    icon: 'none',
+					    title: '请正确填写您的手机号'
+					})
+					return false
+				}
 				let d = {
 					username: that.name,
 					phoneNum: that.phoneNumber,
@@ -138,9 +171,16 @@
 					data: d,
 				}).then(res => {
 					console.log(res)
-					uni.redirectTo({
-						url: './contactList'
-					});
+					if(res[1].data.statusCode==2000){
+						uni.redirectTo({
+							url: './contactList'
+						});
+					}else{
+						uni.showToast({
+						    icon: 'none',
+						    title: res[1].data.statusMsg
+						})
+					}
 				})
 			},
 			nameFocus() {

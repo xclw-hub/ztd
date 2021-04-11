@@ -13,12 +13,12 @@
 			</view>
 		</uniNavBar>
 		<view class="kind">
-			<view class="kind-detail" v-for="(item, index) in kind" :key="index" :class="[isChoose[index] ? activeClass_bg : 'active2_bg']">
+			<view class="kind-detail" v-for="(item, index) in kind" :key="index" :class="[isChoose[index] ? activeClass_bg : 'active2_bg']" @click="chooseKind(index)">
 				<text :class="[isChoose[index] ? activeClass_font : 'active2_font']">{{item}}</text>
 			</view>
 		</view>
 		<view class="content">
-			<view class="enterprise" v-for="(enterpriseItem, index) in enterpriseDetail" :key="index" @click="ViewPriseDetail(index)">
+			<view class="enterprise" v-for="(enterpriseItem, index) in enterpriseDetailShow" :key="index" @click="viewEnterpriseDetail(index)">
 				<text class="enterprise-name">{{enterpriseItem.title}}</text>
 				<view class="enterprise-body">
 					<view class="enterprise-body-item" v-for="(investItem, index) in enterpriseItem.Fieldlist" :key="index">
@@ -50,47 +50,69 @@
 				activeClass_bg:'active1_bg',
 				activeClass_font:'active1_font',
 				kind:['自动化装备','数控机床','智能生产','矿山机械'],
-				enterpriseDetail:[
-					{
-						title:'和光投资',
-						Fieldlist:['5G终端设备','5G文娱','5G教育','智能教育'],
-						investment:'5',
-						investmentTotal:'17',
-						recentInvestment:'鲜果壹号',
-						RegionalRanking:0,
-						pkid: 0,
-						registeredcapital: 0
-					}
+				enterpriseDetailShow:[	//默认显示自动化装备
+					// {
+					// 	title:'和光投资',
+					// 	Fieldlist:['5G终端设备','5G文娱','5G教育','智能教育'],
+					// 	investment:'5',
+					// 	investmentTotal:'17',
+					// 	recentInvestment:'鲜果壹号',
+					// 	RegionalRanking:0,
+					// 	pkid: 0,
+					// 	registeredcapital: 0
+					// }
 				],
+				enterpriseDetail1:[],	//自动化装备
+				enterpriseDetail2:[],	//数控机床
+				enterpriseDetail3:[],	//智能生产
+				enterpriseDetail4:[],	//矿山机械
+				parkId:0,
+				pkid:0,
+				enterpriseId:0,
+				enterpriseName:'',
 			}
 		},
 		onLoad(option) {
+			this.pkid = Number(option.pkid)
+			if(this.$store.state.kind==='0'){
+				this.parkId = this.$store.state.enterpriseInfo.parkId
+				this.enterpriseId = this.$store.state.enterpriseInfo.enterpriseId
+				this.enterpriseName = this.$store.state.enterpriseInfo.enterpriseName
+			}
+			else{
+				this.parkId = this.$store.state.userInfo.parkId
+				this.enterpriseId = this.$store.state.userInfo.enterpriseId
+				this.enterpriseName = this.$store.state.userInfo.enterpriseName
+			}
+			console.log(this.pkid)
+			console.log(this.parkId)
 			let _this = this
-			let obj = JSON.parse(option.obj) 
 			_this.$request({
 				url:'/noticeService/mechanismList',
 				data:{
-					parkId: obj.parkId,
-					title: obj.title,
+					parkId: _this.parkId,
+					title: _this.enterpriseName
 					// title: '长沙千景智能设备有限公司',
 					// parkId: 4
 				}
 			}).then(res=>{
-				let data = res[1].data.data[0]
+				let data = res[1].data.data
 				console.log(data)
-				if(data.title === '自动化装备'){
-					_this.isChoose= [true,false,false,false]
+				for(let i = 0; i < data.length; i++){
+					if(data[i].title === '自动化装备'){
+						_this.enterpriseDetail1 = data[i].mechanismlist
+					}
+					else if(data[i].title === '数控机床'){
+						_this.enterpriseDetail2 = data[i].mechanismlist
+					}
+					else if(data[i].title === '智能生产'){
+						_this.enterpriseDetail3 = data[i].mechanismlist
+					}
+					else{
+						_this.enterpriseDetail4 = data[i].mechanismlist
+					}
 				}
-				else if(data.title === '数控机床'){
-					_this.isChoose= [false,true,false,false]
-				}
-				else if(data.title === '智能生产'){
-					_this.isChoose= [false,false,true,false]
-				}
-				else{
-					_this.isChoose= [false,false,false,true]
-				}
-				_this.enterpriseDetail = data.mechanismlist
+				_this.enterpriseDetailShow = _this.enterpriseDetail1
 			}).catch(err=>{
 				console.log(err)
 			})
@@ -102,30 +124,34 @@
 				})
 			},
 			// 类型展示按钮事件
-			// chooseKind(index){
-			// 	console.log(index)
-			// 	let len=this.kind.length
-			// 	this.isChoose=[false,false,false,false]
-			// 	this.isChoose[index]=true
-			// 	console.log(this.isChoose)
-			// },
-			ViewPriseDetail(index){
-				let _this = this
-				let enterpriseId
-				if(_this.$store.state.kind === '0'){
-					enterpriseId = _this.$store.state.id
+			chooseKind(index){
+				this.isChoose=[false,false,false,false]
+				this.isChoose[index]=true
+				console.log(this.kind[index])
+				if(index === 0){
+					this.enterpriseDetailShow = this.enterpriseDetail1
+				}
+				else if(index === 1){
+					this.enterpriseDetailShow = this.enterpriseDetail2
+				}
+				else if(index === 2){
+					this.enterpriseDetailShow = this.enterpriseDetail3
 				}
 				else{
-					enterpriseId = _this.$store.state.userInfo.enterpriseId
+					this.enterpriseDetailShow = this.enterpriseDetail4
 				}
+			},
+			viewEnterpriseDetail(index){
+				let _this = this
 				let obj = {
-					companyId: enterpriseId,
-					pkid: _this.enterpriseDetail[index].pkid
+					companyId: _this.enterpriseId,
+					pkid: _this.enterpriseDetailShow[index].pkid,
+					companyTitle: _this.enterpriseDetailShow[index].title
 				}
 				uni.navigateTo({
 					url:'enterpriseDetail?obj='+JSON.stringify(obj) 
 				})
-				console.log("进入"+this.enterpriseDetail[index].title+"的企业详情")
+				console.log("进入"+this.enterpriseDetailShow[index].title+"的企业详情")
 			}
 		}
 	}

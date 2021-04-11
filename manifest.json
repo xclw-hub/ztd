@@ -11,10 +11,11 @@
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
+            "alwaysShowBeforeRender" : false,
             "waiting" : false,
-            "autoclose" : true,
-            "delay" :1.5
+            "autoclose" : false,
+            "delay" :0
+
         },
         /* 模块配置 */
         "modules" : {
@@ -68,7 +69,7 @@
                 },
                 "iosStyle" : "storyboard",
                 "ios" : {
-                    "storyboard" : "static/CustomStoryboard.zip"
+                    "storyboard" : "D:/project/ztd/CustomStoryboard.zip"
                 }
             },
             "icons" : {

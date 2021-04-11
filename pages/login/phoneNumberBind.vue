@@ -32,6 +32,7 @@
 							<view id="area">
 								<input 
 								type="text"
+								maxlength="6"
 								:placeholder="verificationCode_placeholder"
 								placeholder-class="placeholderStyle"
 								v-model.trim="verificationCode"

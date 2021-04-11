@@ -1,19 +1,19 @@
 <template>
 	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
 		<view class="navbar">
+			<view class="avatarCon" @click="enterpriseHome">
+				<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
+			</view>
 			<view class="navleftCon">
-				<view class="avatarCon" @click="enterpriseHome">
-					<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
-				</view>
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
 					<view class="searchInput">
 						<input type="text" v-model="keywords" placeholder="请输入搜索关键词" />
 					</view>
 				</view>
+				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-show="isParked"></image>
 			</view>
 			<view class="navrightCon">
-				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-if="isParked"></image>
 				<image class="notice" src="../../static/home/notice.png" mode="" @click="tapNotice"></image>
 			</view>
 		</view>
@@ -191,70 +191,6 @@
 			console.log(_this.$store.state.id)
 			console.log(_this.$store.state.kind)
 			if (_this.$store.state.kind === '0') {
-				if (_this.$store.state.enterpriseInfo.isBindPark) {
-					_this.isParked = true
-				} else {
-					_this.isParked = false
-				}
-			} else {
-				if (_this.$store.state.userInfo.isBindPark) {
-					_this.isParked = true
-				} else {
-					_this.isParked = false
-				}
-			}
-			if(_this.isParked == true){
-				request({
-					url: '/industry/dataTitle',
-					data:{
-						parkid:_this.$store.state.kind == 0 ? _this.$store.state.enterpriseInfo.parkId : _this.$store.state.userInfo.parkId
-					}
-				}).then(res => {
-					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
-					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
-						page: _this.pageNumber,
-					}
-					request({
-						url: '/industry/dataList',
-						data: d,
-					}).then(res => {
-						console.log(res[1].data.data.list)
-						let a = _this.dataList.length
-						console.log(a)
-						_this.dataList = res[1].data.data.list
-						console.log(_this.dataList)
-					})
-				})
-			}else{
-				request({
-					url: '/industry/dataTitle',
-				}).then(res => {
-					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
-					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
-						page: _this.pageNumber,
-					}
-					request({
-						url: '/industry/dataList',
-						data: d,
-					}).then(res => {
-						console.log(res[1].data.data.list)
-						let a = _this.dataList.length
-						console.log(a)
-						_this.dataList = res[1].data.data.list
-						console.log(_this.dataList)
-					})
-				})
-			}
-			
-			if (_this.$store.state.kind === '0') {
 				// if (_this.$store.state.id) {
 				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
 				// }
@@ -284,8 +220,55 @@
 						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							request({
+								url: '/industry/dataTitle',
+								data:{
+									parkid:data.parkId
+								}
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						} else {
 							tem.isBindPark = false
+							request({
+								url: '/industry/dataTitle',
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						}
 						console.log(tem)
 						_this.$store.commit('setEnterpriseInfo', tem)
@@ -323,6 +306,54 @@
 						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							request({
+								url: '/industry/dataTitle',
+								data:{
+									parkid:data.parkId
+								}
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
+						}else{
+							request({
+								url: '/industry/dataTitle',
+							}).then(res => {
+								console.log(res[1].data.data);
+								_this.tabList = res[1].data.data;
+								console.log(_this.tabList);
+								let d = {
+									industryId: _this.tabList[_this.tabCurrent].pkid,
+									keyword: _this.tabList[_this.tabCurrent].title,
+									page: _this.pageNumber,
+								}
+								request({
+									url: '/industry/dataList',
+									data: d,
+								}).then(res => {
+									console.log(res[1].data.data.list)
+									let a = _this.dataList.length
+									console.log(a)
+									_this.dataList = res[1].data.data.list
+									console.log(_this.dataList)
+								})
+							})
 						}
 						_this.$store.commit('setUserInfo', tem)
 						if (_this.$store.state.kind === '0') {
@@ -339,28 +370,6 @@
 					console.log(err)
 				})
 			}
-			request({
-				url: '/industry/dataTitle',
-			}).then(res => {
-				// console.log(res[1].data.data);
-				_this.tabList = res[1].data.data;
-				// console.log(_this.tabList);
-				let d = {
-					industryId: _this.tabList[_this.tabCurrent].pkid,
-					keyword: _this.tabList[_this.tabCurrent].title,
-					page: _this.pageNumber,
-				}
-				request({
-					url: '/industry/dataList',
-					data: d,
-				}).then(res => {
-					// console.log(res[1].data.data.list)
-					let a = _this.dataList.length
-					// console.log(a)
-					_this.dataList = res[1].data.data.list
-					// console.log(_this.dataList)
-				})
-			})
 		},
 		onReachBottom() {
 			let _this = this
@@ -514,23 +523,9 @@
 						break
 					case '融资助手':
 						console.log('进入融资助手页面')
-						if (that.$store.state.kind == '1') {
-							if (!that.$store.state.userInfo.isBindPark) {
-								uni.showToast({
-									title: '企业未入园,暂无权限',
-									duration: 2000,
-									icon: 'none'
-								});
-							} else {
-								uni.navigateTo({
-									url: 'financeAssistant/financeAssistant'
-								})
-							}
-						} else {
-							uni.navigateTo({
-								url: 'financeAssistant/financeAssistant'
-							})
-						}
+						uni.navigateTo({
+							url: 'financeAssistant/financeAssistant'
+						})
 						break
 					case '专家诊断':
 						console.log('进入专家诊断页面')
@@ -545,7 +540,13 @@
 								this.isShowDiagnosis = true
 							}
 						} else {
-							this.isShowDiagnosis = true
+							if (!that.$store.state.enterpriseInfo.isBindPark) {
+								uni.navigateTo({
+									url: '../enterprise/myPark/parkApply'
+								})
+							} else {
+								this.isShowDiagnosis = true
+							}
 						}
 						break
 					default:
@@ -660,6 +661,28 @@
 				let that = this
 				let _this = that
 				let token = uni.getStorageSync('token');
+					
+				if(that.diagnosis_name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的姓名",
+					});
+					return
+				}
+				if(that.diagnosis_phone==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的联系方式",
+					});
+					return
+				}
+				if(that.diagnosis_name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的专家需求",
+					});
+					return
+				}
 				if (that.$store.state.kind == '0') {
 					if (that.$store.state.enterpriseInfo.isBindPark) {
 						let ss = {
@@ -723,7 +746,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.navbar {
+	/* .navbar {
 		width: 100%;
 		background-color: #2E6BDE;
 		padding-top: 66rpx;
@@ -784,8 +807,74 @@
 				height: 46rpx;
 			}
 
-			.scan {}
 
+			.notice {
+				margin-left: 20rpx;
+			}
+		}
+	} */
+	.navbar{
+		width: 100%;
+		background-color: #2E6BDE;
+		padding-top: 66rpx;
+		padding-bottom: 42rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: fixed;
+		top: 0;
+		z-index: 555;
+		.avatarCon {
+			justify-item : flex-start;
+			width: 68rpx;
+			height: 68rpx;
+			border-radius: 50%;
+			align-items: center;
+			margin-left: 20rpx;
+			image {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+		}
+		.navleftCon{
+			display: flex;
+			align-items: center;
+			flex: 1;
+			.searchBar {
+				width: 100%;
+				height: 72rpx;
+				border-radius: 15rpx;
+				background-color: #fff;
+				display: flex;
+				align-items: center;
+				padding: 0 20rpx;
+				margin-left: 20rpx;
+				.searchImg {
+					width: 30rpx;
+					height: 30rpx;
+				}
+				.searchInput {
+					margin-left: 15rpx;
+				}
+			}
+			.scan{
+				margin-left: 22rpx;
+				width: 55rpx;
+				height: 46rpx;
+			}
+		}
+		.navrightCon {
+			display: flex;
+			align-items: center;
+			margin-right: 40rpx;
+			justify-item : flex-end;
+			image {
+				width: 41rpx;
+				height: 46rpx;
+			}
+		
+		
 			.notice {
 				margin-left: 20rpx;
 			}

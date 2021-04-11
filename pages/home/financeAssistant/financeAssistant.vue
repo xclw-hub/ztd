@@ -1,6 +1,6 @@
 <template>
 	<view :class="isShowDiagnosis==true?'nos':''">
-		<uniNavBar status-bar="true" backgroundColor="#2D6BDD" @clickLeft="clickBack">
+		<uniNavBar status-bar="true" backgroundColor="#2D6BDD" @clickLeft="clickBack" @clickRight="checkOut">
 			<view slot="left" class="uniNavBar_left">
 				<image src="/static/enterprise/return.png"></image>
 			</view>
@@ -85,6 +85,8 @@
 				<image src="../../../static/home/down.png" mode="aspectFit" @click="changeFirst"></image>
 				</view>
 			</view>
+			<image id="textAreaimg" src="../../../static/home/diagnosis_need.png">
+			</image>
 			<textarea 
 					class="diagnosis-need"
 					:placeholder="need_placeholder"
@@ -145,7 +147,7 @@
 				diagnosis_name:'',
 				diagnosis_phone:'',
 				diagnosis_need:'',
-				array: ['股权融资', '技术融资', '政策融资', '银行融资'],
+				array: ['股权融资', '技术融资', '政策融资', '银行融资','其他'],
 				index: 0,
 				dataList:[],
 				pageNumber:1,
@@ -187,6 +189,75 @@
 			let _this = this
 			let token = uni.getStorageSync('token')
 			let parkId
+			if (_this.$store.state.kind == '0') {
+				if (!_this.$store.state.enterpriseInfo.isBindPark) {
+					_this.tabList = [{
+						pkid: 478,
+						title: "智能制造"
+					}, {
+						pkid: 33,
+						title: "机器人"
+					}, {
+						pkid: 32,
+						title: "人工智能"
+					}, {
+						pkid: 479,
+						title: "5G"
+					}]
+					let d = {
+						token,
+						pkid: _this.tabList[_this.tabCurrent].pkid,
+						type: _this.$store.state.kind,
+						page: _this.pageNumber,
+					}
+					console.log(d)
+					request({
+						url: '/financialConsult',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+					return
+				}
+			} else {
+				if (!_this.$store.state.userInfo.isBindPark) {
+					_this.tabList = [{
+						"pkid": "478",
+						"title": "智能制造"
+					}, {
+						pkid: 33,
+						title: "机器人"
+					}, {
+						pkid: 32,
+						title: "人工智能"
+					}, {
+						pkid: 479,
+						title: "5G"
+					}]
+					let d = {
+						token,
+						pkid: _this.tabList[_this.tabCurrent].pkid,
+						type: _this.$store.state.kind,
+						page: _this.pageNumber,
+					}
+					console.log(d)
+					request({
+						url: '/financialConsult',
+						data: d,
+					}).then(res => {
+						console.log(res[1].data.data.list)
+						let a = _this.dataList.length
+						console.log(a)
+						_this.dataList = res[1].data.data.list
+						console.log(_this.dataList)
+					})
+					return
+				}
+			}
 			if(_this.$store.state.kind=='0'){
 				parkId=_this.$store.state.enterpriseInfo.parkId
 			}else{
@@ -222,6 +293,48 @@
 			})
 		},
 		methods: {
+			checkOut(){
+				this.joinedPark=this.$store.state.enterpriseInfo.parkName
+				let _this = this
+				let that = this
+				let token = uni.getStorageSync('token')
+				console.log(that.$store.state.enterpriseInfo.parkStatus)
+				if(that.$store.state.kind=='0'){
+					if(that.$store.state.enterpriseInfo.parkStatus==1){
+						uni.navigateTo({
+							url: '../../enterprise/inform/feedBackDetail'
+						})
+					}else if(that.$store.state.enterpriseInfo.parkStatus==2){
+						uni.navigateTo({
+							url: '../../enterprise/myPark/parkApply'
+						})
+					}else{
+						console.log('afsd')
+						that.$refs.applyPopupDialog.open()
+					}
+				}else{
+					if(that.$store.state.userInfo.isBindPark){
+						request({
+							url: '/financingMode',
+							data: {
+								token,
+								type:that.$store.state.kind
+							},
+						}).then(res => {
+							that.array=(res[1].data.data)
+							
+						})
+						// this.isFind=true
+						that.isShowDiagnosis=true;
+					}else{
+						uni.showToast({
+							title: '企业未入园,暂无权限',
+							duration: 2000,
+							icon: 'none'
+						});
+					}
+				}
+			},
 			clickBack() {
 				uni.navigateBack({
 					delta: 1
@@ -256,18 +369,26 @@
 						that.$refs.applyPopupDialog.open()
 					}
 				}else{
-					request({
-						url: '/financingMode',
-						data: {
-							token,
-							type:that.$store.state.kind
-						},
-					}).then(res => {
-						that.array=(res[1].data.data)
-						
-					})
-					// this.isFind=true
-					that.isShowDiagnosis=true;
+					if(that.$store.state.userInfo.isBindPark){
+						request({
+							url: '/financingMode',
+							data: {
+								token,
+								type:that.$store.state.kind
+							},
+						}).then(res => {
+							that.array=(res[1].data.data)
+							
+						})
+						// this.isFind=true
+						that.isShowDiagnosis=true;
+					}else{
+						uni.showToast({
+							title: '企业未入园,暂无权限',
+							duration: 2000,
+							icon: 'none'
+						});
+					}
 				}
 			},
 			toDetail(pkid){
@@ -310,7 +431,44 @@
 				this.isFirst=true
 			},
 			clickConfirm(){
+				
 				let that = this
+				if(that.diagnosis_name==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的姓名",
+					});
+					return
+				}
+				if(that.diagnosis_phone==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的联系方式",
+					});
+					return
+				}
+				let reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/   //11位手机号码正则
+				if(!reg_tel.test(that.diagnosis_phone)){
+					uni.showToast({
+					    icon: 'none',
+					    title: '请正确填写您的手机号'
+					})
+					return
+				}
+				if(that.diagnosis_need==''){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的融资需求",
+					});
+					return
+				}
+				if(this.isFirst==true){
+					uni.showToast({
+						icon: 'none',
+						title: "请输入您的融资方式",
+					});
+					return
+				}
 				console.log('确定')
 				this.isShowDiagnosis=false
 				this.isFirst=true
@@ -455,9 +613,9 @@
 		}
 
 	}
-
 	.listCon {
-		padding: 40rpx;
+		padding: 40rpx 40rpx 100rpx 40rpx;
+		
 		width: 100%;
 		box-sizing: border-box;
 
@@ -549,6 +707,13 @@
 		z-index:20;
 		background-color: rgba(0, 0, 0, 0.4);
 		transition: opacity 0.3s;
+	}
+	#textAreaimg {
+		width: 28rpx;
+		height: 28rpx;
+		position: absolute;
+		left: 73rpx;
+		top: 511rpx;
 	}
 	.diagnosis{
 		
@@ -667,12 +832,14 @@
 			}
 		}
 		.diagnosis-need{
-			margin-top: 38rpx;
+			cursor: 30;
+			margin-top: 28rpx;
 			width: 100%;
 			height: 240rpx;
 			border: 1rpx solid #AAAAAA;
 			border-radius: 10rpx;
 			padding: 21rpx;
+			padding-left: 64rpx;
 			box-sizing: border-box;
 		}
 		.diagnosis-btn{

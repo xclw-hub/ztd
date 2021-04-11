@@ -103,12 +103,18 @@
 				passwordConfirm_placeholder:"以字母或数字开头可包含特殊符号的6~18位字符组合"
 			}
 		},
-		onLoad(option) {
-			if(option.industryArr){
-				this.industryShow = option.industryArr
-				this.industryKindList = option.industryArr.split(',')
-				console.log(this.industryKindList)
-			}
+		onLoad() {
+			let _this = this
+			uni.$on('industryUpdate', function(data) {
+				_this.industryKindList = data.item
+				let length = _this.industryKindList.length
+				_this.industryShow=''
+				for(let i=0;i<length-1;i++){
+					_this.industryShow+=_this.industryKindList[i]+','
+				}
+				_this.industryShow+=_this.industryKindList[length-1]
+				console.log(data.item);
+			})
 		},
 		methods:{
 			clickBack(){		//导航栏返回按键
@@ -196,14 +202,41 @@
 					})
 					return false
 				}
-				let obj ={
-					'name':this.enterpriseName,
-					'account':this.accountNumber,
-					'psw':this.password,
-					'industryKindList':this.industryKindList
-				}
-				uni.navigateTo({		//将公司名称、账号、密码传到下一页面
-					url:'phoneNumberBind?obj='+JSON.stringify(obj)
+				let _this = this
+				_this.$request({
+					url:'/register/verificationName',
+					data:{
+						enterpriseName:_this.enterpriseName,
+						username:_this.accountNumber
+					}
+				}).then(res=>{
+					if(res[1].data.statusCode == 3007){
+						uni.showToast({
+						    icon: 'none',
+							position:'bottom',
+						    title: '账户名已被使用'
+						})
+					}else if(res[1].data.statusCode == 3006){
+						uni.showToast({
+						    icon: 'none',
+							position:'bottom',
+						    title: '公司名称已被注册'
+						})
+					}else if(res[1].data.statusCode == 2000){
+						let obj ={
+							'name':this.enterpriseName,
+							'account':this.accountNumber,
+							'psw':this.password,
+							'industryKindList':this.industryKindList
+						}
+						uni.navigateTo({		//将公司名称、账号、密码传到下一页面
+							url:'phoneNumberBind?obj='+JSON.stringify(obj)
+						})
+					}else{
+						console.log(data.statusMsg)
+					}
+				}).catch(err=>{
+					console.log(err)
 				})
 			},
 			enterpriseNameFocus(){		//输入栏聚焦
@@ -291,11 +324,11 @@
 	table
 	{
 		margin-top: 20rpx;
-		border-bottom:1rpx solid #C7C7C7;
+		border-bottom:1px solid #C7C7C7;
 	}
 	tr {
 		height: 191rpx;
-		border:1rpx solid #C7C7C7;
+		border:1px solid #C7C7C7;
 	}
 	tr view{
 		margin-top: 50rpx;
