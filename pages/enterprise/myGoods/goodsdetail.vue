@@ -141,8 +141,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="menueBar" v-if="isShowmenu">
-			<view class="item" @click="publish">
+		<view class="menueBar" v-if="dropOptionShow">
+			<view class="item" v-if="dropOptionShow" @click="publish">
 				重新编辑
 			</view>
 			<view class="item" style="border: none;" v-if="dropOptionShow" @click="doDelete">
