@@ -126,9 +126,10 @@
 						parkName:_this.parkName
 					}
 				}).then(res=>{
+					console.log(res[1].data)
 					if(res[1].data.statusCode == 2000){
 						console.log('bind complete')
-						let info = {
+						/* let info = {
 							enterpriseContact: _this.$store.state.enterpriseInfo.enterpriseContact,		//企业联系人列表
 							enterpriseId: _this.$store.state.enterpriseInfo.enterpriseId,		//企业ID
 							enterpriseLogo: _this.$store.state.enterpriseInfo.enterpriseLogo,			//企业头像
@@ -139,8 +140,13 @@
 							isBindPark:false		,//默认未绑定园区
 							parkName:_this.parkName,
 							parkStatus:0
-						}
-						_this.$store.setEnterpriseInfo(_this.$store.state, info)
+						} */
+						_this.$store.state.enterpriseInfo.parkId = _this.bindParkId
+						_this.$store.state.enterpriseInfo.isBindPark = false
+						_this.$store.state.enterpriseInfo.parkName = _this.parkName
+						_this.$store.state.enterpriseInfo.parkStatus = 0
+						console.log(_this.$store.state.enterpriseInfo.parkName)
+						/* _this.$store.mutations.setEnterpriseInfo(_this.$store.state, info) */
 						uni.navigateBack({
 							delta:2
 						})
