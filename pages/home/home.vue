@@ -111,18 +111,11 @@
 				</view>
 			</view>
 		</view>
-<!-- 		 弹出层，待审核 -->
+		<!-- 		 弹出层，待审核 -->
 		<uni-popup id="applyPopupDialog" ref="applyPopupDialog" type="dialog">
-			<uni-popup-dialog 
-			type="info" 
-			title="待审核" 
-			:content="joinedPark"
-			title_left="取消申请"
-			title_right="我知道了"
-			:isbuttonRightBorder="true"
-			:before-close="true" 
-			@confirm="applyConfirm" 
-			@close="applyClose"></uni-popup-dialog>
+			<uni-popup-dialog type="info" title="待审核" :content="joinedPark" title_left="取消申请" title_right="我知道了"
+				:isbuttonRightBorder="true" :before-close="true" @confirm="applyConfirm" @close="applyClose">
+			</uni-popup-dialog>
 		</uni-popup>
 	</view>
 </template>
@@ -182,7 +175,7 @@
 				pageNumber: 1,
 				dataList: [],
 				user_logo: '',
-				joinedPark:''
+				joinedPark: ''
 			}
 		},
 		onLoad(option) {
@@ -222,8 +215,8 @@
 							tem.isBindPark = true
 							request({
 								url: '/industry/dataTitle',
-								data:{
-									parkid:data.parkId
+								data: {
+									parkid: data.parkId
 								}
 							}).then(res => {
 								console.log(res[1].data.data);
@@ -306,10 +299,11 @@
 						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							console.log('asdf')
 							request({
 								url: '/industry/dataTitle',
-								data:{
-									parkid:data.parkId
+								data: {
+									parkid: data.parkId
 								}
 							}).then(res => {
 								console.log(res[1].data.data);
@@ -331,7 +325,7 @@
 									console.log(_this.dataList)
 								})
 							})
-						}else{
+						} else {
 							request({
 								url: '/industry/dataTitle',
 							}).then(res => {
@@ -460,7 +454,7 @@
 			},
 			enterSearch() {
 				uni.navigateTo({
-					url: './search?tabList='+JSON.stringify(this.tabList)
+					url: './search?tabList=' + JSON.stringify(this.tabList)
 				})
 			},
 			enterpriseHome() {
@@ -541,10 +535,10 @@
 							}
 						} else {
 							if (!that.$store.state.enterpriseInfo.isBindPark) {
-								if(that.$store.state.enterpriseInfo.parkStatus==0){
-									that.joinedPark="您加入的园区为："+this.$store.state.enterpriseInfo.parkName
+								if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+									that.joinedPark = "您加入的园区为：" + this.$store.state.enterpriseInfo.parkName
 									that.$refs.applyPopupDialog.open()
-								}else{
+								} else {
 									uni.navigateTo({
 										url: '../enterprise/myPark/parkApply'
 									})
@@ -576,32 +570,32 @@
 			needBlue() {
 				this.need_placeholder = '简要描述您的专家需求'
 			},
-			applyConfirm(){
+			applyConfirm() {
 				console.log('queren')
 				this.$refs.applyPopupDialog.close()
 			},
-			applyClose(){
+			applyClose() {
 				let token = uni.getStorageSync('token');
 				let that = this
 				let _this = that
 				console.log('用户点击取消');
 				console.log({
-						token:token,
-						userId:_this.$store.state.id,
-						userType:_this.$store.state.kind,
-						ss:_this.$store.state.enterpriseInfo
-					})
+					token: token,
+					userId: _this.$store.state.id,
+					userType: _this.$store.state.kind,
+					ss: _this.$store.state.enterpriseInfo
+				})
 				request({
-					url:'/cancelBindPark',
-					data:{
-						token:token,
-						userId:_this.$store.state.id,
-						userType:_this.$store.state.kind
+					url: '/cancelBindPark',
+					data: {
+						token: token,
+						userId: _this.$store.state.id,
+						userType: _this.$store.state.kind
 					}
-				}).then(res=>{
+				}).then(res => {
 					console.log(res)
 					let data = _this.$store.state.enterpriseInfo
-					data.parkStatus=2
+					data.parkStatus = 2
 					_this.$store.commit('setEnterpriseInfo', data)
 					console.log(_this.$store.state.enterpriseInfo.parkStatus)
 					that.$refs.applyPopupDialog.close()
@@ -609,6 +603,32 @@
 			},
 			scan() {
 				let that = this
+				if (that.$store.state.kind == '1') {
+					if (!that.$store.state.userInfo.isBindPark) {
+						console.log(that.$store.state.userInfo.isBindPark)
+						uni.showToast({
+							title: '企业未入园,暂无权限',
+							duration: 2000,
+							icon: 'none'
+						});
+						return
+					} else {
+					}
+				} else {
+					if (!that.$store.state.enterpriseInfo.isBindPark) {
+						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+							that.joinedPark = "您加入的园区为：" + this.$store.state.enterpriseInfo.parkName
+							that.$refs.applyPopupDialog.open()
+							return
+						} else {
+							uni.navigateTo({
+								url: '../enterprise/myPark/parkApply'
+							})
+							return
+						}
+					} else {
+					}
+				}
 				uni.scanCode({
 					success: function(res) {
 						console.log('条码内容：' + res.result);
@@ -661,27 +681,27 @@
 			},
 			clickConfirm() {
 				console.log(this.$store.state.enterpriseInfo.isBindPark)
-				this.joinedPark= '您加入的园区为：'+this.$store.state.enterpriseInfo.parkName
+				this.joinedPark = '您加入的园区为：' + this.$store.state.enterpriseInfo.parkName
 				console.log('确定')
 				let that = this
 				let _this = that
 				let token = uni.getStorageSync('token');
-					
-				if(that.diagnosis_name==''){
+
+				if (that.diagnosis_name == '') {
 					uni.showToast({
 						icon: 'none',
 						title: "请输入您的姓名",
 					});
 					return
 				}
-				if(that.diagnosis_phone==''){
+				if (that.diagnosis_phone == '') {
 					uni.showToast({
 						icon: 'none',
 						title: "请输入您的联系方式",
 					});
 					return
 				}
-				if(that.diagnosis_name==''){
+				if (that.diagnosis_name == '') {
 					uni.showToast({
 						icon: 'none',
 						title: "请输入您的专家需求",
@@ -713,7 +733,7 @@
 					} else {
 						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
 							this.$refs.applyPopupDialog.open()
-						}else{
+						} else {
 							console.log('asdf')
 							uni.navigateTo({
 								url: '../enterprise/myPark/parkApply'
@@ -818,7 +838,7 @@
 			}
 		}
 	} */
-	.navbar{
+	.navbar {
 		width: 100%;
 		background-color: #2E6BDE;
 		padding-top: 66rpx;
@@ -829,23 +849,27 @@
 		position: fixed;
 		top: 0;
 		z-index: 555;
+
 		.avatarCon {
-			justify-item : flex-start;
+			justify-item: flex-start;
 			width: 68rpx;
 			height: 68rpx;
 			border-radius: 50%;
 			align-items: center;
 			margin-left: 20rpx;
+
 			image {
 				width: 100%;
 				height: 100%;
 				border-radius: 50%;
 			}
 		}
-		.navleftCon{
+
+		.navleftCon {
 			display: flex;
 			align-items: center;
 			flex: 1;
+
 			.searchBar {
 				width: 100%;
 				height: 72rpx;
@@ -855,31 +879,36 @@
 				align-items: center;
 				padding: 0 20rpx;
 				margin-left: 20rpx;
+
 				.searchImg {
 					width: 30rpx;
 					height: 30rpx;
 				}
+
 				.searchInput {
 					margin-left: 15rpx;
 				}
 			}
-			.scan{
+
+			.scan {
 				margin-left: 22rpx;
 				width: 55rpx;
 				height: 46rpx;
 			}
 		}
+
 		.navrightCon {
 			display: flex;
 			align-items: center;
 			margin-right: 40rpx;
-			justify-item : flex-end;
+			justify-item: flex-end;
+
 			image {
 				width: 41rpx;
 				height: 46rpx;
 			}
-		
-		
+
+
 			.notice {
 				margin-left: 20rpx;
 			}

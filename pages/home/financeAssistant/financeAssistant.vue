@@ -369,6 +369,7 @@
 						that.$refs.applyPopupDialog.open()
 					}
 				}else{
+					console.log(that.$store.state.userInfo.isBindPark)
 					if(that.$store.state.userInfo.isBindPark){
 						request({
 							url: '/financingMode',
