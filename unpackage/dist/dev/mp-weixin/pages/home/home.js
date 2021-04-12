@@ -279,13 +279,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
 var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
@@ -465,6 +458,7 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
             tem.parkId = data.parkId;
             tem.isBindPark = true;
             _this.isParked = true;
+            console.log('asdf');
             (0, _request.request)({
               url: '/industry/dataTitle',
               data: {
@@ -770,6 +764,32 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
     },
     scan: function scan() {
       var that = this;
+      if (that.$store.state.kind == '1') {
+        if (!that.$store.state.userInfo.isBindPark) {
+          console.log(that.$store.state.userInfo.isBindPark);
+          uni.showToast({
+            title: '企业未入园,暂无权限',
+            duration: 2000,
+            icon: 'none' });
+
+          return;
+        } else {
+        }
+      } else {
+        if (!that.$store.state.enterpriseInfo.isBindPark) {
+          if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+            that.joinedPark = "您加入的园区为：" + this.$store.state.enterpriseInfo.parkName;
+            that.$refs.applyPopupDialog.open();
+            return;
+          } else {
+            uni.navigateTo({
+              url: '../enterprise/myPark/parkApply' });
+
+            return;
+          }
+        } else {
+        }
+      }
       uni.scanCode({
         success: function success(res) {
           console.log('条码内容：' + res.result);

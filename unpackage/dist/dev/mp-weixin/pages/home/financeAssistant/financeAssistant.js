@@ -524,6 +524,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
           that.$refs.applyPopupDialog.open();
         }
       } else {
+        console.log(that.$store.state.userInfo.isBindPark);
         if (that.$store.state.userInfo.isBindPark) {
           (0, _request.request)({
             url: '/financingMode',
