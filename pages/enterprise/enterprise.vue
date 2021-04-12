@@ -330,6 +330,16 @@
 					console.log(err)
 				})
 			}
+			uni.$on('parkStateUpdate', function(data) {
+				this.parkName=data.parkName
+				this.parkState=0
+				this.$store.state.enterpriseInfo.parkId=data.parkId
+				this.$store.state.enterpriseInfo.parkName=data.parkName
+				this.$store.state.enterpriseInfo.parkStatus=0
+				this.$store.state.enterpriseInfo.isBindPark=false
+				this.$store.state.userInfo.parkId=data.parkId
+				this.$store.state.userInfo.isBindPark=false
+			})
 			let info = _this.$store.state.enterpriseInfo
 			console.log('用户', info.enterpriseLogo)
 			_this.src = info.enterpriseLogo
@@ -372,9 +382,10 @@
 				request({
 					url:'/cancelBindPark',
 					data:{
+						id:_this.$store.state.id,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
 						token:token,
-						userId:_this.$store.state.id,
-						userType:_this.$store.state.kind
+						parkName:_this.$store.state.enterpriseInfo.parkName
 					}
 				}).then(res=>{
 					console.log(res)
@@ -382,6 +393,8 @@
 					data.parkStatus=2
 					_this.$store.commit('setEnterpriseInfo', data)
 					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					_this.parkState=2
+					_this.parkName=''
 					that.$refs.applyPopupDialog.close()
 				})
 			},
@@ -451,7 +464,28 @@
 			},
 			enterParkClose(done) {
 				console.log('退出园区');
-				done()
+				let _this = this
+				let token = uni.getStorageSync('token')
+				request({
+					url:'/unBindPark',
+					data:{
+						id:_this.$store.state.id,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						token:token,
+						parkName:_this.$store.state.enterpriseInfo.parkName
+					}
+				}).then(res=>{
+					console.log(res)
+					let data = _this.$store.state.enterpriseInfo
+					data.parkStatus=2
+					_this.$store.commit('setEnterpriseInfo', data)
+					_this.parkName=''
+					_this.parkState=2
+					console.log(_this.$store.state.enterpriseInfo.parkStatus)
+					done()
+				}).catch(err=>{
+					console.log(err)
+				})
 			},
 			enterInformationPublish(){
 				uni.navigateTo({

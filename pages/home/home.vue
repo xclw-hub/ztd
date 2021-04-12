@@ -190,6 +190,7 @@
 			let _this = this
 			console.log(_this.$store.state.id)
 			console.log(_this.$store.state.kind)
+			this.pageNumber = 1
 			if (_this.$store.state.kind === '0') {
 				// if (_this.$store.state.id) {
 				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
@@ -220,6 +221,7 @@
 						if (data.parkStatus === 1) { //0:待审核，1：入园，2：未入园
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							_this.isParked = true
 							request({
 								url: '/industry/dataTitle',
 								data:{
@@ -247,6 +249,7 @@
 							})
 						} else {
 							tem.isBindPark = false
+							_this.isParked = false
 							request({
 								url: '/industry/dataTitle',
 							}).then(res => {
@@ -291,7 +294,7 @@
 				}).then(res => {
 					let data = res[1].data
 					console.log(data)
-					if (!data.statusCode) {
+					if (data.statusCode == 2000) {
 						let tem = {
 							contactName: data.contactName,
 							phoneNum: data.phoneNum,
@@ -306,6 +309,7 @@
 						if (data.parkId) { //如果园区ID存在，则修改存储的园区ID以及是否绑定值
 							tem.parkId = data.parkId
 							tem.isBindPark = true
+							_this.isParked = true
 							request({
 								url: '/industry/dataTitle',
 								data:{
@@ -332,6 +336,7 @@
 								})
 							})
 						}else{
+							_this.isParked = false
 							request({
 								url: '/industry/dataTitle',
 							}).then(res => {
@@ -378,13 +383,14 @@
 			let d = {
 				industryId: _this.tabList[_this.tabCurrent].pkid,
 				keyword: _this.tabList[_this.tabCurrent].title,
-				page: 1
+				page: _this.pageNumber+1
 			}
 			request({
 				url: '/industry/dataList',
 				data: d,
 			}).then(res => {
 				if (res[1].data.data.list.length != 0) {
+					_this.pageNumber++
 					let a = _this.dataList.length
 					console.log(a)
 					let c = 0

@@ -73,7 +73,7 @@
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
 			<text>历史搜索</text>
-			<text @click="clearHistory">清空</text>
+			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
 					<view class="historyItem" v-for="(item, index) in historyArr" v-if="index<historyShowNumber" :key='index' @click="historySearch(index)">
