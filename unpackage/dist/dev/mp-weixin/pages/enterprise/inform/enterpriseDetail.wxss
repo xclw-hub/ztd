@@ -72,21 +72,46 @@
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
+	/* flex-direction: row;
+	flex-wrap: wrap; */
+}
+.industry-box-fold.data-v-63a2d983{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	height: 62rpx;
+	overflow: hidden;
+}
+.industry-box-unfold.data-v-63a2d983{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
 }
 .field-body .field-body-item.data-v-63a2d983{
 	margin-top: 14rpx;
+	height: 48rpx;
 	margin-right: 14rpx;
 	padding-left: 15rpx;
 	padding-right: 15rpx;
 	border: 1rpx solid #BFBFBF;
 	-webkit-border-radius: 5rpx;
 	        border-radius: 5rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .field-body-item text.data-v-63a2d983{
 	font-size: 24rpx;
@@ -94,14 +119,26 @@
 	font-weight: 400;
 	color: #777777;
 }
+#item-omit.data-v-63a2d983{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	        justify-content: flex-end;
+}
+#omit.data-v-63a2d983{
+	width: 6rpx;
+	height: 6rpx;
+	background: #B2B2B2;
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
+	margin-right: 2rpx;
+}
 .investNumber.data-v-63a2d983{
 	margin-top: 60rpx;
 	padding-left: 39rpx;
 	padding-right: 39rpx;
-}
-.investNumberBox.data-v-63a2d983{
-	margin-top: 44rpx;
-	/* height: 900rpx; */
 }
 .investNumber text.data-v-63a2d983:nth-child(1){
 	font-size: 32rpx;
@@ -110,9 +147,8 @@
 	color: #333333;
 }
 .echarts1.data-v-63a2d983{
+	margin-top: 44rpx;
 	height: 332rpx;
-	overflow: scroll;
-	/* height: 100%; */
 	width: 100%;
 }
 .investNumber-btn.data-v-63a2d983{
@@ -190,7 +226,7 @@
 }
 .echarts3.data-v-63a2d983{
 	width: 100%;
-	height: 500rpx;
+	height: 700rpx;
 }
 .investMoneyTrend.data-v-63a2d983{
 	/* margin-top: 60rpx; */
@@ -205,7 +241,7 @@
 }
 .echarts4.data-v-63a2d983{
 	width: 100%;
-	height: 500rpx;
+	height: 700rpx;
 }
 .roundDistribution.data-v-63a2d983{
 	/* margin-top: 60rpx; */
@@ -259,7 +295,7 @@
 }
 .echarts6.data-v-63a2d983{
 	/* margin-top: 44rpx; */
-	height: 332rpx;
+	height: 900rpx;
 	width: 100%;
 }
 .delegation.data-v-63a2d983{
@@ -324,7 +360,8 @@
 	margin-right: 39rpx;
 }
 .dropList-body .dropList-bar.data-v-63a2d983{
+	overflow: scroll;
 	height: 1200rpx;
-	width: 100%;
+	width:750rpx;
 }
 

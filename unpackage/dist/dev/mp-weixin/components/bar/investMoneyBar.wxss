@@ -1,8 +1,0 @@
-
-.echarts{
-	/* height: inherit;
-	width: inherit; */
-	width: 100%;
-	height: 300px;
-}
-

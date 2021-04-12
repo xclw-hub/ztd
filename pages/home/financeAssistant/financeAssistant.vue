@@ -294,7 +294,7 @@
 		},
 		methods: {
 			checkOut(){
-				this.joinedPark=this.$store.state.enterpriseInfo.parkName
+				this.joinedPark="您加入的园区为："+this.$store.state.enterpriseInfo.parkName
 				let _this = this
 				let that = this
 				let token = uni.getStorageSync('token')
@@ -341,7 +341,7 @@
 				})
 			},
 			find() {
-				this.joinedPark=this.$store.state.enterpriseInfo.parkName
+				this.joinedPark="您加入的园区为："+this.$store.state.enterpriseInfo.parkName
 				let _this = this
 				let that = this
 				let token = uni.getStorageSync('token')

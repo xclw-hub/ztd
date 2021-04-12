@@ -122,10 +122,19 @@
 	color: #AAAAAA;
 	line-height: 26rpx;
 }
-.uploadImg.data-v-5c8bd788{
+/* .uploadImg{
 	margin-top: 50rpx;
 }
-.uploadImg .tips.data-v-5c8bd788{
+.uploadImg .tips{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 30rpx;
+} */
+.uploadImg.data-v-5c8bd788 {
+	margin-top: 50rpx;
+}
+.uploadImg .tips.data-v-5c8bd788 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -137,6 +146,37 @@
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
 	margin-bottom: 30rpx;
+}
+.tips #tip1.data-v-5c8bd788 {
+	font-size: 32rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #333333;
+	/* line-height: 100rpx; */
+}
+.tips #tip2.data-v-5c8bd788 {
+	font-size: 28rpx;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #AAAAAA;
+	/* line-height: 26rpx; */
+}
+.upload image.data-v-5c8bd788{
+	width: 200rpx;
+	height: 200rpx;
+	margin-right: 20rpx;
+	margin-top: 20rpx;
+}
+.upload-img.data-v-5c8bd788{
+	position: relative;
+	display: inline;
+}
+.upload-img #delete.data-v-5c8bd788{
+	position: absolute;
+	width: 40rpx;
+	height: 40rpx;
+	top: -210rpx; 
+	right: -10rpx;
 }
 .tips #tip1.data-v-5c8bd788{
 	font-size: 32rpx;

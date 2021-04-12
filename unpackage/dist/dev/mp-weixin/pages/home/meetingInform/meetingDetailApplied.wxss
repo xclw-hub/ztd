@@ -711,7 +711,7 @@
 .popup-addParticipator .popup-participator-list .popup-participator .popup-participator-right-no.data-v-4104c0e3 {
   width: 106rpx;
   height: 60rpx;
-  border: 1rpx solid #888888;
+  border: 1px solid #888888;
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
   display: -webkit-box;

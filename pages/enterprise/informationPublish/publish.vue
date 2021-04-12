@@ -21,6 +21,7 @@
 				<text>标题</text>
 				<input 
 					type="text" 
+					maxlength=80
 				 	:placeholder="title_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="title"
@@ -30,7 +31,8 @@
 			<view class="price">
 				<text>价格（元）</text>
 				<input 
-					type="text" 
+					type="digit"
+					maxlength=9
 				 	:placeholder="price_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="price"
@@ -40,7 +42,8 @@
 			<view class="business">
 				<text>主营业务</text>
 				<input 
-					type="text" 
+					type="text"
+					maxlength=400
 				 	:placeholder="business_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="business"
@@ -77,7 +80,8 @@
 			<view class="address">
 				<text>详细地址</text>
 				<input 
-					type="text" 
+					type="text"
+					maxlength=100
 				 	:placeholder="address_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="address"
@@ -87,7 +91,8 @@
 			<view class="contact">
 				<text>联系人</text>
 				<input 
-					type="text" 
+					type="text"
+					maxlength=20
 				 	:placeholder="contact_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="contact"
@@ -97,7 +102,8 @@
 			<view class="mobilePhone">
 				<text>移动电话</text>
 				<input 
-					type="text" 
+					type="number"
+					maxlength=11
 				 	:placeholder="mobilePhone_placeholder"
 				 	placeholder-class="placeholderStyle"
 				 	v-model.trim="mobilePhone"
@@ -189,6 +195,30 @@
 					})
 					return false
 				}
+				// if(_this.title.length > 80){
+				// 	uni.showToast({
+				// 	    icon: 'none',
+				// 		position: 'bottom',
+				// 	    title: '标题不能超过80个字符'
+				// 	})
+				// 	return false
+				// }
+				// if(_this.address > 100){
+				// 	uni.showToast({
+				// 	    icon: 'none',
+				// 		position: 'bottom',
+				// 	    title: '地址不能超过100个字符'
+				// 	})
+				// 	return false
+				// }
+				// if(_this.contact > 20){
+				// 	uni.showToast({
+				// 	    icon: 'none',
+				// 		position: 'bottom',
+				// 	    title: '联系人不能超过20个字符'
+				// 	})
+				// 	return false
+				// }
 				if(!reg_tel.test(_this.mobilePhone)){
 					uni.showToast({
 					    icon: 'none',
@@ -197,11 +227,11 @@
 					})
 					return false
 				}
-				if(!decimalReg.test(_this.price)){
+				if(!decimalReg.test(_this.price) || _this.price > 999999.99){
 					uni.showToast({
-					    icon: 'none',
+						icon: 'none',
 						position: 'bottom',
-					    title: '请输入有效价格'
+						title: '请输入有效价格'
 					})
 					return false
 				}
@@ -229,16 +259,18 @@
 				    success: (res) => {
 				        console.log(res.statusCode)
 				        if(res.statusCode===200){
+							this.$store.flag = 1
 				        	uni.showToast({
 				        	    icon:'success',
 				        		position:'bottom',
+								duration: 500,
 				        	    title: '发布成功!'
 				        	})
-							uni.navigateTo({
-								url:'informationPublish',
-								animationType: 'pop-in',
-								animationDuration: 600
-							})
+							setTimeout(function(){
+								uni.navigateBack({
+									delta:1
+								})
+							},500)
 				        }else{
 				        	uni.showToast({
 				        	    icon:'none',

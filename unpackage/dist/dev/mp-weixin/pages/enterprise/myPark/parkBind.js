@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -281,21 +281,30 @@ __webpack_require__.r(__webpack_exports__);
           parkName: _this.parkName } }).
 
       then(function (res) {
+        console.log(res[1].data);
         if (res[1].data.statusCode == 2000) {
           console.log('bind complete');
-          var info = {
-            enterpriseContact: _this.$store.state.enterpriseInfo.enterpriseContact, //企业联系人列表
-            enterpriseId: _this.$store.state.enterpriseInfo.enterpriseId, //企业ID
-            enterpriseLogo: _this.$store.state.enterpriseInfo.enterpriseLogo, //企业头像
-            enterpriseName: _this.$store.state.enterpriseInfo.enterpriseName, //企业名称
-            enterprisePhoNum: _this.$store.state.enterpriseInfo.enterprisePhoNum, //企业绑定手机号
-            enterpriseUsername: _this.$store.state.enterpriseInfo.enterpriseUsername, //企业账号
-            parkId: _this.bindParkId, //绑定园区的ID
-            isBindPark: false, //默认未绑定园区
-            parkName: _this.parkName,
-            parkStatus: 0 };
-
-          _this.$store.setEnterpriseInfo(_this.$store.state, info);
+          /* let info = {
+                                        	enterpriseContact: _this.$store.state.enterpriseInfo.enterpriseContact,		//企业联系人列表
+                                        	enterpriseId: _this.$store.state.enterpriseInfo.enterpriseId,		//企业ID
+                                        	enterpriseLogo: _this.$store.state.enterpriseInfo.enterpriseLogo,			//企业头像
+                                        	enterpriseName: _this.$store.state.enterpriseInfo.enterpriseName,			//企业名称
+                                        	enterprisePhoNum: _this.$store.state.enterpriseInfo.enterprisePhoNum,		//企业绑定手机号
+                                        	enterpriseUsername: _this.$store.state.enterpriseInfo.enterpriseUsername,		//企业账号
+                                        	parkId: _this.bindParkId,		//绑定园区的ID
+                                        	isBindPark:false		,//默认未绑定园区
+                                        	parkName:_this.parkName,
+                                        	parkStatus:0
+                                        } */
+          _this.$store.state.enterpriseInfo.parkId = _this.bindParkId;
+          _this.$store.state.enterpriseInfo.isBindPark = false;
+          _this.$store.state.enterpriseInfo.parkName = _this.parkName;
+          _this.$store.state.enterpriseInfo.parkStatus = 0;
+          console.log(_this.$store.state.enterpriseInfo.parkName);
+          /* _this.$store.mutations.setEnterpriseInfo(_this.$store.state, info) */
+          uni.$emit('parkStateUpdate', { parkName: _this.parkName, parkId: _this.bindParkId });
+          uni.navigateBack({
+            delta: 2 });
 
           // 需要执行 done 才能关闭对话框
           done();
@@ -306,10 +315,6 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         console.log(err);
       });
-      uni.navigateBack({
-        delta: 2 });
-
-
     },
     /**
         * 对话框取消按钮

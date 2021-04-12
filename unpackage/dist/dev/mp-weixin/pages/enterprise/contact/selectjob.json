@@ -3,6 +3,6 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
-    "u-search": "/uview-ui/components/u-search/u-search"
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
   }
 }
