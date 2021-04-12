@@ -210,12 +210,25 @@
 }
 .pswForget.data-v-00d6077d{
 	margin-top: 60rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .pswForget text.data-v-00d6077d{
+	margin-left: 30rpx;
+	margin-right: 30rpx;
 	font-size: 30rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #777777;
 	line-height: 26rpx;
+}
+.pswForget .tip.data-v-00d6077d{
+	width: 100rpx;
+	height: 1rpx;
+	background: #E3E3E3;
 }
 

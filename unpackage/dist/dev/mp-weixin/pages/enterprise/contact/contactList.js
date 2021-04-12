@@ -97,6 +97,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 =
+    _vm.listNumber != 0
+      ? _vm.__map(_vm.contactList, function(item, index) {
+          var $orig = _vm.__get_orig(item)
+
+          var f0 = !(item.contactHead != 0)
+            ? _vm._f("fristName")(item.contactName)
+            : null
+          return {
+            $orig: $orig,
+            f0: f0
+          }
+        })
+      : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -131,6 +153,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
 
 
 
@@ -227,9 +253,28 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11); //
 //
 //
 //
-var _default = { data: function data() {return { //listNumber: 1  计算属性，这里只为演示
+//
+//
+//
+//
+function debounce(fn, delay) {var timer = null; //借助闭包
+  return function () {if (timer) {clearTimeout(timer);}timer = setTimeout(fn, delay); // 简化写法
+  };}var _default = { data: function data() {return { //listNumber: 1  计算属性，这里只为演示
       listNumber: 1, //listNumber: 0时，显示联系人为空页面，添加完联系人，listNumber+1,跳到该页面显示联系人
-      contactList: [] };}, onShow: function onShow() {var _this = this;var that = this;var token = uni.getStorageSync('token');var d;if (_this.$store.state.kind == '0') {d = { enterpriseId: that.$store.state.enterpriseInfo.enterpriseId };} else {d = { enterpriseId: that.$store.state.userInfo.enterpriseId };}(0, _request.request)({ url: '/addContact/existingContacts', data: d }).then(function (res) {console.log(res[1].data);that.contactList = res[1].data;if (that.contactList.length == 0) {that.listNumber == 0;}});}, methods: { tapGodetail: function tapGodetail(item) {console.log(item.contactId);uni.navigateTo({ url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId });}, makePhone: function makePhone(tel) {uni.makePhoneCall({ phoneNumber: tel });}, addcontact: function addcontact() {uni.redirectTo({ url: './add_Contact' });
+      contactList: [], src: 'sdaf' };}, filters: { fristName: function fristName(value) {return value[0];} }, onShow: function onShow() {var _this = this;var that = this;var token = uni.getStorageSync('token');var d;if (_this.$store.state.kind == '0') {d = { enterpriseId: that.$store.state.enterpriseInfo.enterpriseId };} else {d = { enterpriseId: that.$store.state.userInfo.enterpriseId };}(0, _request.request)({ url: '/addContact/existingContacts', data: d }).then(function (res) {that.contactList = res[1].data;console.log(that.contactList);if (that.contactList.length == 0) {that.listNumber = 0;} else {that.listNumber = that.contactList.length;}});}, methods: { tapGodetail: function tapGodetail(item) {console.log(item.contactId);debounce(
+      uni.navigateTo({
+        url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId + '&a=' + this.listNumber }),
+      1000);
+
+    },
+    makePhone: function makePhone(tel) {
+      uni.makePhoneCall({
+        phoneNumber: tel });
+
+    },
+    addcontact: function addcontact() {
+      uni.navigateTo({
+        url: './add_Contact?a=' + this.listNumber });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

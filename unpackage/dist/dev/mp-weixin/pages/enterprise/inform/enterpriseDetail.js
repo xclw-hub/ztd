@@ -25,7 +25,7 @@ createPage(_enterpriseDetail.default);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19& */ 295);
+/* harmony import */ var _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19& */ 295);
 /* harmony import */ var _enterpriseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enterpriseDetail.vue?vue&type=script&lang=js& */ 297);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _enterpriseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _enterpriseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _enterpriseDetail_vue_vue_type_style_index_0_id_63a2d983_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./enterpriseDetail.vue?vue&type=style&index=0&id=63a2d983&scoped=true&lang=css& */ 836);
@@ -41,14 +41,14 @@ var renderjs
 
 var component = Object(_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _enterpriseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   "63a2d983",
   null,
   false,
-  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["components"],
+  _enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["components"],
   renderjs
 )
 
@@ -59,21 +59,21 @@ component.options.__file = "pages/enterprise/inform/enterpriseDetail.vue"
 
 /***/ 295:
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** D:/workspace/ztdapp/ztd/pages/enterprise/inform/enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19& ***!
+  !*** D:/workspace/ztdapp/ztd/pages/enterprise/inform/enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19& */ 296);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19& */ 296);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["recyclableRender"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["recyclableRender"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19___WEBPACK_IMPORTED_MODULE_0__["components"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_C_Program_Files_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_enterpriseDetail_vue_vue_type_template_id_63a2d983_scoped_true_filter_modules_eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19___WEBPACK_IMPORTED_MODULE_0__["components"]; });
 
 
 
@@ -81,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ 296:
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/enterprise/inform/enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MTk4OTAsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyMTA1MX19& ***!
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspace/ztdapp/ztd/pages/enterprise/inform/enterpriseDetail.vue?vue&type=template&id=63a2d983&scoped=true&filter-modules=eyJlY2hhcnRzIjp7InR5cGUiOiJyZW5kZXJqcyIsImNvbnRlbnQiOiIiLCJzdGFydCI6MjU0MTgsImF0dHJzIjp7Im1vZHVsZSI6ImVjaGFydHMiLCJsYW5nIjoianMifSwiZW5kIjoyODcyOX19& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -276,6 +276,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var echarts = _interopRequireWildcard(__webpack_require__(/*! echarts/core */ 299));
 var _components = __webpack_require__(/*! echarts/components */ 477);
 
@@ -286,7 +293,7 @@ var _charts = __webpack_require__(/*! echarts/charts */ 674);
 
 
 
-var _renderers = __webpack_require__(/*! echarts/renderers */ 821);function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _renderers = __webpack_require__(/*! echarts/renderers */ 821);function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -300,30 +307,183 @@ echarts.use(
 
   data: function data() {
     return {
-      investNumberShow: true,
+      isShowMore: false,
+      investNumberShow: false,
       investMoneyShow: false,
       roundDistributionShow: false,
       enterpriseName: '',
       content: '',
-      investField: ['5G终端设备', '5G文娱', '5G教育', '智能教育', '无人机', '磁体', '微处理器', '无人机', '5G终端设备', '硅钢', '5G终端设备', '5G文娱', '5G教育', '温湿度传感器'],
-      // investNumberDataX: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-      // investNumberDataY: [1746, 1326, 916, 696, 436, 376, 215],
-      // investNumberDataX: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-      // investNumberDataY: [1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215],
-      // eventTrendDataX:['2015', '2016', '2017', '2018', '2019'],
-      // eventTrendBarDataY:[35, 70, 92, 79, 70],
-      // eventTrendLineDataY:[-1, -1.5, -2, -0.7, 1.5],
-      // investMoneyTrendDataX:['2015', '2016', '2017', '2018', '2019'],
-      // investMoneyTrendBarDataY:[35, 70, 92, 79, 70],
-      // investMoneyTrendLineDataY:[-1, -1.5, -2, -0.7, 1.5],
-      // investMapData:[
-      // 	{value: 5, name: '江苏省（5）'},
-      // 	{value: 4, name: '北京市（4）'},
-      // 	{value: 1, name: '广东省（1）'},
-      // 	{value: 4, name: '浙江省（4）'},
-      // 	{value: 3, name: '四川省（3）'}
-      // ],
-      investNumberOption: {
+      investField: [],
+
+      investNumberDataX: [],
+      investNumberDataY: [],
+
+      investMoneyDataX: [],
+      investMoneyDataY: [],
+
+      eventTrendDataX: [],
+      eventTrendDataY1: [],
+      eventTrendDataY2: [],
+
+      investMoneyTrendDataX: [],
+      investMoneyTrendDataY1: [],
+      investMoneyTrendDataY2: [],
+
+      roundDistributionDataX: [],
+      roundDistributionDataY: [],
+
+      investMapData: [
+        // {value: 5, name: '江苏省（5）'},
+        // {value: 4, name: '北京市（4）'},
+        // {value: 1, name: '广东省（1）'},
+        // {value: 4, name: '浙江省（4）'},
+        // {value: 3, name: '四川省（3）'}
+      ],
+      investNumberOption: {},
+      allInvestNumberOption: {},
+      investMoneyOption: {},
+      allInvestMoneyOption: {},
+      eventTrendOption: {},
+      investMoneyTrendOption: {},
+      roundDistributionOption: {},
+      allRoundDistributionOption: {},
+      investMapOption: {},
+      pkid: 0,
+      title: '',
+      companyId: 0,
+      parkId: 0,
+      memberId: 0 };
+
+  },
+  onLoad: function onLoad(option) {
+    var _this = this;
+    var obj = JSON.parse(option.obj);
+    console.log(obj);
+    _this.pkid = obj.pkid;
+    _this.title = obj.companyTitle;
+    _this.companyId = obj.companyId;
+    _this.memberId = _this.$store.state.id;
+    if (_this.$store.state.kind === '0') {
+      _this.parkId = _this.$store.state.enterpriseInfo.parkId;
+    } else
+    {
+      _this.parkId = _this.$store.state.userInfo.parkId;
+    }
+    _this.$request({
+      url: '/noticeService/mechanismDetail',
+      data: {
+        companyId: _this.companyId,
+        pkid: _this.pkid } }).
+
+    then(function (res) {
+      var data = res[1].data.data;
+      console.log(data);
+      _this.enterpriseName = data.title;
+      _this.content = data.content;
+      // _this.investField = data.InvestmentField
+      var investNumberObjList = [];
+      var investMoneyObjList = [];
+      for (var i = 0; i < data.InvestmentField.length; i++) {
+        _this.investField.push(data.InvestmentField[i].title);
+        var investNumberObj = {
+          name: data.InvestmentField[i].title,
+          value: Number(data.InvestmentField[i].events) };
+
+        var investMoneyObj = {
+          name: data.InvestmentField[i].title,
+          value: Number(data.InvestmentField[i].money / 10000) };
+
+        investNumberObjList.push(investNumberObj);
+        investMoneyObjList.push(investMoneyObj);
+
+      }
+      investNumberObjList = investNumberObjList.sort(function (a, b) {return a.value - b.value;});
+      investMoneyObjList = investMoneyObjList.sort(function (a, b) {return a.value - b.value;});
+      for (var _i = 0; _i < investNumberObjList.length; _i++) {
+        _this.investNumberDataX.push(investNumberObjList[_i].name);
+        _this.investNumberDataY.push(investNumberObjList[_i].value);
+      }
+      for (var _i2 = 0; _i2 < investMoneyObjList.length; _i2++) {
+        _this.investMoneyDataX.push(investMoneyObjList[_i2].name);
+        _this.investMoneyDataY.push(investMoneyObjList[_i2].value);
+      }
+      console.log(investNumberObjList);
+      console.log(investMoneyObjList);
+      _this.$request({
+        url: '/noticeService/trend',
+        data: {
+          pkid: _this.pkid } }).
+
+      then(function (res) {
+        var data2 = res[1].data.data;
+        var moneyData = data2.moneylist;
+        var eventData = data2.eventslist;
+        console.log(data2);
+        _this.investMoneyTrendDataX = moneyData.time;
+        _this.eventTrendDataX = eventData.time;
+        for (var _i3 = 0; _i3 < moneyData.money.length; _i3++) {
+          _this.investMoneyTrendDataY1.push(moneyData.money[_i3] / 10000);
+          _this.investMoneyTrendDataY2.push(moneyData.moneyGrowthrate[_i3]);
+        }
+        for (var _i4 = 0; _i4 < eventData.events.length; _i4++) {
+          _this.eventTrendDataY1.push(eventData.events[_i4]);
+          _this.eventTrendDataY2.push(eventData.eventsGrowthrate[_i4]);
+        }
+        _this.$request({
+          url: '/noticeService/distributionCon',
+          data: {
+            pkid: _this.pkid } }).
+
+        then(function (res) {
+          var data3 = res[1].data.data;
+          console.log(data3);
+          var regional = data3.regional;
+          var round = data3.round;
+          var roundObjList = [];
+          for (var _i5 = 0; _i5 < round.length; _i5++) {
+            var roundObj = {
+              name: round[_i5].name,
+              value: Number(round[_i5].value) };
+
+            roundObjList.push(roundObj);
+          }
+          roundObjList = roundObjList.sort(function (a, b) {return a.value - b.value;});
+          for (var _i6 = 0; _i6 < roundObjList.length; _i6++) {
+            _this.roundDistributionDataX.push(roundObjList[_i6].name);
+            _this.roundDistributionDataY.push(roundObjList[_i6].value);
+          }
+
+          for (var _i7 = 0; _i7 < regional.length; _i7++) {
+            var regionalObj = {
+              value: Number(regional[_i7].value),
+              name: regional[_i7].name + '（' + regional[_i7].value + '）' };
+
+            _this.investMapData.push(regionalObj);
+          }
+          // console.log(_this.investField)
+          // console.log(_this.eventTrendDataX)
+          // console.log(_this.eventTrendDataY1)
+          // console.log(_this.eventTrendDataY2)
+          // console.log(_this.investMoneyTrendDataX)
+          // console.log(_this.investMoneyTrendDataY1)
+          // console.log(_this.investMoneyTrendDataY2)
+          // console.log(_this.roundDistributionDataX)
+          // console.log(_this.roundDistributionDataY)
+          // console.log(_this.investMapData)
+          _this.setOption();
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }).catch(function (err) {
+      console.log(err);
+    });
+  },
+  methods: {
+    setOption: function setOption() {
+      this.investNumberOption = {
         grid: {
           left: '0%',
           // right: '0%',
@@ -333,13 +493,12 @@ echarts.use(
 
         xAxis: {
           type: 'value',
-          boundaryGap: [0, 0.01],
+          // boundaryGap: [0, 0.01],
           show: false },
 
         yAxis: {
           type: 'category',
-          data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-          // data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机','5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
+          data: this.investNumberDataX.slice(-7),
           axisLabel: {
             show: true,
             color: '#777777',
@@ -359,8 +518,7 @@ echarts.use(
         series: [
         {
           type: 'bar',
-          data: [1746, 1326, 916, 696, 436, 376, 215],
-          // data: [1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215,1746, 1326, 916, 696, 436, 376, 215],
+          data: this.investNumberDataY.slice(-7),
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '60%',
           label: {
@@ -386,7 +544,7 @@ echarts.use(
 
 
 
-      allInvestNumberOption: {
+      this.allInvestNumberOption = {
         grid: {
           left: '0%',
           // right: '0%',
@@ -401,8 +559,7 @@ echarts.use(
 
         yAxis: {
           type: 'category',
-          data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机', '5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机', '5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机', '5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-          // data: investNumberDataX,
+          data: this.investNumberDataX,
           axisLabel: {
             show: true,
             color: '#777777',
@@ -422,8 +579,7 @@ echarts.use(
         series: [
         {
           type: 'bar',
-          data: [1746, 1326, 916, 696, 436, 376, 215, 1746, 1326, 916, 696, 436, 376, 215, 1746, 1326, 916, 696, 436, 376, 215, 1746, 1326, 916, 696, 436, 376, 215],
-          // data: investNumberDataY,
+          data: this.investNumberDataY,
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '60%',
           label: {
@@ -449,7 +605,7 @@ echarts.use(
 
 
 
-      investMoneyOption: {
+      this.investMoneyOption = {
         grid: {
           left: '0%',
           // right: '0%',
@@ -464,8 +620,7 @@ echarts.use(
 
         yAxis: {
           type: 'category',
-          data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-          // data: this.xData,
+          data: this.investMoneyDataX.slice(-7),
           axisLabel: {
             show: true,
             color: '#777777',
@@ -485,8 +640,7 @@ echarts.use(
         series: [
         {
           type: 'bar',
-          data: [1746, 1326, 916, 696, 436, 376, 215],
-          // data: this.yData,
+          data: this.investMoneyDataY.slice(-7),
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '60%',
           label: {
@@ -512,10 +666,71 @@ echarts.use(
 
 
 
-      eventTrendOption: {
+      this.allInvestMoneyOption = {
         grid: {
           left: '0%',
-          right: '0%',
+          // right: '0%',
+          top: '0%',
+          bottom: '0%',
+          containLabel: true },
+
+        xAxis: {
+          type: 'value',
+          // boundaryGap: [0, 0.01],
+          show: false },
+
+        yAxis: {
+          type: 'category',
+          data: this.investMoneyDataX,
+          axisLabel: {
+            show: true,
+            color: '#777777',
+            fontSize: 11 },
+
+          axisTick: {
+            show: false },
+
+          axisLine: {
+            show: true,
+            style: {
+              width: 1,
+              color: '#BBBBBB' } } },
+
+
+
+        series: [
+        {
+          type: 'bar',
+          data: this.investMoneyDataY,
+          // barWidth:9, 		//无法同时设置宽度和间距
+          barCategoryGap: '60%',
+          label: {
+            show: true,
+            formatter: function formatter(params) {//标签内容
+              return params.value;
+            },
+            position: 'right',
+            fontSize: 11,
+            color: '#777777' },
+
+          itemStyle: {
+            borderRadius: [0, 9, 9, 0],
+            // color:'#7466CC'
+            color: new echarts.graphic.LinearGradient(
+            1, 0, 0, 1,
+            [
+            { offset: 0, color: '#3C77E6' },
+            { offset: 1, color: '#01B4FF' }]) } }] },
+
+
+
+
+
+
+      this.eventTrendOption = {
+        grid: {
+          left: '0%',
+          right: 20,
           top: 20,
           bottom: 60,
           containLabel: true },
@@ -528,8 +743,7 @@ echarts.use(
         xAxis: [
         {
           type: 'category',
-          data: ['2015', '2016', '2017', '2018', '2019'],
-          // data: this.xData,
+          data: this.eventTrendDataX,
           axisPointer: {
             type: 'shadow' },
 
@@ -561,8 +775,8 @@ echarts.use(
 
         {
           type: 'value',
-          min: -3,
-          max: 2,
+          min: -8,
+          max: 8,
           interval: 1,
           axisLine: {
             show: true,
@@ -577,8 +791,7 @@ echarts.use(
         {
           name: '融资事件（起）',
           type: 'bar',
-          data: [35, 70, 92, 79, 70],
-          // data:this.yDataBar,
+          data: this.eventTrendDataY1,
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '90%',
           label: {
@@ -605,18 +818,17 @@ echarts.use(
           name: '增速',
           type: 'line',
           yAxisIndex: 1,
-          data: [-1, -1.5, -2, -0.7, 1.5],
-          // data:this.yDataLine,
+          data: this.eventTrendDataY2,
           itemStyle: {
             color: '#FFB922' } }] },
 
 
 
 
-      investMoneyTrendOption: {
+      this.investMoneyTrendOption = {
         grid: {
           left: '0%',
-          right: '0%',
+          // right: 20,
           top: 20,
           bottom: 60,
           containLabel: true },
@@ -629,8 +841,7 @@ echarts.use(
         xAxis: [
         {
           type: 'category',
-          data: ['2015', '2016', '2017', '2018', '2019'],
-          // data: this.xData,
+          data: this.investMoneyTrendDataX,
           axisPointer: {
             type: 'shadow' },
 
@@ -662,8 +873,8 @@ echarts.use(
 
         {
           type: 'value',
-          min: -3,
-          max: 2,
+          min: -8,
+          max: 8,
           interval: 1,
           axisLine: {
             show: true,
@@ -678,8 +889,7 @@ echarts.use(
         {
           name: '融资金额（万元）',
           type: 'bar',
-          data: [35, 70, 92, 79, 70],
-          // data:this.yDataBar,
+          data: this.investMoneyTrendDataY1,
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '90%',
           label: {
@@ -706,7 +916,7 @@ echarts.use(
           name: '增速',
           type: 'line',
           yAxisIndex: 1,
-          data: [-1, -1.5, -2, -0.7, 1.5],
+          data: this.investMoneyTrendDataY2,
           // data:this.yDataLine,
           itemStyle: {
             color: '#FFB922' } }] },
@@ -714,23 +924,22 @@ echarts.use(
 
 
 
-      roundDistributionOption: {
+
+      this.roundDistributionOption = {
         grid: {
           left: '0%',
-          right: '0%',
+          // right: '20%',
           top: '0%',
           bottom: '0%',
           containLabel: true },
 
         xAxis: {
           type: 'value',
-          // boundaryGap: [0, 0.01],
           show: false },
 
         yAxis: {
           type: 'category',
-          data: ['5G终端设备', '5G文娱', '5G教育', '5G交通运输', '5G金融', '智能教育', '无人机'],
-          // data: this.xData,
+          data: this.roundDistributionDataX.slice(-7),
           axisLabel: {
             show: true,
             color: '#777777',
@@ -750,16 +959,14 @@ echarts.use(
         series: [
         {
           type: 'bar',
-          data: [1746, 1326, 916, 696, 436, 376, 215],
-          // data: this.yData,
+          data: this.roundDistributionDataY.slice(-7),
           // barWidth:9, 		//无法同时设置宽度和间距
           barCategoryGap: '60%',
           label: {
             show: true,
-            // formatter:function(params){ //标签内容
-            // 	// console.log(params)
-            // 	return  params.value+' ('+toPercent(params.value)+')'
-            // },
+            formatter: function formatter(params) {//标签内容
+              return params.value;
+            },
             position: 'right',
             fontSize: 11,
             color: '#777777' },
@@ -778,24 +985,88 @@ echarts.use(
 
 
 
-      investMapOption: {
+      this.allRoundDistributionOption = {
         grid: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
+          left: '0%',
+          // right: '20%',
+          top: '0%',
+          bottom: '0%',
           containLabel: true },
 
-        legend: {
-          top: '15%',
-          right: '10%',
-          orient: 'vertical' },
+        xAxis: {
+          type: 'value',
+          // boundaryGap: [0, 0.01],
+          show: false },
+
+        yAxis: {
+          type: 'category',
+          data: this.roundDistributionDataX,
+          axisLabel: {
+            show: true,
+            color: '#777777',
+            fontSize: 11 },
+
+          axisTick: {
+            show: false },
+
+          axisLine: {
+            show: true,
+            style: {
+              width: 1,
+              color: '#BBBBBB' } } },
+
+
 
         series: [
         {
+          type: 'bar',
+          data: this.roundDistributionDataY,
+          // barWidth:9, 		//无法同时设置宽度和间距
+          barCategoryGap: '60%',
+          label: {
+            show: true,
+            formatter: function formatter(params) {//标签内容
+              return params.value;
+            },
+            position: 'right',
+            fontSize: 11,
+            color: '#777777' },
+
+          itemStyle: {
+            borderRadius: [0, 9, 9, 0],
+            // color:'#7466CC'
+            color: new echarts.graphic.LinearGradient(
+            1, 0, 0, 1,
+            [
+            { offset: 0, color: '#E0A13D' },
+            { offset: 1, color: '#FFCD48' }]) } }] },
+
+
+
+
+
+
+      this.investMapOption = {
+        grid: {
+          // left:0,
+          // right:0,
+          // top:0,
+          // bottom:0,
+          containLabel: true },
+
+        legend: {
+          orient: 'vertical',
+          left: 'right',
+          top: 'center',
+          bottom: 'bottom'
+          // right:'10%',
+          // orient: 'vertical',
+        },
+        series: [
+        {
           type: 'pie',
-          center: ['25%', '50%'],
-          radius: ['35%', '90%'],
+          center: ['30%', '50%'],
+          radius: ['20%', '60%'],
           avoidLabelOverlap: false,
           itemStyle: {
             // borderRadius: 10,
@@ -804,9 +1075,9 @@ echarts.use(
 
           label: {
             show: true,
-            // formatter:function(params){ //标签内容
-            // 	return  toPercent(params.value)
-            // },
+            formatter: function formatter(params) {//标签内容
+              return params.value + params.percent;
+            },
             position: 'inner',
             fontSize: 11,
             color: '#FFFFFF' },
@@ -817,51 +1088,21 @@ echarts.use(
           labelLine: {
             show: false },
 
-          data: [
-          { value: 5, name: '江苏省（5）' },
-          { value: 4, name: '北京市（4）' },
-          { value: 1, name: '广东省（1）' },
-          { value: 4, name: '浙江省（4）' },
-          { value: 3, name: '四川省（3）' }]
-
-          // data:this.investData
-        }] } };
+          data: this.investMapData }] };
 
 
 
-  },
-  onLoad: function onLoad(option) {
-    var _this = this;
-    var obj = JSON.parse(option.obj);
-    _this.$request({
-      url: '/noticeService/mechanismDetail',
-      data: {
-        companyId: obj.companyId,
-        pkid: obj.pkid } }).
-
-    then(function (res) {
-      var data = res[1].data.data;
-      console.log(data);
-      _this.enterpriseName = data.title;
-      _this.content = data.content;
-      // _this.investField = data.InvestmentField
-    }).catch(function (err) {
-      console.log(err);
-    });
-  },
-  methods: {
+    },
     clickBack: function clickBack() {
       uni.navigateBack({
         delta: 1 });
 
     },
+    openPopList: function openPopList() {
+      this.isShowMore = !this.isShowMore;
+    },
     viewAllInvestNumber: function viewAllInvestNumber() {
-      // let myChartAll1
       this.investNumberShow = true;
-      // console.log(document)
-      // myChartAll1 = echarts.init(document.getElementById('echartsAll1'))
-      // // 绘制图表
-      // myChartAll1.setOption(this.allInvestNumberOption);
     },
     investNumberCloseDropList: function investNumberCloseDropList() {
       this.investNumberShow = false;
@@ -884,6 +1125,22 @@ echarts.use(
     },
     delegationConfirm: function delegationConfirm(done) {
       console.log('确定');
+      var _this = this;
+      _this.$request({
+        url: '/noticeService/addEntrust',
+        data: {
+          parkId: _this.parkId,
+          pkid: _this.pkid,
+          companyId: _this.companyId,
+          memberId: _this.memberId,
+          companytitle: _this.title } }).
+
+      then(function (res) {
+        var data = res[1].data;
+        console.log(data);
+      }).catch(function (err) {
+        console.log(err);
+      });
       // 需要执行 done 才能关闭对话框
       done();
     },
@@ -893,14 +1150,6 @@ echarts.use(
     delegationClose: function delegationClose(done) {
       console.log('取消');
       done();
-    } },
-
-  computed: {
-    ShowInvestNumberDataX: function ShowInvestNumberDataX() {
-      return this.investNumberDataX.slice(0, 7);
-    },
-    ShowInvestNumberDataY: function ShowInvestNumberDataY() {
-      return this.investNumberDataY.slice(0, 7);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

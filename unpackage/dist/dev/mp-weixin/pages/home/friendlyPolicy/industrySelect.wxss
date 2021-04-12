@@ -62,9 +62,15 @@
 	        align-items: center;
 	padding-left: 21rpx;
 }
-.search image.data-v-724e33d6{
+.img1.data-v-724e33d6{
 	width: 30rpx;
 	height: 30rpx;
+	margin-right: 15rpx;
+}
+.img2.data-v-724e33d6{
+	width: 30rpx;
+	height: 30rpx;
+	margin-left: auto;
 	margin-right: 15rpx;
 }
 .placeholderStyle.data-v-724e33d6{

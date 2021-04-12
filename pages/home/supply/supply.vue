@@ -567,6 +567,7 @@
 					"title": "不限"
 				}]
 				this.region = "不限地区";
+				this.tapsaveregion()
 				this.$refs.uDropdown.close();
 			},
 			tapsaveregion() {
@@ -772,8 +773,8 @@
 				that.minPrice=''
 				that.maxPrice=''
 				this.price='不限价格'
+				this.tapsaveregion()
 				this.$refs.uDropdown.close();
-
 			},
 			pricesave() {
 				if (this.minPrice == "" || this.maxPrice == "") {

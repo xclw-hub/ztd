@@ -72,6 +72,24 @@ page {
   -webkit-border-radius: 50%;
           border-radius: 50%;
 }
+.userInfocon .avatar .ss.data-v-ad871f36 {
+  background-color: #2D6BDD;
+  color: #FFFFFF;
+  font-size: 40rpx;
+  width: 160rpx;
+  height: 160rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
 .userInfocon .name.data-v-ad871f36 {
   color: #333333;
   font-size: 35rpx;

@@ -98,13 +98,13 @@ var components
 try {
   components = {
     uNavbar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 1246))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 1175))
     },
     uSearch: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 1281))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 1203))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1253))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1182))
     }
   }
 } catch (e) {
@@ -230,7 +230,7 @@ var _default =
   methods: {
     tapdetail: function tapdetail(index) {
       uni.navigateTo({
-        url: './goodsde	tail?supplyId=' + this.goodsList[index].pkid });
+        url: './goodsdetail?supplyId=' + this.goodsList[index].pkid });
 
     },
     enterSearch: function enterSearch() {
@@ -268,6 +268,7 @@ var _default =
           var length = _this.goodsList.length;
           for (var i = len; i < length; i++) {
             _this.goodsList[i].pic = _this.goodsList[i].pic.split(',');
+            _this.goodsList[i].price = Number(_this.goodsList[i].price).toFixed(2);
           }
           console.log(_this.goodsList);
         }).catch(function (err) {
@@ -296,6 +297,7 @@ var _default =
           var length = _this.goodsList.length;
           for (var i = len; i < length; i++) {
             _this.goodsList[i].pic = _this.goodsList[i].pic.split(',');
+            _this.goodsList[i].price = Number(_this.goodsList[i].price).toFixed(2);
           }
           console.log(_this.goodsList);
         }).catch(function (err) {

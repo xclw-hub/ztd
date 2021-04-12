@@ -1,9 +1,9 @@
 <template>
 	<view class="mainCon">
 		<u-navbar :immersive="true" back-icon-color="#fff" title-color="#fff" :background="background" :title="navtitle"
-			:border-bottom="false">
+		 :border-bottom="false">
 			<view class="navbar-right" @click="tapshowmenu" slot="right">
-				<view class="right-item" @click="isDelete()">
+				<view class="right-item">
 					<u-icon name="../../../static/moreDot.png" size="38"></u-icon>
 				</view>
 			</view>
@@ -74,7 +74,6 @@
 				</view>
 			</view>
 		</view>
-		<u-mask :show="isShowmenu" @click="isShowmenu = false" z-index="55"></u-mask>
 		<uni-popup id="deletePopupDialog" ref="deletePopupDialog" type="dialog">
 			<uni-popup-dialog type="info" title="注销账号" content="确定要注销此账号吗？" buttonLeftBgColor="#BDBDBD"
 				buttonRightBgColor="#FF9000" textRightColor="#FFFFFF" title_left="否" title_right="是"
@@ -211,6 +210,7 @@
 				this.dropOptionShow = !this.dropOptionShow
 			},
 			doDelete() {
+				this.isShowmenu=false
 				this.$refs.deletePopupDialog.open()
 				this.dropOptionShow = false
 			},
@@ -226,9 +226,9 @@
 				}).then(res => {
 					console.log(res)
 					this.isInvalid = false
-					uni.redirectTo({
-						url: './contactList'
-					});
+					uni.navigateBack({
+						delta:2
+					})
 				})
 				// 需要执行 done 才能关闭对话框
 				done()

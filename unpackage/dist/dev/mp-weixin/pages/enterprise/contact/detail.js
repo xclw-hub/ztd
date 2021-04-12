@@ -98,16 +98,13 @@ var components
 try {
   components = {
     uNavbar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 1246))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 1175))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1253))
-    },
-    uMask: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-mask/u-mask */ "uview-ui/components/u-mask/u-mask").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-mask/u-mask.vue */ 1260))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1182))
     },
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -131,11 +128,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.isShowmenu = false
+  var f0 = !(_vm.user.contactHead != 0)
+    ? _vm._f("fristName")(_vm.user.contactName)
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        f0: f0
+      }
     }
-  }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -254,7 +257,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -273,7 +278,8 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPo
       dropOptionShow: false, //是否显示下拉框
       user: {},
       tel: '',
-      contactId: 1 };
+      contactId: 1,
+      a: 0 };
 
 
   },
@@ -282,6 +288,8 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPo
     var that = this;
     that.tel = option.tel;
     that.contactId = option.contactId;
+    that.a = option.a;
+    console.log(that.a);
     (0, _request.request)({
       url: '/addContact/contactDetail',
       data: {
@@ -305,6 +313,20 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPo
       that.user = res[1].data;
     });
   },
+  filters: {
+    fristName: function fristName(value) {
+      return value[0];
+    } },
+
+  computed: {
+    unChanged: function unChanged() {
+      if (this.a == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } },
+
   methods: {
     beLoved: function beLoved() {
       var that = this;
@@ -352,16 +374,17 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPo
     editcontacts: function editcontacts() {
       var that = this;
       console.log('asdf');
-      console.log(that.user);
+      console.log(that.a);
       uni.navigateTo({
         url: './changeContact?name=' + that.user.contactName + '&job=' + that.user.position + '&telephone=' + that.
-        user.phoneNum + '&isDefault=' + that.user.isDefault + '&contactId=' + that.user.contactId });
+        user.phoneNum + '&isDefault=' + that.user.isDefault + '&contactId=' + that.user.contactId + '&a=' + that.a });
 
     },
     isDelete: function isDelete() {
       this.dropOptionShow = !this.dropOptionShow;
     },
     doDelete: function doDelete() {
+      this.isShowmenu = false;
       this.$refs.deletePopupDialog.open();
       this.dropOptionShow = false;
     },
@@ -377,8 +400,8 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniPo
       then(function (res) {
         console.log(res);
         _this.isInvalid = false;
-        uni.redirectTo({
-          url: './contactList' });
+        uni.navigateBack({
+          delta: 2 });
 
       });
       // 需要执行 done 才能关闭对话框

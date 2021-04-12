@@ -303,9 +303,10 @@
 			},
 			publish() {
 				// console.log("我要发布")
-				uni.navigateTo({
-					url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)
-				})
+				// uni.navigateTo({
+				// 	url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)
+				// })
+				
 			},
 		}
 	}
