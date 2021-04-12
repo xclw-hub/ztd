@@ -541,9 +541,14 @@
 							}
 						} else {
 							if (!that.$store.state.enterpriseInfo.isBindPark) {
-								uni.navigateTo({
-									url: '../enterprise/myPark/parkApply'
-								})
+								if(that.$store.state.enterpriseInfo.parkStatus==0){
+									that.joinedPark="您加入的园区为："+this.$store.state.enterpriseInfo.parkName
+									that.$refs.applyPopupDialog.open()
+								}else{
+									uni.navigateTo({
+										url: '../enterprise/myPark/parkApply'
+									})
+								}
 							} else {
 								this.isShowDiagnosis = true
 							}
