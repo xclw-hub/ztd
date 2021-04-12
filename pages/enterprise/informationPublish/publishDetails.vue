@@ -181,8 +181,11 @@
 						detail.address = data.address
 						detail.contact = data.contacts
 						detail.mobilePhone = data.tel
-						let arr = data.pic.split(',')
-						detail.imageArr = arr
+						// console.log(data.pic)
+						if(data.pic != null){
+							let arr = data.pic.split(',')
+							detail.imageArr = arr
+						}
 						detail.description = data.content
 						this.publish = detail
 						
@@ -236,16 +239,18 @@
 					// console.log(res)
 				 //    console.log(res[1].data)
 				    if(res[1].statusCode===200){
+						this.$store.flag = 1
 				        uni.showToast({
 				            icon:'success',
-				            position:'bottom',
+				        	position:'bottom',
+				        	duration: 500,
 				            title: '删除成功'
 				        })
-						uni.navigateTo({
-							url:'informationPublish',
-							animationType: 'pop-in',
-							animationDuration: 600
-						})
+				        setTimeout(function(){
+				        	uni.navigateBack({
+				        		delta:1
+				        	})
+				        },500)
 				    }else{
 				        uni.showToast({
 				            icon:'none',
