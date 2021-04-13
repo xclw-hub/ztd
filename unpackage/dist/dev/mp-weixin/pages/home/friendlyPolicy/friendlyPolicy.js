@@ -355,13 +355,27 @@ __webpack_require__.r(__webpack_exports__);
           uni.getStorage({
             key: 'remindDay',
             success: function success(res) {
+              console.log(res.data);
               console.log('remindDay');
               var now = new Date();
-              if (_this.isSameWeek(res.data, now) != true) {
-                _this.$refs.selectPopupDialog.open();
-              } else {
-                console.log('本周不提示');
+              var remindArr = JSON.parse(res.data);
+              var length = remindArr.length;
+              var i;
+              for (i = 0; i < length; i++) {
+                if (remindArr[i].kind == _this.$store.state.kind && remindArr[i].id == _this.$store.state.id) {
+                  break;
+                }
               }
+              if (i < length) {
+                if (_this.isSameWeek(remindArr[i].date, now) != true) {
+                  _this.$refs.selectPopupDialog.open();
+                } else {
+                  console.log('本周不提示');
+                }
+              } else {
+                _this.$refs.selectPopupDialog.open();
+              }
+
             },
             fail: function fail() {
               _this.$refs.selectPopupDialog.open();
@@ -440,9 +454,36 @@ __webpack_require__.r(__webpack_exports__);
     selectClose: function selectClose(done) {
       console.log('本周不再提醒');
       var date = new Date();
-      uni.setStorage({
-        key: 'remindDay',
-        data: date });
+      var _this = this;
+      uni.getStorage({
+        'key': 'remindDay',
+        success: function success(res) {
+          var remindArr = JSON.parse(res.data);
+          var length = remindArr.length;
+          var i;
+          for (i = 0; i < length; i++) {
+            if (remindArr[i].kind == _this.$store.state.kind && remindArr[i].id == _this.$store.state.id) {
+              break;
+            }
+          }
+          if (i < length) {
+            remindArr[i].date = date;
+          } else {
+            var d = { kind: _this.$store.state.kind, id: _this.$store.state.id, date: date };
+            remindArr.push(d);
+          }
+          uni.setStorage({
+            key: 'remindDay',
+            data: JSON.stringify(remindArr) });
+
+        },
+        fail: function fail() {
+          var d = [{ kind: _this.$store.state.kind, id: _this.$store.state.id, date: date }];
+          uni.setStorage({
+            key: 'remindDay',
+            data: JSON.stringify(d) });
+
+        } });
 
       done();
     },
@@ -459,7 +500,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     isSameWeek: function isSameWeek(old, now) {
       var oneDayTime = 1000 * 60 * 60 * 24;
-      var old_count = parseInt(old.getTime() / oneDayTime);
+      var old_count = parseInt(new Date(old).getTime() / oneDayTime);
       var now_other = parseInt(now.getTime() / oneDayTime);
       return parseInt((old_count + 4) / 7) == parseInt((now_other + 4) / 7);
     } } };exports.default = _default;

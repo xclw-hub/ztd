@@ -78,12 +78,26 @@
 }
 .activityPolicydetail .title .titleText {
   padding: 0 40rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
-.activityPolicydetail .title .titleText text {
-  font-size: 34rpx;
-  font-family: SourceHanSansCN-Regular;
-  font-weight: 400;
+.activityPolicydetail .title .titleText .title1 {
+  font-size: 33rpx;
   color: #333333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .activityPolicydetail .info {
   padding: 20rpx 40rpx;
@@ -201,11 +215,12 @@
   width: 16rpx;
   height: 16rpx;
 }
-.relatedDocuments .documentItem text {
-  font-size: 28rpx;
-  color: #666666;
-  font-family: SourceHanSansCN-Regular;
-  font-weight: 400;
-  margin-left: 10rpx;
+.relatedDocuments .documentItem .title1 {
+  font-size: 33rpx;
+  color: #333333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 

@@ -266,18 +266,20 @@
 								})
 							})
 						}
-						console.log(tem)
+						// console.log(tem)
 						_this.$store.commit('setEnterpriseInfo', tem)
+						console.log(_this.$store.state.enterpriseInfo)
+						_this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo
 					} else {
 						console.log(data.statusMsg)
 					}
 				}).catch(err => {
 					console.log(err)
 				})
-				console.log(_this.$store.state.enterpriseInfo)
 
 			} else {
 				// _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
+				// console.log("userID:"+_this.$store.state.id)
 				_this.$request({
 					url: '/contactDetail',
 					data: {
@@ -287,7 +289,7 @@
 				}).then(res => {
 					let data = res[1].data
 					console.log(data)
-					if (data.statusCode == 2000) {
+					if (data.statusCode === 2000) {
 						let tem = {
 							contactName: data.contactName,
 							phoneNum: data.phoneNum,
@@ -355,13 +357,8 @@
 							})
 						}
 						_this.$store.commit('setUserInfo', tem)
-						if (_this.$store.state.kind === '0') {
-							console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
-							_this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo
-						} else {
-							console.log(_this.$store.state.userInfo.contactHead)
-							_this.user_logo = _this.$store.state.userInfo.contactHead
-						}
+						console.log(_this.$store.state.userInfo)
+						_this.user_logo = _this.$store.state.userInfo.contactHead
 					} else {
 						console.log(data.statusMsg)
 					}

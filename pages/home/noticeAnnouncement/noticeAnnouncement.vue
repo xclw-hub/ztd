@@ -21,7 +21,7 @@
 		<view class="content">
 			<view class="myService" v-if="choice">
 				<view class="serviceList" v-for="(item,index) in policyList" :key="index" @click="viewserviceDetail(index)">
-					<text id="message">{{item.title}}</text>
+					<view class="message">{{item.title}}</view>
 					<view class="publishinfo">
 						<view id="people">
 							<image src="../../../static/home/people.png"></image>
@@ -38,7 +38,7 @@
 			<view v-else class="supplyList">
 				<view class="supplyitem" v-for="(item,index) in noticeList" :key="index"
 					@click="viewSupplyDetail(index)">
-					<text class="reddot" v-if="!item.read"></text><text id="message">{{item.title}}</text>
+					<text class="reddot" v-if="!item.read"></text><view class="message">{{item.title}}</view>
 					<view class="publishinfo">
 						<view id="people">
 							<image src="../../../static/home/people.png"></image>
@@ -62,7 +62,7 @@
 	} from '../../../util/request.js'
 			import uParse from "@/components/feng-parse/parse.vue"
 	function timestampToTime(timestamp) {
-		var date = new Date();//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 		var Y = date.getFullYear() + '-';
 		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
 		var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
@@ -127,6 +127,7 @@
 		},
 		filters: {
 		  toDate: function (value) {
+			  console.log(value)
 			let date1 = timestampToTime(value)
 		    return date1
 		  }
@@ -334,12 +335,16 @@
 		border-bottom: 20rpx solid #eee;
 	}
 
-	.supplyitem #message {
+	.message {
 		font-size: 30rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
 		color: #333333;
 		line-height: 42rpx;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
 	}
 
 	.supplyList .publishinfo {

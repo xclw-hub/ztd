@@ -364,6 +364,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var gmyImgCropper = function gmyImgCropper() {__webpack_require__.e(/*! require.ensure | components/gmy-img-cropper/gmy-img-cropper */ "components/gmy-img-cropper/gmy-img-cropper").then((function () {return resolve(__webpack_require__(/*! ../../components/gmy-img-cropper/gmy-img-cropper.vue */ 1189));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
@@ -489,14 +507,14 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup
       });
     }
     uni.$on('parkStateUpdate', function (data) {
-      this.parkName = data.parkName;
-      this.parkState = 0;
-      this.$store.state.enterpriseInfo.parkId = data.parkId;
-      this.$store.state.enterpriseInfo.parkName = data.parkName;
-      this.$store.state.enterpriseInfo.parkStatus = 0;
-      this.$store.state.enterpriseInfo.isBindPark = false;
-      this.$store.state.userInfo.parkId = data.parkId;
-      this.$store.state.userInfo.isBindPark = false;
+      _this2.parkName = data.parkName;
+      _this2.parkState = 0;
+      _this2.$store.state.enterpriseInfo.parkId = data.parkId;
+      _this2.$store.state.enterpriseInfo.parkName = data.parkName;
+      _this2.$store.state.enterpriseInfo.parkStatus = 0;
+      _this2.$store.state.enterpriseInfo.isBindPark = false;
+      _this2.$store.state.userInfo.parkId = data.parkId;
+      _this2.$store.state.userInfo.isBindPark = false;
     });
     var info = _this.$store.state.enterpriseInfo;
     console.log('用户', info.enterpriseLogo);
@@ -504,6 +522,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup
     _this.enterpriseName = info.enterpriseName;
     _this.enterpriseID = info.enterpriseId;
     _this.enterpriseUsername = info.enterpriseUsername;
+  },
+  onShow: function onShow() {
+
   },
   methods: {
     clickBack: function clickBack() {
@@ -620,10 +641,12 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup
       console.log('我知道了');
       done();
     },
-    enterParkClose: function enterParkClose(done) {
-      console.log('退出园区');
-      var _this = this;
+    quitParkConfirm: function quitParkConfirm(done) {
+      done();
+    },
+    quitParkClose: function quitParkClose(done) {
       var token = uni.getStorageSync('token');
+      var _this = this;
       (0, _request.request)({
         url: '/unBindPark',
         data: {
@@ -644,6 +667,11 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniPopup
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    enterParkClose: function enterParkClose(done) {
+      console.log('退出园区');
+      done();
+      this.$refs.quitParkPopupDialog.open();
     },
     enterInformationPublish: function enterInformationPublish() {
       uni.navigateTo({

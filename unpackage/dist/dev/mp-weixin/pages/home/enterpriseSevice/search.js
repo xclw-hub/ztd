@@ -290,34 +290,14 @@ __webpack_require__.r(__webpack_exports__);
       showOption: true, //true则显示公司列表,false显示供需列表
       filterKind: 0, //0表示显示全部，1表示显示有电话的，2表示显示有地址的
       enterpriseList: [],
-      supplyList: [
-      {
-        kind: '0', //0是供应
-        content: '深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-        time: '2020-12-08 11:39' },
-
-      {
-        kind: '1', //1是需求
-        content: '长期回收伺服电机，欧姆龙，基恩士，费斯托，西门子等工控元件',
-        time: '2020-12-08 11:39' },
-
-      {
-        kind: '0', //0是供应
-        content: '深圳K型热电偶 温度传感器 热敏电阻 NTC传感器 广州',
-        time: '2020-12-08 11:39' },
-
-      {
-        kind: '1', //1是需求
-        content: '本公司长期现金回收工程尾货，积压库存，回收伺服电机等',
-        time: '2020-12-08 11:39' }],
-
-
+      supplyList: [],
       historyArr: [], //搜索的历史记录
       currentPage: 1, //默认获取第一页
       totalPage: 1,
       parkId: 0, //企业绑定的园区ID
       isPark: true,
-      enterpriseId: 0 };
+      enterpriseId: 0,
+      memberId: '' };
 
   },
   onPullDownRefresh: function onPullDownRefresh() {
@@ -329,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
     _this.rangeChoiceType = '';
     console.log(_this.showOption);
     if (_this.showOption) {//刷新企业
+      _this.enterpriseList = []; //将原填充数据清空
       _this.$request({
         url: '/enterpriseService/enterpriseListInner',
         data: {
@@ -341,7 +322,6 @@ __webpack_require__.r(__webpack_exports__);
         var data = res[1].data;
         _this.totalPage = data.totalPage; //获取总共页面数
         var enterpriseArr = data.enterpriseInfoList; //获取企业列表
-        _this.enterpriseList = []; //将原填充数据清空
         for (var i = 0; i < enterpriseArr.length; i++) {
           var keywordArr = enterpriseArr[i].keyword.split(',');
           var item = {
@@ -361,6 +341,7 @@ __webpack_require__.r(__webpack_exports__);
     } else
     {
       //重新获取供需列表信息
+      _this.supplyList = []; //将原填充数据清空
       _this.$request({
         url: '/InfoRelease/supplyAndDemand',
         data: {
@@ -369,8 +350,8 @@ __webpack_require__.r(__webpack_exports__);
           type: _this.kindchoiceType, //1为供应，2为需求，参数为空表全部
           range: _this.rangeChoiceType, //1为第三方，2为园内，参数为空表全部
           keyword: _this.searchContent, //关键字
-          memberId: _this.$store.state.id,
-          page: _this.supplyPage //页码
+          memberId: _this.memberId,
+          page: _this.currentPage //页码
         } }).
       then(function (res) {
         var data = res[1].data.data;
@@ -387,10 +368,10 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.supplyList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < supplyArr.length; i++) {
           var item = {
+            pkid: supplyArr[i].pkid,
             kind: '0', //0是供应
             content: supplyArr[i].title,
             time: supplyArr[i].time };
@@ -519,9 +500,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.enterpriseList);
       } else
       {
-        _this.supplyPage++;
         //检查是否还有更多
-        if (_this.supplyPage > _this.supplyTotalPage) {
+        if (_this.currentPage > _this.supplyTotalPage) {
           uni.showToast({
             icon: 'none',
             position: 'bottom',
@@ -537,8 +517,8 @@ __webpack_require__.r(__webpack_exports__);
               type: _this.kindchoiceType, //1为供应，2为需求，参数为空表全部
               range: _this.rangeChoiceType, //1为第三方，2为园内，参数为空表全部
               keyword: _this.searchContent, //关键字
-              memberId: _this.$store.state.id,
-              page: _this.supplyPage //页码
+              memberId: _this.memberId,
+              page: _this.currentPage //页码
             } }).
           then(function (res) {
             var data = res[1].data.data;
@@ -547,6 +527,7 @@ __webpack_require__.r(__webpack_exports__);
             var supplyArr = data.list; //获取供需列表
             for (var i = 0; i < supplyArr.length; i++) {
               var item = {
+                pkid: supplyArr[i].pkid,
                 kind: '0', //0是供应
                 content: supplyArr[i].title,
                 time: supplyArr[i].time };
@@ -566,6 +547,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  onShow: function onShow() {
+    if (!this.showOption && this.searchContent != '') {
+      this.clickSearch();
+    }
+  },
   onLoad: function onLoad(option) {
     var _this = this;
     // console.log(Boolean(option.searchType))
@@ -575,11 +561,13 @@ __webpack_require__.r(__webpack_exports__);
       _this.isPark = info.isBindPark;
       _this.parkId = info.parkId;
       _this.enterpriseId = info.enterpriseId;
+      _this.memberId = '';
     } else {
       var _info = _this.$store.state.userInfo;
       _this.isPark = _info.isBindPark;
       _this.parkId = _info.parkId;
       _this.enterpriseId = _info.enterpriseId;
+      _this.memberId = _this.$store.state.id;
     }
     console.log(_this.isPark);
     console.log(_this.parkId);
@@ -641,15 +629,8 @@ __webpack_require__.r(__webpack_exports__);
     filterAll: function filterAll() {
       var _this = this;
       _this.filterKind = 0;
-      if (_this.$store.state.kind === '0') {
-        var enterpriseInfo = _this.$store.state.enterpriseInfo;
-        _this.parkId = enterpriseInfo.parkId;
-      } else {
-        var userInfo = _this.$store.state.userInfo;
-        _this.parkId = userInfo.parkId;
-      }
-      // console.log(_this.parkId)
       _this.currentPage = 1; //每次进入都先加载第一页
+      _this.enterpriseList = []; //将原填充数据清空
       _this.$request({
         url: '/enterpriseService/enterpriseListInner',
         data: {
@@ -671,7 +652,6 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.enterpriseList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < enterpriseArr.length; i++) {
           var keywordArr = enterpriseArr[i].keyword.split(',');
@@ -694,15 +674,8 @@ __webpack_require__.r(__webpack_exports__);
     filterPhone: function filterPhone() {
       var _this = this;
       _this.filterKind = 1;
-      if (_this.$store.state.kind === '0') {
-        var enterpriseInfo = _this.$store.state.enterpriseInfo;
-        _this.parkId = enterpriseInfo.parkId;
-      } else {
-        var userInfo = _this.$store.state.userInfo;
-        _this.parkId = userInfo.parkId;
-      }
-      // console.log(_this.parkId)
       _this.currentPage = 1; //每次进入都先加载第一页
+      _this.enterpriseList = []; //将原填充数据清空
       _this.$request({
         url: '/enterpriseService/enterpriseListInnerWithPhone',
         data: {
@@ -724,7 +697,6 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.enterpriseList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < enterpriseArr.length; i++) {
           var keywordArr = enterpriseArr[i].keyword.split(',');
@@ -747,15 +719,8 @@ __webpack_require__.r(__webpack_exports__);
     filterAddress: function filterAddress() {
       var _this = this;
       _this.filterKind = 2;
-      if (_this.$store.state.kind === '0') {
-        var enterpriseInfo = _this.$store.state.enterpriseInfo;
-        _this.parkId = enterpriseInfo.parkId;
-      } else {
-        var userInfo = _this.$store.state.userInfo;
-        _this.parkId = userInfo.parkId;
-      }
-      // console.log(_this.parkId)
       _this.currentPage = 1; //每次进入都先加载第一页
+      _this.enterpriseList = []; //将原填充数据清空
       _this.$request({
         url: '/enterpriseService/enterpriseListInnerWithAddress',
         data: {
@@ -777,7 +742,6 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.enterpriseList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < enterpriseArr.length; i++) {
           var keywordArr = enterpriseArr[i].keyword.split(',');
@@ -826,6 +790,7 @@ __webpack_require__.r(__webpack_exports__);
       //重新获取供需列表信息
       var _this = this;
       _this.currentPage = 1;
+      _this.supplyList = []; //将原填充数据清空
       _this.$request({
         url: '/InfoRelease/supplyAndDemand',
         data: {
@@ -834,8 +799,8 @@ __webpack_require__.r(__webpack_exports__);
           type: _this.kindchoiceType, //1为供应，2为需求，参数为空表全部
           range: _this.rangeChoiceType, //1为第三方，2为园内，参数为空表全部
           keyword: _this.searchContent, //关键字
-          memberId: _this.$store.state.id,
-          page: _this.supplyPage //页码
+          memberId: _this.memberId,
+          page: _this.currentPage //页码
         } }).
       then(function (res) {
         var data = res[1].data.data;
@@ -852,10 +817,10 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.supplyList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < supplyArr.length; i++) {
           var item = {
+            pkid: supplyArr[i].pkid,
             kind: '0', //0是供应
             content: supplyArr[i].title,
             time: supplyArr[i].time };
@@ -887,6 +852,7 @@ __webpack_require__.r(__webpack_exports__);
       //重新获取供需列表信息
       var _this = this;
       _this.currentPage = 1;
+      _this.supplyList = []; //将原填充数据清空
       _this.$request({
         url: '/InfoRelease/supplyAndDemand',
         data: {
@@ -895,8 +861,8 @@ __webpack_require__.r(__webpack_exports__);
           type: _this.kindchoiceType, //1为供应，2为需求，参数为空表全部
           range: _this.rangeChoiceType, //1为第三方，2为园内，参数为空表全部
           keyword: _this.searchContent, //关键字
-          memberId: _this.$store.state.id,
-          page: _this.supplyPage //页码
+          memberId: _this.memberId,
+          page: _this.currentPage //页码
         } }).
       then(function (res) {
         var data = res[1].data.data;
@@ -913,10 +879,10 @@ __webpack_require__.r(__webpack_exports__);
 
           return;
         }
-        _this.supplyList = []; //将原填充数据清空
         // console.log(enterpriseArr)
         for (var i = 0; i < supplyArr.length; i++) {
           var item = {
+            pkid: supplyArr[i].pkid,
             kind: '0', //0是供应
             content: supplyArr[i].title,
             time: supplyArr[i].time };
@@ -934,14 +900,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 查看供应详情
     viewSupplyDetail: function viewSupplyDetail(index) {
-      console.log(index);
+      console.log(this.supplyList[index]);
       uni.navigateTo({
         url: '../../enterprise/informationPublish/publishDetails?pkid=' + this.supplyList[index].pkid });
 
     },
     publish: function publish() {
       uni.navigateTo({
-        url: '../../enterprise/informationPublish/publish' });
+        url: "../../enterprise/informationPublish/publish?parkId=".concat(JSON.stringify(this.parkId), "&companyId=").concat(JSON.stringify(this.enterpriseId)) });
 
     },
     //行业种类中点击展示更多
@@ -967,6 +933,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         _this.currentPage = 1; //每次点击搜索都加载第一页
         if (_this.showOption) {//搜索企业
+          _this.enterpriseList = []; //将原填充数据清空
           _this.$request({
             url: '/enterpriseService/enterpriseListInnerSearch',
             data: {
@@ -992,7 +959,6 @@ __webpack_require__.r(__webpack_exports__);
 
               return;
             }
-            _this.enterpriseList = []; //将原填充数据清空
             // console.log(enterpriseArr)
             for (var i = 0; i < enterpriseArr.length; i++) {
               var keywordArr = enterpriseArr[i].keyword.split(',');
@@ -1012,6 +978,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         } else
         {//搜索供需
+          _this.supplyList = []; //将原填充数据清空
           _this.$request({
             url: '/InfoRelease/supplyAndDemand',
             data: {
@@ -1020,10 +987,11 @@ __webpack_require__.r(__webpack_exports__);
               type: _this.kindchoiceType, //1为供应，2为需求，参数为空表全部
               range: _this.rangeChoiceType, //1为第三方，2为园内，参数为空表全部
               keyword: _this.searchContent, //关键字
-              memberId: _this.$store.state.id,
-              page: _this.supplyPage //页码
+              memberId: _this.memberId,
+              page: _this.currentPage //页码
             } }).
           then(function (res) {
+            console.log(res);
             var data = res[1].data.data;
             console.log(_this.enterprisePage);
             console.log('第1页内容：');
@@ -1039,10 +1007,10 @@ __webpack_require__.r(__webpack_exports__);
 
               return;
             }
-            _this.supplyList = []; //将原填充数据清空
             // console.log(enterpriseArr)
             for (var i = 0; i < supplyArr.length; i++) {
               var item = {
+                pkid: supplyArr[i].pkid,
                 kind: '0', //0是供应
                 content: supplyArr[i].title,
                 time: supplyArr[i].time };

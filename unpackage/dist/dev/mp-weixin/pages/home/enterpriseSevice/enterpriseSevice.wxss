@@ -268,7 +268,7 @@
 }
 .titlebox .dropList.data-v-0b68b438 {
   background: #FFFFFF;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   display: -webkit-box;

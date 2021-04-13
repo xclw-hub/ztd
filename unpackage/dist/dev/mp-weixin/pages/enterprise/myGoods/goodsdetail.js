@@ -465,11 +465,10 @@ __webpack_require__.r(__webpack_exports__);
       console.log('否');
       done();
     },
-    publish: function publish() {
-      // console.log("我要发布")
-      // uni.navigateTo({
-      // 	url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)
-      // })
+    edit: function edit() {
+      console.log("我要发布");
+      uni.navigateTo({
+        url: './publish?goodsDetail=' + JSON.stringify(this.goodsDetail) + '&supplyId=' + this.supplyId });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

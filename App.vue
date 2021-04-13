@@ -17,6 +17,12 @@
 				// console.log(msg.payload);  
 				// console.log(JSON.stringify(msg));  
 				//这里可以写跳转业务代码
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	position: 'bottom',
+				// 	duration: 5000,
+				// 	title: JSON.stringify(msg)
+				// })
 				let title = msg.payload.title
 				switch(title){
 					case '审核通过':
