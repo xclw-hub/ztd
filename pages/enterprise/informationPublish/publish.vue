@@ -293,7 +293,7 @@
 				uni.chooseImage({
 					count:9-this.imageNumber,
 					success:res=>{						
-						let token = 1 // uni.getStorageSync('token');
+						let token = uni.getStorageSync('token');
 						let length = res.tempFilePaths.length
 						let _this = this
 						

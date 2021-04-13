@@ -80,7 +80,7 @@
 			<view class="diagnosis-title">
 				<text>专家诊断</text>
 			</view>
-			<text class="diagnosis-tips">专家包含技术专家和行业专家，行业专家主要为园区提供行业分析，产业分析，投资分析，招商分析等。</text>
+			<text class="diagnosis-tips">专家包含技术专家和行业专家：技术专家帮助企业解决产品研发和生产过程中遇到的各类技术难题；行业专家主要帮助企业提供政策解读和指导、行业分析，投资分析、风险评估等服务。</text>
 			<view class="diagnosis-name">
 				<view class="diagnosis-name-img">
 					<image src="../../static/home/diagnosis_name.png"></image>
@@ -1084,7 +1084,7 @@
 		height: 28rpx;
 		position: absolute;
 		left: 73rpx;
-		top: 511rpx;
+		top: 580rpx;
 	}
 
 	.diagnosis {
