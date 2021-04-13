@@ -284,7 +284,7 @@
 					if(res[1].data.success != true){
 						console.log(res[1].data.data)
 					}else{
-						uni.reLaunch({
+						uni.navigateTo({
 							url:'myGoods'
 						})
 					}

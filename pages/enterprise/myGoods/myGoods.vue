@@ -55,6 +55,10 @@
 				token:''
 			}
 		},
+		onShow() {
+			this.page=1
+			this.getSupplyInformationList()
+		},
 		onLoad() {
 			this.token = uni.getStorageSync('token');
 			this.page=1
@@ -65,6 +69,9 @@
 			this.getSupplyInformationList()
 		},
 		methods: {
+			// onNavigationBarButtonTap(e) {
+			// 	console.log("success")		
+			// },
 			tapdetail(index) {
 				uni.navigateTo({
 					url: './goodsdetail?supplyId='+this.goodsList[index].pkid
