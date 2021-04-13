@@ -160,7 +160,8 @@
 				supplyTotalPage: 1,	//供需总页数
 				parkId: 0,		//企业绑定的园区ID
 				isPark:true,
-				enterpriseId:0
+				enterpriseId:0,
+				memberId: ''
 				
 			};
 		},
@@ -172,6 +173,7 @@
 			_this.supplyPage = 1
 			_this.kindchoiceType = ''
 			_this.rangeChoiceType = ''
+			_this.enterpriseList = []		//将原填充数据清空
 			_this.$request({
 				url:'/enterpriseService/enterpriseListInner',
 				data:{
@@ -184,7 +186,6 @@
 				let data = res[1].data
 				_this.totalPage = data.totalPage		//获取总共页面数
 				let enterpriseArr = data.enterpriseInfoList		//获取企业列表
-				_this.enterpriseList = []		//将原填充数据清空
 				for (let i = 0; i < enterpriseArr.length; i++){
 					let keywordArr = enterpriseArr[i].keyword.split(',')
 					let item = {
@@ -203,6 +204,7 @@
 			})
 			
 			//重新获取供需列表信息
+			_this.supplyList = []		//将原填充数据清空
 			_this.$request({
 				url:'/InfoRelease/supplyAndDemand',
 				data:{
@@ -211,7 +213,7 @@
 					type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
 					range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
 					keyword:'',	//关键字
-					memberId:_this.$store.state.id,		
+					memberId: _this.memberId,
 					page: _this.supplyPage,		//页码
 				}
 			}).then(res =>{
@@ -229,7 +231,6 @@
 					})
 					return
 				}
-				_this.supplyList = []		//将原填充数据清空
 				// console.log(enterpriseArr)
 				for (let i = 0; i < supplyArr.length; i++){
 					let item = {
@@ -379,7 +380,7 @@
 							type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
 							range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
 							keyword:'',	//关键字
-							memberId:_this.$store.state.id,		
+							memberId: _this.memberId,
 							page: _this.supplyPage,		//页码
 						}
 					}).then(res =>{
@@ -407,6 +408,11 @@
 				}
 			}
 		},
+		onShow() {
+			if(!this.showOption){
+				this.setData()
+			}
+		},
 		onLoad() {
 			let _this = this
 			if(_this.$store.state.kind === '0'){
@@ -414,17 +420,20 @@
 				_this.isPark = info.isBindPark
 				_this.parkId = info.parkId
 				_this.enterpriseId = info.enterpriseId
+				_this.memberId = ''
 			}else{
 				let info = _this.$store.state.userInfo
 				_this.isPark = info.isBindPark
 				_this.parkId = info.parkId
 				_this.enterpriseId = info.enterpriseId
+				_this.memberId = _this.$store.state.id
 			}
 			console.log(_this.isPark)
-			console.log(_this.parkId)
+			console.log(_this.$store.state.userInfo)
 			console.log(_this.enterpriseId)
 			console.log('userID:'+_this.$store.state.id)
 			_this.enterprisePage = 1		//每次进入都先加载第一页
+			_this.enterpriseList = []		//将原填充数据清空
 			_this.$request({
 				url:'/enterpriseService/enterpriseListInner',
 				data:{
@@ -448,7 +457,6 @@
 					})
 					return
 				}
-				_this.enterpriseList = []		//将原填充数据清空
 				// console.log(enterpriseArr)
 				for (let i = 0; i < enterpriseArr.length; i++){
 					let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -466,56 +474,58 @@
 			}).catch(err => {
 				console.log(err)
 			})
-			
-			//获取供需列表信息
-			_this.supplyPage = 1
-			_this.$request({
-				url:'/InfoRelease/supplyAndDemand',
-				data:{
-					parkId: _this.parkId,
-					companyId: _this.enterpriseId,	
-					type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
-					range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
-					keyword:'',	//关键字
-					memberId:_this.$store.state.id,		
-					page: _this.supplyPage,		//页码
-				}
-			}).then(res =>{
-				let data = res[1].data.data
-				// console.log(_this.enterprisePage)
-				console.log('第1页内容：')
-				console.log(data)
-				_this.supplyTotalPage = data.pageTotal		//获取总共页面数
-				let supplyArr = data.list		//获取供需列表
-				if(supplyArr.length <= 0){			//如果收到的数据为空（接口无数据），默认显示填充数据
-					uni.showToast({
-						icon: 'none',
-						position: 'bottom',
-						title: '收到的数据为空'
-					})
-					return
-				}
-				_this.supplyList = []		//将原填充数据清空
-				// console.log(enterpriseArr)
-				for (let i = 0; i < supplyArr.length; i++){
-					let item = {
-						pkid: supplyArr[i].pkid,
-						kind:'0',		//0是供应
-						content: supplyArr[i].title,
-						time: supplyArr[i].time
-					}
-					if(supplyArr[i].type === '供应'){
-						item.kind = '0'
-					}else{
-						item.kind = '1'
-					}
-					_this.supplyList.push(item)
-				}
-			}).catch(err=>{
-				console.log(err)
-			})
 		},
 		methods:{
+			setData(){
+				let _this = this
+				//获取供需列表信息
+				_this.supplyPage = 1
+				_this.supplyList = []		//将原填充数据清空
+				_this.$request({
+					url:'/InfoRelease/supplyAndDemand',
+					data:{
+						parkId: _this.parkId,
+						companyId: _this.enterpriseId,	
+						type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
+						range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
+						keyword:'',	//关键字
+						memberId: _this.memberId,
+						page: _this.supplyPage,		//页码
+					}
+				}).then(res =>{
+					let data = res[1].data.data
+					// console.log(_this.enterprisePage)
+					console.log('第1页内容：')
+					console.log(data)
+					_this.supplyTotalPage = data.pageTotal		//获取总共页面数
+					let supplyArr = data.list		//获取供需列表
+					if(supplyArr.length <= 0){			//如果收到的数据为空（接口无数据），默认显示填充数据
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: '收到的数据为空'
+						})
+						return
+					}
+					// console.log(enterpriseArr)
+					for (let i = 0; i < supplyArr.length; i++){
+						let item = {
+							pkid: supplyArr[i].pkid,
+							kind:'0',		//0是供应
+							content: supplyArr[i].title,
+							time: supplyArr[i].time
+						}
+						if(supplyArr[i].type === '供应'){
+							item.kind = '0'
+						}else{
+							item.kind = '1'
+						}
+						_this.supplyList.push(item)
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
 			enterSearch(){
 				if(this.showOption){		//搜索企业
 					uni.navigateTo({
@@ -555,20 +565,64 @@
 			// 点击显示供需列表
 			showNeed(){
 				this.showOption=false
+				let _this = this
+				//获取供需列表信息
+				_this.supplyPage = 1
+				_this.supplyList = []		//将原填充数据清空
+				console.log(_this.parkId)
+				console.log(_this.enterpriseId)
+				console.log(_this.memberId)
+				_this.$request({
+					url:'/InfoRelease/supplyAndDemand',
+					data:{
+						parkId: _this.parkId,
+						companyId: _this.enterpriseId,	
+						type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
+						range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
+						keyword:'',	//关键字
+						memberId: _this.memberId,
+						page: _this.supplyPage,		//页码
+					}
+				}).then(res =>{
+					let data = res[1].data.data
+					// console.log(_this.enterprisePage)
+					console.log('第1页内容：')
+					console.log(data)
+					_this.supplyTotalPage = data.pageTotal		//获取总共页面数
+					let supplyArr = data.list		//获取供需列表
+					if(supplyArr.length <= 0){			//如果收到的数据为空（接口无数据），默认显示填充数据
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: '收到的数据为空'
+						})
+						return
+					}
+					// console.log(enterpriseArr)
+					for (let i = 0; i < supplyArr.length; i++){
+						let item = {
+							pkid: supplyArr[i].pkid,
+							kind:'0',		//0是供应
+							content: supplyArr[i].title,
+							time: supplyArr[i].time
+						}
+						if(supplyArr[i].type === '供应'){
+							item.kind = '0'
+						}else{
+							item.kind = '1'
+						}
+						_this.supplyList.push(item)
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
 			},
 			// 点击公司页面中的全部,进行过滤
 			filterAll(){
 				let _this = this
 				_this.filterKind = 0
-				if(_this.$store.state.kind === '0'){
-					let enterpriseInfo = _this.$store.state.enterpriseInfo
-					_this.parkId = enterpriseInfo.parkId
-				}else{
-					let userInfo = _this.$store.state.userInfo
-					_this.parkId = userInfo.parkId
-				}
-				// console.log(_this.parkId)
 				_this.enterprisePage = 1		//每次进入都先加载第一页
+				_this.enterpriseList = []		//将原填充数据清空
 				_this.$request({
 					url:'/enterpriseService/enterpriseListInner',
 					data:{
@@ -590,7 +644,6 @@
 						})
 						return
 					}
-					_this.enterpriseList = []		//将原填充数据清空
 					// console.log(enterpriseArr)
 					for (let i = 0; i < enterpriseArr.length; i++){
 						let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -613,15 +666,8 @@
 			filterPhone(){
 				let _this = this
 				_this.filterKind = 1
-				if(_this.$store.state.kind === '0'){
-					let enterpriseInfo = _this.$store.state.enterpriseInfo
-					_this.parkId = enterpriseInfo.parkId
-				}else{
-					let userInfo = _this.$store.state.userInfo
-					_this.parkId = userInfo.parkId
-				}
-				// console.log(_this.parkId)
 				_this.enterprisePage = 1		//每次进入都先加载第一页
+				_this.enterpriseList = []		//将原填充数据清空
 				_this.$request({
 					url:'/enterpriseService/enterpriseListInnerWithPhone',
 					data:{
@@ -643,7 +689,6 @@
 						})
 						return
 					}
-					_this.enterpriseList = []		//将原填充数据清空
 					// console.log(enterpriseArr)
 					for (let i = 0; i < enterpriseArr.length; i++){
 						let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -666,15 +711,8 @@
 			filterAddress(){
 				let _this = this
 				_this.filterKind = 2
-				if(_this.$store.state.kind === '0'){
-					let enterpriseInfo = _this.$store.state.enterpriseInfo
-					_this.parkId = enterpriseInfo.parkId
-				}else{
-					let userInfo = _this.$store.state.userInfo
-					_this.parkId = userInfo.parkId
-				}
-				// console.log(_this.parkId)
 				_this.enterprisePage = 1		//每次进入都先加载第一页
+				_this.enterpriseList = []		//将原填充数据清空
 				_this.$request({
 					url:'/enterpriseService/enterpriseListInnerWithAddress',
 					data:{
@@ -696,7 +734,6 @@
 						})
 						return
 					}
-					_this.enterpriseList = []		//将原填充数据清空
 					// console.log(enterpriseArr)
 					for (let i = 0; i < enterpriseArr.length; i++){
 						let keywordArr = enterpriseArr[i].keyword.split(',')
@@ -745,6 +782,7 @@
 				let _this = this
 				//重新获取供需列表信息
 				_this.supplyPage = 1
+				_this.supplyList = []		//将原填充数据清空
 				_this.$request({
 					url:'/InfoRelease/supplyAndDemand',
 					data:{
@@ -753,7 +791,7 @@
 						type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
 						range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
 						keyword:'',	//关键字
-						memberId:_this.$store.state.id,		
+						memberId: _this.memberId,
 						page: _this.supplyPage,		//页码
 					}
 				}).then(res =>{
@@ -771,7 +809,6 @@
 						})
 						return
 					}
-					_this.supplyList = []		//将原填充数据清空
 					// console.log(enterpriseArr)
 					for (let i = 0; i < supplyArr.length; i++){
 						let item = {
@@ -807,6 +844,7 @@
 				//重新获取供需列表信息
 				let _this = this
 				_this.supplyPage = 1
+				_this.supplyList = []		//将原填充数据清空
 				_this.$request({
 					url:'/InfoRelease/supplyAndDemand',
 					data:{
@@ -815,7 +853,7 @@
 						type: _this.kindchoiceType,		//1为供应，2为需求，参数为空表全部
 						range: _this.rangeChoiceType,		//1为第三方，2为园内，参数为空表全部
 						keyword:'',	//关键字
-						memberId:_this.$store.state.id,		
+						memberId: _this.memberId,
 						page: _this.supplyPage,		//页码
 					}
 				}).then(res =>{
@@ -833,7 +871,6 @@
 						})
 						return
 					}
-					_this.supplyList = []		//将原填充数据清空
 					// console.log(enterpriseArr)
 					for (let i = 0; i < supplyArr.length; i++){
 						let item = {
@@ -1053,7 +1090,8 @@
 		}
 		.dropList{
 			background: #FFFFFF;
-			position: fixed;
+			position: absolute;
+			// position: fixed;
 			left: 0;
 			right: 0;
 			display: flex;
