@@ -383,15 +383,15 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
 
       then(function (res) {
         if (res[1].data.data.list.length != 0) {
+          that.pageNumber++;
           var length = that.dataList.length;
-          that.dataList.concat(res[1].data.data.list);
+          that.dataList = that.dataList.concat(res[1].data.data.list);
           console.log(that.dataList);
           var len = that.dataList.length;
           for (var i = length - 1; i < len; i++) {
             that.dataList[i].pic = that.dataList[i].pic.split(',');
             that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
           }
-          that.pageNumber++;
         } else {
           console.log('没有更多内容了');
         }
@@ -448,7 +448,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
                		}
                	})
                } */
-      return;
+      /* return; */
     } else {
       if (city) {
         this.region = province + ' ' + city;
@@ -481,7 +481,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
         data: {
           token: _token,
           type: that.$store.state.kind,
-          page: that.pageNumbe + 1,
+          page: that.pageNumber + 1,
           address: that.region,
           minPrice: _minPrice,
           maxPrice: _maxPrice2,
@@ -490,15 +490,15 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
 
       then(function (res) {
         if (res[1].data.data.list.length != 0) {
+          that.pageNumber++;
           var length = that.dataList.length;
-          that.dataList.concat(res[1].data.data.list);
+          that.dataList = that.dataList.concat(res[1].data.data.list);
           console.log(that.dataList);
           var len = that.dataList.length;
           for (var i = length - 1; i < len; i++) {
             that.dataList[i].pic = that.dataList[i].pic.split(',');
             that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
           }
-          that.pageNumber++;
         } else {
           console.log('没有更多内容了');
         }
@@ -837,14 +837,15 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
         this.$refs.uDropdown.close();
         return;
       } else {
-        if (city) {
-          this.region = province + ' ' + city;
+        if (city && city != '不限') {
+          this.region = province + '省' + city + '市';
         } else {
           this.region = province;
         }
         var _token2 = uni.getStorageSync('token');
         var _minPrice2 = Number(this.minPrice);
         var _maxPrice4;
+        console.log(this.region);
         if (that.maxPrice == '') {
           _maxPrice4 = 999999.99;
         } else {

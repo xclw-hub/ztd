@@ -393,7 +393,6 @@
 						c++
 					}
 					console.log(_this.dataList)
-					_this.pageNumber++
 				} else {
 					console.log('没有更多内容了')
 					uni.showToast({

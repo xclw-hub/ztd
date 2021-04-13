@@ -251,8 +251,14 @@ __webpack_require__.r(__webpack_exports__);
               uni.showToast({
                 icon: 'success',
                 position: 'bottom',
+                duration: 500,
                 title: '修改成功' });
 
+              setTimeout(function () {
+                uni.navigateBack({
+                  delta: 1 });
+
+              }, 500);
             } else {
               uni.showToast({
                 icon: 'none',

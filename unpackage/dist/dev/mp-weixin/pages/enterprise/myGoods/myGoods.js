@@ -263,7 +263,7 @@ var _default =
           if (len == 0) {
             _this.goodsList = gt.list;
           } else {
-            _this.goodsList.concat(gt.list);
+            _this.goodsList = _this.goodsList.concat(gt.list);
           }
           var length = _this.goodsList.length;
           for (var i = len; i < length; i++) {
@@ -292,7 +292,7 @@ var _default =
           if (len == 0) {
             _this.goodsList = gt.list;
           } else {
-            _this.goodsList.concat(gt.list);
+            _this.goodsList = _this.goodsList.concat(gt.list);
           }
           var length = _this.goodsList.length;
           for (var i = len; i < length; i++) {

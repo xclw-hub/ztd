@@ -309,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
       addressSave_seen: false,
       addressInputColor: '#F6F6F6',
       addressFontColor: '#888888',
+      original_address: '',
       address: '',
       // address:'幸福西街与新顺北大街交叉口西100米',
 
@@ -316,6 +317,7 @@ __webpack_require__.r(__webpack_exports__);
       phoneSave_seen: false,
       phoneInputColor: '#F6F6F6',
       phoneFontColor: '#888888',
+      original_phone: '',
       phone: '',
       // phone:'18051287437',
 
@@ -516,11 +518,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     serviceEdit: function serviceEdit() {
       this.$refs.servicePopupDialog.open();
+      console.log(this.serviceList);
     },
     editConfirm: function editConfirm(done, value) {var _this4 = this;
       var tmp = value;
       value = value.replace(/，/ig, ','); // 中文空格替换为英文空格
       console.log(value);
+      // console.log(this.serviceList)
+      if (value == "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请填写关键词' });
+
+        return false;
+      }
       // this.$refs.servicePopupDialog.input
       // console.log(document.getElementById(servicePopupDialog))
       // console.log('确定');
@@ -560,6 +572,7 @@ __webpack_require__.r(__webpack_exports__);
       this.addressInputColor = '#FFFFFF';
       this.addressFontColor = '#333333';
       this.addressSave_seen = true;
+      this.original_address = this.address;
     },
     addressSave: function addressSave() {var _this5 = this;
       this.isEditAddress = true; //禁止输入框
@@ -567,6 +580,16 @@ __webpack_require__.r(__webpack_exports__);
       this.addressFontColor = '#888888';
       this.addressSave_seen = false;
       console.log(this.address);
+
+      if (this.address == "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请正确填写您的地址' });
+
+        this.address = this.original_address;
+        return false;
+      }
 
       var _this = this;
       uni.request({
@@ -594,14 +617,28 @@ __webpack_require__.r(__webpack_exports__);
       this.phoneInputColor = '#FFFFFF';
       this.phoneFontColor = '#333333';
       this.phoneSave_seen = true;
+      // console.log(this.phone)
+      this.original_phone = this.phone;
     },
     phoneSave: function phoneSave() {var _this6 = this;
       this.isEditPhone = true; //禁止输入框
       this.phoneInputColor = '#F6F6F6';
       this.phoneFontColor = '#888888';
       this.phoneSave_seen = false;
+      // let tmp = this.phone
+      var reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/; //11位手机号码正则
 
       console.log(this.phone);
+
+      if (!reg_tel.test(this.phone)) {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请正确填写您的手机号' });
+
+        this.phone = this.original_phone;
+        return false;
+      }
 
       var _this = this;
       uni.request({
