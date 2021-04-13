@@ -13,7 +13,9 @@
 				<view class="title">
 					<view class="rectangle"></view>
 					<view class="titleText">
-						<text>{{title}}</text>
+						<view class="title1">
+							{{item.title}}
+						</view>
 					</view>
 				</view>
 				<view class="info">
@@ -50,7 +52,9 @@
 			<view class="documentItem" v-for="(item,index) in relatedDocuments" :key="index"
 				@click="toDetail(item.pkid)">
 				<image src="../../../static/home/rectangle.png"></image>
-				<text>{{item.title}}</text>
+				<view class="title1">
+					{{item.title}}
+				</view>
 			</view>
 		</view>
 	</view>
@@ -180,12 +184,17 @@
 
 			.titleText {
 				padding: 0 40rpx;
-
-				text {
-					font-size: 34rpx;
-					font-family: SourceHanSansCN-Regular;
-					font-weight: 400;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.title1 {
+					font-size: 33rpx;
 					color: #333333;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					overflow: hidden;
 				}
 			}
 		}
@@ -315,12 +324,13 @@
 				height: 16rpx;
 			}
 
-			text {
-				font-size: 28rpx;
-				color: #666666;
-				font-family: SourceHanSansCN-Regular;
-				font-weight: 400;
-				margin-left: 10rpx;
+			.title1 {
+				font-size: 33rpx;
+				color: #333333;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
 			}
 		}
 	}
