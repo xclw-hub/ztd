@@ -214,15 +214,15 @@
 					
 				}).then(res => {
 					if (res[1].data.data.list.length != 0) {
+						that.pageNumber++
 						let length = that.dataList.length
-						that.dataList.concat(res[1].data.data.list)
+						that.dataList = that.dataList.concat(res[1].data.data.list)
 						console.log(that.dataList)
 						let len = that.dataList.length
 						for(let i = length -1;i<len;i++){
 							that.dataList[i].pic = that.dataList[i].pic.split(',')
 							that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
 						}
-						that.pageNumber++
 					} else {
 						console.log('没有更多内容了')
 					}
@@ -279,7 +279,7 @@
 						}
 					})
 				} */
-				return;
+				/* return; */
 			} else {
 				if (city) {
 					this.region = province + ' ' + city;
@@ -312,7 +312,7 @@
 					data: {
 						token,
 						type: that.$store.state.kind,
-						page: that.pageNumbe + 1,
+						page: that.pageNumber + 1,
 						address: that.region,
 						minPrice,
 						maxPrice,
@@ -321,15 +321,15 @@
 					}
 				}).then(res => {
 					if (res[1].data.data.list.length != 0) {
+						that.pageNumber++
 						let length = that.dataList.length
-						that.dataList.concat(res[1].data.data.list)
+						that.dataList = that.dataList.concat(res[1].data.data.list)
 						console.log(that.dataList)
 						let len = that.dataList.length
 						for(let i = length -1;i<len;i++){
 							that.dataList[i].pic = that.dataList[i].pic.split(',')
 							that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
 						}
-						that.pageNumber++
 					} else {
 						console.log('没有更多内容了')
 					}
@@ -668,14 +668,15 @@
 					this.$refs.uDropdown.close();
 					return;
 				} else {
-					if (city) {
-						this.region = province + ' ' + city;
+					if (city && city!='不限') {
+						this.region = province + '省' + city+'市';
 					} else {
 						this.region = province;
 					}
 					let token = uni.getStorageSync('token');
 					let minPrice = Number(this.minPrice);
 				let maxPrice
+				console.log(this.region)
 				if (that.maxPrice == '') {
 					maxPrice = 999999.99
 				} else {

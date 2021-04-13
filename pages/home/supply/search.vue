@@ -269,14 +269,14 @@
 							},
 						}).then(res => {
 							if (res[1].data.data.list.length != 0) {
+								that.pageNumber++
 								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
+								that.dataList = that.dataList.concat(res[1].data.data.list)
 								console.log(that.dataList)
 								let len = that.dataList.length
 								for(let i = length -1;i<len;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
-								that.pageNumber++
 							} else {
 								console.log('没有更多内容了')
 							}
@@ -376,14 +376,14 @@
 							}
 						}).then(res => {
 							if (res[1].data.data.list.length != 0) {
+								that.pageNumber++
 								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
+								that.dataList = that.dataList.concat(res[1].data.data.list)
 								console.log(that.dataList)
 								let len = that.dataList.length
 								for(let i = length -1;i<len;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
-								that.pageNumber++
 							} else {
 								console.log('没有更多内容了')
 							}
