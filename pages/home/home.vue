@@ -679,8 +679,13 @@
 
 			},
 			clickCancel() {
+				let that = this
 				console.log('取消')
 				this.isShowDiagnosis = false
+				that.diagnosis_name=''
+				console.log(that.diagnosis_name)
+				that.diagnosis_phone=''
+				that.diagnosis_need=''
 			},
 			clickConfirm() {
 				console.log(this.$store.state.enterpriseInfo.isBindPark)
@@ -729,8 +734,19 @@
 						}
 						console.log(ss)
 						request(ss).then((res) => {
-							console.log(res)
-
+							console.log(res[1].data.data)
+							if(res[1].data.data=='发送成功'){
+								res[1].data.data='需求提交成功'
+							}
+							uni.showToast({
+								icon: 'none',
+								title: res[1].data.data
+							})
+							that.isShowDiagnosis = false
+							that.diagnosis_name=''
+							console.log(that.diagnosis_name)
+							that.diagnosis_phone=''
+							that.diagnosis_need=''
 							console.log('as')
 						})
 					} else {
@@ -762,12 +778,22 @@
 						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res)
-
+							if(res[1].data.data=='发送成功'){
+								res[1].data.data='需求提交成功'
+							}
+							uni.showToast({
+							    icon: 'none',
+							    title: res[1].data.data
+							})
+							that.isShowDiagnosis = false
+							that.diagnosis_name=''
+							console.log(that.diagnosis_name)
+							that.diagnosis_phone=''
+							that.diagnosis_need=''
 							console.log('as')
 						})
 					}
 				}
-				this.isShowDiagnosis = false
 			}
 		}
 	}

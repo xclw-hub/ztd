@@ -83,7 +83,8 @@
                 "enablePullDownRefresh" : false,
                 "navigationStyle" : "custom",
                 "app-plus" : {
-                    "scrollIndicator" : "none"
+                    "scrollIndicator" : "none",
+					"popGesture": "none"
                 }
             }
         },

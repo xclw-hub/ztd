@@ -834,8 +834,13 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
     },
     clickCancel: function clickCancel() {
+      var that = this;
       console.log('取消');
       this.isShowDiagnosis = false;
+      that.diagnosis_name = '';
+      console.log(that.diagnosis_name);
+      that.diagnosis_phone = '';
+      that.diagnosis_need = '';
     },
     clickConfirm: function clickConfirm() {
       console.log(this.$store.state.enterpriseInfo.isBindPark);
@@ -884,8 +889,19 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
           console.log(ss);
           (0, _request.request)(ss).then(function (res) {
-            console.log(res);
+            console.log(res[1].data.data);
+            if (res[1].data.data == '发送成功') {
+              res[1].data.data = '需求提交成功';
+            }
+            uni.showToast({
+              icon: 'none',
+              title: res[1].data.data });
 
+            that.isShowDiagnosis = false;
+            that.diagnosis_name = '';
+            console.log(that.diagnosis_name);
+            that.diagnosis_phone = '';
+            that.diagnosis_need = '';
             console.log('as');
           });
         } else {
@@ -917,12 +933,22 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           console.log(_ss);
           (0, _request.request)(_ss).then(function (res) {
             console.log(res);
+            if (res[1].data.data == '发送成功') {
+              res[1].data.data = '需求提交成功';
+            }
+            uni.showToast({
+              icon: 'none',
+              title: res[1].data.data });
 
+            that.isShowDiagnosis = false;
+            that.diagnosis_name = '';
+            console.log(that.diagnosis_name);
+            that.diagnosis_phone = '';
+            that.diagnosis_need = '';
             console.log('as');
           });
         }
       }
-      this.isShowDiagnosis = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

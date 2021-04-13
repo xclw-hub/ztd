@@ -13,9 +13,7 @@
 				<view class="title">
 					<view class="rectangle"></view>
 					<view class="titleText">
-						<view class="title1">
-							{{item.title}}
-						</view>
+						<text>{{title}}</text>
 					</view>
 				</view>
 				<view class="info">
@@ -52,9 +50,7 @@
 			<view class="documentItem" v-for="(item,index) in relatedDocuments" :key="index"
 				@click="toDetail(item.pkid)">
 				<image src="../../../static/home/rectangle.png"></image>
-				<view class="title1">
-					{{item.title}}
-				</view>
+				<text>{{item.title}}</text>
 			</view>
 		</view>
 	</view>
@@ -109,8 +105,7 @@
 			request({
 				url: '/announcement/govInformationDetail',
 				data: {
-					// pkid:option.pkid,
-					pkid: 58
+					pkid:option.pkid,
 				}
 			}).then(res => {
 				console.log(res[1].data.data)
@@ -184,17 +179,12 @@
 
 			.titleText {
 				padding: 0 40rpx;
-				box-sizing: border-box;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				.title1 {
-					font-size: 33rpx;
+
+				text {
+					font-size: 34rpx;
+					font-family: SourceHanSansCN-Regular;
+					font-weight: 400;
 					color: #333333;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					-webkit-line-clamp: 2;
-					overflow: hidden;
 				}
 			}
 		}
@@ -324,13 +314,12 @@
 				height: 16rpx;
 			}
 
-			.title1 {
-				font-size: 33rpx;
-				color: #333333;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 2;
-				overflow: hidden;
+			text {
+				font-size: 28rpx;
+				color: #666666;
+				font-family: SourceHanSansCN-Regular;
+				font-weight: 400;
+				margin-left: 10rpx;
 			}
 		}
 	}
