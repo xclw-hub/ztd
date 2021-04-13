@@ -211,7 +211,7 @@
 			clearHistory(){
 				this.historyArr=[]
 				uni.removeStorage({
-					key:'history',
+					key:'homeSearchHistory',
 				})
 			},
 			tapchange(index) {
@@ -246,7 +246,7 @@
 			readLocalStorage(){
 				const that = this
 				uni.getStorage({
-					key:'history',
+					key:'homeSearchHistory',
 					success:function(res){
 						that.historyArr = res.data
 					}
@@ -255,7 +255,7 @@
 			},
 			saveHistory(){
 				uni.setStorage({
-					key:'history',
+					key:'homeSearchHistory',
 					data:this.historyArr
 				})
 			}

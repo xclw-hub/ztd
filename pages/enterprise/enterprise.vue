@@ -348,7 +348,7 @@
 					console.log(err)
 				})
 			}
-			uni.$on('parkStateUpdate', function(data) {
+			uni.$on('parkStateUpdate', (data)=> {
 				this.parkName=data.parkName
 				this.parkState=0
 				this.$store.state.enterpriseInfo.parkId=data.parkId
@@ -364,6 +364,9 @@
 			_this.enterpriseName = info.enterpriseName
 			_this.enterpriseID = info.enterpriseId
 			_this.enterpriseUsername = info.enterpriseUsername
+		},
+		onShow() {
+			
 		},
 		methods: {
 			clickBack(){

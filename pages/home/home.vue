@@ -8,7 +8,7 @@
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
 					<view class="searchInput">
-						<input type="text" v-model="keywords" placeholder="请输入搜索关键词" />
+						<input disabled=true type="text" v-model="keywords" placeholder="请输入搜索关键词" />
 					</view>
 				</view>
 				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-show="isParked"></image>
@@ -593,9 +593,10 @@
 				request({
 					url: '/cancelBindPark',
 					data: {
-						token: token,
-						userId: _this.$store.state.id,
-						userType: _this.$store.state.kind
+						id:_this.$store.state.id,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						token:token,
+						parkName:_this.$store.state.enterpriseInfo.parkName
 					}
 				}).then(res => {
 					console.log(res)

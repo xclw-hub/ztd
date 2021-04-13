@@ -4,7 +4,7 @@
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
-						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索" :disabled = 'true'></u-search>
 				</view>
 			</view>
 			<view class="navrightCon">
@@ -495,11 +495,13 @@
 					type: that.$store.state.kind
 				},
 			}).then(res => {
+				console.log(res[1].data)
 				let gt = res[1].data.data
 				let index
 				for (index in gt) {
 					that.provinceList.push(gt[index])
 				}
+				/* console.log() */
 			})
 		},
 		methods: {
@@ -669,7 +671,7 @@
 					return;
 				} else {
 					if (city && city!='不限') {
-						this.region = province + '省' + city+'市';
+						this.region = province + ' ' + city;
 					} else {
 						this.region = province;
 					}

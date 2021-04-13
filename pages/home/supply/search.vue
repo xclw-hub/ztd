@@ -500,7 +500,7 @@
 			clearHistory(){
 				this.historyArr=[]
 				uni.removeStorage({
-					key:'history',
+					key:'supplySearchHistory',
 				})
 			},
 			hideHistory(){
@@ -511,7 +511,7 @@
 			readLocalStorage(){
 				const that = this
 				uni.getStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					success:function(res){
 						//console.log(res.data)
 						that.historyArr = res.data
@@ -521,7 +521,7 @@
 			},
 			saveHistory(){
 				uni.setStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					data:this.historyArr
 				})
 			},
