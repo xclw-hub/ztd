@@ -1,1 +1,0 @@
-<view class="content"><view class="echarts" prop="{{option}}" change:prop="{{echarts.updateEcharts}}" id="echarts"></view></view>

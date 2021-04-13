@@ -122,9 +122,9 @@
 		},
 		methods: {
 			clickBack() {
-					uni.redirectTo({
-						url: './contactList'
-					});
+					uni.navigateBack({
+						delta:1
+					})
 			},
 			confirm() {
 				let that = this

@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -279,14 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -345,70 +338,7 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
     var _this = this;
     console.log(_this.$store.state.id);
     console.log(_this.$store.state.kind);
-    if (_this.$store.state.kind === '0') {
-      if (_this.$store.state.enterpriseInfo.isBindPark) {
-        _this.isParked = true;
-      } else {
-        _this.isParked = false;
-      }
-    } else {
-      if (_this.$store.state.userInfo.isBindPark) {
-        _this.isParked = true;
-      } else {
-        _this.isParked = false;
-      }
-    }
-    if (_this.isParked == true) {
-      (0, _request.request)({
-        url: '/industry/dataTitle',
-        data: {
-          parkid: _this.$store.state.kind == 0 ? _this.$store.state.enterpriseInfo.parkId : _this.$store.state.userInfo.parkId } }).
-
-      then(function (res) {
-        console.log(res[1].data.data);
-        _this.tabList = res[1].data.data;
-        console.log(_this.tabList);
-        var d = {
-          industryId: _this.tabList[_this.tabCurrent].pkid,
-          keyword: _this.tabList[_this.tabCurrent].title,
-          page: _this.pageNumber };
-
-        (0, _request.request)({
-          url: '/industry/dataList',
-          data: d }).
-        then(function (res) {
-          console.log(res[1].data.data.list);
-          var a = _this.dataList.length;
-          console.log(a);
-          _this.dataList = res[1].data.data.list;
-          console.log(_this.dataList);
-        });
-      });
-    } else {
-      (0, _request.request)({
-        url: '/industry/dataTitle' }).
-      then(function (res) {
-        console.log(res[1].data.data);
-        _this.tabList = res[1].data.data;
-        console.log(_this.tabList);
-        var d = {
-          industryId: _this.tabList[_this.tabCurrent].pkid,
-          keyword: _this.tabList[_this.tabCurrent].title,
-          page: _this.pageNumber };
-
-        (0, _request.request)({
-          url: '/industry/dataList',
-          data: d }).
-        then(function (res) {
-          console.log(res[1].data.data.list);
-          var a = _this.dataList.length;
-          console.log(a);
-          _this.dataList = res[1].data.data.list;
-          console.log(_this.dataList);
-        });
-      });
-    }
-
+    this.pageNumber = 1;
     if (_this.$store.state.kind === '0') {
       // if (_this.$store.state.id) {
       // 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
@@ -439,8 +369,57 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           if (data.parkStatus === 1) {//0:待审核，1：入园，2：未入园
             tem.parkId = data.parkId;
             tem.isBindPark = true;
+            _this.isParked = true;
+            (0, _request.request)({
+              url: '/industry/dataTitle',
+              data: {
+                parkid: data.parkId } }).
+
+            then(function (res) {
+              console.log(res[1].data.data);
+              _this.tabList = res[1].data.data;
+              console.log(_this.tabList);
+              var d = {
+                industryId: _this.tabList[_this.tabCurrent].pkid,
+                keyword: _this.tabList[_this.tabCurrent].title,
+                page: _this.pageNumber };
+
+              (0, _request.request)({
+                url: '/industry/dataList',
+                data: d }).
+              then(function (res) {
+                console.log(res[1].data.data.list);
+                var a = _this.dataList.length;
+                console.log(a);
+                _this.dataList = res[1].data.data.list;
+                console.log(_this.dataList);
+              });
+            });
           } else {
             tem.isBindPark = false;
+            _this.isParked = false;
+            (0, _request.request)({
+              url: '/industry/dataTitle' }).
+            then(function (res) {
+              console.log(res[1].data.data);
+              _this.tabList = res[1].data.data;
+              console.log(_this.tabList);
+              var d = {
+                industryId: _this.tabList[_this.tabCurrent].pkid,
+                keyword: _this.tabList[_this.tabCurrent].title,
+                page: _this.pageNumber };
+
+              (0, _request.request)({
+                url: '/industry/dataList',
+                data: d }).
+              then(function (res) {
+                console.log(res[1].data.data.list);
+                var a = _this.dataList.length;
+                console.log(a);
+                _this.dataList = res[1].data.data.list;
+                console.log(_this.dataList);
+              });
+            });
           }
           console.log(tem);
           _this.$store.commit('setEnterpriseInfo', tem);
@@ -463,7 +442,7 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       then(function (res) {
         var data = res[1].data;
         console.log(data);
-        if (!data.statusCode) {
+        if (data.statusCode == 2000) {
           var tem = {
             contactName: data.contactName,
             phoneNum: data.phoneNum,
@@ -478,6 +457,57 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           if (data.parkId) {//如果园区ID存在，则修改存储的园区ID以及是否绑定值
             tem.parkId = data.parkId;
             tem.isBindPark = true;
+            _this.isParked = true;
+            console.log('asdf');
+            (0, _request.request)({
+              url: '/industry/dataTitle',
+              data: {
+                parkid: data.parkId } }).
+
+            then(function (res) {
+              console.log(res[1].data.data);
+              _this.tabList = res[1].data.data;
+              console.log(_this.tabList);
+              var d = {
+                industryId: _this.tabList[_this.tabCurrent].pkid,
+                keyword: _this.tabList[_this.tabCurrent].title,
+                page: _this.pageNumber };
+
+              (0, _request.request)({
+                url: '/industry/dataList',
+                data: d }).
+              then(function (res) {
+                console.log(res[1].data.data.list);
+                var a = _this.dataList.length;
+                console.log(a);
+                _this.dataList = res[1].data.data.list;
+                console.log(_this.dataList);
+              });
+            });
+          } else {
+            _this.isParked = false;
+            (0, _request.request)({
+              url: '/industry/dataTitle' }).
+            then(function (res) {
+              console.log(res[1].data.data);
+              _this.tabList = res[1].data.data;
+              console.log(_this.tabList);
+              var d = {
+                industryId: _this.tabList[_this.tabCurrent].pkid,
+                keyword: _this.tabList[_this.tabCurrent].title,
+                page: _this.pageNumber };
+
+              (0, _request.request)({
+                url: '/industry/dataList',
+                data: d }).
+              then(function (res) {
+                console.log(res[1].data.data.list);
+                var a = _this.dataList.length;
+                console.log(a);
+                _this.dataList = res[1].data.data.list;
+                console.log(_this.dataList);
+              });
+            });
           }
           _this.$store.commit('setUserInfo', tem);
           if (_this.$store.state.kind === '0') {
@@ -494,28 +524,6 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
         console.log(err);
       });
     }
-    (0, _request.request)({
-      url: '/industry/dataTitle' }).
-    then(function (res) {
-      // console.log(res[1].data.data);
-      _this.tabList = res[1].data.data;
-      // console.log(_this.tabList);
-      var d = {
-        industryId: _this.tabList[_this.tabCurrent].pkid,
-        keyword: _this.tabList[_this.tabCurrent].title,
-        page: _this.pageNumber };
-
-      (0, _request.request)({
-        url: '/industry/dataList',
-        data: d }).
-      then(function (res) {
-        // console.log(res[1].data.data.list)
-        var a = _this.dataList.length;
-        // console.log(a)
-        _this.dataList = res[1].data.data.list;
-        // console.log(_this.dataList)
-      });
-    });
   },
   onReachBottom: function onReachBottom() {
     var _this = this;
@@ -524,13 +532,14 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
     var d = {
       industryId: _this.tabList[_this.tabCurrent].pkid,
       keyword: _this.tabList[_this.tabCurrent].title,
-      page: 1 };
+      page: _this.pageNumber + 1 };
 
     (0, _request.request)({
       url: '/industry/dataList',
       data: d }).
     then(function (res) {
       if (res[1].data.data.list.length != 0) {
+        _this.pageNumber++;
         var a = _this.dataList.length;
         console.log(a);
         var c = 0;
@@ -669,23 +678,9 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           break;
         case '融资助手':
           console.log('进入融资助手页面');
-          if (that.$store.state.kind == '1') {
-            if (!that.$store.state.userInfo.isBindPark) {
-              uni.showToast({
-                title: '企业未入园,暂无权限',
-                duration: 2000,
-                icon: 'none' });
+          uni.navigateTo({
+            url: 'financeAssistant/financeAssistant' });
 
-            } else {
-              uni.navigateTo({
-                url: 'financeAssistant/financeAssistant' });
-
-            }
-          } else {
-            uni.navigateTo({
-              url: 'financeAssistant/financeAssistant' });
-
-          }
           break;
         case '专家诊断':
           console.log('进入专家诊断页面');
@@ -700,7 +695,18 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
               this.isShowDiagnosis = true;
             }
           } else {
-            this.isShowDiagnosis = true;
+            if (!that.$store.state.enterpriseInfo.isBindPark) {
+              if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+                that.joinedPark = "您加入的园区为：" + this.$store.state.enterpriseInfo.parkName;
+                that.$refs.applyPopupDialog.open();
+              } else {
+                uni.navigateTo({
+                  url: '../enterprise/myPark/parkApply' });
+
+              }
+            } else {
+              this.isShowDiagnosis = true;
+            }
           }
           break;
         default:
@@ -758,6 +764,32 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
     },
     scan: function scan() {
       var that = this;
+      if (that.$store.state.kind == '1') {
+        if (!that.$store.state.userInfo.isBindPark) {
+          console.log(that.$store.state.userInfo.isBindPark);
+          uni.showToast({
+            title: '企业未入园,暂无权限',
+            duration: 2000,
+            icon: 'none' });
+
+          return;
+        } else {
+        }
+      } else {
+        if (!that.$store.state.enterpriseInfo.isBindPark) {
+          if (that.$store.state.enterpriseInfo.parkStatus == 0) {
+            that.joinedPark = "您加入的园区为：" + this.$store.state.enterpriseInfo.parkName;
+            that.$refs.applyPopupDialog.open();
+            return;
+          } else {
+            uni.navigateTo({
+              url: '../enterprise/myPark/parkApply' });
+
+            return;
+          }
+        } else {
+        }
+      }
       uni.scanCode({
         success: function success(res) {
           console.log('条码内容：' + res.result);
@@ -815,6 +847,28 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       var that = this;
       var _this = that;
       var token = uni.getStorageSync('token');
+
+      if (that.diagnosis_name == '') {
+        uni.showToast({
+          icon: 'none',
+          title: "请输入您的姓名" });
+
+        return;
+      }
+      if (that.diagnosis_phone == '') {
+        uni.showToast({
+          icon: 'none',
+          title: "请输入您的联系方式" });
+
+        return;
+      }
+      if (that.diagnosis_name == '') {
+        uni.showToast({
+          icon: 'none',
+          title: "请输入您的专家需求" });
+
+        return;
+      }
       if (that.$store.state.kind == '0') {
         if (that.$store.state.enterpriseInfo.isBindPark) {
           var ss = {

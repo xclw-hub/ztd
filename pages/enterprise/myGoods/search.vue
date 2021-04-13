@@ -59,7 +59,7 @@
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
 			<text>历史搜索</text>
-			<text @click="clearHistory">清空</text>
+			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
 					<view class="historyItem" v-for="(item, index) in historyArr" v-if="index<historyShowNumber" :key='index' @click="historySearch(index)">
@@ -92,6 +92,63 @@
 				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
 				supplyList:[],
 				pageNumber:''
+			}
+		},
+		onReachBottom() {
+			this.pageNumber++
+			if(this.$store.state.kind == 0 ){
+				_this.$request({
+					url:'/supplyInformationList',
+					data:{
+						token,
+						type:_this.$store.state.kind,
+						page:_this.pageNumber,
+						keyword:_this.searchContent,
+						companyId:_this.$store.state.id
+					},
+				}).then(res=>{
+					console.log('search')
+					console.log(res[1].data)
+					if(res[1].data.success == true){
+						let data = res[1].data.data
+						let len = _this.supplyList.length
+						_this.supplyList = _this.supplyList.concat(data.list)
+						let length = _this.supplyList.length
+						for(let i =len - 1;i<length;i++){
+							_this.supplyList[i].pic = _this.supplyList[i].pic.split(',')
+							_this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
+						}
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			}else{
+				_this.$request({
+					url:'/supplyInformationList',
+					data:{
+						token,
+						type:_this.$store.state.kind,
+						page:_this.pageNumber,
+						keyword:_this.searchContent,
+						companyId:_this.$store.state.userInfo.enterpriseId,
+						memberId:_this.$store.state.id
+					},
+				}).then(res=>{
+					console.log('search')
+					console.log(res[1].data)
+					if(res[1].data.success == true){
+						let data = res[1].data.data
+						let len = _this.supplyList.length
+						_this.supplyList = _this.supplyList.concat(data.list)
+						let length = _this.supplyList.length
+						for(let i =len - 1;i<length;i++){
+							_this.supplyList[i].pic = _this.supplyList[i].pic.split(',')
+							_this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
+						}
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
 			}
 		},
 		methods: {
@@ -159,6 +216,7 @@
 									let length = _this.supplyList.length
 									for(let i =0;i<length;i++){
 										_this.supplyList[i].pic = _this.supplyList[i].pic.split(',')
+										_this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
 									}
 									this.showEmpty = false
 								}
@@ -189,6 +247,7 @@
 									let length = _this.supplyList.length
 									for(let i =0;i<length;i++){
 										_this.supplyList[i].pic = _this.supplyList[i].pic.split(',')
+										_this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
 									}
 									this.showEmpty = false
 								}

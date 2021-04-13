@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -153,7 +153,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -224,39 +225,11 @@ __webpack_require__.r(__webpack_exports__);
       search_placeholder: '搜索行业名称',
       searchContent: '',
       industryKindList: [{
-        kind: '智能制造',
-        choice: 0 },
-
-      {
-        kind: '机器人',
-        choice: 0 },
-
-      {
         kind: '人工智能',
         choice: 0 },
 
       {
-        kind: '5G',
-        choice: 0 },
-
-      {
-        kind: '新能源汽车',
-        choice: 0 },
-
-      {
-        kind: '能源产业',
-        choice: 0 },
-
-      {
         kind: '智能制造',
-        choice: 0 },
-
-      {
-        kind: '机器人',
-        choice: 0 },
-
-      {
-        kind: '集成电路及电子材料',
         choice: 0 },
 
       {
@@ -264,23 +237,23 @@ __webpack_require__.r(__webpack_exports__);
         choice: 0 },
 
       {
-        kind: '人工智能',
+        kind: '信息通信',
         choice: 0 },
 
       {
-        kind: '智能制造',
+        kind: '集成电路及电子材料',
         choice: 0 },
 
       {
-        kind: '机器人',
+        kind: '云计算及大数据',
         choice: 0 },
 
       {
-        kind: '人工智能',
+        kind: '新材料',
         choice: 0 },
 
       {
-        kind: '5G',
+        kind: '生物医药',
         choice: 0 },
 
       {
@@ -292,17 +265,38 @@ __webpack_require__.r(__webpack_exports__);
         choice: 0 },
 
       {
-        kind: '智能制造',
+        kind: '节能环保',
         choice: 0 },
 
       {
-        kind: '机器人',
+        kind: '企业服务',
+        choice: 0 },
+
+      {
+        kind: '其他',
         choice: 0 }],
       //所有可选的行业种类列表
-      selectKindArr: [] //已选的行业
-    };
+      selectKindArr: [], //已选的行业
+      searchResult: [] };
+
+  },
+  onLoad: function onLoad() {
+    this.searchResult = this.industryKindList;
   },
   methods: {
+    clearSearchContent: function clearSearchContent() {
+      this.searchContent = '';
+      this.searchResult = this.industryKindList;
+    },
+    clickSearch: function clickSearch() {
+      this.searchResult = [];
+      var length = this.industryKindList.length;
+      for (var i = 0; i < length; i++) {
+        if (this.industryKindList[i].kind.indexOf(this.searchContent) >= 0) {
+          this.searchResult.push(this.industryKindList[i]);
+        }
+      }
+    },
     clickBack: function clickBack() {
       uni.navigateBack({
         delta: 1 });

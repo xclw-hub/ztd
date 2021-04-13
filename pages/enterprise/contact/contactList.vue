@@ -119,7 +119,7 @@
 				})
 			},
 			addcontact() {
-				uni.redirectTo({
+				uni.navigateTo({
 					url: './add_Contact?a=' + this.listNumber
 				})
 			}

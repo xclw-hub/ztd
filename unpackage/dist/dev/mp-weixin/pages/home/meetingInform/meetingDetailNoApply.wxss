@@ -414,7 +414,7 @@
 .addParticipator .participator-list .participator .participator-right-no.data-v-7a9ba2da {
   width: 106rpx;
   height: 60rpx;
-  border: 1rpx solid #888888;
+  border: 1px solid #888888;
   -webkit-border-radius: 5rpx;
           border-radius: 5rpx;
   display: -webkit-box;

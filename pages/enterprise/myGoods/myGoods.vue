@@ -100,7 +100,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList.concat(gt.list)
+							_this.goodsList = _this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
@@ -129,7 +129,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList.concat(gt.list)
+							_this.goodsList = _this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){

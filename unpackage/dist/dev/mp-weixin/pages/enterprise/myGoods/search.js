@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1253))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 1182))
     }
   }
 } catch (e) {
@@ -249,6 +249,63 @@ var _default =
       pageNumber: '' };
 
   },
+  onReachBottom: function onReachBottom() {
+    this.pageNumber++;
+    if (this.$store.state.kind == 0) {
+      _this.$request({
+        url: '/supplyInformationList',
+        data: {
+          token: token,
+          type: _this.$store.state.kind,
+          page: _this.pageNumber,
+          keyword: _this.searchContent,
+          companyId: _this.$store.state.id } }).
+
+      then(function (res) {
+        console.log('search');
+        console.log(res[1].data);
+        if (res[1].data.success == true) {
+          var data = res[1].data.data;
+          var len = _this.supplyList.length;
+          _this.supplyList = _this.supplyList.concat(data.list);
+          var length = _this.supplyList.length;
+          for (var i = len - 1; i < length; i++) {
+            _this.supplyList[i].pic = _this.supplyList[i].pic.split(',');
+            _this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
+          }
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    } else {
+      _this.$request({
+        url: '/supplyInformationList',
+        data: {
+          token: token,
+          type: _this.$store.state.kind,
+          page: _this.pageNumber,
+          keyword: _this.searchContent,
+          companyId: _this.$store.state.userInfo.enterpriseId,
+          memberId: _this.$store.state.id } }).
+
+      then(function (res) {
+        console.log('search');
+        console.log(res[1].data);
+        if (res[1].data.success == true) {
+          var data = res[1].data.data;
+          var len = _this.supplyList.length;
+          _this.supplyList = _this.supplyList.concat(data.list);
+          var length = _this.supplyList.length;
+          for (var i = len - 1; i < length; i++) {
+            _this.supplyList[i].pic = _this.supplyList[i].pic.split(',');
+            _this.supplyList[i].price = Number(_this.supplyList[i].price).toFixed(2);
+          }
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  },
   methods: {
     clickBack: function clickBack() {
       if (this.showHistory && !this.showEmpty) {
@@ -273,7 +330,7 @@ var _default =
       this.showEmpty = false;
     },
     // 点击搜索按键
-    clickSearch: function clickSearch() {var _this2 = this;
+    clickSearch: function clickSearch() {var _this3 = this;
       if (this.searchContent != '') {
         this.showHistory = false; //显示搜索结果页面
         // 如果该搜索记录为新记录则加入历史记录数组
@@ -288,64 +345,66 @@ var _default =
         }else{
         	this.showEmpty = false
         } */
-        var token = uni.getStorageSync('token');
-        var _this = this;
+        var _token = uni.getStorageSync('token');
+        var _this2 = this;
         this.pageNumber = 1;
         this.saveHistory();
         if (this.$store.state.kind == 0) {
-          _this.$request({
+          _this2.$request({
             url: '/supplyInformationList',
             data: {
-              token: token,
-              type: _this.$store.state.kind,
-              page: _this.pageNumber,
-              keyword: _this.searchContent,
-              companyId: _this.$store.state.id } }).
+              token: _token,
+              type: _this2.$store.state.kind,
+              page: _this2.pageNumber,
+              keyword: _this2.searchContent,
+              companyId: _this2.$store.state.id } }).
 
           then(function (res) {
             console.log('search');
             console.log(res[1].data);
             if (res[1].data.success == true) {
               var data = res[1].data.data;
-              _this.supplyList = data.list;
-              if (_this.supplyList.length <= 0) {
-                _this2.showEmpty = true;
+              _this2.supplyList = data.list;
+              if (_this2.supplyList.length <= 0) {
+                _this3.showEmpty = true;
               } else {
-                var length = _this.supplyList.length;
+                var length = _this2.supplyList.length;
                 for (var i = 0; i < length; i++) {
-                  _this.supplyList[i].pic = _this.supplyList[i].pic.split(',');
+                  _this2.supplyList[i].pic = _this2.supplyList[i].pic.split(',');
+                  _this2.supplyList[i].price = Number(_this2.supplyList[i].price).toFixed(2);
                 }
-                _this2.showEmpty = false;
+                _this3.showEmpty = false;
               }
             }
           }).catch(function (err) {
             console.log(err);
           });
         } else {
-          _this.$request({
+          _this2.$request({
             url: '/supplyInformationList',
             data: {
-              token: token,
-              type: _this.$store.state.kind,
-              page: _this.pageNumber,
-              keyword: _this.searchContent,
-              companyId: _this.$store.state.userInfo.enterpriseId,
-              memberId: _this.$store.state.id } }).
+              token: _token,
+              type: _this2.$store.state.kind,
+              page: _this2.pageNumber,
+              keyword: _this2.searchContent,
+              companyId: _this2.$store.state.userInfo.enterpriseId,
+              memberId: _this2.$store.state.id } }).
 
           then(function (res) {
             console.log('search');
             console.log(res[1].data);
             if (res[1].data.success == true) {
               var data = res[1].data.data;
-              _this.supplyList = data.list;
-              if (_this.supplyList.length <= 0) {
-                _this2.showEmpty = true;
+              _this2.supplyList = data.list;
+              if (_this2.supplyList.length <= 0) {
+                _this3.showEmpty = true;
               } else {
-                var length = _this.supplyList.length;
+                var length = _this2.supplyList.length;
                 for (var i = 0; i < length; i++) {
-                  _this.supplyList[i].pic = _this.supplyList[i].pic.split(',');
+                  _this2.supplyList[i].pic = _this2.supplyList[i].pic.split(',');
+                  _this2.supplyList[i].price = Number(_this2.supplyList[i].price).toFixed(2);
                 }
-                _this2.showEmpty = false;
+                _this3.showEmpty = false;
               }
             }
           }).catch(function (err) {

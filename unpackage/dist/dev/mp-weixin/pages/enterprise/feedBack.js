@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _methods;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -209,11 +209,15 @@ __webpack_require__.r(__webpack_exports__);
       imageArr: [] //保存上传照片的路径
     };
   },
-  methods: {
+  methods: (_methods = {
     clickBack: function clickBack() {
       uni.navigateBack({
         delta: 1 });
 
+    },
+    deleteImg: function deleteImg(index) {
+      this.imageArr.splice(index, 1);
+      this.imageNumber--;
     },
     confirm: function confirm() {
       var _this = this;
@@ -323,24 +327,24 @@ __webpack_require__.r(__webpack_exports__);
         current: index, //当前点击预览的图片
         urls: this.imageArr //预览图片的链接
       });
-    },
-    //删除预览的图片
-    deleteImg: function deleteImg(index) {
-      this.imageArr.splice(index, 1);
-      this.imageNumber = this.imageArr.length;
-    },
-    problemFocus: function problemFocus() {
-      this.problem_placeholder = '';
-    },
-    problemBlue: function problemBlue() {
-      this.problem_placeholder = '请输入您的反馈内容';
-    },
-    contactMethodFocus: function contactMethodFocus() {
-      this.contactMethod_placeholder = '';
-    },
-    contactMethodBlue: function contactMethodBlue() {
-      this.contactMethod_placeholder = '微信/QQ/邮箱';
-    } } };exports.default = _default;
+    } }, _defineProperty(_methods, "deleteImg", function deleteImg(
+
+  index) {
+    this.imageArr.splice(index, 1);
+    this.imageNumber = this.imageArr.length;
+  }), _defineProperty(_methods, "problemFocus", function problemFocus()
+  {
+    this.problem_placeholder = '';
+  }), _defineProperty(_methods, "problemBlue", function problemBlue()
+  {
+    this.problem_placeholder = '请输入您的反馈内容';
+  }), _defineProperty(_methods, "contactMethodFocus", function contactMethodFocus()
+  {
+    this.contactMethod_placeholder = '';
+  }), _defineProperty(_methods, "contactMethodBlue", function contactMethodBlue()
+  {
+    this.contactMethod_placeholder = '微信/QQ/邮箱';
+  }), _methods) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

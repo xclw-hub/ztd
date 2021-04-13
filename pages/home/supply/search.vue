@@ -109,7 +109,7 @@
 			
 			<view class="pad">
 				<view class="listCon">
-					<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail">
+					<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item.pkid)">
 						<image class="goodsimg" :src="item.pic[0]"
 						 mode=""></image>
 						<view class="name u-line-2">
@@ -137,7 +137,7 @@
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
 			<text>历史搜索</text>
-			<text @click="clearHistory">清空</text>
+			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
 					<view class="historyItem" v-for="(item, index) in historyArr" v-if="index<historyShowNumber" :key='index' @click="historySearch(index)">
@@ -256,8 +256,8 @@
 					memberId: that.$store.state.userInfo.parkId,
 					companyId: that.$store.state.enterpriseInfo.parkId
 				})
-				if (that.$store.state.kind == '0') {
-					if( that.isBindPark == true){
+				/* if (that.$store.state.kind == '0') {
+					if( that.isBindPark == true){ */
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -269,19 +269,19 @@
 							},
 						}).then(res => {
 							if (res[1].data.data.list.length != 0) {
+								that.pageNumber++
 								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
+								that.dataList = that.dataList.concat(res[1].data.data.list)
 								console.log(that.dataList)
 								let len = that.dataList.length
 								for(let i = length -1;i<len;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
-								that.pageNumber++
 							} else {
 								console.log('没有更多内容了')
 							}
 						})
-					}else{
+					/* }else{
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -305,9 +305,9 @@
 								console.log('没有更多内容了')
 							}
 						})
-					}
+					} */
 					
-				} else {
+				/* } else {
 					that.$request({
 						url: '/supplyInformationList',
 						data: {
@@ -317,7 +317,6 @@
 							keyword:that.keyword,
 							memberId: that.$store.state.id,
 							companyId:_this.$store.state.userInfo.enterpriseId
-							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
 						if (res[1].data.data.list.length != 0) {
@@ -334,7 +333,7 @@
 							console.log('没有更多内容了')
 						}
 					})
-				}
+				} */
 				return;
 			} else {
 				if (city) {
@@ -361,8 +360,8 @@
 					memberId: that.$store.state.userInfo.parkId,
 					companyId: that.$store.state.enterpriseInfo.parkId
 				})
-				if (that.$store.state.kind == '0') {
-					if(that.isBindPark == true){
+				/* if (that.$store.state.kind == '0') {
+					if(that.isBindPark == true){ */
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -377,19 +376,19 @@
 							}
 						}).then(res => {
 							if (res[1].data.data.list.length != 0) {
+								that.pageNumber++
 								let length = that.dataList.length
-								that.dataList.concat(res[1].data.data.list)
+								that.dataList = that.dataList.concat(res[1].data.data.list)
 								console.log(that.dataList)
 								let len = that.dataList.length
 								for(let i = length -1;i<len;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
-								that.pageNumber++
 							} else {
 								console.log('没有更多内容了')
 							}
 						})
-					}else{
+					/* }else{
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -416,9 +415,9 @@
 								console.log('没有更多内容了')
 							}
 						})
-					}
+					} */
 					
-				} else {
+				/* } else {
 					that.$request({
 						url: '/supplyInformationList',
 						data: {
@@ -431,7 +430,6 @@
 							keyword: that.keyword,
 							memberId: that.$store.state.id,
 							companyId:_this.$store.state.userInfo.enterpriseId
-							/* companyId: that.$store.state.enterpriseInfo.parkId */
 						}
 					}).then(res => {
 						if (res[1].data.data.list.length != 0) {
@@ -447,7 +445,7 @@
 							console.log('没有更多内容了')
 						}
 					})
-				}
+				} */
 			}
 		},
 		methods: {
@@ -477,11 +475,11 @@
 			// 点击搜索按键
 			clickSearch(){
 				if(this.searchContent!=''){
-					this.showHistory=false		//显示搜索结果页面
 					// 如果该搜索记录为新记录则加入历史记录数组
 					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
 						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyArr
+						this.saveHistory()
 					}
 					//过滤企业列表,如果该企业的行业种类数组中包含搜索关键字则加入显示列表
 					/* this.searchSupplyList=this.supplyList.filter(item => item.title.includes(this.searchContent))
@@ -491,8 +489,7 @@
 						this.showEmpty = false
 					} */
 					this.keyword = this.searchContent
-					this.tapsaveregion()
-					this.saveHistory()
+					this.tapsaveregion(true)
 				}
 			},
 			//点击历史记录进行搜索
@@ -528,9 +525,10 @@
 					data:this.historyArr
 				})
 			},
-			tapdetail() {
+			tapdetail(pkid) {
+				console.log(pkid)
 				uni.navigateTo({
-					url: './supplydetail'
+					url: './supplydetail?supplyId=' + pkid
 				})
 			},
 			tapprovinceItem(item) {
@@ -569,9 +567,10 @@
 					"title": "不限"
 				}]
 				this.region = "不限地区";
+				this.tapsaveregion()
 				this.$refs.uDropdown.close();
 			},
-			tapsaveregion() {
+			tapsaveregion(isSearch) {
 				this.pageNumber = 1
 				let that = this
 				let province = this.provinceCurrent.title;
@@ -596,8 +595,8 @@
 						memberId: that.$store.state.id,
 						companyId: that.$store.state.enterpriseInfo.enterpriseId
 					})
-					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
+					/* if (that.$store.state.kind == '0') {
+						if(that.isBindPark == true){ */
 							that.$request({
 								url: '/supplyInformationList',
 								data: {
@@ -617,8 +616,16 @@
 								for(let i = 0;i<length;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
+								if(isSearch==true){
+									this.showHistory=false		//显示搜索结果页面
+									if(this.dataList.length==0){
+										this.showEmpty = true
+									}else{
+										this.showEmpty = false
+									}
+								}
 							})
-						}else{
+						/* }else{
 							that.$request({
 								url: '/supplyInformationList',
 								data: {
@@ -639,9 +646,9 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 							})
-						}
+						} */
 						
-					} else {
+					/* } else {
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -653,7 +660,6 @@
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
 								companyId:_this.$store.state.userInfo.enterpriseId
-								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -664,7 +670,7 @@
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
 						})
-					}
+					} */
 					this.$refs.uDropdown.close();
 					return;
 				} else {
@@ -692,8 +698,8 @@
 						memberId: that.$store.state.id,
 						companyId: that.$store.state.userInfo.enterpriseId
 					})
-					if (that.$store.state.kind == '0') {
-						if(that.isBindPark == true){
+					/* if (that.$store.state.kind == '0') {
+						if(that.isBindPark == true){ */
 							that.$request({
 								url: '/supplyInformationList',
 								data: {
@@ -714,8 +720,16 @@
 								for(let i = 0;i<length;i++){
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
+								if(isSearch==true){
+									this.showHistory=false		//显示搜索结果页面
+									if(this.dataList.length==0){
+										this.showEmpty = true
+									}else{
+										this.showEmpty = false
+									}
+								}
 							})
-						}else{
+						/* }else{
 							that.$request({
 								url: '/supplyInformationList',
 								data: {
@@ -737,9 +751,9 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 							})
-						}
+						} */
 						
-					} else {
+					/* } else {
 						that.$request({
 							url: '/supplyInformationList',
 							data: {
@@ -752,7 +766,6 @@
 								keyword: that.keyword,
 								memberId: that.$store.state.id,
 								companyId:_this.$store.state.userInfo.enterpriseId
-								/* companyId: that.$store.state.userInfo.enterpriseId */
 							}
 						}).then(res => {
 							console.log(res[1].data.data)
@@ -763,7 +776,7 @@
 								that.dataList[i].pic = that.dataList[i].pic.split(',')
 							}
 						})
-					}
+					} */
 					this.$refs.uDropdown.close();
 				}
 			},
@@ -772,6 +785,7 @@
 				that.minPrice=''
 				that.maxPrice=''
 				this.price='不限价格'
+				this.tapsaveregion()
 				this.$refs.uDropdown.close();
 			
 			},

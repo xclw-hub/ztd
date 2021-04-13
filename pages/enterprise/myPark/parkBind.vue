@@ -147,6 +147,7 @@
 						_this.$store.state.enterpriseInfo.parkStatus = 0
 						console.log(_this.$store.state.enterpriseInfo.parkName)
 						/* _this.$store.mutations.setEnterpriseInfo(_this.$store.state, info) */
+						uni.$emit('parkStateUpdate',{parkName:_this.parkName,parkId:_this.bindParkId});
 						uni.navigateBack({
 							delta:2
 						})

@@ -130,7 +130,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
 
 
 
@@ -299,7 +308,11 @@ __webpack_require__.r(__webpack_exports__);
         delta: 1 });
 
     },
-    confirm: function confirm() {
+    deleteImg: function deleteImg(index) {
+      this.imageArr.splice(index, 1);
+      this.imageNumber--;
+    },
+    confirm: function confirm() {var _this2 = this;
       console.log("发布");
       var _this = this;
       var decimalReg = /^\d{0,8}\.{0,1}(\d{1,2})?$/; //var decimalReg=/^[-\+]?\d{0,8}\.{0,1}(\d{1,2})?$/;
@@ -314,6 +327,30 @@ __webpack_require__.r(__webpack_exports__);
 
         return false;
       }
+      // if(_this.title.length > 80){
+      // 	uni.showToast({
+      // 	    icon: 'none',
+      // 		position: 'bottom',
+      // 	    title: '标题不能超过80个字符'
+      // 	})
+      // 	return false
+      // }
+      // if(_this.address > 100){
+      // 	uni.showToast({
+      // 	    icon: 'none',
+      // 		position: 'bottom',
+      // 	    title: '地址不能超过100个字符'
+      // 	})
+      // 	return false
+      // }
+      // if(_this.contact > 20){
+      // 	uni.showToast({
+      // 	    icon: 'none',
+      // 		position: 'bottom',
+      // 	    title: '联系人不能超过20个字符'
+      // 	})
+      // 	return false
+      // }
       if (!reg_tel.test(_this.mobilePhone)) {
         uni.showToast({
           icon: 'none',
@@ -322,7 +359,7 @@ __webpack_require__.r(__webpack_exports__);
 
         return false;
       }
-      if (!decimalReg.test(_this.price)) {
+      if (!decimalReg.test(_this.price) || _this.price > 999999.99) {
         uni.showToast({
           icon: 'none',
           position: 'bottom',
@@ -354,16 +391,18 @@ __webpack_require__.r(__webpack_exports__);
         success: function success(res) {
           console.log(res.statusCode);
           if (res.statusCode === 200) {
+            _this2.$store.flag = 1;
             uni.showToast({
               icon: 'success',
               position: 'bottom',
+              duration: 500,
               title: '发布成功!' });
 
-            uni.navigateTo({
-              url: 'informationPublish',
-              animationType: 'pop-in',
-              animationDuration: 600 });
+            setTimeout(function () {
+              uni.navigateBack({
+                delta: 1 });
 
+            }, 500);
           } else {
             uni.showToast({
               icon: 'none',
@@ -382,13 +421,13 @@ __webpack_require__.r(__webpack_exports__);
       this.fontCount = this.description.length;
     },
     //选择照片并上传
-    chooseImage: function chooseImage() {var _this2 = this;
+    chooseImage: function chooseImage() {var _this3 = this;
       uni.chooseImage({
         count: 9 - this.imageNumber,
         success: function success(res) {
-          var token = 1; // uni.getStorageSync('token');
+          var token = uni.getStorageSync('token');
           var length = res.tempFilePaths.length;
-          var _this = _this2;
+          var _this = _this3;
 
           for (var i = 0; i < length; i++) {
             uni.uploadFile({
