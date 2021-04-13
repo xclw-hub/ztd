@@ -328,4 +328,10 @@ page {
   text-align: center;
   border-top: 1rpx solid #FF9000;
 }
+.nos.data-v-224ccd98 {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
 

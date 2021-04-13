@@ -185,7 +185,7 @@
 	        justify-content: space-between;
 }
 .myService .serviceList .serviseItem.data-v-194e515a{
-	width: 212rpx;
+	/* width: 212rpx; */
 	height: 64rpx;
 	border: 1rpx solid #BFBFBF;
 	-webkit-border-radius: 10rpx;
@@ -200,6 +200,8 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
+	padding-left: 30rpx;
+	padding-right: 30rpx;
 }
 .serviceList #edit.data-v-194e515a{
 	width: 212rpx;

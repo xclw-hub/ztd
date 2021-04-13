@@ -369,7 +369,7 @@
   height: 28rpx;
   position: absolute;
   left: 73rpx;
-  top: 511rpx;
+  top: 580rpx;
 }
 .diagnosis.data-v-92bb8f34 {
   position: fixed;

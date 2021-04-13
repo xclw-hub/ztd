@@ -317,7 +317,7 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
 }

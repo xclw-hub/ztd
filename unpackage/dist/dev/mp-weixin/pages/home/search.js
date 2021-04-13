@@ -293,7 +293,7 @@ var _default =
       data: d }).
     then(function (res) {
       if (res[1].data.data.list.length != 0) {
-        _this.dataList.concat(res[1].data.data.list);
+        _this.dataList = _this.dataList.concat(res[1].data.data.list);
         console.log(_this.dataList);
       } else {
         console.log('没有更多内容了');
@@ -375,7 +375,7 @@ var _default =
     clearHistory: function clearHistory() {
       this.historyArr = [];
       uni.removeStorage({
-        key: 'history' });
+        key: 'homeSearchHistory' });
 
     },
     tapchange: function tapchange(index) {
@@ -410,7 +410,7 @@ var _default =
     readLocalStorage: function readLocalStorage() {
       var that = this;
       uni.getStorage({
-        key: 'history',
+        key: 'homeSearchHistory',
         success: function success(res) {
           that.historyArr = res.data;
         } });
@@ -419,7 +419,7 @@ var _default =
     },
     saveHistory: function saveHistory() {
       uni.setStorage({
-        key: 'history',
+        key: 'homeSearchHistory',
         data: this.historyArr });
 
     } } };exports.default = _default;

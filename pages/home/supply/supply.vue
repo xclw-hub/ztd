@@ -1,10 +1,10 @@
 <template>
-	<view class="mainCon">
+	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
 		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
-						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索" :disabled = 'true'></u-search>
 				</view>
 			</view>
 			<view class="navrightCon">
@@ -18,7 +18,7 @@
 		</u-navbar>
 		<view>
 			<view class="dropmenu">
-				<u-dropdown ref="uDropdown">
+				<u-dropdown ref="uDropdown" @open="open" @close="close">
 					<u-dropdown-item :title="region">
 						<view class="slot-content" style="background-color: #FFFFFF;">
 							<scroll-view scroll-y="true" style="height: 350rpx;">
@@ -136,6 +136,7 @@
 		},
 		data() {
 			return {
+				isShowDiagnosis:false,
 				defaultSelected: [],
 				filterData: [], //传入数据，具体数据格式，请下载示例查看
 				keyword: "",
@@ -172,7 +173,7 @@
 				maxPrice: "",
 				pageNumber: 1,
 				dataList: [],
-				isBindPark:''
+				isBindPark:'',
 
 			}
 		},
@@ -214,15 +215,15 @@
 					
 				}).then(res => {
 					if (res[1].data.data.list.length != 0) {
+						that.pageNumber++
 						let length = that.dataList.length
-						that.dataList.concat(res[1].data.data.list)
+						that.dataList = that.dataList.concat(res[1].data.data.list)
 						console.log(that.dataList)
 						let len = that.dataList.length
 						for(let i = length -1;i<len;i++){
 							that.dataList[i].pic = that.dataList[i].pic.split(',')
 							that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
 						}
-						that.pageNumber++
 					} else {
 						console.log('没有更多内容了')
 					}
@@ -279,7 +280,7 @@
 						}
 					})
 				} */
-				return;
+				/* return; */
 			} else {
 				if (city) {
 					this.region = province + ' ' + city;
@@ -312,7 +313,7 @@
 					data: {
 						token,
 						type: that.$store.state.kind,
-						page: that.pageNumbe + 1,
+						page: that.pageNumber + 1,
 						address: that.region,
 						minPrice,
 						maxPrice,
@@ -321,15 +322,15 @@
 					}
 				}).then(res => {
 					if (res[1].data.data.list.length != 0) {
+						that.pageNumber++
 						let length = that.dataList.length
-						that.dataList.concat(res[1].data.data.list)
+						that.dataList = that.dataList.concat(res[1].data.data.list)
 						console.log(that.dataList)
 						let len = that.dataList.length
 						for(let i = length -1;i<len;i++){
 							that.dataList[i].pic = that.dataList[i].pic.split(',')
 							that.dataList[i].price = Number(that.dataList[i].price).toFixed(2);
 						}
-						that.pageNumber++
 					} else {
 						console.log('没有更多内容了')
 					}
@@ -495,11 +496,13 @@
 					type: that.$store.state.kind
 				},
 			}).then(res => {
+				console.log(res[1].data)
 				let gt = res[1].data.data
 				let index
 				for (index in gt) {
 					that.provinceList.push(gt[index])
 				}
+				/* console.log() */
 			})
 		},
 		methods: {
@@ -533,6 +536,7 @@
 			},
 			tapprovinceItem(item) {
 				let that = this
+				console.log(this.isShowDiagnosis)
 				that.provinceCurrent = item;
 				that.cityList = item.city
 				if (that.provinceCurrent.title == '不限') {
@@ -569,6 +573,14 @@
 				this.region = "不限地区";
 				this.tapsaveregion()
 				this.$refs.uDropdown.close();
+			},
+			open(){
+				this.isShowDiagnosis=true
+				console.log(this.isShowDiagnosis)
+			},
+			close(){
+				this.isShowDiagnosis=false
+				console.log(this.isShowDiagnosis)
 			},
 			tapsaveregion() {
 				this.pageNumber = 1
@@ -668,7 +680,7 @@
 					this.$refs.uDropdown.close();
 					return;
 				} else {
-					if (city) {
+					if (city && city!='不限') {
 						this.region = province + ' ' + city;
 					} else {
 						this.region = province;
@@ -676,6 +688,7 @@
 					let token = uni.getStorageSync('token');
 					let minPrice = Number(this.minPrice);
 				let maxPrice
+				console.log(this.region)
 				if (that.maxPrice == '') {
 					maxPrice = 999999.99
 				} else {
@@ -1031,5 +1044,11 @@
 				}
 			}
 		}
+	}
+	.nos {
+		overflow: hidden;
+		position: fixed;
+		left: 0;
+		top: 0;
 	}
 </style>

@@ -425,7 +425,7 @@ __webpack_require__.r(__webpack_exports__);
       uni.chooseImage({
         count: 9 - this.imageNumber,
         success: function success(res) {
-          var token = 1; // uni.getStorageSync('token');
+          var token = uni.getStorageSync('token');
           var length = res.tempFilePaths.length;
           var _this = _this3;
 

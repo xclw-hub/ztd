@@ -4,7 +4,7 @@
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false" height="80"
-					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索" :disabled = 'true'></u-search>
 				</view>
 			</view>
 		</u-navbar>
@@ -107,7 +107,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList.concat(gt.list)
+							_this.goodsList = _this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
@@ -136,7 +136,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList.concat(gt.list)
+							_this.goodsList = _this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){

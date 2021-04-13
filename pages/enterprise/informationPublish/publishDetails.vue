@@ -173,7 +173,7 @@
 						// description:
 						
 						let detail = {}
-						detail.kind = data.type == 0 ? '需求' : '供应'
+						detail.kind = data.type == '2' ? '需求' : '供应'		// type：供应是1 需求是2
 						detail.title = data.title
 						detail.time = data.time
 						detail.price = data.price

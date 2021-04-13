@@ -430,14 +430,14 @@ var _default =
 
       then(function (res) {
         if (res[1].data.data.list.length != 0) {
+          that.pageNumber++;
           var length = that.dataList.length;
-          that.dataList.concat(res[1].data.data.list);
+          that.dataList = that.dataList.concat(res[1].data.data.list);
           console.log(that.dataList);
           var len = that.dataList.length;
           for (var i = length - 1; i < len; i++) {
             that.dataList[i].pic = that.dataList[i].pic.split(',');
           }
-          that.pageNumber++;
         } else {
           console.log('没有更多内容了');
         }
@@ -537,14 +537,14 @@ var _default =
 
       then(function (res) {
         if (res[1].data.data.list.length != 0) {
+          that.pageNumber++;
           var length = that.dataList.length;
-          that.dataList.concat(res[1].data.data.list);
+          that.dataList = that.dataList.concat(res[1].data.data.list);
           console.log(that.dataList);
           var len = that.dataList.length;
           for (var i = length - 1; i < len; i++) {
             that.dataList[i].pic = that.dataList[i].pic.split(',');
           }
-          that.pageNumber++;
         } else {
           console.log('没有更多内容了');
         }
@@ -661,7 +661,7 @@ var _default =
     clearHistory: function clearHistory() {
       this.historyArr = [];
       uni.removeStorage({
-        key: 'history' });
+        key: 'supplySearchHistory' });
 
     },
     hideHistory: function hideHistory() {
@@ -672,7 +672,7 @@ var _default =
     readLocalStorage: function readLocalStorage() {
       var that = this;
       uni.getStorage({
-        key: 'history',
+        key: 'supplySearchHistory',
         success: function success(res) {
           //console.log(res.data)
           that.historyArr = res.data;
@@ -682,7 +682,7 @@ var _default =
     },
     saveHistory: function saveHistory() {
       uni.setStorage({
-        key: 'history',
+        key: 'supplySearchHistory',
         data: this.historyArr });
 
     },

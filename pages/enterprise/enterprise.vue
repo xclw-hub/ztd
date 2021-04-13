@@ -166,6 +166,24 @@
 				@confirm="enterParkConfirm" 
 				@close="enterParkClose"></uni-popup-dialog>
 			</uni-popup>
+			<uni-popup id="quitParkPopupDialog" ref="quitParkPopupDialog" type="dialog">
+				<uni-popup-dialog 
+				type="info" 
+				title="确认退出园区？" 
+				content="退出后将不再接收园区消息"
+				title_left="退出"
+				title_right="取消"
+				:isbuttonRightBorder="true"
+				:before-close="true" 
+				buttonRightBgColor = #2D6BDD
+				buttonLeftBgColor = #FFFFFF
+				textLeftColor = #999999
+				textRightColor = #FFFFFF
+				isbuttonRightBorder = false
+				isbuttonLeftBorder = true
+				@confirm="quitParkConfirm" 
+				@close="quitParkClose"></uni-popup-dialog>
+			</uni-popup>
 			<gmy-img-cropper
 			    ref="gmyImgCropper"
 			    quality="0.5"
@@ -330,7 +348,7 @@
 					console.log(err)
 				})
 			}
-			uni.$on('parkStateUpdate', function(data) {
+			uni.$on('parkStateUpdate', (data)=> {
 				this.parkName=data.parkName
 				this.parkState=0
 				this.$store.state.enterpriseInfo.parkId=data.parkId
@@ -346,6 +364,9 @@
 			_this.enterpriseName = info.enterpriseName
 			_this.enterpriseID = info.enterpriseId
 			_this.enterpriseUsername = info.enterpriseUsername
+		},
+		onShow() {
+			
 		},
 		methods: {
 			clickBack(){
@@ -462,10 +483,12 @@
 				console.log('我知道了');
 				done()
 			},
-			enterParkClose(done) {
-				console.log('退出园区');
-				let _this = this
+			quitParkConfirm(done){
+				done()
+			},
+			quitParkClose(done){
 				let token = uni.getStorageSync('token')
+				let _this = this
 				request({
 					url:'/unBindPark',
 					data:{
@@ -486,6 +509,11 @@
 				}).catch(err=>{
 					console.log(err)
 				})
+			},
+			enterParkClose(done) {
+				console.log('退出园区');
+				done()
+				this.$refs.quitParkPopupDialog.open()
 			},
 			enterInformationPublish(){
 				uni.navigateTo({

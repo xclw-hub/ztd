@@ -186,9 +186,9 @@
 					console.log(data)
 					console.log('choose end')
 					if(data.statusCode == 2000){
-						uni.navigateBack({		//将选好的行业传到下一页面
-							delta:1
-							})
+						uni.reLaunch({
+							url:'enterprise'
+						})
 						// 需要执行 done 才能关闭对话框
 						done()
 					}else{

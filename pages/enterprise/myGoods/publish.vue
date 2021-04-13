@@ -141,20 +141,26 @@
 				showAddress: false,
 				provinceList: provinceData,
 				cityList: cityData,
-				defaultCity: []
+				defaultCity: [],
+				supplyId:''
 			}
 		},
-		onLoad() {
-			// if(option){
-			// 	let goodsDetail = JSON.parse(option.goodsDetail)
-			// 	this.title = goodsDetail.title
-			// 	this.price = goodsDetail.price
-			// 	this.businessaddress=goodsDetail.source
-			// 	this.address=goodsDetail.address
-			// 	this.contact=goodsDetail.contacts
-			// 	this.mobilePhone=goodsDetail.tel
-			// 	this.detailinfo=goodsDetail.content
-			// }
+		onLoad(option) {
+			console.log(option)
+			 if(option){
+			 	let goodsDetail = JSON.parse(option.goodsDetail)
+			 	this.title = goodsDetail.title
+			 	this.price = goodsDetail.price
+			 	this.businessaddress=goodsDetail.source
+			 	this.address=goodsDetail.address
+			 	this.contact=goodsDetail.contacts
+				this.mobilePhone=goodsDetail.tel
+				this.detailinfo=goodsDetail.content
+				this.imageArr=goodsDetail.pic
+				this.imageNumber=this.imageArr.length
+				this.supplyId = option.supplyId
+			}
+			console.log(this.supplyId)
 		},
 		methods: {
 			clickBack() {
@@ -261,7 +267,6 @@
 				{
 					token,
 					type: that.$store.state.kind,
-					isEdit: false,
 					parkId: that.$store.state.enterpriseInfo.parkId,
 					companyId: that.$store.state.enterpriseInfo.parkId,
 					memberId:that.$store.state.userInfo.parkId,
@@ -274,15 +279,15 @@
 					pic:that.imageArr,
 					content:that.detailinfo
 				})
+				let d
 				if (that.$store.state.kind == '0') {
 					console.log('supplyEdit')
 					console.log(that.imageArr)
-					request({
-						url: '/supplyEdit',
-						data: {
+					if(that.supplyId!=''){
+						d={
 							token,
 							type: that.$store.state.kind,
-							isEdit: false,
+							supplyId:that.supplyId,
 							parkId: that.$store.state.enterpriseInfo.parkId,
 							companyId: that.$store.state.enterpriseInfo.enterpriseId,
 							memberId:1,
@@ -295,6 +300,26 @@
 							pic:that.imageArr,
 							content:that.detailinfo
 						}
+					}else{
+						d = {
+							token,
+							type: that.$store.state.kind,
+							parkId: that.$store.state.enterpriseInfo.parkId,
+							companyId: that.$store.state.enterpriseInfo.enterpriseId,
+							memberId:1,
+							title:that.title,
+							price:that.price,
+							source:that.businessaddress,
+							address:that.address,
+							contacts:that.contact,
+							tel:that.mobilePhone,
+							pic:that.imageArr,
+							content:that.detailinfo
+						}
+					}
+					request({
+						url: '/supplyEdit',
+						data: d
 					}).then(res => {
 						console.log(res[1].data)
 						let gt = res[1].data.data
@@ -306,19 +331,34 @@
 							});
 							uni.navigateTo({
 								url:'myGoods'
-							})
+
+							}
+								
+							)
+						}else if(gt=='修改成功'){
+							uni.showToast({
+								title: '修改成功',
+								duration: 2000,
+								icon: 'none'
+							});
+							uni.navigateTo(
+							{
+								url:'myGoods'
+							}
+								
+							)
+
 						}
 					}).catch(err=>{
 						console.log(err)
 					})
 				}else{
-					request({
-						url: '/supplyEdit',
-						data: {
+					if(that.supplyId!=''){
+						d = {
 							token,
 							type: that.$store.state.kind,
+							supplyId:that.supplyId,
 							page: that.pageNumber,
-							isEdit: false,
 							parkId: that.$store.state.userInfo.parkId,
 							companyId: that.$store.state.userInfo.enterpriseId,
 							memberId:that.$store.state.id,
@@ -331,6 +371,27 @@
 							pic:that.imageArr,
 							content:that.detailinfo
 						}
+					}else{
+						d = {
+							token,
+							type: that.$store.state.kind,
+							page: that.pageNumber,
+							parkId: that.$store.state.userInfo.parkId,
+							companyId: that.$store.state.userInfo.enterpriseId,
+							memberId:that.$store.state.id,
+							title:that.title,
+							price:that.price,
+							source:that.businessaddress,
+							address:that.address,
+							contacts:that.contact,
+							tel:that.mobilePhone,
+							pic:that.imageArr,
+							content:that.detailinfo
+						}
+					}
+					request({
+						url: '/supplyEdit',
+						data: d
 					}).then(res => {
 						console.log(res[1].data)
 						let gt = res[1].data.data
@@ -342,7 +403,23 @@
 							});
 							uni.navigateTo({
 								url:'myGoods'
-							})
+
+							}
+								
+							)
+						}else if(gt=='修改成功'){
+							uni.showToast({
+								title: '修改成功',
+								duration: 2000,
+								icon: 'none'
+							});
+							uni.navigateTo(
+							{
+								url:'myGoods'
+							}
+								
+							)
+
 						}
 					})
 				}
