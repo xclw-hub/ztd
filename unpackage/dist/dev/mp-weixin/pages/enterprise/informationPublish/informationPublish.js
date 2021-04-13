@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -285,12 +285,16 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad() {
     this.setData();
   },
+  onShow: function onShow() {
+    this.$store.flag = 0;
+    this.setData();
+  },
   data: function data() {
     return {
       list: ['全部类型', '供应', '需求'], //下拉菜单
       dropListShow: false, //是否显示下拉列表
       // serviceList:['金属切削机床','铸造机械','矿山机械','试验机','实验分析仪器','铸造机械','矿山机械','试验机',],
-      serviceList: [],
+      serviceList: ['暂无服务'],
       supplyList: [],
       mask_seen: false, //遮罩层是否显示
       choice: true, //表示选择我的服务，否则表示选择供需列表
@@ -305,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
       addressSave_seen: false,
       addressInputColor: '#F6F6F6',
       addressFontColor: '#888888',
+      original_address: '',
       address: '',
       // address:'幸福西街与新顺北大街交叉口西100米',
 
@@ -312,6 +317,7 @@ __webpack_require__.r(__webpack_exports__);
       phoneSave_seen: false,
       phoneInputColor: '#F6F6F6',
       phoneFontColor: '#888888',
+      original_phone: '',
       phone: '',
       // phone:'18051287437',
 
@@ -349,11 +355,12 @@ __webpack_require__.r(__webpack_exports__);
     setData: function setData() {
       // this.serviceList = ['金属切削机床','铸造机械',]
       var state = this.$store.state;
-      // console.log(state)
+      console.log('state');
+      console.log(state);
+      this.id = state.id;
       this.type = state.kind == 1 ? 0 : 1; // kind 1 个人 0 企业 、、接口里 0 个人 1 企业
       var info = state.kind == 0 ? state.enterpriseInfo : state.userInfo;
-      console.log(info);
-      this.id = info.enterpriseId;
+      // console.log(info)
       this.parkId = info.parkId;
       // let keyword = "abcd,bac"
       // var m = keyword.split(",")
@@ -379,7 +386,9 @@ __webpack_require__.r(__webpack_exports__);
           var keyword = res.data.keyword + "";
           var m = keyword.split(",");
           console.log(m);
-          _this2.serviceList = m;
+          if (m[0] != "undefined") {
+            _this2.serviceList = m;
+          }
           _this2.address = res.data.address;
           _this2.phone = res.data.phoneNum;
         },
@@ -509,11 +518,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     serviceEdit: function serviceEdit() {
       this.$refs.servicePopupDialog.open();
+      console.log(this.serviceList);
     },
     editConfirm: function editConfirm(done, value) {var _this4 = this;
       var tmp = value;
       value = value.replace(/，/ig, ','); // 中文空格替换为英文空格
       console.log(value);
+      // console.log(this.serviceList)
+      if (value == "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请填写关键词' });
+
+        return false;
+      }
       // this.$refs.servicePopupDialog.input
       // console.log(document.getElementById(servicePopupDialog))
       // console.log('确定');
@@ -553,6 +572,7 @@ __webpack_require__.r(__webpack_exports__);
       this.addressInputColor = '#FFFFFF';
       this.addressFontColor = '#333333';
       this.addressSave_seen = true;
+      this.original_address = this.address;
     },
     addressSave: function addressSave() {var _this5 = this;
       this.isEditAddress = true; //禁止输入框
@@ -560,6 +580,16 @@ __webpack_require__.r(__webpack_exports__);
       this.addressFontColor = '#888888';
       this.addressSave_seen = false;
       console.log(this.address);
+
+      if (this.address == "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请正确填写您的地址' });
+
+        this.address = this.original_address;
+        return false;
+      }
 
       var _this = this;
       uni.request({
@@ -587,14 +617,28 @@ __webpack_require__.r(__webpack_exports__);
       this.phoneInputColor = '#FFFFFF';
       this.phoneFontColor = '#333333';
       this.phoneSave_seen = true;
+      // console.log(this.phone)
+      this.original_phone = this.phone;
     },
     phoneSave: function phoneSave() {var _this6 = this;
       this.isEditPhone = true; //禁止输入框
       this.phoneInputColor = '#F6F6F6';
       this.phoneFontColor = '#888888';
       this.phoneSave_seen = false;
+      // let tmp = this.phone
+      var reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/; //11位手机号码正则
 
       console.log(this.phone);
+
+      if (!reg_tel.test(this.phone)) {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请正确填写您的手机号' });
+
+        this.phone = this.original_phone;
+        return false;
+      }
 
       var _this = this;
       uni.request({

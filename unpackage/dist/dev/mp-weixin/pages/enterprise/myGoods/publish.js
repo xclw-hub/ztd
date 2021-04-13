@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 1288))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 1210))
     }
   }
 } catch (e) {
@@ -267,9 +267,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _province = _interopRequireDefault(__webpack_require__(/*! ../../../common/province.js */ 934));
 var _city = _interopRequireDefault(__webpack_require__(/*! ../../../common/city.js */ 935));
-var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -301,27 +304,119 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
       defaultCity: [] };
 
   },
-  onLoad: function onLoad(option) {
-    if (option) {
-      var goodsDetail = JSON.parse(option.goodsDetail);
-      this.title = goodsDetail.title;
-      this.price = goodsDetail.price;
-      this.businessaddress = goodsDetail.source;
-      this.address = goodsDetail.address;
-      this.contact = goodsDetail.contacts;
-      this.mobilePhone = goodsDetail.tel;
-      this.detailinfo = goodsDetail.content;
-    }
+  onLoad: function onLoad() {
+    // if(option){
+    // 	let goodsDetail = JSON.parse(option.goodsDetail)
+    // 	this.title = goodsDetail.title
+    // 	this.price = goodsDetail.price
+    // 	this.businessaddress=goodsDetail.source
+    // 	this.address=goodsDetail.address
+    // 	this.contact=goodsDetail.contacts
+    // 	this.mobilePhone=goodsDetail.tel
+    // 	this.detailinfo=goodsDetail.content
+    // }
   },
-  methods: {
+  methods: (_methods = {
     clickBack: function clickBack() {
       uni.reLaunch({
         url: 'myGoods' });
 
     },
+    changeValue: function changeValue() {
+      // that.price=Number(this.price).toFixed(2);
+      console.log('abcd');
+    },
+    deleteImg: function deleteImg(index) {
+      this.imageArr.splice(index, 1);
+      this.imageNumber--;
+    },
     confirm: function confirm() {
       var that = this;
       var token = uni.getStorageSync('token');
+      console.log(that.price);
+      if (that.mobilePhone.length != 11) {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '移动电话错误' });
+
+        return false;
+      }
+      if (that.imageNumber == 0) {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '至少上传一张图片' });
+
+        return false;
+      }
+      if (that.price <= 0 || that.price > 999999.99) {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '价格不在有效价格范围' });
+
+        return false;
+      }
+      if (that.title === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入商品名称' });
+
+        return false;
+      }
+      if (that.price === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入价格' });
+
+        return false;
+      }
+      if (that.businessaddress === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请选择货源' });
+
+        return false;
+      }
+      if (that.address === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入详细地址' });
+
+        return false;
+      }
+      if (that.contact === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入联系人' });
+
+        return false;
+      }
+      if (that.mobilePhone === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入移动电话' });
+
+        return false;
+      }
+      if (that.detailinfo === "") {
+        uni.showToast({
+          icon: 'none',
+          position: 'bottom',
+          title: '请输入详细信息' });
+
+        return false;
+      }
+
+      that.price = Number(that.price).toFixed(2); //保留两位小数
+      console.log(that.price);
       console.log(
       {
         token: token,
@@ -468,71 +563,76 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
         current: index, //当前点击预览的图片
         urls: this.imageArr //预览图片的链接
       });
-    },
-    titleFocus: function titleFocus() {
-      this.title_placeholder = '';
-    },
-    titleBlue: function titleBlue() {
-      this.title_placeholder = '请输入商品名称';
-    },
-    priceFocus: function priceFocus() {
-      this.price_placeholder = '';
-    },
-    priceBlue: function priceBlue() {
-      this.price_placeholder = '请输入价格，0为面议';
-    },
-    businessFocus: function businessFocus() {
-      this.businessaddress_placeholder = '';
-    },
-    businessBlue: function businessBlue() {
-      this.businessaddress_placeholder = '请选择发货地';
-    },
-    addressFocus: function addressFocus() {
-      this.address_placeholder = '';
-    },
-    addressBlue: function addressBlue() {
-      this.address_placeholder = '请输入详细地址';
-    },
-    contactFocus: function contactFocus() {
-      this.contact_placeholder = '';
-    },
-    contactBlue: function contactBlue() {
-      this.contact_placeholder = '请输入联系人姓名';
-    },
-    mobilePhoneFocus: function mobilePhoneFocus() {
-      this.mobilePhone_placeholder = '';
-    },
-    mobilePhoneBlue: function mobilePhoneBlue() {
-      this.mobilePhone_placeholder = '请输入联系人手机号';
-    },
-    detailinfoFocus: function detailinfoFocus() {
-      this.detailinfo_placeholder = '';
-    },
-    detailinfoBlue: function detailinfoBlue() {
-      this.detailinfo_placeholder = '请输入详细信息';
-    },
-    tapaddress: function tapaddress() {
-      this.showAddress = true;
-      this.defaultCity = [0, 0];
-    },
-    onpickerChange: function onpickerChange(e) {
-      var res = e.detail.value;
-      if (!res[0]) {
-        res[0] = 0;
-      }
-      if (!res[1]) {
-        res[1] = 0;
-      }
-      this.defaultCity = res;
-    },
-    cityConfim: function cityConfim() {
-      var province = _province.default[this.defaultCity[0]].label;
-      var city = _city.default[this.defaultCity[0]][this.defaultCity[1]].label;
-      this.businessaddress = province + city;
-      this.showAddress = false;
-      this.defaultCity = [];
+    } }, _defineProperty(_methods, "deleteImg", function deleteImg(
 
-    } },
+  index) {
+    this.imageArr.splice(index, 1);
+    this.imageNumber = this.imageArr.length;
+  }), _defineProperty(_methods, "titleFocus", function titleFocus()
+  {
+    this.title_placeholder = '';
+  }), _defineProperty(_methods, "titleBlue", function titleBlue()
+  {
+    this.title_placeholder = '请输入商品名称';
+  }), _defineProperty(_methods, "priceFocus", function priceFocus()
+  {
+    this.price_placeholder = '';
+  }), _defineProperty(_methods, "priceBlue", function priceBlue()
+  {
+    this.price_placeholder = '请输入价格，0为面议';
+  }), _defineProperty(_methods, "businessFocus", function businessFocus()
+  {
+    this.businessaddress_placeholder = '';
+  }), _defineProperty(_methods, "businessBlue", function businessBlue()
+  {
+    this.businessaddress_placeholder = '请选择发货地';
+  }), _defineProperty(_methods, "addressFocus", function addressFocus()
+  {
+    this.address_placeholder = '';
+  }), _defineProperty(_methods, "addressBlue", function addressBlue()
+  {
+    this.address_placeholder = '请输入详细地址';
+  }), _defineProperty(_methods, "contactFocus", function contactFocus()
+  {
+    this.contact_placeholder = '';
+  }), _defineProperty(_methods, "contactBlue", function contactBlue()
+  {
+    this.contact_placeholder = '请输入联系人姓名';
+  }), _defineProperty(_methods, "mobilePhoneFocus", function mobilePhoneFocus()
+  {
+    this.mobilePhone_placeholder = '';
+  }), _defineProperty(_methods, "mobilePhoneBlue", function mobilePhoneBlue()
+  {
+    this.mobilePhone_placeholder = '请输入联系人手机号';
+  }), _defineProperty(_methods, "detailinfoFocus", function detailinfoFocus()
+  {
+    this.detailinfo_placeholder = '';
+  }), _defineProperty(_methods, "detailinfoBlue", function detailinfoBlue()
+  {
+    this.detailinfo_placeholder = '请输入详细信息';
+  }), _defineProperty(_methods, "tapaddress", function tapaddress()
+  {
+    this.showAddress = true;
+    this.defaultCity = [0, 0];
+  }), _defineProperty(_methods, "onpickerChange", function onpickerChange(
+  e) {
+    var res = e.detail.value;
+    if (!res[0]) {
+      res[0] = 0;
+    }
+    if (!res[1]) {
+      res[1] = 0;
+    }
+    this.defaultCity = res;
+  }), _defineProperty(_methods, "cityConfim", function cityConfim()
+  {
+    var province = _province.default[this.defaultCity[0]].label;
+    var city = _city.default[this.defaultCity[0]][this.defaultCity[1]].label;
+    this.businessaddress = province + city;
+    this.showAddress = false;
+    this.defaultCity = [];
+
+  }), _methods),
 
   computed: {
     titleLength: function titleLength() {

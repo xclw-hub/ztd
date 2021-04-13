@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -235,12 +235,18 @@ __webpack_require__.r(__webpack_exports__);
       passwordConfirm_placeholder: "以字母或数字开头可包含特殊符号的6~18位字符组合" };
 
   },
-  onLoad: function onLoad(option) {
-    if (option.industryArr) {
-      this.industryShow = option.industryArr;
-      this.industryKindList = option.industryArr.split(',');
-      console.log(this.industryKindList);
-    }
+  onLoad: function onLoad() {
+    var _this = this;
+    uni.$on('industryUpdate', function (data) {
+      _this.industryKindList = data.item;
+      var length = _this.industryKindList.length;
+      _this.industryShow = '';
+      for (var i = 0; i < length - 1; i++) {
+        _this.industryShow += _this.industryKindList[i] + ',';
+      }
+      _this.industryShow += _this.industryKindList[length - 1];
+      console.log(data.item);
+    });
   },
   methods: {
     clickBack: function clickBack() {//导航栏返回按键
@@ -253,7 +259,7 @@ __webpack_require__.r(__webpack_exports__);
         url: 'industrySelect' });
 
     },
-    clickNext: function clickNext() {//导航栏下一步按键
+    clickNext: function clickNext() {var _this2 = this; //导航栏下一步按键
       var patt = /^[a-zA-Z\d]/; //正则表达式
       // let reg = /^[\u4e00-\u9fa5]{0,50}$/		//0-50个中文字符正则
       if (this.enterpriseName === "") {
@@ -328,15 +334,42 @@ __webpack_require__.r(__webpack_exports__);
 
         return false;
       }
-      var obj = {
-        'name': this.enterpriseName,
-        'account': this.accountNumber,
-        'psw': this.password,
-        'industryKindList': this.industryKindList };
+      var _this = this;
+      _this.$request({
+        url: '/register/verificationName',
+        data: {
+          enterpriseName: _this.enterpriseName,
+          username: _this.accountNumber } }).
 
-      uni.navigateTo({ //将公司名称、账号、密码传到下一页面
-        url: 'phoneNumberBind?obj=' + JSON.stringify(obj) });
+      then(function (res) {
+        if (res[1].data.statusCode == 3007) {
+          uni.showToast({
+            icon: 'none',
+            position: 'bottom',
+            title: '账户名已被使用' });
 
+        } else if (res[1].data.statusCode == 3006) {
+          uni.showToast({
+            icon: 'none',
+            position: 'bottom',
+            title: '公司名称已被注册' });
+
+        } else if (res[1].data.statusCode == 2000) {
+          var obj = {
+            'name': _this2.enterpriseName,
+            'account': _this2.accountNumber,
+            'psw': _this2.password,
+            'industryKindList': _this2.industryKindList };
+
+          uni.navigateTo({ //将公司名称、账号、密码传到下一页面
+            url: 'phoneNumberBind?obj=' + JSON.stringify(obj) });
+
+        } else {
+          console.log(data.statusMsg);
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
     },
     enterpriseNameFocus: function enterpriseNameFocus() {//输入栏聚焦
       this.enterpriseName_placeholder = '';

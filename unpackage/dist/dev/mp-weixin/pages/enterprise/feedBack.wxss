@@ -136,4 +136,7 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
+.contactMethod input.data-v-abc74bac{
+	width: 100%;
+}
 

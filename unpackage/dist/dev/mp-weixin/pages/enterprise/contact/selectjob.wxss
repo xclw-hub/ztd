@@ -24,11 +24,52 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.searchBar.data-v-7258d7dd {
-  padding: 20rpx;
+.uniNavBar_left image.data-v-7258d7dd {
+  width: 20rpx;
+  height: 36rpx;
+}
+.uniNavBar_center.data-v-7258d7dd {
+  text-align: center;
+}
+.uniNavBar_center text.data-v-7258d7dd {
+  font-size: 36rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+}
+.content.data-v-7258d7dd {
+  padding-left: 39rpx;
+  padding-right: 39rpx;
+}
+.search.data-v-7258d7dd {
+  margin-top: 30rpx;
+  margin-left: 39rpx;
+  margin-right: 39rpx;
+  height: 72rpx;
+  background: #F3F3F3;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding-left: 21rpx;
+}
+.img1.data-v-7258d7dd {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 15rpx;
+}
+.img2.data-v-7258d7dd {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: auto;
+  margin-right: 15rpx;
 }
 .listCon.data-v-7258d7dd {
-  padding: 20rpx;
+  padding: 40rpx;
 }
 .listCon .cellItem.data-v-7258d7dd {
   padding: 25rpx 0;

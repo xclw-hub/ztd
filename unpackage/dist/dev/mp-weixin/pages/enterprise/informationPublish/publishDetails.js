@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1223))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 1152))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1223));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 1152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 1161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -328,7 +328,7 @@ __webpack_require__.r(__webpack_exports__);
           // description:
 
           var detail = {};
-          detail.kind = data.type == 0 ? '需求' : '供应';
+          detail.kind = data.type == '2' ? '需求' : '供应'; // type：供应是1 需求是2
           detail.title = data.title;
           detail.time = data.time;
           detail.price = data.price;
@@ -336,8 +336,11 @@ __webpack_require__.r(__webpack_exports__);
           detail.address = data.address;
           detail.contact = data.contacts;
           detail.mobilePhone = data.tel;
-          var arr = data.pic.split(',');
-          detail.imageArr = arr;
+          // console.log(data.pic)
+          if (data.pic != null) {
+            var arr = data.pic.split(',');
+            detail.imageArr = arr;
+          }
           detail.description = data.content;
           _this2.publish = detail;
 
@@ -378,7 +381,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.deletePopupDialog.open();
       this.dropOptionShow = false;
     },
-    deleteConfirm: function deleteConfirm(done) {
+    deleteConfirm: function deleteConfirm(done) {var _this3 = this;
       console.log('是');
       // 需要执行 done 才能关闭对话框
       var _this = this;
@@ -391,16 +394,18 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(res)
         //    console.log(res[1].data)
         if (res[1].statusCode === 200) {
+          _this3.$store.flag = 1;
           uni.showToast({
             icon: 'success',
             position: 'bottom',
+            duration: 500,
             title: '删除成功' });
 
-          uni.navigateTo({
-            url: 'informationPublish',
-            animationType: 'pop-in',
-            animationDuration: 600 });
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 1 });
 
+          }, 500);
         } else {
           uni.showToast({
             icon: 'none',

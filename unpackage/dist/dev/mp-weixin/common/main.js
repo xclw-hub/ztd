@@ -101,7 +101,11 @@ __webpack_require__.r(__webpack_exports__);
   onLaunch: function onLaunch() {
     console.log('App Launch');
     var _this = this;
-    var location = '';
+
+
+
+
+
 
 
 

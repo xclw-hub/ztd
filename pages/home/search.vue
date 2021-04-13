@@ -73,7 +73,7 @@
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
 			<text>历史搜索</text>
-			<text @click="clearHistory">清空</text>
+			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
 					<view class="historyItem" v-for="(item, index) in historyArr" v-if="index<historyShowNumber" :key='index' @click="historySearch(index)">
@@ -129,7 +129,7 @@
 				data: d,
 			}).then(res => {
 				if (res[1].data.data.list.length != 0) {
-					_this.dataList.concat(res[1].data.data.list)
+					_this.dataList = _this.dataList.concat(res[1].data.data.list)
 					console.log(_this.dataList)
 				} else {
 					console.log('没有更多内容了')

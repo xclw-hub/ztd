@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
+	flag: 0,
 	state:{
+		flag: 0,
 		kind: '',		//用户类型,'0'是企业用户，‘1’是个人用户
 		id: 0,			//登录成功后返回的ID	
 		enterpriseInfo:{

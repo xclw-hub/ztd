@@ -96,7 +96,7 @@ var components
 try {
   components = {
     evanSwitch: function() {
-      return __webpack_require__.e(/*! import() | components/evan-switch/evan-switch */ "components/evan-switch/evan-switch").then(__webpack_require__.bind(null, /*! @/components/evan-switch/evan-switch.vue */ 1239))
+      return __webpack_require__.e(/*! import() | components/evan-switch/evan-switch */ "components/evan-switch/evan-switch").then(__webpack_require__.bind(null, /*! @/components/evan-switch/evan-switch.vue */ 1168))
     }
   }
 } catch (e) {
@@ -232,7 +232,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -251,14 +254,22 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNa
       phoneNumber: "", //手机号
       password: "", //密码
       passwordConfirm: "",
-      isDefault: true, //是否是默认联系人
       enterpriseId: 1, //绑定的企业Id
       token: "",
+      unChanged: false,
       checked: false // 默认联系人开启
     };
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(option) {
     var that = this;
+    console.log(option.a);
+    if (option.a == 0) {
+      that.unChanged = true;
+      that.checked = true;
+    } else {
+      that.unChanged = false;
+      that.checked = false;
+    }
     uni.$on('zhiweiupdate', function (data) {
       that.position = data.item;
       console.log(data.item);
@@ -266,8 +277,8 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNa
   },
   methods: {
     clickBack: function clickBack() {
-      uni.redirectTo({
-        url: './contactList' });
+      uni.navigateBack({
+        delta: 1 });
 
     },
     confirm: function confirm() {
@@ -278,6 +289,28 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNa
           title: '两次输入密码不一致' });
 
         return;
+      }
+      if (that.name == '') {
+        uni.showToast({
+          icon: 'none',
+          title: "请输入联系人姓名" });
+
+        return;
+      }
+      if (that.position == '') {
+        uni.showToast({
+          icon: 'none',
+          title: "请选择职位" });
+
+        return;
+      }
+      var reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/; //11位手机号码正则
+      if (!reg_tel.test(that.phoneNumber)) {
+        uni.showToast({
+          icon: 'none',
+          title: '请正确填写您的手机号' });
+
+        return false;
       }
       var d = {
         username: that.name,
@@ -293,9 +326,16 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var uniNa
         data: d }).
       then(function (res) {
         console.log(res);
-        uni.redirectTo({
-          url: './contactList' });
+        if (res[1].data.statusCode == 2000) {
+          uni.redirectTo({
+            url: './contactList' });
 
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res[1].data.statusMsg });
+
+        }
       });
     },
     nameFocus: function nameFocus() {

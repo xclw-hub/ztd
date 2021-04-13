@@ -121,7 +121,7 @@
 					data: {
 						// 'phoneNumber': '18842741274',
 						// 'password': '123456',
-						// 'cid': '1'
+						// 'cid': '1',
 						'phoneNumber': _this.phoneNumber,
 						'password': _this.password,
 						'cid': _this.cid
