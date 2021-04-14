@@ -9,7 +9,10 @@
             "style" : {
                 "navigationBarTitleText" : "",
                 // "navigationStyle":"default",
-                "navigationStyle" : "custom"
+                "navigationStyle" : "custom",
+				"app-plus":{
+				    "popGesture": "none"//使ios默认手势关闭页面无效
+				}
             }
         },
         {
@@ -83,7 +86,8 @@
                 "enablePullDownRefresh" : false,
                 "navigationStyle" : "custom",
                 "app-plus" : {
-                    "scrollIndicator" : "none"
+                    "scrollIndicator" : "none",
+					"popGesture": "none"//使ios默认手势关闭页面无效
                 }
             }
         },
@@ -575,6 +579,16 @@
         }
         ,{
             "path" : "pages/login/industrySelect",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle" : "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/enterprisePhoneNumberLogin",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

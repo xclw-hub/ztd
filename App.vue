@@ -13,67 +13,137 @@
 			console.log( JSON.stringify( info ) );
 			   /* 5+  push 消息推送 ps:使用:H5+的方式监听，实现推送*/  
 			plus.push.addEventListener("click", function(msg) {  
-				// console.log("click:"+JSON.stringify(msg));  
-				// console.log(msg.payload);  
-				// console.log(JSON.stringify(msg));  
-				//这里可以写跳转业务代码
-				// uni.showToast({
-				// 	icon: 'none',
-				// 	position: 'bottom',
-				// 	duration: 5000,
-				// 	title: JSON.stringify(msg)
-				// })
-				let title = msg.payload.title
-				switch(title){
+				//这里可以写跳转业务代码    
+				let msgTitle
+				let msgContent
+				if(msg.aps){		//ios
+					msgTitle = msg.aps.alert.title
+					msgContent = msg.aps.alert.body
+				}
+				else{
+					msgTitle = msg.payload.title
+					msgContent = msg.payload.content
+				}
+				let body = msg.payload
+				switch(msgTitle){
 					case '审核通过':
+						uni.showModal({
+							title: msgTitle,
+							content: msgContent,
+							confirmText:'添加联系人',
+							cancelText:'暂不添加',
+							success: function (res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url:'../enterprise/contact/contactList'
+									})
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+						break
 					case '信息填报':
 					case '审核被拒绝':
-						location = 'systemInform'
+						uni.navigateTo({
+							url: '../enterprise/inform/systemInform'
+						})
 						break
 					case '会议取消':
 					case '会议通知':
-						location = 'meetingInform'
+						uni.navigateTo({
+							url: '../enterprise/inform/meetingInform'
+						})
 						break
 					case '融资反馈':
-						location = 'feedBackInform'
+						uni.navigateTo({
+							url: '../enterprise/inform/feedBackInform'
+						})
 						break
 					case '整改通知':
-						location = 'rectifyInform'
+						uni.navigateTo({
+							url: '../enterprise/inform/rectifyInform'
+						})
 						break
 					default:
 						location = 'policyInform'
-						
+						uni.navigateTo({
+							url: '../enterprise/inform/policyInform'
+						})
 				}
 				// uni.showToast({
 				// 	icon: 'none',
 				// 	position: 'bottom',
-				// 	duration: 2000,
-				// 	title: '../enterprise/inform/' + location
+				// 	duration: 5000,
+				// 	title: "click:"+JSON.stringify(msg),
 				// })
-				uni.navigateTo({
-					url: '../enterprise/inform/' + location
-				})
 			}, false);  
 				// 监听在线消息事件    
 			plus.push.addEventListener("receive", function(msg) {  
 				// plus.ui.alert(2);  
 				//这里可以写跳转业务代码
-				uni.showModal({
-				    title: msg.payload.title,
-				    content: msg.payload.content,
-					confirmText:'添加联系人',
-					cancelText:'暂不添加',
-				    success: function (res) {
-				        if (res.confirm) {
-				            uni.navigateTo({
-				            	url:'../enterprise/contact/contactList'
-				            })
-				        } else if (res.cancel) {
-				            console.log('用户点击取消');
-				        }
-				    }
-				});
-				console.log("recevice:"+JSON.stringify(msg))  
+				let msgTitle
+				let msgContent
+				if(msg.aps){		//ios
+					msgTitle = msg.aps.alert.title
+					msgContent = msg.aps.alert.body
+				}
+				else{
+					msgTitle = msg.payload.title
+					msgContent = msg.payload.content
+				}
+				switch(msgTitle){
+					case '审核通过':
+						uni.showModal({
+							title: msgTitle,
+							content: msgContent,
+							confirmText:'添加联系人',
+							cancelText:'暂不添加',
+							success: function (res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url:'../enterprise/contact/contactList'
+									})
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+						break
+					case '信息填报':
+					case '审核被拒绝':
+						uni.navigateTo({
+							url: '../enterprise/inform/systemInform'
+						})
+						break
+					case '会议取消':
+					case '会议通知':
+						uni.navigateTo({
+							url: '../enterprise/inform/meetingInform'
+						})
+						break
+					case '融资反馈':
+						uni.navigateTo({
+							url: '../enterprise/inform/feedBackInform'
+						})
+						break
+					case '整改通知':
+						uni.navigateTo({
+							url: '../enterprise/inform/rectifyInform'
+						})
+						break
+					default:
+						location = 'policyInform'
+						uni.navigateTo({
+							url: '../enterprise/inform/policyInform'
+						})
+				}
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	position: 'bottom',
+				// 	duration: 5000,
+				// 	title: "receive:"+JSON.stringify(msg),
+				// })
 		   }, false);  
 		//#endif  
 			//token登录
