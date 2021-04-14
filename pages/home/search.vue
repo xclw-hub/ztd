@@ -42,7 +42,7 @@
 			
 			<view class="pad">
 				<view class="listCon">
-					<view class="listItem" v-for="(item,index) in dataList" :key='index' @click="toDetail(item)">
+					<view class="listItem" v-for="(item,index) in dataList" :key='index' @click="toDetail(item.pkid)">
 						<view class="leftCon">
 							<view class="title" v-if="item.title.toLowerCase().indexOf(searchContent.toLowerCase()) >= 0">
 								<text>
@@ -238,16 +238,16 @@
 					}
 				}).then(res =>{
 					_this.dataList = res[1].data.data.list
+					console.log(_this.dataList)
 				}).catch(err =>{
 					console.log(err)
 				})
 			},
-			toDetail(){
-				console.log('asd')
+			toDetail(pkid) {
+				console.log(pkid)
 				uni.navigateTo({
-					//url:'./financeAssistantDetail'
+					url: './viewDetail/viewDetail?pkid=' + pkid
 				})
-				
 			},
 			hideHistory(){
 				if(this.historyArr != null){
