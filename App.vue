@@ -4,9 +4,47 @@
 			console.log('App Launch')
 			let _this = this
 		//#ifdef APP-PLUS 
-			let location = ''
 			setTimeout(()=>{
 				plus.navigator.closeSplashscreen();
+				//token登录
+				uni.getStorage({
+					key: 'token',
+					success:function(res){
+						console.log(res.data)
+						let value = res.data
+						//存在token，则使用token登录
+						_this.$request({
+							url:"/verificationToken",
+							data: {
+								'token':value
+							}
+						}).then(res=>{
+								let data = res[1].data
+								if(data.statusCode===2000){
+									console.log("使用token登录成功")
+									if(data.type==='0'){
+										_this.$store.commit('setKind', '0')
+										_this.$store.commit('setId', data.id)
+									}
+									else{
+										_this.$store.commit('setKind', '1')
+										_this.$store.commit('setId', data.id)
+									}
+									uni.navigateTo({
+										url:'../home/home'
+									})
+								}
+								else{
+									console.log(data.statusMsg)
+								}
+						}).catch(err=>{
+								console.log(err)
+						})
+					},
+					fail:function(err){
+						console.log('没有存储token，无法使用token登录')
+					}
+				})
 			},1500);
 		
 			var info = plus.push.getClientInfo();
@@ -66,7 +104,6 @@
 						})
 						break
 					default:
-						location = 'policyInform'
 						uni.navigateTo({
 							url: '../enterprise/inform/policyInform'
 						})
@@ -133,7 +170,6 @@
 						})
 						break
 					default:
-						location = 'policyInform'
 						uni.navigateTo({
 							url: '../enterprise/inform/policyInform'
 						})
@@ -146,39 +182,6 @@
 				// })
 		   }, false);  
 		//#endif  
-			//token登录
-			uni.getStorage({
-				key: 'token',
-				success:function(res){
-					console.log(res.data)
-					let value = res.data
-					//存在token，则使用token登录
-					_this.$request({
-						url:"/verificationToken",
-						data: {
-							'token':value
-						}
-					}).then(res=>{
-							let data = res[1].data
-							if(data.statusCode===2000&&data.type==='0'){
-								console.log("使用token登录成功")
-								_this.$store.commit('setKind', '0')
-								_this.$store.commit('setId', data.id)
-								uni.navigateTo({
-									url:'../home/home'
-								})
-							}
-							else{
-								console.log(data.statusMsg)
-							}
-					}).catch(err=>{
-							console.log(err)
-					})
-				},
-				fail:function(err){
-					console.log('没有存储token，无法使用token登录')
-				}
-			})
 		},
 		onShow: function() {
 			console.log('App Show')
