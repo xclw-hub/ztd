@@ -421,18 +421,20 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
               });
             });
           }
-          console.log(tem);
+          // console.log(tem)
           _this.$store.commit('setEnterpriseInfo', tem);
+          console.log(_this.$store.state.enterpriseInfo);
+          _this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo;
         } else {
           console.log(data.statusMsg);
         }
       }).catch(function (err) {
         console.log(err);
       });
-      console.log(_this.$store.state.enterpriseInfo);
 
     } else {
       // _this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.id+'&type=1'
+      // console.log("userID:"+_this.$store.state.id)
       _this.$request({
         url: '/contactDetail',
         data: {
@@ -442,7 +444,7 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       then(function (res) {
         var data = res[1].data;
         console.log(data);
-        if (data.statusCode == 2000) {
+        if (data.statusCode === 2000) {
           var tem = {
             contactName: data.contactName,
             phoneNum: data.phoneNum,
@@ -510,13 +512,8 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
             });
           }
           _this.$store.commit('setUserInfo', tem);
-          if (_this.$store.state.kind === '0') {
-            console.log(_this.$store.state.enterpriseInfo.enterpriseLogo);
-            _this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo;
-          } else {
-            console.log(_this.$store.state.userInfo.contactHead);
-            _this.user_logo = _this.$store.state.userInfo.contactHead;
-          }
+          console.log(_this.$store.state.userInfo);
+          _this.user_logo = _this.$store.state.userInfo.contactHead;
         } else {
           console.log(data.statusMsg);
         }
@@ -548,7 +545,6 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           c++;
         }
         console.log(_this.dataList);
-        _this.pageNumber++;
       } else {
         console.log('没有更多内容了');
         uni.showToast({
@@ -749,9 +745,10 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
       (0, _request.request)({
         url: '/cancelBindPark',
         data: {
+          id: _this.$store.state.id,
+          parkId: _this.$store.state.enterpriseInfo.parkId,
           token: token,
-          userId: _this.$store.state.id,
-          userType: _this.$store.state.kind } }).
+          parkName: _this.$store.state.enterpriseInfo.parkName } }).
 
       then(function (res) {
         console.log(res);
@@ -837,8 +834,13 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
     },
     clickCancel: function clickCancel() {
+      var that = this;
       console.log('取消');
       this.isShowDiagnosis = false;
+      that.diagnosis_name = '';
+      console.log(that.diagnosis_name);
+      that.diagnosis_phone = '';
+      that.diagnosis_need = '';
     },
     clickConfirm: function clickConfirm() {
       console.log(this.$store.state.enterpriseInfo.isBindPark);
@@ -887,8 +889,19 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
 
           console.log(ss);
           (0, _request.request)(ss).then(function (res) {
-            console.log(res);
+            console.log(res[1].data.data);
+            if (res[1].data.data == '发送成功') {
+              res[1].data.data = '需求提交成功';
+            }
+            uni.showToast({
+              icon: 'none',
+              title: res[1].data.data });
 
+            that.isShowDiagnosis = false;
+            that.diagnosis_name = '';
+            console.log(that.diagnosis_name);
+            that.diagnosis_phone = '';
+            that.diagnosis_need = '';
             console.log('as');
           });
         } else {
@@ -920,12 +933,22 @@ var _request = __webpack_require__(/*! ../../util/request.js */ 11);var uniNavBa
           console.log(_ss);
           (0, _request.request)(_ss).then(function (res) {
             console.log(res);
+            if (res[1].data.data == '发送成功') {
+              res[1].data.data = '需求提交成功';
+            }
+            uni.showToast({
+              icon: 'none',
+              title: res[1].data.data });
 
+            that.isShowDiagnosis = false;
+            that.diagnosis_name = '';
+            console.log(that.diagnosis_name);
+            that.diagnosis_phone = '';
+            that.diagnosis_need = '';
             console.log('as');
           });
         }
       }
-      this.isShowDiagnosis = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

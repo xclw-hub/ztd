@@ -1,10 +1,10 @@
 <template>
-	<view class="mainCon">
+	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
 		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
-						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+						height="80" :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索" :disabled = 'true'></u-search>
 				</view>
 			</view>
 			<view class="navrightCon">
@@ -18,7 +18,7 @@
 		</u-navbar>
 		<view>
 			<view class="dropmenu">
-				<u-dropdown ref="uDropdown">
+				<u-dropdown ref="uDropdown" @open="open" @close="close">
 					<u-dropdown-item :title="region">
 						<view class="slot-content" style="background-color: #FFFFFF;">
 							<scroll-view scroll-y="true" style="height: 350rpx;">
@@ -136,6 +136,7 @@
 		},
 		data() {
 			return {
+				isShowDiagnosis:false,
 				defaultSelected: [],
 				filterData: [], //传入数据，具体数据格式，请下载示例查看
 				keyword: "",
@@ -172,7 +173,7 @@
 				maxPrice: "",
 				pageNumber: 1,
 				dataList: [],
-				isBindPark:''
+				isBindPark:'',
 
 			}
 		},
@@ -495,11 +496,13 @@
 					type: that.$store.state.kind
 				},
 			}).then(res => {
+				console.log(res[1].data)
 				let gt = res[1].data.data
 				let index
 				for (index in gt) {
 					that.provinceList.push(gt[index])
 				}
+				/* console.log() */
 			})
 		},
 		methods: {
@@ -533,6 +536,7 @@
 			},
 			tapprovinceItem(item) {
 				let that = this
+				console.log(this.isShowDiagnosis)
 				that.provinceCurrent = item;
 				that.cityList = item.city
 				if (that.provinceCurrent.title == '不限') {
@@ -569,6 +573,14 @@
 				this.region = "不限地区";
 				this.tapsaveregion()
 				this.$refs.uDropdown.close();
+			},
+			open(){
+				this.isShowDiagnosis=true
+				console.log(this.isShowDiagnosis)
+			},
+			close(){
+				this.isShowDiagnosis=false
+				console.log(this.isShowDiagnosis)
 			},
 			tapsaveregion() {
 				this.pageNumber = 1
@@ -669,7 +681,7 @@
 					return;
 				} else {
 					if (city && city!='不限') {
-						this.region = province + '省' + city+'市';
+						this.region = province + ' ' + city;
 					} else {
 						this.region = province;
 					}
@@ -1032,5 +1044,11 @@
 				}
 			}
 		}
+	}
+	.nos {
+		overflow: hidden;
+		position: fixed;
+		left: 0;
+		top: 0;
 	}
 </style>

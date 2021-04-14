@@ -186,12 +186,16 @@
 	padding-top: 20rpx;
 	border-bottom: 20rpx solid #eee;
 }
-.supplyitem #message.data-v-29e23898 {
+.message.data-v-29e23898 {
 	font-size: 30rpx;
 	font-family: Source Han Sans CN;
 	font-weight: 400;
 	color: #333333;
 	line-height: 42rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 }
 .supplyList .publishinfo.data-v-29e23898 {
 	display: -webkit-box;

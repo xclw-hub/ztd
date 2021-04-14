@@ -105,8 +105,7 @@
 			request({
 				url: '/announcement/govInformationDetail',
 				data: {
-					// pkid:option.pkid,
-					pkid: 58
+					pkid:option.pkid,
 				}
 			}).then(res => {
 				console.log(res[1].data.data)

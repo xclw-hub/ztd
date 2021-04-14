@@ -164,7 +164,7 @@
 				showEmpty:false,		//为true表示显示搜索结果为空界面，false不显示
 				searchContent:'',
 				searchPlaceholder:'请输入关键字搜索',
-				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
+				historyArr:[],
 				region: "不限地区",
 				price: "不限价格",
 				provinceList: [{
@@ -500,7 +500,7 @@
 			clearHistory(){
 				this.historyArr=[]
 				uni.removeStorage({
-					key:'history',
+					key:'supplySearchHistory',
 				})
 			},
 			hideHistory(){
@@ -511,7 +511,7 @@
 			readLocalStorage(){
 				const that = this
 				uni.getStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					success:function(res){
 						//console.log(res.data)
 						that.historyArr = res.data
@@ -521,7 +521,7 @@
 			},
 			saveHistory(){
 				uni.setStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					data:this.historyArr
 				})
 			},

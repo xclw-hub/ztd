@@ -301,20 +301,26 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
       showAddress: false,
       provinceList: _province.default,
       cityList: _city.default,
-      defaultCity: [] };
+      defaultCity: [],
+      supplyId: '' };
 
   },
-  onLoad: function onLoad() {
-    // if(option){
-    // 	let goodsDetail = JSON.parse(option.goodsDetail)
-    // 	this.title = goodsDetail.title
-    // 	this.price = goodsDetail.price
-    // 	this.businessaddress=goodsDetail.source
-    // 	this.address=goodsDetail.address
-    // 	this.contact=goodsDetail.contacts
-    // 	this.mobilePhone=goodsDetail.tel
-    // 	this.detailinfo=goodsDetail.content
-    // }
+  onLoad: function onLoad(option) {
+    console.log(option);
+    if (option) {
+      var goodsDetail = JSON.parse(option.goodsDetail);
+      this.title = goodsDetail.title;
+      this.price = goodsDetail.price;
+      this.businessaddress = goodsDetail.source;
+      this.address = goodsDetail.address;
+      this.contact = goodsDetail.contacts;
+      this.mobilePhone = goodsDetail.tel;
+      this.detailinfo = goodsDetail.content;
+      this.imageArr = goodsDetail.pic;
+      this.imageNumber = this.imageArr.length;
+      this.supplyId = option.supplyId;
+    }
+    console.log(this.supplyId);
   },
   methods: (_methods = {
     clickBack: function clickBack() {
@@ -421,7 +427,6 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
       {
         token: token,
         type: that.$store.state.kind,
-        isEdit: false,
         parkId: that.$store.state.enterpriseInfo.parkId,
         companyId: that.$store.state.enterpriseInfo.parkId,
         memberId: that.$store.state.userInfo.parkId,
@@ -434,15 +439,15 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
         pic: that.imageArr,
         content: that.detailinfo });
 
+      var d;
       if (that.$store.state.kind == '0') {
         console.log('supplyEdit');
         console.log(that.imageArr);
-        (0, _request.request)({
-          url: '/supplyEdit',
-          data: {
+        if (that.supplyId != '') {
+          d = {
             token: token,
             type: that.$store.state.kind,
-            isEdit: false,
+            supplyId: that.supplyId,
             parkId: that.$store.state.enterpriseInfo.parkId,
             companyId: that.$store.state.enterpriseInfo.enterpriseId,
             memberId: 1,
@@ -453,8 +458,28 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
             contacts: that.contact,
             tel: that.mobilePhone,
             pic: that.imageArr,
-            content: that.detailinfo } }).
+            content: that.detailinfo };
 
+        } else {
+          d = {
+            token: token,
+            type: that.$store.state.kind,
+            parkId: that.$store.state.enterpriseInfo.parkId,
+            companyId: that.$store.state.enterpriseInfo.enterpriseId,
+            memberId: 1,
+            title: that.title,
+            price: that.price,
+            source: that.businessaddress,
+            address: that.address,
+            contacts: that.contact,
+            tel: that.mobilePhone,
+            pic: that.imageArr,
+            content: that.detailinfo };
+
+        }
+        (0, _request.request)({
+          url: '/supplyEdit',
+          data: d }).
         then(function (res) {
           console.log(res[1].data);
           var gt = res[1].data.data;
@@ -470,18 +495,29 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
 
 
 
+          } else if (gt == '修改成功') {
+            uni.showToast({
+              title: '修改成功',
+              duration: 2000,
+              icon: 'none' });
+
+            uni.reLaunch(
+            {
+              url: 'myGoods' });
+
+
+
           }
         }).catch(function (err) {
           console.log(err);
         });
       } else {
-        (0, _request.request)({
-          url: '/supplyEdit',
-          data: {
+        if (that.supplyId != '') {
+          d = {
             token: token,
             type: that.$store.state.kind,
+            supplyId: that.supplyId,
             page: that.pageNumber,
-            isEdit: false,
             parkId: that.$store.state.userInfo.parkId,
             companyId: that.$store.state.userInfo.enterpriseId,
             memberId: that.$store.state.id,
@@ -492,14 +528,47 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);var _meth
             contacts: that.contact,
             tel: that.mobilePhone,
             pic: that.imageArr,
-            content: that.detailinfo } }).
+            content: that.detailinfo };
 
+        } else {
+          d = {
+            token: token,
+            type: that.$store.state.kind,
+            page: that.pageNumber,
+            parkId: that.$store.state.userInfo.parkId,
+            companyId: that.$store.state.userInfo.enterpriseId,
+            memberId: that.$store.state.id,
+            title: that.title,
+            price: that.price,
+            source: that.businessaddress,
+            address: that.address,
+            contacts: that.contact,
+            tel: that.mobilePhone,
+            pic: that.imageArr,
+            content: that.detailinfo };
+
+        }
+        (0, _request.request)({
+          url: '/supplyEdit',
+          data: d }).
         then(function (res) {
           console.log(res[1].data);
           var gt = res[1].data.data;
           if (gt == '发布成功') {
             uni.showToast({
               title: '发布成功',
+              duration: 2000,
+              icon: 'none' });
+
+            uni.reLaunch(
+            {
+              url: 'myGoods' });
+
+
+
+          } else if (gt == '修改成功') {
+            uni.showToast({
+              title: '修改成功',
               duration: 2000,
               icon: 'none' });
 

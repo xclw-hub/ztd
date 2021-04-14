@@ -200,13 +200,27 @@
 					  uni.getStorage({
 					  	key:'remindDay',
 						success:function(res){
+							console.log(res.data)
 							console.log('remindDay')
 							let now = new Date()
-							if(_this.isSameWeek(res.data,now)!=true){
-								_this.$refs.selectPopupDialog.open()
-							}else{
-								console.log('本周不提示')
+							let remindArr = JSON.parse(res.data)
+							let length = remindArr.length
+							let i
+							for(i=0;i<length;i++){
+								if(remindArr[i].kind == _this.$store.state.kind && remindArr[i].id == _this.$store.state.id){
+									break;
+								}
 							}
+							if(i<length){
+								if(_this.isSameWeek(remindArr[i].date,now)!=true){
+									_this.$refs.selectPopupDialog.open()
+								}else{
+									console.log('本周不提示')
+								}
+							}else{
+								_this.$refs.selectPopupDialog.open()
+							}
+							
 						},
 						fail:function(){
 							_this.$refs.selectPopupDialog.open()
@@ -285,9 +299,36 @@
 			selectClose(done) {
 				console.log('本周不再提醒');
 				let date = new Date()
-				uni.setStorage({
-					key:'remindDay',
-					data:date
+				let _this = this
+				uni.getStorage({
+					'key':'remindDay',
+					success(res) {
+						let remindArr = JSON.parse(res.data)
+						let length = remindArr.length
+						let i
+						for(i=0;i<length;i++){
+							if(remindArr[i].kind == _this.$store.state.kind && remindArr[i].id == _this.$store.state.id){
+								break;
+							}
+						}
+						if(i<length){
+							remindArr[i].date = date
+						}else{
+							let d = {kind:_this.$store.state.kind,id:_this.$store.state.id,date:date}
+							remindArr.push(d)
+						}
+						uni.setStorage({
+							key:'remindDay',
+							data:JSON.stringify(remindArr)
+						})
+					},
+					fail() {
+						let d = [{kind:_this.$store.state.kind,id:_this.$store.state.id,date:date}]
+						uni.setStorage({
+							key:'remindDay',
+							data:JSON.stringify(d)
+						})
+					}
 				})
 				done()
 			},
@@ -304,8 +345,8 @@
 			},
 			isSameWeek(old,now){
 				let oneDayTime = 1000*60*60*24;
-				let old_count =parseInt(old.getTime()/oneDayTime);
-				let now_other =parseInt(now.getTime()/oneDayTime);
+				let old_count =parseInt(new Date(old).getTime()/oneDayTime);
+				let now_other =parseInt(now.getTime()/oneDayTime)
 			        return parseInt((old_count+4)/7) == parseInt((now_other+4)/7);
 			}
 		},

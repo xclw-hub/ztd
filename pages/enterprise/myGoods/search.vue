@@ -89,7 +89,7 @@
 				showEmpty:false,		//为true表示显示搜索结果为空界面，false不显示
 				searchContent:'',
 				searchPlaceholder:'请输入关键字搜索',
-				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
+				historyArr:[],
 				supplyList:[],
 				pageNumber:''
 			}
@@ -177,7 +177,7 @@
 			// 点击搜索按键
 			clickSearch(){
 				if(this.searchContent!=''){
-					this.showHistory=false		//显示搜索结果页面
+					
 					// 如果该搜索记录为新记录则加入历史记录数组
 					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
@@ -210,6 +210,7 @@
 							if(res[1].data.success == true){
 								let data = res[1].data.data
 								_this.supplyList = data.list
+								this.showHistory=false		//显示搜索结果页面
 								if(_this.supplyList.length <= 0){
 									this.showEmpty = true
 								}else{
@@ -266,7 +267,7 @@
 			clearHistory(){
 				this.historyArr=[]
 				uni.removeStorage({
-					key:'history',
+					key:'supplySearchHistory',
 				})
 			},
 			hideHistory(){
@@ -277,7 +278,7 @@
 			readLocalStorage(){
 				const that = this
 				uni.getStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					success:function(res){
 						//console.log(res.data)
 						that.historyArr = res.data
@@ -287,7 +288,7 @@
 			},
 			saveHistory(){
 				uni.setStorage({
-					key:'history',
+					key:'supplySearchHistory',
 					data:this.historyArr
 				})
 			},

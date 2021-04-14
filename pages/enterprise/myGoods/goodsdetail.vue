@@ -142,7 +142,7 @@
 			</view>
 		</view>
 		<view class="menueBar" v-if="dropOptionShow">
-			<view class="item" v-if="dropOptionShow" @click="publish">
+			<view class="item" v-if="dropOptionShow" @click="edit">
 				重新编辑
 			</view>
 			<view class="item" style="border: none;" v-if="dropOptionShow" @click="doDelete">
@@ -284,7 +284,7 @@
 					if(res[1].data.success != true){
 						console.log(res[1].data.data)
 					}else{
-						uni.reLaunch({
+						uni.navigateTo({
 							url:'myGoods'
 						})
 					}
@@ -301,12 +301,11 @@
 				console.log('否');
 				done()
 			},
-			publish() {
-				// console.log("我要发布")
-				// uni.navigateTo({
-				// 	url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)
-				// })
-				
+			edit() {
+				console.log("我要发布")
+				uni.navigateTo({
+					url: './publish?goodsDetail='+JSON.stringify(this.goodsDetail)+'&supplyId='+this.supplyId
+				})
 			},
 		}
 	}

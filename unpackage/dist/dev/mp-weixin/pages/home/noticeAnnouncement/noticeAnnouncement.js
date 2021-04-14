@@ -227,15 +227,14 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);
 
 var _parse = _interopRequireDefault(__webpack_require__(/*! @/components/feng-parse/parse.vue */ 989));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 1145));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 function timestampToTime(timestamp) {
-  var date = new Date(); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
   var Y = date.getFullYear() + '-';
   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
   var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
   var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-  var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-  var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+  var m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
 
-  var strDate = Y + M + D + h + m + s;
+  var strDate = Y + M + D + h + m;
   return strDate;
 
 }var _default =
@@ -292,6 +291,7 @@ function timestampToTime(timestamp) {
   },
   filters: {
     toDate: function toDate(value) {
+      console.log(value);
       var date1 = timestampToTime(value);
       return date1;
     } },

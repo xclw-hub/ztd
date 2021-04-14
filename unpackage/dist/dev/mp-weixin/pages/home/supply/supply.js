@@ -305,6 +305,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
 
   data: function data() {
     return {
+      isShowDiagnosis: false,
       defaultSelected: [],
       filterData: [], //传入数据，具体数据格式，请下载示例查看
       keyword: "",
@@ -664,11 +665,13 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
         type: that.$store.state.kind } }).
 
     then(function (res) {
+      console.log(res[1].data);
       var gt = res[1].data.data;
       var index;
       for (index in gt) {
         that.provinceList.push(gt[index]);
       }
+      /* console.log() */
     });
   },
   methods: {
@@ -702,6 +705,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
     },
     tapprovinceItem: function tapprovinceItem(item) {
       var that = this;
+      console.log(this.isShowDiagnosis);
       that.provinceCurrent = item;
       that.cityList = item.city;
       if (that.provinceCurrent.title == '不限') {
@@ -738,6 +742,14 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
       this.region = "不限地区";
       this.tapsaveregion();
       this.$refs.uDropdown.close();
+    },
+    open: function open() {
+      this.isShowDiagnosis = true;
+      console.log(this.isShowDiagnosis);
+    },
+    close: function close() {
+      this.isShowDiagnosis = false;
+      console.log(this.isShowDiagnosis);
     },
     tapsaveregion: function tapsaveregion() {
       this.pageNumber = 1;
@@ -838,7 +850,7 @@ var _request = __webpack_require__(/*! ../../../util/request.js */ 11);function 
         return;
       } else {
         if (city && city != '不限') {
-          this.region = province + '省' + city + '市';
+          this.region = province + ' ' + city;
         } else {
           this.region = province;
         }

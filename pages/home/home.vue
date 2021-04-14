@@ -8,7 +8,7 @@
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
 					<view class="searchInput">
-						<input type="text" v-model="keywords" placeholder="请输入搜索关键词" />
+						<input disabled=true type="text" v-model="keywords" placeholder="请输入搜索关键词" />
 					</view>
 				</view>
 				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-show="isParked"></image>
@@ -603,9 +603,10 @@
 				request({
 					url: '/cancelBindPark',
 					data: {
-						token: token,
-						userId: _this.$store.state.id,
-						userType: _this.$store.state.kind
+						id:_this.$store.state.id,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						token:token,
+						parkName:_this.$store.state.enterpriseInfo.parkName
 					}
 				}).then(res => {
 					console.log(res)
@@ -691,8 +692,13 @@
 
 			},
 			clickCancel() {
+				let that = this
 				console.log('取消')
 				this.isShowDiagnosis = false
+				that.diagnosis_name=''
+				console.log(that.diagnosis_name)
+				that.diagnosis_phone=''
+				that.diagnosis_need=''
 			},
 			clickConfirm() {
 				console.log(this.$store.state.enterpriseInfo.isBindPark)
@@ -741,8 +747,19 @@
 						}
 						console.log(ss)
 						request(ss).then((res) => {
-							console.log(res)
-
+							console.log(res[1].data.data)
+							if(res[1].data.data=='发送成功'){
+								res[1].data.data='需求提交成功'
+							}
+							uni.showToast({
+								icon: 'none',
+								title: res[1].data.data
+							})
+							that.isShowDiagnosis = false
+							that.diagnosis_name=''
+							console.log(that.diagnosis_name)
+							that.diagnosis_phone=''
+							that.diagnosis_need=''
 							console.log('as')
 						})
 					} else {
@@ -774,12 +791,22 @@
 						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res)
-
+							if(res[1].data.data=='发送成功'){
+								res[1].data.data='需求提交成功'
+							}
+							uni.showToast({
+							    icon: 'none',
+							    title: res[1].data.data
+							})
+							that.isShowDiagnosis = false
+							that.diagnosis_name=''
+							console.log(that.diagnosis_name)
+							that.diagnosis_phone=''
+							that.diagnosis_need=''
 							console.log('as')
 						})
 					}
 				}
-				this.isShowDiagnosis = false
 			}
 		}
 	}

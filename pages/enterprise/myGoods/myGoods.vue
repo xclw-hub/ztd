@@ -1,6 +1,6 @@
 <template>
 	<view class="mainCon">
-		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
+		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background" :customBack="customBack">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false" height="80"
@@ -55,6 +55,10 @@
 				token:''
 			}
 		},
+		onShow() {
+			this.page=1
+			this.getSupplyInformationList()
+		},
 		onLoad() {
 			this.token = uni.getStorageSync('token');
 			this.page=1
@@ -65,6 +69,20 @@
 			this.getSupplyInformationList()
 		},
 		methods: {
+			// onNavigationBarButtonTap(e) {
+			// 	console.log("success")		
+			// },
+			customBack(){
+				if (this.$store.state.kind === '0') {
+					uni.navigateTo({
+						url:'../enterprise/enterprise'
+					})
+				}else{
+					uni.navigateTo({
+						url:'../../personal/personal'
+					})
+				}
+			},
 			tapdetail(index) {
 				uni.navigateTo({
 					url: './goodsdetail?supplyId='+this.goodsList[index].pkid
@@ -100,7 +118,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList = _this.goodsList.concat(gt.list)
+							_this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
@@ -129,7 +147,7 @@
 						if(len == 0){
 							_this.goodsList = gt.list
 						}else{
-							_this.goodsList = _this.goodsList.concat(gt.list)
+							_this.goodsList.concat(gt.list)
 						}
 						let length = _this.goodsList.length
 						for(let i = len;i<length;i++){
