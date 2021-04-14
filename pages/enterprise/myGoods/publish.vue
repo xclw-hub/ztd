@@ -164,8 +164,8 @@
 		},
 		methods: {
 			clickBack() {
-				uni.reLaunch({
-					url:'myGoods'
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			changeValue(){
@@ -329,9 +329,9 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
-							{
+							uni.navigateTo({
 								url:'myGoods'
+
 							}
 								
 							)
@@ -341,12 +341,13 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'myGoods'
 							}
 								
 							)
+
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -400,9 +401,9 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
-							{
+							uni.navigateTo({
 								url:'myGoods'
+
 							}
 								
 							)
@@ -412,12 +413,13 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'myGoods'
 							}
 								
 							)
+
 						}
 					})
 				}

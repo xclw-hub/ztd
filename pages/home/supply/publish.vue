@@ -158,7 +158,7 @@
 		},
 		methods: {
 			clickBack() {
-				uni.reLaunch(
+				uni.navigateTo(
 				{
 					url:'supply'
 				}
@@ -305,7 +305,7 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'../../enterprise/myGoods/myGoods'
 							}
@@ -344,7 +344,7 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'../../enterprise/myGoods/myGoods'
 							}
