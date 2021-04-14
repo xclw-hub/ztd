@@ -325,8 +325,9 @@
 						body:'您在 '+ data[0].createTime +' 提交的融资需求已反馈，请查看详情。',
 					}
 					_this.financeInform.splice(0,1,informObj)
-					let nowTime = new Date().getTime()		//获取当前时间戳
-					let endTime = Date.parse(new Date(informObj.time))
+					let nowTime = new Date().getTime()  //获取当前时间戳
+					let endTime = new Date(informObj.time).getTime()
+					// console.log(endTime)
 					_this.financeInformTimeDiff = nowTime - endTime
 				}
 				// console.log(_this.financeInform)

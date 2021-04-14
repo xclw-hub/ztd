@@ -18,7 +18,7 @@
 		</u-navbar>
 		<view>
 			<view class="dropmenu">
-				<u-dropdown ref="uDropdown" @open="open" @close="close">
+				<u-dropdown ref="uDropdown">
 					<u-dropdown-item :title="region">
 						<view class="slot-content" style="background-color: #FFFFFF;">
 							<scroll-view scroll-y="true" style="height: 350rpx;">
@@ -578,14 +578,6 @@
 				this.region = "不限地区";
 				this.tapsaveregion()
 				this.$refs.uDropdown.close();
-			},
-			open(){
-				this.isShowDiagnosis=true
-				console.log(this.isShowDiagnosis)
-			},
-			close(){
-				this.isShowDiagnosis=false
-				console.log(this.isShowDiagnosis)
 			},
 			tapsaveregion() {
 				this.pageNumber = 1
