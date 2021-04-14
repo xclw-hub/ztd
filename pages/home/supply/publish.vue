@@ -72,8 +72,9 @@
 			</view>
 			<view class="detailinfo">
 				<text>详细信息</text>
-				<input type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="detailinfo" maxlength="1000" @focus="detailinfoFocus" @blur="detailinfoBlue" />
+				<textarea type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
+					v-model.trim="detailinfo" maxlength="1000" @focus="detailinfoFocus" @blur="detailinfoBlue" >
+				</textarea>
 			</view>
 		</view>
 
@@ -730,7 +731,7 @@
 		line-height: 26rpx;
 	}
 
-	.detailinfo input {
+	.detailinfo textarea {
 		margin-top: 46rpx;
 	}
 
