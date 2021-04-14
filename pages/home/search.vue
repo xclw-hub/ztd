@@ -44,7 +44,7 @@
 				<view class="listCon">
 					<view class="listItem" v-for="(item,index) in dataList" :key='index' @click="toDetail(item)">
 						<view class="leftCon">
-							<view class="title">
+							<view class="title" v-if="item.title.toLowerCase().indexOf(searchContent.toLowerCase()) >= 0">
 								<text>
 									{{item.title.slice(0,item.title.toLowerCase().indexOf(searchContent.toLowerCase()))}}
 								</text>
@@ -53,6 +53,11 @@
 								</text>
 								<text>
 									{{item.title.substr(item.title.toLowerCase().indexOf(searchContent.toLowerCase())+searchContent.length)}}
+								</text>
+							</view>
+							<view class="title" v-else>
+								<text>
+									{{item.title}}
 								</text>
 							</view>
 							<view class="desc">
@@ -107,7 +112,7 @@
 				showEmpty:false,		//为true表示显示搜索结果为空界面，false不显示
 				searchContent:'',
 				searchPlaceholder:'请输入关键字搜索',
-				historyArr:['多CPU结构分布式控制','侦察机器人','数控机床','传感器','多孔钻床','金属切削机床','伺服电机','侦察机器人'],
+				historyArr:[],
 				tabList: [],
 				tabCurrent: 0,
 				dataList:[],
@@ -124,7 +129,7 @@
 				keyword: _this.searchContent,
 				page: this.pageNumber
 			}
-			request({
+			_this.$request({
 				url: '/industry/dataList',
 				data: d,
 			}).then(res => {
@@ -162,7 +167,7 @@
 			// 点击搜索按键
 			clickSearch(){
 				if(this.searchContent!=''){
-					this.showHistory=false		//显示搜索结果页面
+					
 					// 如果该搜索记录为新记录则加入历史记录数组
 					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
@@ -198,6 +203,12 @@
 					}).then(res =>{
 						console.log(res[1].data)
 						_this.dataList = res[1].data.data.list
+						this.showHistory=false		//显示搜索结果页面
+						if(_this.dataList.length<=0){
+							this.showEmpty = true
+						}else{
+							this.showEmpty = false
+						}
 					}).catch(err =>{
 						console.log(err)
 					})
