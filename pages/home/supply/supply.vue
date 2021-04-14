@@ -1,6 +1,6 @@
 <template>
 	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
-		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
+		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background" :customBack="customBack">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
@@ -506,6 +506,11 @@
 			})
 		},
 		methods: {
+			customBack(){
+				uni.navigateTo({
+					url:'../home'
+				})
+			},
 			toLike() {
 				uni.navigateTo({
 					url: './like'

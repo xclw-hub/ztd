@@ -283,6 +283,7 @@
 						_this.$store.commit('setEnterpriseInfo', tem)
 						console.log(_this.$store.state.enterpriseInfo)
 						_this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo
+						console.log(_this.user_logo)
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -372,6 +373,7 @@
 						_this.$store.commit('setUserInfo', tem)
 						console.log(_this.$store.state.userInfo)
 						_this.user_logo = _this.$store.state.userInfo.contactHead
+						console.log(_this.user_logo)
 					} else {
 						console.log(data.statusMsg)
 					}
