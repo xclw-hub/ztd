@@ -242,6 +242,7 @@
 							if(res[1].data.success == true){
 								let data = res[1].data.data
 								_this.supplyList = data.list
+								this.showHistory=false		//显示搜索结果页面
 								if(_this.supplyList.length <= 0){
 									this.showEmpty = true
 								}else{
