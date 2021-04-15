@@ -14,7 +14,10 @@
 		</uniNavBar>
 		<view class="content">
 			<view class="title">
-				<span>企业账号登录</span>
+				<view id="psw">
+					<span>账号登录</span>
+				</view>
+				<navigator id="personVerificationLogin" url="/pages/login/enterprisePhoneNumberLogin">手机号登录</navigator>
 			</view>
 			<table width="100%" rules=rows>
 				<tr>
@@ -101,6 +104,7 @@
 					uni.showToast({
 						icon: 'none',
 						position: 'bottom',
+						duration: 2000,
 						title: '请输入账号'
 					})
 					return false
@@ -218,14 +222,27 @@
 	}
 	.title{
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		justify-content: flex-start;
 		margin-top: 50rpx;
 	}
-	.title span{
+	.title #psw{
+		border-right:1rpx solid #9C9C9C;
+		padding-right: 29rpx;
+		margin-right: 29rpx;
+	}
+	.title #psw span{
 		font-size: 48rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 500;
 		color: #333333;
+		line-height: 26rpx;
+	}
+	.title #personVerificationLogin{
+		font-size: 34rpx;
+		font-family: Source Han Sans CN;
+		font-weight: 400;
+		color: #999999;
 		line-height: 26rpx;
 	}
 	.placeholderStyle{

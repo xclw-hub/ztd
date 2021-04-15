@@ -30,10 +30,22 @@
 	export default {
 		data() {
 			return {
-
+				backButtonPress: 0
 			}
 		},
 		onLoad() {
+		},
+		onBackPress() {
+			this.backButtonPress++;
+			if (this.backButtonPress > 1) { 
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			} 
+			setTimeout(function() {
+				this.backButtonPress = 0;
+			}, 1000);
+			return true;
 		},
 		methods: {
 			register(){

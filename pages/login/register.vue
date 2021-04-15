@@ -293,6 +293,7 @@
 	.content{
 		padding-left: 39rpx;
 		padding-right: 39rpx;
+		padding-bottom: 60rpx;
 	}
 	.title{
 		display: flex;

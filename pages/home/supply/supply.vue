@@ -1,6 +1,6 @@
 <template>
 	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
-		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
+		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background" :customBack="customBack">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false"
@@ -18,7 +18,7 @@
 		</u-navbar>
 		<view>
 			<view class="dropmenu">
-				<u-dropdown ref="uDropdown" @open="open" @close="close">
+				<u-dropdown ref="uDropdown">
 					<u-dropdown-item :title="region">
 						<view class="slot-content" style="background-color: #FFFFFF;">
 							<scroll-view scroll-y="true" style="height: 350rpx;">
@@ -506,6 +506,11 @@
 			})
 		},
 		methods: {
+			customBack(){
+				uni.navigateTo({
+					url:'../home'
+				})
+			},
 			toLike() {
 				uni.navigateTo({
 					url: './like'
@@ -573,14 +578,6 @@
 				this.region = "不限地区";
 				this.tapsaveregion()
 				this.$refs.uDropdown.close();
-			},
-			open(){
-				this.isShowDiagnosis=true
-				console.log(this.isShowDiagnosis)
-			},
-			close(){
-				this.isShowDiagnosis=false
-				console.log(this.isShowDiagnosis)
 			},
 			tapsaveregion() {
 				this.pageNumber = 1
@@ -1048,7 +1045,7 @@
 	.nos {
 		overflow: hidden;
 		position: fixed;
-		left: 0;
-		top: 0;
+		width: 100%;
+		height: 100%;
 	}
 </style>
