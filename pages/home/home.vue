@@ -226,7 +226,8 @@
 								console.log(_this.tabList);
 								let d = {
 									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
+									/* keyword: _this.tabList[_this.tabCurrent].title, */
+									keyword:'',
 									page: _this.pageNumber,
 								}
 								request({
@@ -251,7 +252,8 @@
 								console.log(_this.tabList);
 								let d = {
 									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
+									/* keyword: _this.tabList[_this.tabCurrent].title, */
+									keyword:'',
 									page: _this.pageNumber,
 								}
 								request({
@@ -317,7 +319,8 @@
 								console.log(_this.tabList);
 								let d = {
 									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
+									/* keyword: _this.tabList[_this.tabCurrent].title, */
+									keyword:'',
 									page: _this.pageNumber,
 								}
 								request({
@@ -341,7 +344,8 @@
 								console.log(_this.tabList);
 								let d = {
 									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
+									/* keyword: _this.tabList[_this.tabCurrent].title, */
+									keyword:'',
 									page: _this.pageNumber,
 								}
 								request({
@@ -373,7 +377,8 @@
 			console.log(this.pageNumber)
 			let d = {
 				industryId: _this.tabList[_this.tabCurrent].pkid,
-				keyword: _this.tabList[_this.tabCurrent].title,
+				/* keyword: _this.tabList[_this.tabCurrent].title, */
+				keyword:'',
 				page: _this.pageNumber+1
 			}
 			request({
@@ -439,7 +444,8 @@
 					console.log(_this.tabList);
 					let d = {
 						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
+						/* keyword: _this.tabList[_this.tabCurrent].title, */
+						keyword:'',
 						page: _this.pageNumber,
 					}
 					request({
