@@ -1,5 +1,5 @@
 <template>
-	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
+	<view :class="isShowDiagnosis==true?'nos':''">
 		<u-navbar height="60" back-icon-color="#fff" :title="null" :background="background">
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
@@ -1046,7 +1046,7 @@
 	.nos {
 		overflow: hidden;
 		position: fixed;
-		left: 0;
-		top: 0;
+		width: 100%;
+		height: 100%;
 	}
 </style>
