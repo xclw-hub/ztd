@@ -1,6 +1,6 @@
 <template>
 	<view class="mainCon" :class="isShowDiagnosis==true?'nos':''">
-		<view class="navbar">
+		<view class="navbar" id="scrollView1">
 			<view class="avatarCon" @click="enterpriseHome">
 				<image :src="user_logo!=undefined ? user_logo : '../../static/home/userIcon.png'" mode=""></image>
 			</view>
@@ -20,41 +20,41 @@
 		<view style="height: 178rpx;">
 
 		</view>
-		<view class="fix">
-			<view class="menubar">
-				<view class="item" v-for="(item,index) in menuList1" :key='index' @click="enterpage1(index)">
-					<image :src="item.icon" mode=""></image>
-					<view class="name">
-						{{item.name}}
-					</view>
-				</view>
-			</view>
-			<view class="menubar2">
-				<view class="item" v-for="(item,index) in menuList2" :key='index' @click="enterpage2(index)">
-					<image :src="item.icon" mode=""></image>
-					<view class="name">
-						{{item.name}}
-					</view>
-				</view>
-			</view>
-			<view class="labelTitle">
-				产业视角
-			</view>
-			<view class="tabCon">
-				<view class="tabItem" :style="{paddingLeft:index!=0?'20rpx':'0rpx'}"
-					:class="tabCurrent==index?'active':''" v-for="(item,index) in tabList" :key='index'
-					@click="tapchange(index)">
-					{{item.title}}
-					<view class="tabline" v-if="index!=0">
-
-					</view>
+		<!-- 		<view class="fix"> -->
+		<view class="menubar">
+			<view class="item" v-for="(item,index) in menuList1" :key='index' @click="enterpage1(index)">
+				<image :src="item.icon" mode=""></image>
+				<view class="name">
+					{{item.name}}
 				</view>
 			</view>
 		</view>
-		<view class="pad">
+		<view class="menubar2">
+			<view class="item" v-for="(item,index) in menuList2" :key='index' @click="enterpage2(index)">
+				<image :src="item.icon" mode=""></image>
+				<view class="name">
+					{{item.name}}
+				</view>
+			</view>
+		</view>
+		<view class="labelTitle">
+			产业视角
+		</view>
+		<view :class="isTop == 1 ? 'tabCon1' :'tabCon'" id="scrollView">
+			<view class="tabCon">
+				<view class="tabItem" :class="tabCurrent==index?'active':''" v-for="(item,index) in tabList"
+					:key='index' @click="tapchange(index)">
+					{{item.title}}
+				</view>
+			</view>
+		</view>
+		<view v-if="isTop" style="height: 80rpx;">
 
+		</view>
+		<!-- 		</view> -->
+		<view class="pad">
 			<view class="listCon">
-				<view class="listItem" v-for="(item,index) in dataList" :key='index'>
+				<view class="listItem" v-for="(item,index) in tabList[tabCurrent].data" :key='index'>
 					<view class="leftCon" @click="toDetail(item.pkid)">
 						<view class="title">
 							{{item.title}}
@@ -80,7 +80,8 @@
 			<view class="diagnosis-title">
 				<text>专家诊断</text>
 			</view>
-			<text class="diagnosis-tips">专家包含技术专家和行业专家：技术专家帮助企业解决产品研发和生产过程中遇到的各类技术难题；行业专家主要帮助企业提供政策解读和指导、行业分析，投资分析、风险评估等服务。</text>
+			<text
+				class="diagnosis-tips">专家包含技术专家和行业专家：技术专家帮助企业解决产品研发和生产过程中遇到的各类技术难题；行业专家主要帮助企业提供政策解读和指导、行业分析，投资分析、风险评估等服务。</text>
 			<view class="diagnosis-name">
 				<view class="diagnosis-name-img">
 					<image src="../../static/home/diagnosis_name.png"></image>
@@ -176,16 +177,36 @@
 				dataList: [],
 				user_logo: '',
 				joinedPark: '',
-				backButtonPress:0
+				backButtonPress: 0,
+				isTop: 0,
+				myScroll: 200
 			}
+		},
+		onPageScroll: function(e) {
+
+			if (e.scrollTop > this.myScroll) {
+				this.isTop = 1
+			} else {
+				this.isTop = 0
+			}
+		},
+		mounted() {
+			console.log('mounted 组件挂载完毕状态===============》');
+			const query = uni.createSelectorQuery().in(this);
+			query.select('#scrollView').boundingClientRect(data => {
+				console.log("得到布局位置信息" + JSON.stringify(data));
+				console.log("节点离页面顶部的距离为" + data.top);
+				this.myScroll = data.top - 93
+				console.log(this.myScroll)
+			}).exec();
 		},
 		onBackPress() {
 			this.backButtonPress++;
-			if (this.backButtonPress > 1) { 
+			if (this.backButtonPress > 1) {
 				plus.runtime.quit();
 			} else {
 				plus.nativeUI.toast('再按一次退出应用');
-			} 
+			}
 			setTimeout(function() {
 				this.backButtonPress = 0;
 			}, 1000);
@@ -198,10 +219,6 @@
 			console.log(_this.$store.state.kind)
 			this.pageNumber = 1
 			if (_this.$store.state.kind === '0') {
-				// if (_this.$store.state.id) {
-				// 	_this.user_logo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.enterpriseInfo.enterpriseId+'&type=0'
-				// }
-				// console.log('头像', _this.$store.state.id, _this.user_logo)
 				_this.$request({
 					url: '/enterpriseDetail',
 					data: {
@@ -234,49 +251,60 @@
 									parkid: data.parkId
 								}
 							}).then(res => {
-								console.log(res[1].data.data);
 								_this.tabList = res[1].data.data;
-								console.log(_this.tabList);
-								let d = {
-									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
-									page: _this.pageNumber,
+								for (let a in _this.tabList) {
+									let id = _this.tabList[a].pkid
+									console.log(id)
+									let d = {
+										industryId: id,
+										keyword: _this.tabList[a].title,
+										page: 1,
+									}
+									request({
+										url: '/industry/dataList',
+										data: d,
+									}).then(res => {
+										_this.tabList[a].data = res[1].data.data.list
+										_this.tabList[a].pageNumber = 1
+										console.log(_this.tabList)
+										// let a = _this.dataList.length
+										// console.log(a)
+										// _this.dataList = res[1].data.data.list
+										// console.log(_this.dataList)
+									})
 								}
-								request({
-									url: '/industry/dataList',
-									data: d,
-								}).then(res => {
-									console.log(res[1].data.data.list)
-									let a = _this.dataList.length
-									console.log(a)
-									_this.dataList = res[1].data.data.list
-									console.log(_this.dataList)
-								})
 							})
 						} else {
 							tem.isBindPark = false
 							_this.isParked = false
 							request({
 								url: '/industry/dataTitle',
-							}).then(res => {
-								console.log(res[1].data.data);
-								_this.tabList = res[1].data.data;
-								console.log(_this.tabList);
-								let d = {
-									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
-									page: _this.pageNumber,
+								data: {
+									parkid: data.parkId
 								}
-								request({
-									url: '/industry/dataList',
-									data: d,
-								}).then(res => {
-									console.log(res[1].data.data.list)
-									let a = _this.dataList.length
-									console.log(a)
-									_this.dataList = res[1].data.data.list
-									console.log(_this.dataList)
-								})
+							}).then(res => {
+								_this.tabList = res[1].data.data;
+								for (let a in _this.tabList) {
+									let id = _this.tabList[a].pkid
+									console.log(id)
+									let d = {
+										industryId: id,
+										keyword: _this.tabList[a].title,
+										page: 1,
+									}
+									request({
+										url: '/industry/dataList',
+										data: d,
+									}).then(res => {
+										_this.tabList[a].data = res[1].data.data.list
+										_this.tabList[a].pageNumber = 1
+										console.log(_this.tabList)
+										// let a = _this.dataList.length
+										// console.log(a)
+										// _this.dataList = res[1].data.data.list
+										// console.log(_this.dataList)
+									})
+								}
 							})
 						}
 						// console.log(tem)
@@ -326,48 +354,59 @@
 									parkid: data.parkId
 								}
 							}).then(res => {
-								console.log(res[1].data.data);
 								_this.tabList = res[1].data.data;
-								console.log(_this.tabList);
-								let d = {
-									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
-									page: _this.pageNumber,
+								for (let a in _this.tabList) {
+									let id = _this.tabList[a].pkid
+									console.log(id)
+									let d = {
+										industryId: id,
+										keyword: _this.tabList[a].title,
+										page: 1,
+									}
+									request({
+										url: '/industry/dataList',
+										data: d,
+									}).then(res => {
+										_this.tabList[a].data = res[1].data.data.list
+										_this.tabList[a].pageNumber = 1
+										console.log(_this.tabList)
+										// let a = _this.dataList.length
+										// console.log(a)
+										// _this.dataList = res[1].data.data.list
+										// console.log(_this.dataList)
+									})
 								}
-								request({
-									url: '/industry/dataList',
-									data: d,
-								}).then(res => {
-									console.log(res[1].data.data.list)
-									let a = _this.dataList.length
-									console.log(a)
-									_this.dataList = res[1].data.data.list
-									console.log(_this.dataList)
-								})
 							})
-						}else{
+						} else {
 							_this.isParked = false
 							request({
 								url: '/industry/dataTitle',
-							}).then(res => {
-								console.log(res[1].data.data);
-								_this.tabList = res[1].data.data;
-								console.log(_this.tabList);
-								let d = {
-									industryId: _this.tabList[_this.tabCurrent].pkid,
-									keyword: _this.tabList[_this.tabCurrent].title,
-									page: _this.pageNumber,
+								data: {
+									parkid: data.parkId
 								}
-								request({
-									url: '/industry/dataList',
-									data: d,
-								}).then(res => {
-									console.log(res[1].data.data.list)
-									let a = _this.dataList.length
-									console.log(a)
-									_this.dataList = res[1].data.data.list
-									console.log(_this.dataList)
-								})
+							}).then(res => {
+								_this.tabList = res[1].data.data;
+								for (let a in _this.tabList) {
+									let id = _this.tabList[a].pkid
+									console.log(id)
+									let d = {
+										industryId: id,
+										keyword: _this.tabList[a].title,
+										page: 1,
+									}
+									request({
+										url: '/industry/dataList',
+										data: d,
+									}).then(res => {
+										_this.tabList[a].data = res[1].data.data.list
+										_this.tabList[a].pageNumber = 1
+										console.log(_this.tabList)
+										// let a = _this.dataList.length
+										// console.log(a)
+										// _this.dataList = res[1].data.data.list
+										// console.log(_this.dataList)
+									})
+								}
 							})
 						}
 						_this.$store.commit('setUserInfo', tem)
@@ -389,7 +428,7 @@
 			let d = {
 				industryId: _this.tabList[_this.tabCurrent].pkid,
 				keyword: _this.tabList[_this.tabCurrent].title,
-				page: _this.pageNumber+1
+				page: _this.tabList[_this.tabCurrent].pageNumber + 1
 			}
 			request({
 				url: '/industry/dataList',
@@ -397,14 +436,14 @@
 			}).then(res => {
 				if (res[1].data.data.list.length != 0) {
 					_this.pageNumber++
-					let a = _this.dataList.length
+					let a = _this.tabList[_this.tabCurrent].data.length
 					console.log(a)
 					let c = 0
 					for (let b = a; b < a + res[1].data.data.list.length; b++) {
-						_this.dataList.push(res[1].data.data.list[c])
+						_this.tabList[_this.tabCurrent].data.push(res[1].data.data.list[c])
 						c++
 					}
-					console.log(_this.dataList)
+					console.log(_this.tabList[_this.tabCurrent].data)
 				} else {
 					console.log('没有更多内容了')
 					uni.showToast({
@@ -444,30 +483,12 @@
 			tapchange(index) {
 				this.dataList = []
 				this.tabCurrent = index
-				this.pageNumber = 1
-				let _this = this
-				request({
-					url: '/industry/dataTitle',
-				}).then(res => {
-					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
-					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
-						page: _this.pageNumber,
-					}
-					request({
-						url: '/industry/dataList',
-						data: d,
-					}).then(res => {
-						console.log(res[1].data.data.list)
-						let a = _this.dataList.length
-						console.log(a)
-						_this.dataList = res[1].data.data.list
-						console.log(_this.dataList)
-					})
-				})
+				if(this.isTop==1){
+					uni.pageScrollTo({
+						scrollTop: 247,
+						duration: 0
+					});
+				}
 			},
 			enterSearch() {
 				uni.navigateTo({
@@ -605,10 +626,10 @@
 				request({
 					url: '/cancelBindPark',
 					data: {
-						id:_this.$store.state.id,
-						parkId:_this.$store.state.enterpriseInfo.parkId,
-						token:token,
-						parkName:_this.$store.state.enterpriseInfo.parkName
+						id: _this.$store.state.id,
+						parkId: _this.$store.state.enterpriseInfo.parkId,
+						token: token,
+						parkName: _this.$store.state.enterpriseInfo.parkName
 					}
 				}).then(res => {
 					console.log(res)
@@ -630,8 +651,7 @@
 							icon: 'none'
 						});
 						return
-					} else {
-					}
+					} else {}
 				} else {
 					if (!that.$store.state.enterpriseInfo.isBindPark) {
 						if (that.$store.state.enterpriseInfo.parkStatus == 0) {
@@ -644,12 +664,14 @@
 							})
 							return
 						}
-					} else {
-					}
+					} else {}
 				}
 				uni.scanCode({
 					success: function(res) {
 						console.log('条码内容：' + res.result);
+						let a = res.result.substring(res.result.lastIndexOf("pkid=") + 5, res.result.length)
+						console.log(a)
+						res.result = a
 						if (that.$store.state.kind == '0') {
 							console.log({
 								meetingId: res.result,
@@ -697,10 +719,10 @@
 				let that = this
 				console.log('取消')
 				this.isShowDiagnosis = false
-				that.diagnosis_name=''
+				that.diagnosis_name = ''
 				console.log(that.diagnosis_name)
-				that.diagnosis_phone=''
-				that.diagnosis_need=''
+				that.diagnosis_phone = ''
+				that.diagnosis_need = ''
 			},
 			clickConfirm() {
 				console.log(this.$store.state.enterpriseInfo.isBindPark)
@@ -750,18 +772,18 @@
 						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res[1].data.data)
-							if(res[1].data.data=='发送成功'){
-								res[1].data.data='需求提交成功'
+							if (res[1].data.data == '发送成功') {
+								res[1].data.data = '需求提交成功'
 							}
 							uni.showToast({
 								icon: 'none',
 								title: res[1].data.data
 							})
 							that.isShowDiagnosis = false
-							that.diagnosis_name=''
+							that.diagnosis_name = ''
 							console.log(that.diagnosis_name)
-							that.diagnosis_phone=''
-							that.diagnosis_need=''
+							that.diagnosis_phone = ''
+							that.diagnosis_need = ''
 							console.log('as')
 						})
 					} else {
@@ -793,18 +815,18 @@
 						console.log(ss)
 						request(ss).then((res) => {
 							console.log(res)
-							if(res[1].data.data=='发送成功'){
-								res[1].data.data='需求提交成功'
+							if (res[1].data.data == '发送成功') {
+								res[1].data.data = '需求提交成功'
 							}
 							uni.showToast({
-							    icon: 'none',
-							    title: res[1].data.data
+								icon: 'none',
+								title: res[1].data.data
 							})
 							that.isShowDiagnosis = false
-							that.diagnosis_name=''
+							that.diagnosis_name = ''
 							console.log(that.diagnosis_name)
-							that.diagnosis_phone=''
-							that.diagnosis_need=''
+							that.diagnosis_phone = ''
+							that.diagnosis_need = ''
 							console.log('as')
 						})
 					}
@@ -813,75 +835,7 @@
 		}
 	}
 </script>
-
 <style lang="scss" scoped>
-	/* .navbar {
-		width: 100%;
-		background-color: #2E6BDE;
-		padding-top: 66rpx;
-		padding-bottom: 42rpx;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		position: fixed;
-		top: 0;
-		z-index: 555;
-
-		.navleftCon {
-			display: flex;
-			align-items: center;
-			margin-left: 20rpx;
-
-			.avatarCon {
-				width: 68rpx;
-				height: 68rpx;
-				border-radius: 50%;
-
-				image {
-					width: 100%;
-					height: 100%;
-					border-radius: 50%;
-				}
-			}
-
-			.searchBar {
-				width: 468rpx;
-				height: 72rpx;
-				border-radius: 15rpx;
-				background-color: #fff;
-				display: flex;
-				align-items: center;
-				padding: 0 20rpx;
-				margin-left: 20rpx;
-
-				.searchImg {
-					width: 30rpx;
-					height: 30rpx;
-				}
-
-				.searchInput {
-					margin-left: 15rpx;
-				}
-			}
-		}
-
-
-		.navrightCon {
-			display: flex;
-			align-items: center;
-			margin-right: 40rpx;
-
-			image {
-				width: 46rpx;
-				height: 46rpx;
-			}
-
-
-			.notice {
-				margin-left: 20rpx;
-			}
-		}
-	} */
 	.navbar {
 		width: 100%;
 		background-color: #2E6BDE;
@@ -1025,30 +979,55 @@
 	}
 
 	.tabCon {
+		width: 100%;
 		display: flex;
-		align-items: center;
-		padding: 0 40rpx;
+		height: 80rpx;
+		z-index: 89;
 
 		.tabItem {
-			color: #C6C6C6;
-			font-size: 26rpx;
+			background: #FFFFFF;
+			height: 80rpx;
+			width: 100%;
+			color: #666666;
+			font-size: 32rpx;
 			position: relative;
-			padding-right: 40rpx;
-
-			.tabline {
-				position: absolute;
-				left: -9rpx;
-				bottom: 9rpx;
-				width: 2rpx;
-				height: 30rpx;
-				display: inline-block;
-				background-color: #C6C6C6;
-				margin: 0rpx 5rpx;
-			}
+			border-bottom: 1rpx solid #D0D0D0;
+			text-align: center;
+			line-height: 80rpx;
 		}
 
 		.active {
-			color: #1D5CD1;
+			color: #2D6BDD;
+			border-bottom: 4rpx solid #2D6BDD;
+		}
+
+	}
+
+	.tabCon1 {
+		width: 100%;
+		position: fixed;
+		opacity: 1;
+		background-color: #FFFFFF;
+		top: 176rpx;
+		display: flex;
+		height: 80rpx;
+		z-index: 89;
+
+		.tabItem {
+			background: #FFFFFF;
+			height: 80rpx;
+			width: 100%;
+			color: #666666;
+			font-size: 32rpx;
+			position: relative;
+			border-bottom: 1rpx solid #D0D0D0;
+			text-align: center;
+			line-height: 80rpx;
+		}
+
+		.active {
+			color: #2D6BDD;
+			border-bottom: 4rpx solid #2D6BDD;
 		}
 
 	}
@@ -1286,9 +1265,9 @@
 	}
 
 	.pad {
+		min-height: 1380rpx;
 		padding-left: 20rpx;
 		padding-right: 20rpx;
-		padding-top: 500rpx;
 	}
 
 	.fix {
