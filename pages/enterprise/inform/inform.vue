@@ -20,7 +20,7 @@
 				<view class="bodyRight">
 					<view class="title">
 						<text class="tips1">系统消息</text>
-						<text class="tips2">5小时前</text>
+						<text class="tips2">{{systemInformTimeDiff | timeDiff}}</text>
 					</view>
 					<view class="bodyContent">
 						<text class="information">{{systemInform[0].body}}</text>
@@ -38,7 +38,7 @@
 				<view class="bodyRight">
 					<view class="title">
 						<text class="tips1">会议通知</text>
-						<text class="tips2">3天前</text>
+						<text class="tips2">{{meetingInformTimeDiff | timeDiff}}</text>
 					</view>
 					<view class="bodyContent">
 						<text class="information">{{meetingInform[0].body}}</text>
@@ -56,7 +56,7 @@
 				<view class="bodyRight">
 					<view class="title">
 						<text class="tips1">找融资反馈</text>
-						<text class="tips2">3天前</text>
+						<text class="tips2">{{financeInformTimeDiff | timeDiff}}</text>
 					</view>
 					<view class="bodyContent">
 						<text class="information">{{financeInform[0].body}}</text>
@@ -74,7 +74,7 @@
 				<view class="bodyRight">
 					<view class="title">
 						<text class="tips1">惠企政策通知</text>
-						<text class="tips2">3天前</text>
+						<text class="tips2">{{policyInformTimeDiff | timeDiff}}</text>
 					</view>
 					<view class="bodyContent">
 						<text class="information">{{policyInform[0].body}}</text>
@@ -92,7 +92,7 @@
 				<view class="bodyRight">
 					<view class="title">
 						<text class="tips1">整改通知</text>
-						<text class="tips2">3天前</text>
+						<text class="tips2">{{rectifyInformTimeDiff | timeDiff}}</text>
 					</view>
 					<view class="bodyContent">
 						<text class="information">{{rectifyInform[0].body}}</text>
@@ -112,6 +112,7 @@
 		components:{uniNavBar},
 		data() {
 			return {
+				systemInformTimeDiff: 0,
 				systemInform:[
 					{
 						time:'',
@@ -119,6 +120,7 @@
 						body:'',
 					}
 				],
+				meetingInformTimeDiff: 0,
 				meetingInform:[
 					{
 						time:'',
@@ -126,6 +128,7 @@
 						body:'',
 					}
 				],
+				financeInformTimeDiff: 0,
 				financeInform:[
 					{
 						time:'',
@@ -133,6 +136,7 @@
 						body:'',
 					}
 				],
+				policyInformTimeDiff: 0,
 				policyInform:[
 					{
 						time:'',
@@ -141,6 +145,7 @@
 						deadline:''
 					}
 				],
+				rectifyInformTimeDiff: 0,
 				rectifyInform:[
 					{
 						time:'',
@@ -149,6 +154,29 @@
 					}
 				]
 			}
+		},
+		filters:{
+			timeDiff(timestamp) {
+				let time_second = parseInt(timestamp / 1000)
+				if(time_second < 60){
+					return time_second+'秒前'
+				}
+				else{
+					let time_minute = parseInt(time_second / 60)
+					if(time_minute < 60){
+						return time_minute+'分钟前'
+					}
+					else{
+						let time_hour = parseInt(time_minute / 60)
+						if(time_hour < 24){
+							return time_hour+'小时前'
+						}else{
+							let time_day = parseInt(time_hour / 24)
+							return time_day+'天前'
+						}
+					}
+				}
+			 }
 		},
 		onLoad() {
 			let _this = this
@@ -184,6 +212,9 @@
 						body: data[0].summary
 					}
 					_this.systemInform.splice(0,1,informObj)
+					let nowTime = new Date().getTime()		//获取当前时间戳
+					_this.systemInformTimeDiff = nowTime - informObj.time
+					// console.log(nowTime - informObj.time)
 				}
 				console.log(_this.systemInform)
 			}).catch(err=>{
@@ -209,6 +240,8 @@
 						deadline: data[0].deadline
 					}
 					_this.policyInform.splice(0,1,informObj)
+					let nowTime = new Date().getTime()		//获取当前时间戳
+					_this.policyInformTimeDiff = nowTime - informObj.time
 				}
 				// console.log(_this.policyInform)
 			}).catch(err=>{
@@ -241,6 +274,8 @@
 					}
 					// console.log(informObj)
 					_this.meetingInform.splice(0,1,informObj)
+					let nowTime = new Date().getTime()		//获取当前时间戳
+					_this.meetingInformTimeDiff = nowTime - informObj.time
 				}
 				// console.log(_this.meetingInform)
 			}).catch(err=>{
@@ -265,6 +300,8 @@
 						body: data[0].summary
 					}
 					_this.rectifyInform.splice(0,1,informObj)
+					let nowTime = new Date().getTime()		//获取当前时间戳
+					_this.rectifyInformTimeDiff = nowTime - informObj.time
 				}
 			}).catch(err=>{
 				console.log(err)
@@ -288,6 +325,10 @@
 						body:'您在 '+ data[0].createTime +' 提交的融资需求已反馈，请查看详情。',
 					}
 					_this.financeInform.splice(0,1,informObj)
+					let nowTime = new Date().getTime()  //获取当前时间戳
+					let endTime = new Date(informObj.time).getTime()
+					// console.log(endTime)
+					_this.financeInformTimeDiff = nowTime - endTime
 				}
 				// console.log(_this.financeInform)
 			}).catch(err=>{

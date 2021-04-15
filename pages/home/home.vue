@@ -8,7 +8,7 @@
 				<view class="searchBar" @click="enterSearch">
 					<image class="searchImg" src="../../static/home/search.png" mode=""></image>
 					<view class="searchInput">
-						<input type="text" v-model="keywords" placeholder="请输入搜索关键词" />
+						<input disabled=true type="text" v-model="keywords" placeholder="请输入搜索关键词" />
 					</view>
 				</view>
 				<image class="scan" src="../../static/home/scan.png" mode="" @click="scan" v-show="isParked"></image>
@@ -175,8 +175,21 @@
 				pageNumber: 1,
 				dataList: [],
 				user_logo: '',
-				joinedPark: ''
+				joinedPark: '',
+				backButtonPress:0
 			}
+		},
+		onBackPress() {
+			this.backButtonPress++;
+			if (this.backButtonPress > 1) { 
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			} 
+			setTimeout(function() {
+				this.backButtonPress = 0;
+			}, 1000);
+			return true;
 		},
 		onLoad(option) {
 			this.$forceUpdate()
@@ -270,6 +283,7 @@
 						_this.$store.commit('setEnterpriseInfo', tem)
 						console.log(_this.$store.state.enterpriseInfo)
 						_this.user_logo = _this.$store.state.enterpriseInfo.enterpriseLogo
+						console.log(_this.user_logo)
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -359,6 +373,7 @@
 						_this.$store.commit('setUserInfo', tem)
 						console.log(_this.$store.state.userInfo)
 						_this.user_logo = _this.$store.state.userInfo.contactHead
+						console.log(_this.user_logo)
 					} else {
 						console.log(data.statusMsg)
 					}
@@ -590,9 +605,10 @@
 				request({
 					url: '/cancelBindPark',
 					data: {
-						token: token,
-						userId: _this.$store.state.id,
-						userType: _this.$store.state.kind
+						id:_this.$store.state.id,
+						parkId:_this.$store.state.enterpriseInfo.parkId,
+						token:token,
+						parkName:_this.$store.state.enterpriseInfo.parkName
 					}
 				}).then(res => {
 					console.log(res)

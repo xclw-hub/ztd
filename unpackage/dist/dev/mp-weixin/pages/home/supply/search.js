@@ -661,7 +661,7 @@ var _default =
     clearHistory: function clearHistory() {
       this.historyArr = [];
       uni.removeStorage({
-        key: 'history' });
+        key: 'supplySearchHistory' });
 
     },
     hideHistory: function hideHistory() {
@@ -672,7 +672,7 @@ var _default =
     readLocalStorage: function readLocalStorage() {
       var that = this;
       uni.getStorage({
-        key: 'history',
+        key: 'supplySearchHistory',
         success: function success(res) {
           //console.log(res.data)
           that.historyArr = res.data;
@@ -682,7 +682,7 @@ var _default =
     },
     saveHistory: function saveHistory() {
       uni.setStorage({
-        key: 'history',
+        key: 'supplySearchHistory',
         data: this.historyArr });
 
     },

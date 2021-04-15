@@ -244,8 +244,7 @@ var _parse = _interopRequireDefault(__webpack_require__(/*! @/components/feng-pa
     (0, _request.request)({
       url: '/announcement/govInformationDetail',
       data: {
-        // pkid:option.pkid,
-        pkid: 58 } }).
+        pkid: option.pkid } }).
 
     then(function (res) {
       console.log(res[1].data.data);

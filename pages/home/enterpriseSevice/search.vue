@@ -125,7 +125,7 @@
 		<view class="history" v-show="showHistory">
 			<view class="history-up" v-if="historyArr.length>0">
 				<text>历史搜索</text>
-				<text @click="clearHistory">清空</text>
+				<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			</view>
 			<view class="history-down">
 				<view class="historyItem" v-for="(item, index) in historyArr" :key='index'>

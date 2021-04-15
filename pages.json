@@ -9,7 +9,10 @@
             "style" : {
                 "navigationBarTitleText" : "",
                 // "navigationStyle":"default",
-                "navigationStyle" : "custom"
+                "navigationStyle" : "custom",
+				"app-plus":{
+				    "popGesture": "none"//使ios默认手势关闭页面无效
+				}
             }
         },
         {
@@ -84,7 +87,7 @@
                 "navigationStyle" : "custom",
                 "app-plus" : {
                     "scrollIndicator" : "none",
-					"popGesture": "none"
+					"popGesture": "none"//使ios默认手势关闭页面无效
                 }
             }
         },
@@ -359,6 +362,18 @@
                 "navigationBarTitleText" : "",
                 "enablePullDownRefresh" : false,
                 "navigationStyle" : "custom"
+				// "app-plus": {
+				//           // "bounce": "none", //关闭窗口回弹效果
+				//           "titleNView": {
+				//               "buttons": [ //原生标题栏按钮配置,
+				//                   {
+				//                        // "type":"none",
+				//                        // "text":"\u2713",
+				//                        // "float":"right"
+				//                   }
+				//                ]
+				//            }
+				// }
             }
         },
         {
@@ -576,6 +591,16 @@
         }
         ,{
             "path" : "pages/login/industrySelect",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle" : "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/enterprisePhoneNumberLogin",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

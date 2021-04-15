@@ -72,8 +72,9 @@
 			</view>
 			<view class="detailinfo">
 				<text>详细信息</text>
-				<input type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
-					v-model.trim="detailinfo" maxlength="1000" @focus="detailinfoFocus" @blur="detailinfoBlue" />
+				<textarea type="text" :placeholder="detailinfo_placeholder" placeholder-class="placeholderStyle"
+					v-model.trim="detailinfo" maxlength="1000" @focus="detailinfoFocus" @blur="detailinfoBlue" >
+				</textarea>
 			</view>
 		</view>
 
@@ -158,7 +159,7 @@
 		},
 		methods: {
 			clickBack() {
-				uni.reLaunch(
+				uni.navigateTo(
 				{
 					url:'supply'
 				}
@@ -305,7 +306,7 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'../../enterprise/myGoods/myGoods'
 							}
@@ -344,7 +345,7 @@
 								duration: 2000,
 								icon: 'none'
 							});
-							uni.reLaunch(
+							uni.navigateTo(
 							{
 								url:'../../enterprise/myGoods/myGoods'
 							}
@@ -730,7 +731,7 @@
 		line-height: 26rpx;
 	}
 
-	.detailinfo input {
+	.detailinfo textarea {
 		margin-top: 46rpx;
 	}
 
