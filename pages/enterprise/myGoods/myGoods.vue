@@ -75,7 +75,7 @@
 			customBack(){
 				if (this.$store.state.kind === '0') {
 					uni.navigateTo({
-						url:'../enterprise/enterprise'
+						url:'../enterprise'
 					})
 				}else{
 					uni.navigateTo({
