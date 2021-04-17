@@ -106,7 +106,10 @@
 		},
 		methods: {
 			tapGodetail(item) {
-				console.log(item.contactId)
+				let _this = this
+				console.log(item.phoneNum)
+				_this.$store.commit('setPhone', item.phoneNum)
+				console.log(_this.$store.state.phoneNum)
 				debounce(
 					uni.navigateTo({
 						url: './detail?tel=' + item.phoneNum + '&contactId=' + item.contactId+'&a='+this.listNumber

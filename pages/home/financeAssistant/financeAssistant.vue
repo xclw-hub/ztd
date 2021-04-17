@@ -333,7 +333,7 @@
 								});
 							}else{
 								uni.navigateTo({
-									url: '../../enterprise/inform/feedBackInfrom'
+									url: '../../enterprise/inform/feedBackDetail'
 								})
 							}
 						}).catch(err=>{
@@ -378,7 +378,7 @@
 								});
 							}else{
 								uni.navigateTo({
-									url: '../../enterprise/inform/feedBackInfrom'
+									url: '../../enterprise/inform/feedBackDetail'
 								})
 							}
 						}).catch(err=>{
@@ -578,7 +578,18 @@
 					url: '/addDemand',
 					data: d
 				}).then(res => {
-					console.log(res)
+					console.log(res[1].data.data)
+					if(res[1].data.data=='不用重复提交'){
+						uni.showToast({
+							icon: 'none',
+							title: "需求已提交",
+						});
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: "提交成功",
+						});
+					}
 				})
 			},
 			applyConfirm(){

@@ -7,6 +7,7 @@ const store = new Vuex.Store({
 		flag: 0,
 		kind: '',		//用户类型,'0'是企业用户，‘1’是个人用户
 		id: 0,			//登录成功后返回的ID	
+		phoneNum:'',
 		enterpriseInfo:{
 			enterpriseContact: [],		//企业联系人列表
 			enterpriseId: 0,		//企业ID
@@ -35,6 +36,9 @@ const store = new Vuex.Store({
 		//登录
 		setId(state, val){
 			state.id = val
+		},
+		setPhone(state, val){
+			state.phoneNum = val
 		},
 		setKind(state, val){
 			state.kind = val

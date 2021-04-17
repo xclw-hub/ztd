@@ -112,14 +112,14 @@
 
 		onLoad(option) {
 			let that = this
-			that.tel=option.tel
+			that.tel=that.$store.state.phoneNum
 			that.contactId=option.contactId
 			that.a= option.a
-			console.log(that.a)
+			console.log(that.phoneNum)
 			request({
 				url: '/addContact/contactDetail',
 				data: {
-					phoneNum: option.tel
+					phoneNum: that.tel
 				}
 			}).then(res => {
 				console.log(res[1].data)
@@ -129,6 +129,7 @@
 		onShow(){
 			let that = this
 			that.isShowmenu=false
+			that.tel=that.$store.state.phoneNum
 			request({
 				url: '/addContact/contactDetail',
 				data: {

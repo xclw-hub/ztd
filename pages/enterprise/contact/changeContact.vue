@@ -204,6 +204,9 @@
 				}).then(res=>{
 					console.log(res)
 					if(res[1].data.statusCode==2000){
+						console.log(that.phoneNumber)
+						that.$store.commit('setPhone', that.phoneNumber)
+						console.log(that.$store.state.phoneNum)
 						uni.navigateBack({
 							delta: 1
 						})
