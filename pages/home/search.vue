@@ -24,14 +24,21 @@
 			</view>
 		</view>
 		
-		<view class="emptyResult" v-show="!showHistory && showEmpty">
+		<!-- <view class="emptyResult" v-show="!showHistory && showEmpty">
+			<image src="../../static/home/emptyResult.png"></image>
+			<view class="textbox">
+				<text>没有找到关键词“{{searchContent}}”的搜索结果您可以换个搜索词试试~</text>
+			</view>
+		</view> -->
+		<view class="emptyResult" v-show="false">
 			<image src="../../static/home/emptyResult.png"></image>
 			<view class="textbox">
 				<text>没有找到关键词“{{searchContent}}”的搜索结果您可以换个搜索词试试~</text>
 			</view>
 		</view>
-		
-		<view class="content" v-show="!showHistory && !showEmpty">
+		<!-- 此处目前不显示无结果页面 -->
+		<!-- <view class="content" v-show="!showHistory && !showEmpty"> -->
+		<view class="content" v-show="!showHistory">
 			<view class="fix">
 				<view class="tabCon">
 					<view class="tabItem" :class="tabCurrent==index?'active':''" v-for="(item,index) in tabList" :key='index' @click="tapchange(index)">
@@ -77,7 +84,7 @@
 		</view>
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
-			<text>历史搜索</text>
+			<text v-if="historyArr.length!=0">历史搜索</text>
 			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
@@ -99,15 +106,19 @@
 			
 		},
 		onLoad(option){
-			this.readLocalStorage()
+			this.historyArr = uni.getStorageSync('homeSearchHistory')
+			if(!this.historyArr){
+				this.historyArr = []
+			}
 			this.tabList = JSON.parse(option.tabList)
 			this.pageNumber=1
+			this.historyShowNumber = this.historyArr.length
 			console.log(this.tabList)
 		},
 		data() {
 			return {
 				historyShowNumber:7,	//显示的历史记录的数量
-				defaultNumber:7,		//默认显示的历史记录的数量
+				defaultNumber:7,		//第一行能够显示的历史记录的数量
 				showHistory:true,		//为true表示还未搜索,显示历史搜索界面,否则显示结果
 				showEmpty:false,		//为true表示显示搜索结果为空界面，false不显示
 				searchContent:'',
@@ -118,6 +129,9 @@
 				dataList:[],
 				pageNumber:1
 			}
+		},
+		mounted() {
+			this.viewChange(1)
 		},
 		onReachBottom() {
 			let _this = this
@@ -167,19 +181,21 @@
 			// 点击搜索按键
 			clickSearch(){
 				if(this.searchContent!=''){
-					
+					let flag
 					// 如果该搜索记录为新记录则加入历史记录数组
-					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
+					if(this.historyArr == [] || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
-						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyShowNumber
-					}
-					//过滤文章列表,如果该文章的标题中包含搜索关键字则加入显示列表
-					/* this.searchArticleList=this.articleList.filter(item => item.title.includes(this.searchContent))
-					if(this.searchArticleList.length <= 0){
-						this.showEmpty = true
 					}else{
-						this.showEmpty = false
-					} */
+						this.historyArr.splice(this.historyArr.indexOf(this.searchContent),1)
+						this.historyArr.unshift(this.searchContent)
+					}
+					//将搜索记录全部显示以便于之后调用viewChange来判断第一行的记录数量，并记录历史记录是显示全部还是显示一行
+					if(this.historyShowNumber != this.defaultNumber){
+						flag = 0
+					}else{
+						flag = 1
+					}
+					this.historyShowNumber = this.historyArr.length
 					this.saveHistory()
 					let _this = this
 					_this.pageNumber=1
@@ -203,6 +219,12 @@
 					}).then(res =>{
 						console.log(res[1].data)
 						_this.dataList = res[1].data.data.list
+						if(flag){
+							this.viewChange(1)
+						}else{
+							console.log('viewChange')
+							this.viewChange(0)
+						}
 						this.showHistory=false		//显示搜索结果页面
 						if(_this.dataList.length<=0){
 							this.showEmpty = true
@@ -254,21 +276,31 @@
 					this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.historyArr.length : this.defaultNumber
 				}
 			},
-			readLocalStorage(){
-				const that = this
-				uni.getStorage({
-					key:'homeSearchHistory',
-					success:function(res){
-						that.historyArr = res.data
-					}
-				})
-				
-			},
 			saveHistory(){
 				uni.setStorage({
 					key:'homeSearchHistory',
 					data:this.historyArr
 				})
+			},
+			//根据历史记录元素的位置，即top值来判断第一行的历史记录数量
+			viewChange(flag){
+				const query = uni.createSelectorQuery().in(this);
+				query.selectAll(".historyItem").boundingClientRect(data => {
+					console.log(data)
+					let length = data.length
+					for(let i=0;i<length;i++){
+						if(data[i].top>150){
+							if(flag){
+								this.defaultNumber = i
+								this.historyShowNumber = i
+							}else{
+								this.defaultNumber = i
+							}
+							break
+						}
+					}
+					/* return data.top */
+				}).exec();
 			}
 		}
 	}
@@ -376,19 +408,22 @@
 		}
 		.history{
 			display: flex;
-			justify-content: flex-end;
 			image{
+				justify-content: flex-end;
 				width: 24rpx;
 				height: 14rpx;
-				margin-right: 40rpx;
+				margin-left: 40rpx;
 				margin-top: 45rpx;
 			}
 		}
 		.historyList{
 			display: flex;
 			padding: 10rpx 0rpx;
+			padding-left: 40rpx;
 			flex-wrap: wrap;
 			width: 650rpx;
+			justify-content: flex-start;
+			
 			.historyItem{
 				border: 1rpx solid #BFBFBF;
 				border-radius: 5rpx;

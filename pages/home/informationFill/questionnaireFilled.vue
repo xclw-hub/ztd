@@ -129,27 +129,26 @@
 			}).then(res =>{
 				console.log('questionDetails')
 				let data = res[1].data.questionToAnswer
-				console.log(res[1].data)
+				console.log(data)
 				let length = data.length
 				for(let i = 0;i<length;i++){
-					let question = Object.keys(data[i])
-					let len = questionnaire.content.length
+					let question = data[i].question
+					let len = _this.questionnaire.content.length
 					let index
 					for(let j=0;j<len;j++){
-						if(questionnaire.content[j].question == question){
+						if(_this.questionnaire.content[j].question == question){
 							index = j;break;
 						}
 					}
-					len = questionnaire.content[index].answer.length
-					let answer = Object.value(data[i])
-					for(let j=0;j<len;j++){
-						if(questionnaire.content[index].answer[j].value == answer){
-							if(questionnaire.content[index].kind == 3){
-								questionnaire.content[index].result+=answer
-								break
-							}else{
-								questionnaire.content[index].answer[j].checked = true
-								questionnaire.content[index].result += answer
+					len = _this.questionnaire.content[index].answer.length
+					let answer = data[i].answer
+					if(_this.questionnaire.content[index].kind == 3){
+						_this.questionnaire.content[index].result+=answer
+					}else{
+						for(let j=0;j<len;j++){
+							if(_this.questionnaire.content[index].answer[j].value == answer){
+								_this.questionnaire.content[index].answer[j].checked = true
+								_this.questionnaire.content[index].result += answer
 								break
 							}
 						}
@@ -191,6 +190,9 @@
 					}else{
 						// 需要执行 done 才能关闭对话框
 						done()
+						uni.reLaunch({
+							url:'informationFill'
+						})
 					}
 				}).catch(err =>{
 					console.log(err)
@@ -287,6 +289,7 @@
 		// top: 140rpx
 		top: 160rpx;
 		bottom: 0;
+		width: 100%;
 		.description{
 			display: flex;
 			flex-direction: column;

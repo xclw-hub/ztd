@@ -12,7 +12,8 @@
 			<image src="../../../static/detail_headbg.png" mode="widthFix"></image>
 		</view>
 		<view class="swiperbar">
-			<u-swiper :list="goodsDetail.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<u-swiper v-show="goodsDetail.pic!=null" :list="goodsDetail.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<image v-show="goodsDetail.pic==null" src="../../../static/enterprise/noneimage.png" height="600" mode="number" indicator-pos="bottomRight"></image>
 		</view>
 		<view class="goodsinfo">
 			<view class="pricebar">

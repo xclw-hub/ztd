@@ -4,13 +4,13 @@
 			<view class="slot-wrap">
 				<view class="search-wrap" @click="enterSearch">
 					<u-search search-icon="../../../static/searchIcon.png" v-model="keyword" i :show-action="false" height="80"
-					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索"></u-search>
+					 :action-style="{color: '#fff'}" shape="square" placeholder="请输入关键字搜索" :disabled = 'true'></u-search>
 				</view>
 			</view>
 		</u-navbar>
 		<view class="listCon">
 			<view class="item" v-for="(item, index) in goodsList" :key='index' @click="tapdetail(index)">
-				<image class="goodsimg" :src="item.pic[0]"
+				<image class="goodsimg" :src="item.pic[0] == ''?'../../../static/enterprise/noneimage.png':item.pic[0]"
 				 mode=""></image>
 				<view class="name u-line-2">
 					{{item.title}}

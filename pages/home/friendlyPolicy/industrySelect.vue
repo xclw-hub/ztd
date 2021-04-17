@@ -12,8 +12,13 @@
 			<view slot="center" class="uniNavBar_center">
 				<text>选择行业</text>
 			</view>
-			<view slot="right" class="uniNavBar_right">
+			<view slot="right" class="uniNavBar_right" v-show="confirmActive == true">
 				<view class="uniNavBar_right_box">
+					<text>确定</text>
+				</view>
+			</view>
+			<view slot="right" class="uniNavBar_right_unactive" v-show="confirmActive == false">
+				<view class="uniNavBar_right_box_unactive">
 					<text>确定</text>
 				</view>
 			</view>
@@ -123,7 +128,8 @@
 						kind:'其他',
 						choice:0
 					}],		//所有可选的行业种类列表
-				selectKindArr:[]		//已选的行业
+				selectKindArr:[]		,//已选的行业
+				confirmActive:false
 			}
 		},
 		onLoad(){
@@ -158,12 +164,24 @@
 				let _this=this
 				if(_this.industryKindList[index].choice===1){
 					_this.industryKindList[index].choice=0
+					let length = this.industryKindList.length
+					let choice = 0
+					for(let i=0;i<length;i++){
+						choice+=this.industryKindList[i].choice
+					}
+					if(choice==0){
+						_this.confirmActive = false
+					}
 				}else{
+					_this.confirmActive = true
 					_this.industryKindList[index].choice=1
 				}
+				console.log(_this.confirmActive)
 			},
 			confirm(){
-				this.$refs.selectPopupDialog.open()
+				if(this.confirmActive == true){
+					this.$refs.selectPopupDialog.open()
+				}
 			},
 			selectConfirm(done) {
 				console.log('确定');
@@ -212,7 +230,7 @@
 </script>
 
 <style scoped>
-	.uniNavBar_left, .uniNavBar_center, .uniNavBar_right{
+	.uniNavBar_left, .uniNavBar_center, .uniNavBar_right, .uniNavBar_right_unactive{
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -244,6 +262,23 @@
 		font-family: Microsoft YaHei;
 		font-weight: 400;
 		color: #FFFFFF;
+		line-height: 32rpx;
+	}
+	.uniNavBar_right_unactive .uniNavBar_right_box_unactive{
+		width: 90rpx;
+		height: 54rpx;
+		background: #FFFFFF;
+		border-radius: 5rpx;
+		border:2rpx solid #999999 ;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.uniNavBar_right_box_unactive text{
+		font-size: 26rpx;
+		font-family: Microsoft YaHei;
+		font-weight: 400;
+		color: #999999;
 		line-height: 32rpx;
 	}
 	.search{

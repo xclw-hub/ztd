@@ -245,6 +245,7 @@
 		// top: 140rpx;
 		top: 160rpx;
 		bottom: 0;
+		width: 100%;
 		.description{
 			display: flex;
 			flex-direction: column;

@@ -238,6 +238,24 @@
 									console.log('token缓存失败')
 								}
 							})
+							_this.$request({
+								url:'/preferentialPolicies/industryChoose',
+								data:{
+									'industry':_this.industryKind,
+									'enterpriseId':data.id
+								}
+							}).then(res =>{
+								let data =res[1].data
+								console.log('industryChoose')
+								console.log(data)
+								if(data.statusCode == 2000){
+									console.log('choose end')
+								}else{
+									console.log(data.statusMsg)
+								}
+							}).catch(err =>{
+								console.log(err)
+							})
 							_this.$store.commit('setKind', '0')
 							_this.$store.commit('setId', data.id)
 							//进入园区绑定页面

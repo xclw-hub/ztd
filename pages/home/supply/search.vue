@@ -30,113 +30,109 @@
 				<text>没有找到关键词“{{searchContent}}”的搜索结果您可以换个搜索词试试~</text>
 			</view>
 		</view>
-		
-		<view class="content" v-show="!showHistory && !showEmpty">
-			<view class="fix">
-				<view class="dropmenu">
-					<u-dropdown ref="uDropdown">
-						<u-dropdown-item :title="region">
-							<view class="slot-content" style="background-color: #FFFFFF;">
-								<scroll-view scroll-y="true" style="height: 350rpx;">
-									<view class="province">
-										<view class="labelName">
-											省份
-										</view>
-										<view class="provinceList">
-											<view class="provinceItem" :class="provinceCurrent.title==item.title?'active':''"
-												v-for="(item,index) in provinceList" @click.stop="tapprovinceItem(item)">
-												{{item.title}}
-											</view>
-										</view>
-									</view>
-									<view class="city">
-										<view class="labelName">
-											城市
-										</view>
-										<view class="cityList">
-											<view class="cityItem" :class="cityCurrent.title==item.title?'active':''"
-												v-for="(item,index) in cityList" @click.stop="tapcityItem(item)">
-												{{item.title}}
-											</view>
-										</view>
-									</view>
-								</scroll-view>
-								<view class="slotbottomBar">
-									<view class="reset" @click="tapresetregion">
-										重置
-									</view>
-									<view class="save" @click="tapsaveregion">
-										确定
-									</view>
-								</view>
-							</view>
-						</u-dropdown-item>
-						<u-dropdown-item :title="price">
-							<view class="slot-content" style="background-color: #FFFFFF;">
-								<view class="slotpriceCon">
+		<view v-show="!showHistory && !showEmpty" :class="isShowDiagnosis==true?'nos':''" style="background-color: #F3F3F3;">
+			<view class="dropmenu">
+				<u-dropdown ref="uDropdown" @open="open" @close="close">
+					<u-dropdown-item :title="region">
+						<view class="slot-content" style="background-color: #FFFFFF;">
+							<scroll-view scroll-y="true" style="height: 350rpx;">
+								<view class="province">
 									<view class="labelName">
-										价格区间（元）
+										省份
 									</view>
-									<view class="priceinput">
-										<view class="inputitem">
-											<input type="number" placeholder="最低价" v-model="minPrice" />
+									<view class="provinceList">
+										<view class="provinceItem"
+											:class="provinceCurrent.title==item.title?'active':''"
+											v-for="(item,index) in provinceList" @click.stop="tapprovinceItem(item)">
+											{{item.title}}
 										</view>
-										<view class="middleLine">
-				
-										</view>
-										<view class="inputitem">
-											<input type="number" placeholder="最高价" v-model="maxPrice" />
-										</view>
-									</view>
-									<view class="tips">
-										注：最多可保留两位小数
 									</view>
 								</view>
-								<view class="slotbottomBar">
-									<view class="reset" @click="priceCancel">
-										取消
+								<view class="city">
+									<view class="labelName">
+										城市
 									</view>
-									<view class="save" @click="pricesave">
-										确定
+									<view class="cityList">
+										<view class="cityItem" :class="cityCurrent.title==item.title?'active':''"
+											v-for="(item,index) in cityList" @click.stop="tapcityItem(item)">
+											{{item.title}}
+										</view>
 									</view>
+								</view>
+							</scroll-view>
+							<view class="slotbottomBar">
+								<view class="reset" @click="tapresetregion">
+									取消
+								</view>
+								<view class="save" @click="tapsaveregion">
+									确定
 								</view>
 							</view>
-						</u-dropdown-item>
-					</u-dropdown>
-				</view>
+						</view>
+					</u-dropdown-item>
+					<u-dropdown-item :title="price">
+						<view class="slot-content" style="background-color: #FFFFFF;">
+							<view class="slotpriceCon">
+								<view class="labelName">
+									价格区间（元）
+								</view>
+								<view class="priceinput">
+									<view class="inputitem">
+										<input type="number" placeholder="最低价" v-model="minPrice" />
+									</view>
+									<view class="middleLine">
+		
+									</view>
+									<view class="inputitem">
+										<input type="number" placeholder="最高价" v-model="maxPrice" />
+									</view>
+								</view>
+								<view class="tips">
+									注：最多可保留两位小数
+								</view>
+							</view>
+							<view class="slotbottomBar">
+								<view class="reset" @click="priceCancel">
+									取消
+								</view>
+								<view class="save" @click="pricesave">
+									确定
+								</view>
+							</view>
+						</view>
+					</u-dropdown-item>
+				</u-dropdown>
 			</view>
-			
-			
-			<view class="pad">
-				<view class="listCon">
-					<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item.pkid)">
-						<image class="goodsimg" :src="item.pic[0]"
-						 mode=""></image>
-						<view class="name u-line-2">
-							{{item.title}}
+		
+			<view class="listCon">
+				<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item.pkid)">
+					<image class="goodsimg" :src="item.pic[0] == ''?'../../../static/enterprise/noneimage.png':item.pic[0]" mode=""></image>
+					<view class="name u-line-2">
+						{{item.title}}
+					</view>
+					<view class="priceCon">
+						<view class="unit">
+							￥
 						</view>
-						<view class="priceCon">
-							<view class="unit">
-								￥
-							</view>
-							<view class="price">
-								{{item.price}}
-							</view>
+						<view class="price">
+							{{item.price}}
 						</view>
-						<view class="position">
-							<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
-							<view class="city">
-								{{item.source}}
-							</view>
+					</view>
+					<view class="position">
+						<u-icon name="map" color="#AAAAAA" size="30"></u-icon>
+						<view class="city">
+							{{item.source}}
 						</view>
 					</view>
 				</view>
 			</view>
-			
+			<view style="height: 200rpx;text-align: center;color: #AAAAAA;font-size: 33rpx;" v-if="dataList.length!=0">
+				上拉加载更多
+			</view>
 		</view>
 		
 		<view class="searchHistory" v-show="showHistory && !showEmpty">
-			<text>历史搜索</text>
+			<text v-if="historyArr.length!=0">历史搜索</text>
 			<text @click="clearHistory" v-if="historyArr.length!=0">清空</text>
 			<view class="history">
 				<view class="historyList">
@@ -158,6 +154,7 @@
 		},
 		data() {
 			return {
+				isShowDiagnosis:false,
 				historyShowNumber:7,	//显示的历史记录的数量
 				defaultNumber:7,		//默认显示的历史记录的数量
 				showHistory:true,		//为true表示还未搜索,显示历史搜索界面,否则显示结果
@@ -200,7 +197,11 @@
 			}
 		},
 		onLoad(){
-			this.readLocalStorage()
+			this.historyArr = uni.getStorageSync('supplySearchHistory')
+			if(!this.historyArr){
+				this.historyArr = []
+			}
+			this.historyShowNumber = this.historyArr.length
 			let that = this
 			let token = uni.getStorageSync('token');
 			this.$request({
@@ -231,6 +232,9 @@
 					that.provinceList.push(gt[index])
 				}
 			})
+		},
+		mounted() {
+			this.viewChange(1)
 		},
 		onReachBottom() {
 			let that = this
@@ -475,21 +479,24 @@
 			// 点击搜索按键
 			clickSearch(){
 				if(this.searchContent!=''){
+					let flag
 					// 如果该搜索记录为新记录则加入历史记录数组
-					if(this.historyArr == null || !this.historyArr.includes(this.searchContent)){
+					if(this.historyArr == [] || !this.historyArr.includes(this.searchContent)){
 						this.historyArr.unshift(this.searchContent)
-						this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.defaultNumber : this.historyArr
-						this.saveHistory()
-					}
-					//过滤企业列表,如果该企业的行业种类数组中包含搜索关键字则加入显示列表
-					/* this.searchSupplyList=this.supplyList.filter(item => item.title.includes(this.searchContent))
-					if(this.searchSupplyList.length <= 0){
-						this.showEmpty = true
 					}else{
-						this.showEmpty = false
-					} */
+						this.historyArr.splice(this.historyArr.indexOf(this.searchContent),1)
+						this.historyArr.unshift(this.searchContent)
+					}
+					//将搜索记录全部显示以便于之后调用viewChange来判断第一行的记录数量，并记录历史记录是显示全部还是显示一行
+					if(this.historyShowNumber != this.defaultNumber){
+						flag = 0
+					}else{
+						flag = 1
+					}
+					this.historyShowNumber = this.historyArr.length
+					this.saveHistory()
 					this.keyword = this.searchContent
-					this.tapsaveregion(true)
+					this.tapsaveregion(true,flag)//在请求完成搜索结果后再对历史记录执行viewChange以防页面未刷新完成
 				}
 			},
 			//点击历史记录进行搜索
@@ -507,17 +514,6 @@
 				if(this.historyArr != null){
 					this.historyShowNumber=this.historyShowNumber == this.defaultNumber ? this.historyArr.length : this.defaultNumber
 				}
-			},
-			readLocalStorage(){
-				const that = this
-				uni.getStorage({
-					key:'supplySearchHistory',
-					success:function(res){
-						//console.log(res.data)
-						that.historyArr = res.data
-					}
-				})
-				
 			},
 			saveHistory(){
 				uni.setStorage({
@@ -570,7 +566,15 @@
 				this.tapsaveregion()
 				this.$refs.uDropdown.close();
 			},
-			tapsaveregion(isSearch) {
+			open(){
+				this.isShowDiagnosis=true
+				console.log(this.isShowDiagnosis)
+			},
+			close(){
+				this.isShowDiagnosis=false
+				console.log(this.isShowDiagnosis)
+			},
+			tapsaveregion(isSearch,flag) {
 				this.pageNumber = 1
 				let that = this
 				let province = this.provinceCurrent.title;
@@ -617,6 +621,12 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 								if(isSearch==true){
+									if(flag){
+										this.viewChange(1)
+									}else{
+										console.log('viewChange')
+										this.viewChange(0)
+									}
 									this.showHistory=false		//显示搜索结果页面
 									if(this.dataList.length==0){
 										this.showEmpty = true
@@ -721,6 +731,12 @@
 									that.dataList[i].pic = that.dataList[i].pic.split(',')
 								}
 								if(isSearch==true){
+									if(flag){
+										this.viewChange(1)
+									}else{
+										console.log('viewChange')
+										this.viewChange(0)
+									}
 									this.showHistory=false		//显示搜索结果页面
 									if(this.dataList.length==0){
 										this.showEmpty = true
@@ -812,6 +828,26 @@
 				}
 				this.$refs.uDropdown.close();
 				this.tapsaveregion();
+			},
+			//根据历史记录元素的位置，即top值来判断第一行的历史记录数量
+			viewChange(flag){
+				const query = uni.createSelectorQuery().in(this);
+				query.selectAll(".historyItem").boundingClientRect(data => {
+					console.log(data)
+					let length = data.length
+					for(let i=0;i<length;i++){
+						if(data[i].top>150){
+							if(flag){
+								this.defaultNumber = i
+								this.historyShowNumber = i
+							}else{
+								this.defaultNumber = i
+							}
+							break
+						}
+					}
+					/* return data.top */
+				}).exec();
 			}
 		}
 	}
@@ -921,19 +957,22 @@
 		}
 		.history{
 			display: flex;
-			justify-content: flex-end;
+			
 			image{
+				justify-content: flex-end;
 				width: 24rpx;
 				height: 14rpx;
-				margin-right: 40rpx;
+				margin-left: 40rpx;
 				margin-top: 45rpx;
 			}
 		}
 		.historyList{
 			display: flex;
 			padding: 10rpx 0rpx;
+			padding-left: 40rpx;
 			flex-wrap: wrap;
 			width: 650rpx;
+			justify-content: flex-start;
 			.historyItem{
 				border: 1rpx solid #BFBFBF;
 				border-radius: 5rpx;
@@ -954,8 +993,58 @@
 			}
 		}
 	}
+	.listCon {
+		padding: 20rpx;
+		margin-top: 20rpx;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		.item {
+			background-color: #fff;
+			width: 345rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border-radius: 15rpx;
+			padding: 15rpx;
+			margin-bottom: 25rpx;
+			.goodsimg {
+				width: 100%;
+				height: 350rpx;
+			}
+			.name {
+				width: 100%;
+				font-size: 32rpx;
+			}
+			.priceCon {
+				width: 100%;
+				display: flex;
+				align-items: flex-end;
+				.unit {
+					color: #F02828;
+					font-size: 28rpx;
+				}
+				.price {
+					font-size: 32rpx;
+					color: #F02828;
+				}
+			}
+			.position {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				color: #AAAAAA;
+				.city {
+					margin-left: 5rpx;
+				}
+			}
+		}
+	}
 	.dropmenu {
 		background-color: #fff;
+	
 		.slot-content {
 	
 			.province {
@@ -963,20 +1052,17 @@
 				display: flex;
 				align-items: flex-start;
 				padding: 0rpx 30rpx;
-	
 				.labelName {
 					color: #999999;
 					width: 100rpx;
 					font-size: 30rpx;
 				}
-	
 				.provinceList {
 					flex: 1;
 					display: flex;
 					align-items: center;
 					flex-wrap: wrap;
 					color: #666666;
-	
 					.provinceItem {
 						margin-left: 12rpx;
 						margin-right: 12rpx;
@@ -985,26 +1071,22 @@
 					}
 				}
 			}
-	
 			.city {
 				display: flex;
 				align-items: flex-start;
 				padding: 0rpx 30rpx;
 				margin-top: 15rpx;
-	
 				.labelName {
 					color: #999999;
 					width: 100rpx;
 					font-size: 30rpx;
 				}
-	
 				.cityList {
 					flex: 1;
 					display: flex;
 					align-items: center;
 					flex-wrap: wrap;
 					color: #666666;
-	
 					.cityItem {
 						margin-left: 12rpx;
 						margin-right: 12rpx;
@@ -1013,7 +1095,6 @@
 					}
 				}
 			}
-	
 			.active {
 				color: #2D6BDD;
 				border: 1rpx solid #2D6BDD;
@@ -1031,13 +1112,11 @@
 					font-weight: 400;
 					color: #999999;
 				}
-	
 				.priceinput {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					margin-top: 15rpx;
-	
 					.inputitem {
 						width: 280rpx;
 						height: 80rpx;
@@ -1048,7 +1127,6 @@
 						justify-content: center;
 						text-align: center;
 					}
-	
 					.middleLine {
 						width: 50rpx;
 						height: 5rpx;
@@ -1056,7 +1134,6 @@
 						border-radius: 2rpx;
 					}
 				}
-	
 				.tips {
 					font-size: 26rpx;
 					font-family: Source Han Sans CN;
@@ -1071,7 +1148,6 @@
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-	
 				.reset {
 					width: 50%;
 					line-height: 90rpx;
@@ -1081,7 +1157,6 @@
 					font-size: 32rpx;
 					border-top: 1rpx solid #C7C7C7;
 				}
-	
 				.save {
 					width: 50%;
 					line-height: 90rpx;
@@ -1116,78 +1191,11 @@
 			}
 		}
 	}
-	
-	.listCon {
-		padding: 20rpx;
-		padding-top: 26rpx;
-		width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		background: #F3F3F3;
-		.item {
-			background-color: #fff;
-			width: 345rpx;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			border-radius: 15rpx;
-			padding: 15rpx;
-			margin-bottom: 25rpx;
-	
-			.goodsimg {
-				width: 100%;
-				height: 350rpx;
-			}
-	
-			.name {
-				width: 100%;
-				font-size: 32rpx;
-			}
-	
-			.priceCon {
-				width: 100%;
-				display: flex;
-				align-items: flex-end;
-	
-				.unit {
-					color: #F02828;
-					font-size: 28rpx;
-				}
-	
-				.price {
-					font-size: 32rpx;
-					color: #F02828;
-				}
-			}
-	
-			.position {
-				width: 100%;
-				display: flex;
-				align-items: center;
-				color: #AAAAAA;
-	
-				.city {
-					margin-left: 5rpx;
-				}
-			}
-		}
-	}
-	
-	.fix{
+	.nos {
+		overflow: hidden;
 		position: fixed;
-		z-index: 2;
 		width: 100%;
+		height: 100%;
 	}
-	.pad {
-		padding-top: 80rpx;
-	}
-</style>
-x: 2;
-		width: 100%;
-	}
-	.pad {
-		padding-top: 80rpx;
-	}
+
 </style>

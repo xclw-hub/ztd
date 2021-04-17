@@ -83,18 +83,38 @@
 				questionnaireId:''
 			};
 		},
-		onLoad: function(option) {
+		onLoad(option) {
 			let obj=JSON.parse(option.param)
 			this.questionnaireId = option.questionnaireId
-			this.formId = option.formId
+			/* this.formId = option.formId */
 			this.questionnaire=obj
 			console.log(this.questionnaire)
 			console.log(this.questionnaireId)
+			/* console.log(this.formId) */
 			let _this = this
 			uni.getStorage({
 				key:'token',
 				success:function(res){
 					_this.token = res.data
+					_this.$request({
+						url:'/generateForm',
+						data:{
+							'token':_this.token,
+							'userId':_this.$store.state.id,
+							'type':_this.$store.state.kind,
+							'questionnaireId':_this.questionnaireId
+						}
+					}).then(res=>{
+						console.log('generateForm')
+						console.log(res[1].data)
+						if(res[1].data.statusCode==2000){
+							_this.formId=res[1].data.formId
+						}else{
+							console.log(res[1].data.statusMsg)
+						}
+					}).catch(err=>{
+						console.log(err)
+					})
 				},
 				fail:function(err){
 					console.log('没有存储token，无法获取token')
@@ -104,22 +124,22 @@
 		methods:{
 			radioChange: function(e, index) {
 				var checked = e.detail.value
-				console.log(e)
-				console.log(checked)
+				/* console.log(e)
+				console.log(checked) */
 				this.questionnaire.content[index].result=checked
 				// console.log(this.questionnaire.content)
 			},
 			checkboxChange: function(e, index) {
 				var checked = e.detail.value
-				console.log(checked)
-				console.log(index)
+				/* console.log(checked)
+				console.log(index) */
 				this.questionnaire.content[index].result=checked
-				// console.log(this.questionnaire.content)
+				//console.log(this.questionnaire.content)
 			},
 			bindTextAreaBlur: function(e, index) {
 				var areaValue=e.detail.value
-				console.log(index)
-				console.log(areaValue)
+				/* console.log(index)
+				console.log(areaValue) */
 				this.questionnaire.content[index].result=areaValue
 			},
 			clickBack(){
@@ -130,33 +150,31 @@
 					delta:1
 				})
 			},
-			submitQuestion(index){
+			async submit(){
 				let _this = this
-				console.log(_this.questionnaire.content[index].question+':'+_this.questionnaire.content[index].result)
-				_this.$request({
-					url:'/submitQuestion',
-					data:{
-						'token':_this.token,
-						'userType':_this.$store.state.kind,
-						'formId':_this.formId,
-						'itemType':_this.questionnaire.content[index].kind,
-						'question':_this.questionnaire.content[index].question,
-						'answer':_this.questionnaire.content[index].result
-					}
-				}).then(res =>{
+				let length = this.questionnaire.content.length
+				console.log(this.formId)
+				console.log(this.questionnaireId)
+				console.log(this.questionnaire)
+				for(let i=0;i<length;i++){
+					const res = await _this.$request({
+						url:'/submitQuestion',
+						data:{
+							'token':_this.token,
+							'userType':_this.$store.state.kind,
+							'formId':_this.formId,
+							'itemType':_this.questionnaire.content[i].kind,
+							'question':_this.questionnaire.content[i].question,
+							'answer':_this.questionnaire.content[i].result
+						}
+					})
+					console.log('submitQuestion:'+i)
+					console.log(res[1].data)
 					if(res[1].data.statusCode != 2000){
 						console.log(res[1].data.statusMsg)
 					}
-				}).catch(err =>{
-					console.log(err)
-				})
-			},
-			submit(){
-				let _this = this
-				let length = this.questionnaire.content.length
-				for(let i=0;i<length;i++){
-					this.submitQuestion(i)
 				}
+				console.log('submitQuestion end')
 				_this.$request({
 					url:'/submitForm',
 					data:{
@@ -165,6 +183,8 @@
 						'formId':_this.formId
 					}
 				}).then(res =>{
+					console.log('submitForm')
+					console.log(res[1].data)
 					if(res[1].data.statusCode != 2000){
 						console.log(res[1].data.statusMsg)
 					}else{
@@ -255,6 +275,7 @@
 		top: 260rpx;
 		bottom: 0;
 		// top:-48rpx;
+		width: 100%;
 		.description{
 			display: flex;
 			flex-direction: column;

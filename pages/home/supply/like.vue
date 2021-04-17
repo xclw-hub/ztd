@@ -11,7 +11,7 @@
 		<view>
 			<view class="listCon">
 				<view class="item" v-for="(item, index) in dataList" :key="index" @click="tapdetail(item)">
-					<image class="goodsimg" :src="item.pic[0]" mode=""></image>
+					<image class="goodsimg" :src="item.pic == []?'../../../static/enterprise/noneimage.png':item.pic[0]" mode=""></image>
 					<view class="name u-line-2">
 						{{item.title}}
 					</view>
