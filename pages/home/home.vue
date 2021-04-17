@@ -257,7 +257,8 @@
 									console.log(id)
 									let d = {
 										industryId: id,
-										keyword: _this.tabList[a].title,
+										/* keyword: _this.tabList[a].title, */
+										keyword:'',
 										page: 1,
 									}
 									request({
@@ -289,7 +290,8 @@
 									console.log(id)
 									let d = {
 										industryId: id,
-										keyword: _this.tabList[a].title,
+										/* keyword: _this.tabList[a].title, */
+										keyword:'',
 										page: 1,
 									}
 									request({
@@ -360,7 +362,8 @@
 									console.log(id)
 									let d = {
 										industryId: id,
-										keyword: _this.tabList[a].title,
+										/* keyword: _this.tabList[a].title, */
+										keyword:'',
 										page: 1,
 									}
 									request({
@@ -391,7 +394,8 @@
 									console.log(id)
 									let d = {
 										industryId: id,
-										keyword: _this.tabList[a].title,
+										/* keyword: _this.tabList[a].title, */
+										keyword:'',
 										page: 1,
 									}
 									request({
@@ -427,7 +431,8 @@
 			console.log(this.pageNumber)
 			let d = {
 				industryId: _this.tabList[_this.tabCurrent].pkid,
-				keyword: _this.tabList[_this.tabCurrent].title,
+				/* keyword: _this.tabList[_this.tabCurrent].title, */
+				keyword:'',
 				page: _this.tabList[_this.tabCurrent].pageNumber + 1
 			}
 			request({

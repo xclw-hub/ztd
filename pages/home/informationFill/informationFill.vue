@@ -14,7 +14,7 @@
 		</uniNavBar>
 		<view class="content">
 			<view class="questionnaire-list">
-				<view class="questionnaire-item"  v-for="(item, index) in questionnaire" :key='index' @click="enterDetail(index)">
+				<view class="questionnaire-item"  v-for="(item, index) in questionnaire" :key='index' v-if="item.statusCode!=8007" @click="enterDetail(index)">
 					<view class="questionnaireNoFill" v-if="item.flag===0">
 						<view class="up">
 							<view id="questionnaireNoFill-flag">
@@ -284,6 +284,8 @@
 							else{
 								let questionnaireIds = res[1].data.questionnaireIds
 								let length = questionnaireIds.length
+								console.log('questionnaireIds')
+								console.log(questionnaireIds)
 								for(let i = 0;i<length;i++){
 									_this.$request({
 										url:'/getQuestionDetails',
@@ -294,14 +296,16 @@
 									}).then(res =>{
 										let data=res[1].data
 										if(data.success == false){
-											console.log(data.message)
+											/* console.log(data.message) */
 										}
 										else{
 											data = data.data
-											console.log('问卷数据：')
-											console.log(data)
+											if(data.title == '常识题4'){
+												console.log('问卷数据：')
+												console.log(data)
+											}
 											_this.questionnaire.push({
-												formId:'',
+												/* formId:'', */
 												flag:0,
 												startTime:data.starttime,
 												endTime:data.endtime,
@@ -311,6 +315,7 @@
 												time:data.time,
 												discription:data.content,
 												content:[],
+												statusCode:''	//用于提出后端发送的已删除问卷，后端改好后应去掉此条及相关代码
 											})
 											_this.ids.push(questionnaireIds[i])
 											let len = data.information.length
@@ -345,17 +350,26 @@
 														/* 'questionnaireId':2 */
 													}
 												}).then(res =>{
-													data = res[1].data
-													console.log('问卷重复填写数据:')
-													console.log(data)
-													console.log(questionnaireIds[i])
+													console.log(res[1].data.statusCode)
+													_this.questionnaire[index].statusCode = res[1].data.statusCode
+													/* if(data.title == '常识题4'){ */
+													console.log(data.title)
+														data = res[1].data
+														console.log('问卷重复填写数据:')
+														console.log(data)
+														console.log(questionnaireIds[i])
+													/* }else{
+														data = res[1].data
+													} */
+													
 													if(data.statusCode != 2000){
 														_this.questionnaire[index].flag = 1
-														console.log(data.statusMsg)
+														/* console.log(data.statusMsg) */
 													}else{
 														_this.questionnaire[index].flag = 0
-														_this.questionnaire[index].formId = data.formId
+														/* _this.questionnaire[index].formId = data.formId */
 													}
+													
 												}).catch(err =>{
 													console.log(err)
 												})
@@ -397,7 +411,7 @@
 				}
 				if(obj.flag===0){		//进入未填页面
 					uni.navigateTo({
-						url:'questionnaireNoFill?param='+JSON.stringify(param)+'&questionnaireId='+this.ids[index]+'&formId='+this.questionnaire[index].formId
+						url:'questionnaireNoFill?param='+JSON.stringify(param)+'&questionnaireId='+this.ids[index]/* +'&formId='+this.questionnaire[index].formId */
 					})
 				}
 				else if(obj.flag===1){		//进入已填页面

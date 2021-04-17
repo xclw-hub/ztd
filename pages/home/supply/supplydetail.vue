@@ -14,7 +14,8 @@
 			<image src="../../../static/detail_headbg.png" mode="widthFix"></image>
 		</view>
 		<view class="swiperbar">
-			<u-swiper :list="ct.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<u-swiper v-show="ct.pic!=null" :list="ct.pic" height="600" mode="number" indicator-pos="bottomRight"></u-swiper>
+			<image v-show="ct.pic==null" src="../../../static/enterprise/noneimage.png" height="600" mode="number" indicator-pos="bottomRight"></image>
 		</view>
 		<view class="goodsinfo">
 			<view class="pricebar">
@@ -43,9 +44,9 @@
 				</view>
 				<image src="../../../static/detailRight.png" mode=""></image>
 			</view>
-			<u-parse :content="ct.content" @navigate="navigate"></u-parse>
+			<!-- <u-parse :content="ct.content" @navigate="navigate"></u-parse> -->
 			<view class="item">
-				{{ct.content}}
+				<rich-text :nodes="ct.content"></rich-text>
 			</view>
 
 		</view>
