@@ -258,15 +258,12 @@
 							if(res[1].data.success == true){
 								let data = res[1].data.data
 								_this.supplyList = data.list
-<<<<<<< Updated upstream
-=======
 								if(flag){
 									this.viewChange(1)
 								}else{
 									console.log('viewChange')
 									this.viewChange(0)
 								}
->>>>>>> Stashed changes
 								this.showHistory=false		//显示搜索结果页面
 								if(_this.supplyList.length <= 0){
 									this.showEmpty = true
