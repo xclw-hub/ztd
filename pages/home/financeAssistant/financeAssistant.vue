@@ -151,7 +151,10 @@
 				index: 0,
 				dataList:[],
 				pageNumber:1,
-				joinedPark:''
+				joinedPark:'',
+				parkId:0,
+				enterpriseId:0,
+				enterpriseName:''
 			}
 		},
 		onReachBottom() {
@@ -226,7 +229,7 @@
 			} else {
 				if (!_this.$store.state.userInfo.isBindPark) {
 					_this.tabList = [{
-						"pkid": "478",
+						"pkid": 478,
 						"title": "智能制造"
 					}, {
 						pkid: 33,
@@ -301,8 +304,40 @@
 				console.log(that.$store.state.enterpriseInfo.parkStatus)
 				if(that.$store.state.kind=='0'){
 					if(that.$store.state.enterpriseInfo.parkStatus==1){
-						uni.navigateTo({
-							url: '../../enterprise/inform/feedBackDetail'
+						let parkId,enterpriseId
+						if(_this.$store.state.kind==='0'){
+							parkId = _this.$store.state.enterpriseInfo.parkId
+							enterpriseId = _this.$store.state.id
+						}
+						else{
+							parkId = _this.$store.state.userInfo.parkId
+							enterpriseId =_this.$store.state.userInfo.enterpriseId
+						}
+						//获取融资反馈消息
+						_this.$request({
+							url:'/noticeService/financingFeedbackNoticeList',
+							data:{
+								parkId: parkId,
+								companyId: enterpriseId
+								// parkId: 4,
+								// companyId: 12,
+							}
+						}).then(res=>{
+							let data = res[1].data.statusCode
+							console.log(data)
+							if(data==3020){
+								uni.showToast({
+									title: '暂无反馈信息',
+									duration: 2000,
+									icon: 'none'
+								});
+							}else{
+								uni.navigateTo({
+									url: '../../enterprise/inform/feedBackInfrom'
+								})
+							}
+						}).catch(err=>{
+							console.log(err)
 						})
 					}else if(that.$store.state.enterpriseInfo.parkStatus==2){
 						uni.navigateTo({
@@ -314,18 +349,41 @@
 					}
 				}else{
 					if(that.$store.state.userInfo.isBindPark){
-						request({
-							url: '/financingMode',
-							data: {
-								token,
-								type:that.$store.state.kind
-							},
-						}).then(res => {
-							that.array=(res[1].data.data)
-							
+						let parkId,enterpriseId
+						if(_this.$store.state.kind==='0'){
+							parkId = _this.$store.state.enterpriseInfo.parkId
+							enterpriseId = _this.$store.state.id
+						}
+						else{
+							parkId = _this.$store.state.userInfo.parkId
+							enterpriseId =_this.$store.state.userInfo.enterpriseId
+						}
+						//获取融资反馈消息
+						_this.$request({
+							url:'/noticeService/financingFeedbackNoticeList',
+							data:{
+								parkId: parkId,
+								companyId: enterpriseId
+								// parkId: 4,
+								// companyId: 12,
+							}
+						}).then(res=>{
+							let data = res[1].data.statusCode
+							console.log(data)
+							if(data==3020){
+								uni.showToast({
+									title: '暂无反馈信息',
+									duration: 2000,
+									icon: 'none'
+								});
+							}else{
+								uni.navigateTo({
+									url: '../../enterprise/inform/feedBackInfrom'
+								})
+							}
+						}).catch(err=>{
+							console.log(err)
 						})
-						// this.isFind=true
-						that.isShowDiagnosis=true;
 					}else{
 						uni.showToast({
 							title: '企业未入园,暂无权限',
@@ -403,19 +461,32 @@
 				this.tabCurrent = index
 				this.pageNumber = 1
 				let _this = this
+				let token = uni.getStorageSync('token')
+				let parkId
+				if (_this.$store.state.kind == '0') {
+					parkId = _this.$store.state.enterpriseInfo.parkId
+				} else {
+					parkId = _this.$store.state.userInfo.parkId
+				}
 				request({
-					url: '/industry/dataTitle',
+					url: '/Industrydata',
+					data: {
+						token,
+						type: _this.$store.state.kind,
+						parkId
+					}
 				}).then(res => {
 					console.log(res[1].data.data);
-					_this.tabList = res[1].data.data;
-					console.log(_this.tabList);
+					_this.tabList = res[1].data.data
 					let d = {
-						industryId: _this.tabList[_this.tabCurrent].pkid,
-						keyword: _this.tabList[_this.tabCurrent].title,
+						token,
+						pkid: _this.tabList[_this.tabCurrent].pkid,
+						type: _this.$store.state.kind,
 						page: _this.pageNumber,
 					}
+					console.log(d)
 					request({
-						url: '/industry/dataList',
+						url: '/financialConsult',
 						data: d,
 					}).then(res => {
 						console.log(res[1].data.data.list)

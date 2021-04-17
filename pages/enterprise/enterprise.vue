@@ -444,6 +444,7 @@
 								if (result.statusCode == 2000) {
 									_this.$store.state.enterpriseInfo.enterpriseLogo = 'http://39.105.57.219/ztd/loadIcon?id='+_this.$store.state.enterpriseInfo.enterpriseId+'&type=0'
 								}
+								console.log(_this.$store.state.enterpriseInfo.enterpriseLogo)
 								uni.showToast({title:'头像修改成功'})
 							}
 						 })

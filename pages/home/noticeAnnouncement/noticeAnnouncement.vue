@@ -20,7 +20,8 @@
 		</view>
 		<view class="content">
 			<view class="myService" v-if="choice">
-				<view class="serviceList" v-for="(item,index) in policyList" :key="index" @click="viewserviceDetail(index)">
+				<view class="serviceList" v-for="(item,index) in policyList" :key="index"
+					@click="viewserviceDetail(index)">
 					<view class="message">{{item.title}}</view>
 					<view class="publishinfo">
 						<view id="people">
@@ -38,7 +39,8 @@
 			<view v-else class="supplyList">
 				<view class="supplyitem" v-for="(item,index) in noticeList" :key="index"
 					@click="viewSupplyDetail(index)">
-					<text class="reddot" v-if="!item.read"></text><view class="message">{{item.title}}</view>
+					<text class="reddot" v-if="!item.read"></text>
+					<view class="message">{{item.title}}</view>
 					<view class="publishinfo">
 						<view id="people">
 							<image src="../../../static/home/people.png"></image>
@@ -60,18 +62,18 @@
 	import {
 		request
 	} from '../../../util/request.js'
-			import uParse from "@/components/feng-parse/parse.vue"
+	import uParse from "@/components/feng-parse/parse.vue"
+
 	function timestampToTime(timestamp) {
-		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
 		var Y = date.getFullYear() + '-';
-		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-		var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-		var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-		var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes());
-		
-		let strDate = Y+M+D+h+m;
+		var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+		var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+		var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+		var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+		let strDate = Y + M + D + h + m;
 		return strDate;
-		
+
 	}
 	export default {
 		components: {
@@ -80,10 +82,8 @@
 		data() {
 			return {
 
-				policyList: [
-				],
-				noticeList: [
-				],
+				policyList: [],
+				noticeList: [],
 				choice: true, //表示选择我的服务，否则表示选择供需列表
 				isActive_service: true, //点击我的服务时的view样式
 				activeClass_service: 'active1_service',
@@ -91,45 +91,80 @@
 				isActive_need: false, //点击供应需求时的view样式
 				activeClass_need: 'active1_need',
 				needColor: '#666666',
+				policyPage: 0,
+				pageNumber: 1
 			}
 		},
 		onLoad() {
 			let _this = this
 			let that = this
 			console.log({
-					userId:_this.$store.state.id,
-					userType:_this.$store.state.kind
-				})
-			
+				userId: _this.$store.state.id,
+				userType: _this.$store.state.kind
+			})
+
 			request({
 				url: '/announcement/govInformationList',
-				data:{
-					userId:_this.$store.state.id,
+				data: {
+					userId: _this.$store.state.id,
+					page: 1
 					// userId:1,
-					userType:_this.$store.state.kind
+					// userType:_this.$store.state.kind
 				}
 			}).then(res => {
 				console.log(res[1].data)
-				that.policyList = res[1].data
+				that.policyList = res[1].data.data.list
+				that.policyPage = res[1].data.data.pageTotal
 			})
 			request({
 				url: '/announcement/govNoticeList',
-				data:{
+				data: {
 					// userId:58,
-					userId:_this.$store.state.id,
-					userType:_this.$store.state.kind
+					userId: _this.$store.state.id,
+					userType: _this.$store.state.kind
 				}
 			}).then(res => {
 				console.log(res[1].data)
-				that.noticeList = res[1].data
+				that.noticeList = res[1].data.data.list
 			})
 		},
 		filters: {
-		  toDate: function (value) {
-			  console.log(value)
-			let date1 = timestampToTime(value)
-		    return date1
-		  }
+			toDate: function(value) {
+				console.log(value)
+				let date1 = timestampToTime(value)
+				return date1
+			}
+		},
+		onReachBottom() {
+			let _this = this
+			console.log('触底刷新')
+			console.log(this.pageNumber)
+			if (this.choice == true) {
+				if (this.pageNumber <= this.policyPage) {
+					this.pageNumber++;
+					request({
+						url: '/announcement/govInformationList',
+						data: {
+							userId: _this.$store.state.id,
+							page: _this.pageNumber
+							// userId:1,
+							// userType:_this.$store.state.kind
+						}
+					}).then(res => {
+						console.log(res[1].data)
+						that.policyList.concat(res[1].data.data.list)
+						console.log(that.policyList)
+						that.policyPage = res[1].data.data.pageTotal
+					})
+				} else {
+					console.log('没有更多内容了')
+					uni.showToast({
+						title: '没有更多内容了',
+						duration: 2000,
+						icon: 'none'
+					});
+				}
+			}
 		},
 		methods: {
 			clickBack() {
@@ -156,14 +191,14 @@
 				let that = this
 				this.noticeList[index].read = true;
 				uni.navigateTo({
-					url: 'importantNoticedetail?pkid='+that.noticeList[index].pkid
+					url: 'importantNoticedetail?pkid=' + that.noticeList[index].pkid
 				})
 			},
 			viewserviceDetail(index) {
 				let that = this
 				console.log(that.policyList[index].pkid)
 				uni.navigateTo({
-					url: 'activityPolicydetail?pkid='+that.policyList[index].pkid
+					url: 'activityPolicydetail?pkid=' + that.policyList[index].pkid
 				})
 			},
 		}
@@ -258,6 +293,7 @@
 		padding-top: 20rpx;
 		border-bottom: 20rpx solid #eee;
 	}
+
 	.reddot {
 		display: inline-block;
 		width: 17rpx;
