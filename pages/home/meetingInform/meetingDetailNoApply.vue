@@ -123,7 +123,7 @@
 				startTime:'',
 				durationTime:'',
 				location:'',
-				participatorList:[]		//已参加的成员列表
+				participatorList:[]		//已报名的成员列表
 			};
 		},
 		onLoad: function(option) {
@@ -172,13 +172,13 @@
 						if(contactArr[i].contactId){		//自定义与会成员没有ID，所以需要过滤成员列表
 							let contactItem = {
 								contactId: contactArr[i].contactId,
-								photo: contactArr[i].head,
+								photo: contactArr[i].head || '../../../static/home/userIcon.png',
 								name: contactArr[i].contactName,
 								position: contactArr[i].position,
 								isSignIn: contactArr[i].contactSignedIn,
 								isPaticipator: contactArr[i].contactParticipated		//用来改变参加与否的样式
 							}
-								_this.participatorList.push(contactItem)
+							_this.participatorList.push(contactItem)
 						}
 					}
 					console.log(_this.participatorList)
@@ -218,8 +218,8 @@
 					let data = res[1].data
 					if(data.statusCode === 2000){
 						console.log('会议取消参加成功')
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -292,7 +292,7 @@
 				})
 			},
 			confirmAdd(){
-				// console.log('参会人员已确认')
+				console.log('参会人员已确认')
 				this.isShowAddParticipator=false
 				let _this = this
 				_this.$request({
@@ -307,8 +307,8 @@
 					let data = res[1].data
 					console.log(data)
 					if(data.statusCode === 2000){
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -377,6 +377,8 @@
 		overflow: scroll;
 		// top: 140rpx;
 		top: 160rpx;
+		left: 0;
+		right: 0;
 		bottom: 0;
 		.rectangle{
 			position: absolute;
@@ -558,9 +560,11 @@
 						margin-right: 33rpx;
 						width: 80rpx;
 						height: 80rpx;
+						border-radius: 50%;
 						image{
 							width: 80rpx;
 							height: 80rpx;
+							border-radius: 50%;
 						}
 					}
 					.participator-identity{

@@ -122,163 +122,187 @@
 				type: ''
 			}
 		},
+		onShow() {
+			console.log('onshow')
+			this.getData()
+		},
 		onLoad() {
+			console.log('onload')
 			let _this = this
 			_this.type = _this.$store.state.kind
 			_this.id = _this.$store.state.id
-			//获取token
-			uni.getStorage({
-				key:'token',
-				success:function(res){
-					let token = res.data
-					console.log(token)
-					//获取所有会议ID
-					_this.$request({
-						url:'/callMeeting',
-						data:{
-							token: token,
-							userId: _this.id,
-							type: _this.type
-						}
-					}).then(res =>{
-						console.log(res)
-						let data = res[1].data
-						if(data.statusCode === 2000){
-							let meetingIdArr = data.meetingIds
-							console.log(meetingIdArr)
-							//获取每个会议详情并获取状态
-							if(meetingIdArr.length <= 0){
+		},
+		methods:{
+			getData(){
+				let _this = this
+				_this.meetingList = []
+				//获取token
+				uni.getStorage({
+					key:'token',
+					success:function(res){
+						let token = res.data
+						console.log(token)
+						//获取所有会议ID
+						_this.$request({
+							url:'/callMeeting',
+							data:{
+								token: token,
+								userId: _this.id,
+								type: _this.type
+							}
+						}).then(res =>{
+							console.log(res)
+							let data = res[1].data
+							if(data.statusCode === 2000){
+								let meetingIdArr = data.meetingIds
+								console.log(meetingIdArr)
+								//获取每个会议详情并获取状态
+								if(meetingIdArr.length <= 0){
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										duration: 2000,
+										title: '没有收到相关会议通知'
+									})
+									return
+								}
+								let flag = 0, len = meetingIdArr.length
+								for(let i = 0; i < len; i++){
+									_this.$request({
+										url:'/getMeetingDetails',
+										data:{
+											token: token,
+											meetingId:meetingIdArr[i]
+											// token: '12',
+											// meetingId:120
+										}
+									}).then(res =>{
+										flag++
+										let data = res[1].data
+										// console.log(data)
+										if(data.success){
+											let meetingDetail = data.data
+											// console.log(meetingDetail)
+											let meetingObj = {
+												//-1：该记录已删除或者会议状态有误（不展示该会议信息）  0：待反馈的新会议（只有企业有） 1:已报名，待参加(企业),2:进行中，待参加,3:进行中，已参加,4:正常结束，5:取消会议     6:待反馈，有报名,7:已报名，待参加(个人),8:未报名参加
+												state:-1,	
+												meetingId: meetingIdArr[i],
+												title: meetingDetail.title,
+												publisher: meetingDetail.author,
+												checker: meetingDetail.examine,
+												publishTime: meetingDetail.pubdate,
+												content: meetingDetail.content,
+												imgSrc: meetingDetail.pic,
+												startTime: meetingDetail.starttime,
+												durationTime: meetingDetail.duration,
+												location: meetingDetail.address,
+												cancelTime: meetingDetail.cancelTime || '',
+												cancelreason: meetingDetail.cancelreason || '',
+												cancelChecker: meetingDetail.examine || ''
+											}
+											//获取该会议的状态
+											_this.$request({
+												url:'/participantState',
+												data:{
+													token: token,
+													meetingId: meetingObj.meetingId,
+													userId: _this.id,
+													type: _this.type,
+													startTime: meetingObj.startTime,
+													duration: meetingObj.durationTime
+												}
+											}).then(res=>{
+												let data = res[1].data
+												// console.log(data)
+												let meetingState
+												if(data.statusCode === 2000){
+													switch(data.state){
+														case '待反馈':		//新会议
+															meetingState = 0
+															break;
+														case '已报名，待参加':
+															if(_this.type === '0'){
+																meetingState = 1		//企业的已报名，待参加状态
+															}else{
+																meetingState = 7
+															}
+															break;
+														case '进行中，待参加':
+															meetingState = 2
+															break;
+														case '进行中，已参加':
+															meetingState = 3
+															break;
+														case '已结束':
+															meetingState = 4
+															break;
+														case '已结束，被取消':
+															meetingState = 5
+															break;
+														case '待反馈，有报名':
+															meetingState = 6
+															break;
+														case '未报名参加':
+															meetingState = 8
+															break;
+														default:
+															console.log(meetingIdArr[i]+'会议：状态信息有误，为：' + data.state)
+															meetingState = -1		//-1表示该记录被删除，不参与会议展示
+													}
+													if(meetingState >= 0){
+														meetingObj.state = meetingState		//修改会议状态
+														// console.log(meetingObj)
+														_this.meetingList.push(meetingObj)		//加入展示列表
+													}
+													// console.log(flag)
+													if(flag === len){
+														// for(let j = 0; j < _this.meetingList.length; j++){
+														// 	console.log(_this.meetingList[j].publishTime)
+														// }
+														_this.meetingList.sort(function(a, b){
+															// return a.meetingId-b.meetingId
+															return new Date(b.publishTime).getTime()-new Date(a.publishTime).getTime()
+														})
+														// console.log('---------------------------')
+														// for(let j = 0; j < _this.meetingList.length; j++){
+														// 	console.log(_this.meetingList[j].publishTime)
+														// }
+														// console.log(_this.meetingList)
+													}
+												}
+												else{
+													console.log(meetingIdArr[i]+'会议：状态获取失败')
+												}
+											}).catch(err=>{
+												console.log(err)
+											})
+										}
+										else{
+											console.log('id为：'+meetingIdArr[i]+'的会议详情获取失败')
+										}
+									}).catch(err=>{
+										console.log(err)
+									})
+								}
+							}
+							else{
 								uni.showToast({
 									icon: 'none',
 									position: 'bottom',
 									duration: 2000,
-									title: '没有收到相关会议通知'
-								})
-								return
-							}
-							for(let i = 0; i < meetingIdArr.length; i++){
-								_this.$request({
-									url:'/getMeetingDetails',
-									data:{
-										token: token,
-										meetingId:meetingIdArr[i]
-										// token: '12',
-										// meetingId:120
-									}
-								}).then(res =>{
-									let data = res[1].data
-									// console.log(data)
-									if(data.success){
-										let meetingDetail = data.data
-										// console.log(meetingDetail)
-										let meetingObj = {
-											//-1：该记录已删除或者会议状态有误（不展示该会议信息）  0：待反馈的新会议（只有企业有） 1:已报名，待参加(企业),2:进行中，待参加,3:进行中，已参加,4:正常结束，5:取消会议     6:待反馈，有报名,7:已报名，待参加(个人),8:未报名参加
-											state:-1,	
-											meetingId: meetingIdArr[i],
-											title: meetingDetail.title,
-											publisher: meetingDetail.author,
-											checker: meetingDetail.examine,
-											publishTime: meetingDetail.pubdate,
-											content: meetingDetail.content,
-											imgSrc: meetingDetail.pic,
-											startTime: meetingDetail.starttime,
-											durationTime: meetingDetail.duration,
-											location: meetingDetail.address,
-											cancelTime: meetingDetail.cancelTime || '',
-											cancelreason: meetingDetail.cancelreason || '',
-											cancelChecker: meetingDetail.examine || ''
-										}
-										// console.log(id)
-										// console.log(type)
-										//获取该会议的状态
-										_this.$request({
-											url:'/participantState',
-											data:{
-												token: token,
-												meetingId: meetingObj.meetingId,
-												userId: _this.id,
-												type: _this.type,
-												startTime: meetingObj.startTime,
-												duration: meetingObj.durationTime
-											}
-										}).then(res=>{
-											let data = res[1].data
-											console.log(data)
-											let meetingState
-											if(data.statusCode === 2000){
-												switch(data.state){
-													case '待反馈':		//新会议
-														meetingState = 0
-														break;
-													case '已报名，待参加':
-														if(_this.type === '0'){
-															meetingState = 1		//企业的已报名，待参加状态
-														}else{
-															meetingState = 7
-														}
-														break;
-													case '进行中，待参加':
-														meetingState = 2
-														break;
-													case '进行中，已参加':
-														meetingState = 3
-														break;
-													case '已结束':
-														meetingState = 4
-														break;
-													case '已结束，被取消':
-														meetingState = 5
-														break;
-													case '待反馈，有报名':
-														meetingState = 6
-														break;
-													case '未报名参加':
-														meetingState = 8
-														break;
-													default:
-														console.log(meetingIdArr[i]+'会议：状态信息有误，为：' + data.state)
-														meetingState = -1		//-1表示该记录被删除，不参与会议展示
-												}
-												if(meetingState >= 0){
-													meetingObj.state = meetingState		//修改会议状态
-													console.log(meetingObj)
-													_this.meetingList.push(meetingObj)		//加入展示列表
-												}
-											}
-											else{
-												console.log(meetingIdArr[i]+'会议：状态获取失败')
-											}
-										}).catch(err=>{
-											console.log(err)
-										})
-									}
-									else{
-										console.log('id为：'+meetingIdArr[i]+'的会议详情获取失败')
-									}
-								}).catch(err=>{
-									console.log(err)
+									title: data.statusMsg
 								})
 							}
-						}
-						else{
-							uni.showToast({
-								icon: 'none',
-								position: 'bottom',
-								duration: 2000,
-								title: data.statusMsg
-							})
-						}
-					}).catch(err =>{
-						console.log(err)
-					})
-				},
-				fail:function(err){
-					console.log('token获取失败')
-					return
-				}
-			})
-		},
-		methods:{
+						}).catch(err =>{
+							console.log(err)
+						})
+					},
+					fail:function(err){
+						console.log('token获取失败')
+						return
+					}
+				})
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -357,6 +381,10 @@
 					font-family: Source Han Sans CN;
 					font-weight: 400;
 					color: #333333;
+					display: -webkit-box;
+					-webkit-box-orient:vertical;
+					-webkit-line-clamp:1;
+					overflow:hidden;
 				}
 				#meetingCancel-title{
 					color: #777777;
@@ -383,6 +411,10 @@
 					font-weight: 400;
 					color: #777777;
 					line-height: 42rpx;
+					display: -webkit-box;
+					-webkit-box-orient:vertical;
+					-webkit-line-clamp:1;
+					overflow:hidden;
 				}
 				// text{
 				// 	display: -webkit-box;
@@ -420,6 +452,7 @@
 			font-weight: 400;
 			color: #2E6BDE;
 			line-height: 42rpx;
+			white-space: nowrap;		/* 禁止换行 */
 		}
 	}
 	#meetingStarted-flag{
@@ -437,6 +470,7 @@
 			font-weight: 400;
 			color: #FFFFFF;
 			line-height: 42rpx;
+			white-space: nowrap;		/* 禁止换行 */
 		}
 	}
 	#meetingEnd-flag{
@@ -454,6 +488,7 @@
 			font-weight: 400;
 			color: #FFFFFF;
 			line-height: 42rpx;
+			white-space: nowrap;		/* 禁止换行 */
 		}
 	}
 </style>

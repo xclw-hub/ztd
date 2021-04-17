@@ -87,8 +87,8 @@
 		},
 		methods: {
 			clickBack(){
-				uni.navigateBack({
-					delta: 1
+				uni.reLaunch({
+					url:'index'
 				})
 			},
 			personLogin(){

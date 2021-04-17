@@ -187,7 +187,8 @@
 			},
 			viewFeedBack(index){
 				uni.navigateTo({
-					url:"feedBackDetail?pkid="+this.feedBackInformArr[index].pkid
+					// url:"feedBackDetail?pkid="+this.feedBackInformArr[index].pkid,
+					url:'feedBackDetail'
 				})
 			},
 			closeDropList(){

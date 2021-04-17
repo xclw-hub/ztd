@@ -67,13 +67,13 @@
 				enterpriseDetail3:[],	//智能生产
 				enterpriseDetail4:[],	//矿山机械
 				parkId:0,
-				pkid:0,
+				pkid:0,				//该条融资反馈消息的ID
 				enterpriseId:0,
 				enterpriseName:'',
 			}
 		},
-		onLoad(option) {
-			this.pkid = Number(option.pkid)
+		onLoad() {
+			// this.pkid = Number(option.pkid)
 			if(this.$store.state.kind==='0'){
 				this.parkId = this.$store.state.enterpriseInfo.parkId
 				this.enterpriseId = this.$store.state.enterpriseInfo.enterpriseId
@@ -84,7 +84,7 @@
 				this.enterpriseId = this.$store.state.userInfo.enterpriseId
 				this.enterpriseName = this.$store.state.userInfo.enterpriseName
 			}
-			console.log(this.pkid)
+			// console.log(this.pkid)
 			console.log(this.parkId)
 			let _this = this
 			_this.$request({

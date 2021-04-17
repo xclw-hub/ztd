@@ -99,6 +99,19 @@
 							</view>
 						</view>
 					</view>
+					<view class="participator" v-for="(itemCustom, index) in customContactList" :key='index'>
+						<view class="participator-left">
+							<view class="participator-img">
+								<image src='../../../static/home/userIcon.png'></image>
+							</view>
+							<view class="participator-identity">
+								<text>{{itemCustom.contactName}}</text>
+								<view class="participator-identity-job">
+									<text>{{itemCustom.position}}</text>
+								</view>
+							</view>
+						</view>
+					</view>
 				</view>
 			</view>
 		
@@ -141,7 +154,7 @@
 			</view>
 			
 			<view class="popup-participator-list">
-				<view class="popup-participator" v-for="(item, index) in contactList" :key='index'>
+				<view class="popup-participator" v-for="(item, index) in appliedContactList" :key='index'>
 					<view class="popup-participator-left">
 						<view class="popup-participator-img">
 							<image :src='item.photo'></image>
@@ -238,8 +251,9 @@
 				startTime:'',
 				durationTime:'',
 				location:'',
-				contactList:[],		//可选成员列表
-				participatorList:[],		//已参加的成员列表
+				customContactList:[],		//所有自定义与会成员列表
+				participatorList:[],		//已参加的正常成员列表
+				appliedContactList:[],		//所有正常成员列表
 				enterpriseId:0,		//包括企业用户的ID以及个人用户所在企业的ID
 				token:'',
 				cancelReason:{
@@ -249,8 +263,19 @@
 				}
 			};
 		},
+		onShow() {
+			this.getData()
+		},
 		onLoad: function(option) {
 			let obj = JSON.parse(option.param)
+			let weekday=new Array(7)
+				weekday[0]="星期日"
+				weekday[1]="星期一"
+				weekday[2]="星期二"
+				weekday[3]="星期三"
+				weekday[4]="星期四"
+				weekday[5]="星期五"
+				weekday[6]="星期六"
 			this.state = obj.state,
 			this.meetingId = obj.meetingId
 			this.title = obj.title,
@@ -259,7 +284,7 @@
 			this.publishTime = obj.publishTime,
 			this.content = obj.content,
 			this.imgSrc = obj.imgSrc,
-			this.startTime = obj.startTime,
+			this.startTime = obj.startTime+' '+weekday[new Date(obj.startTime).getDay()],
 			this.durationTime = obj.durationTime,
 			this.location = obj.location
 			this.cancelReason = {
@@ -268,72 +293,81 @@
 				checker: obj.cancelChecker
 			}
 			console.log(obj)
-			let _this = this
 			//获取企业ID
-			if(_this.$store.state.kind === '0'){
-				_this.enterpriseId = _this.$store.state.id
+			if(this.$store.state.kind === '0'){
+				this.enterpriseId = this.$store.state.id
 			}else{		//如果是个人用户，则获取其所在企业id
-				let useInfo = _this.$store.state.userInfo
-				_this.enterpriseId = useInfo.enterpriseId
+				let useInfo = this.$store.state.userInfo
+				this.enterpriseId = useInfo.enterpriseId
 			}
-			//获取token
-			uni.getStorage({
-				key:'token',
-				success:function(res){
-					// console.log(res.data)
-					_this.token = res.data
-				},
-				fail:function(err){
-					console.log('token获取失败')
-					return
-				}
-			})
-			// console.log(_this.enterpriseId)
-			// console.log(_this.meetingId)
-			_this.$request({
-				url:'/enterpriseParticipation',
-				data:{
-					enterpriseId: _this.enterpriseId,
-					meetingId: _this.meetingId
-				}
-			}).then(res=>{
-				let data = res[1].data
-				// console.log(data)
-				if(!data.statusCode){
-					let contactArr = data.contactInfoList
-					console.log(data.contactInfoList)
-					for(let i = 0; i < contactArr.length; i++){
-						if(contactArr[i].contactId){		//自定义与会成员没有ID，所以需要过滤成员列表
-							let contactItem = {
-								contactId: contactArr[i].contactId,
-								photo: contactArr[i].head,
-								name: contactArr[i].contactName,
-								phone: contactArr[i].contactPhoneNum,
-								position: contactArr[i].position,
-								isSignIn: contactArr[i].contactSignedIn,
-								isPaticipator: contactArr[i].contactParticipated		//用来改变参加与否的样式
-							}
-							if(contactArr[i].contactParticipated){
-								_this.participatorList.push(contactItem)
-							}
-							_this.contactList.push(contactItem)
-						}
-					}
-					console.log(_this.participatorList)
-					console.log(_this.contactList)
-				}else{
-					uni.showToast({
-						icon: 'none',
-						position: 'bottom',
-						duration: 2000,
-						title: data.statusMsg
-					})
-				}
-			}).catch(err=>{
-				console.log(err)
-			})
 		},
 		methods:{
+			getData(){
+				let _this = this
+				_this.customContactList = [],		//所有自定义与会成员列表
+				_this.participatorList = [],		//已参加的正常成员列表
+				_this.appliedContactList = [],		//所有正常成员列表
+				//获取token
+				uni.getStorage({
+					key:'token',
+					success:function(res){
+						// console.log(res.data)
+						_this.token = res.data
+					},
+					fail:function(err){
+						console.log('token获取失败')
+						return
+					}
+				})
+				// console.log(_this.enterpriseId)
+				// console.log(_this.meetingId)
+				_this.$request({
+					url:'/enterpriseParticipation',
+					data:{
+						enterpriseId: _this.enterpriseId,
+						meetingId: _this.meetingId
+					}
+				}).then(res=>{
+					let data = res[1].data
+					// console.log(data)
+					if(!data.statusCode){
+						let contactArr = data.contactInfoList
+						console.log(data.contactInfoList)
+						for(let i = 0; i < contactArr.length; i++){
+							if(contactArr[i].contactId){		//自定义与会成员没有ID，所以需要过滤成员列表
+								let contactItem = {
+									contactId: contactArr[i].contactId,
+									photo: contactArr[i].head || '../../../static/home/userIcon.png',
+									name: contactArr[i].contactName,
+									phone: contactArr[i].contactPhoneNum,
+									position: contactArr[i].position,
+									isSignIn: contactArr[i].contactSignedIn,
+									isPaticipator: contactArr[i].contactParticipated		//用来改变参加与否的样式
+								}
+								_this.appliedContactList.push(contactItem)
+								if(contactArr[i].contactParticipated){
+									_this.participatorList.push(contactItem)
+								}
+							}
+							else{
+								_this.customContactList.push(contactArr[i])	//加入自定义与会成员列表
+							}
+						}
+						console.log(_this.appliedContactList)
+						console.log(_this.participatorList)
+						console.log(_this.customContactList)
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							duration: 2000,
+							title: data.statusMsg
+						})
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
 			clickBack(){
 				uni.navigateBack({
 					delta:1
@@ -367,8 +401,8 @@
 					let data = res[1].data
 					if(data.statusCode === 2000){
 						console.log('取消参会成功')
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -408,8 +442,8 @@
 					// console.log(data)
 					if(data.statusCode === 2000){
 						console.log('会议参加成功')
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -440,8 +474,8 @@
 					let data = res[1].data
 					if(data.statusCode === 2000){
 						console.log('会议不参加')
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -476,11 +510,8 @@
 					let data = res[1].data
 					if(data.statusCode === 2000){
 						console.log('删除记录成功')
-						// uni.navigateBack({
-						// 	delta:1
-						// })
-						uni.reLaunch({
-							url:'meetingInform'
+						uni.navigateBack({
+							delta:1
 						})
 					}
 					else{
@@ -514,7 +545,7 @@
 			},
 			confirmParticipate(index){
 				let _this = this
-				_this.contactList[index].isPaticipator=true
+				_this.appliedContactList[index].isPaticipator=true
 				// console.log(_this.token)
 				// console.log(_this.meetingId)
 				_this.$request({
@@ -522,15 +553,15 @@
 					data:{
 						token: _this.token,
 						meetingId: _this.meetingId,
-						contactId: _this.contactList[index].contactId
+						contactId: _this.appliedContactList[index].contactId
 					}
 				}).then(res=>{
 					// console.log(res)
 					let data = res[1].data
 					if(data.statusCode === 2000){
-						console.log(_this.contactList[index].name+'会议参加成功')
+						console.log(_this.appliedContactList[index].name+'会议参加成功')
 					}else{
-						console.log(_this.contactList[index].name+'会议参加失败')
+						console.log(_this.appliedContactList[index].name+'会议参加失败')
 					}
 				}).catch(err=>{
 					console.log(err)
@@ -538,21 +569,21 @@
 			},
 			cancelParticipate(index){
 				let _this = this
-				_this.contactList[index].isPaticipator=false
+				_this.appliedContactList[index].isPaticipator=false
 				_this.$request({
 					url:'/cancelContacts',
 					data:{
 						token: _this.token,
 						meetingId: _this.meetingId,
-						contactId: _this.contactList[index].contactId
+						contactId: _this.appliedContactList[index].contactId
 					}
 				}).then(res=>{
 					// console.log(res)
 					let data = res[1].data
 					if(data.statusCode === 2000){
-						console.log(_this.contactList[index].name+'取消参加成功')
+						console.log(_this.appliedContactList[index].name+'取消参加成功')
 					}else{
-						console.log(_this.contactList[index].name+'取消参加失败')
+						console.log(_this.appliedContactList[index].name+'取消参加失败')
 					}
 				}).catch(err=>{
 					console.log(err)
@@ -694,6 +725,8 @@
 		overflow: scroll;
 		// top: 190rpx;
 		top: 210rpx;
+		left: 0;
+		right: 0;
 		bottom: 0;
 		.rectangle{
 			position: absolute;
@@ -825,9 +858,11 @@
 							margin-right: 33rpx;
 							width: 80rpx;
 							height: 80rpx;
+							border-radius: 50%;
 							image{
 								width: 80rpx;
 								height: 80rpx;
+								border-radius: 50%;
 							}
 						}
 						.participator-identity{
@@ -1054,6 +1089,8 @@
 			margin-right: 41rpx;
 			display: flex;
 			flex-direction: column;
+			// height: 600rpx;
+			// overflow: scroll;
 			.popup-participator{
 				height: 150rpx;
 				display: flex;
@@ -1067,9 +1104,11 @@
 						margin-right: 33rpx;
 						width: 80rpx;
 						height: 80rpx;
+						border-radius: 50%;
 						image{
 							width: 80rpx;
 							height: 80rpx;
+							border-radius: 50%;
 						}
 					}
 					.popup-participator-identity{

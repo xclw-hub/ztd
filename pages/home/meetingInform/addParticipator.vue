@@ -17,22 +17,31 @@
 
 				</view>
 				<text>新增{{index|NumberToChinese}}</text>
-				<image src="/static/meeting/delete.png" mode="heightFix" @click="shanchu(index)" v-if="index!=0">
+				<image src="/static/meeting/delete.png" mode="heightFix" @click="shanchu(index)" >
 				</image>
 			</view>
 			<view class="name">
 				<text>姓名</text>
-				<input type="text" v-model="item.name" :placeholder="name_placeholder" />
+				<input type="text" 
+						v-model="item.name" 
+						:placeholder="name_placeholder" 
+						:disabled="item.isDisabled"/>
 			</view>
 			<view style="margin-left: 38rpx;margin-right: 38rpx; margin-top: 20rpx;border:1px solid #F2F2F2" />
 			<view class="job">
 				<text>职务</text>
-				<input type="text" v-model="item.job" :placeholder="job_placeholder" />
+				<input type="text" 
+				v-model="item.job" 
+				:placeholder="job_placeholder" 
+				:disabled="item.isDisabled"/>
 			</view>
 			<view style="margin-left: 38rpx;margin-right: 38rpx; margin-top: 20rpx;border:1px solid #F2F2F2" />
 			<view class="telephone">
 				<text>联系电话</text>
-				<input type="text" v-model="item.telephone" :placeholder="telephone_placeholder" />
+				<input type="text" 
+				v-model="item.telephone" 
+				:placeholder="telephone_placeholder" 
+				:disabled="item.isDisabled"/>
 			</view>
 		</view>
 		<view class="bottom">
@@ -107,6 +116,7 @@
 					name: '',
 					job: '',
 					telephone: '',
+					isDisabled:false		//是否禁止修改
 				}]
 			}
 		},
@@ -160,23 +170,111 @@
 					return
 				}
 			})
+			_this.$request({
+				url:'/queryCustomParticipants',
+				data:{
+					meetingId: _this.meetingId,
+					enterpriseId: _this.enterpriseId
+				}
+			}).then(res=>{
+				let data = res[1].data
+				// console.log(data)
+				if(data.statusCode === 2000){
+					let customContactList = data.customParticipants
+					console.log(customContactList)
+					if(customContactList.length > 0){
+						_this.list = []		//清空原来的
+						for(let i = 0; i< customContactList.length; i++){
+							let customContact = {
+								name: customContactList[i].participantName,
+								job: customContactList[i].position,
+								telephone: customContactList[i].phoneNum,
+								isDisabled: true	
+							}
+							_this.list.push(customContact)
+						}
+					}
+				}
+			}).catch(err=>{
+				console.log(err)
+			})
 		},
 		methods: {
 			clickBack() {
 				uni.navigateBack({
 					delta:1
 				})
-				console.log(this.NumberToChinese(1))
+				// console.log(this.NumberToChinese(1))
 			},
 			add() {
+				let len = this.list.length
+				if(len > 0){
+					if(this.list[len-1].name==='' || this.list[len-1].job==='' || this.list[len-1].telephone===''){
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							duration: 2000,
+							title: '请填写完整成员信息'
+						})
+						return
+					}
+				}
 				this.list.push({
 					name: '',
 					job: '',
 					telephone: '',
+					isDisabled:false		//是否禁止修改
 				})
 			},
 			shanchu(index) {
-				this.list.splice(index, 1)
+				let _this = this
+				if(_this.list[index].isDisabled){	//真正删除已存的自定义成员
+					_this.$request({
+						url: '/deleteCustomParticipants',
+						data:{
+							token: _this.token,
+							participantName: _this.list[index].name,
+							position: _this.list[index].job,
+							phoneNum: _this.list[index].telephone,
+							enterpriseId: _this.enterpriseId,
+							meetingId: _this.meetingId
+						}
+					}).then(res=>{
+						console.log(res)
+						let data = res[1].data
+						if(data.statusCode === 2000){
+							_this.list.splice(index, 1)
+							uni.showToast({
+								icon: 'none',
+								position: 'bottom',
+								duration: 2000,
+								title: '自定义与会成员删除成功'
+							})
+							if(_this.list.length === 0){
+								_this.list.push({
+									name: '',
+									job: '',
+									telephone: '',
+									isDisabled:false		//是否禁止修改
+								})
+							}
+						}
+						
+					}).catch(err=>{
+						console.log(err)
+					})
+				}
+				else{
+					_this.list.splice(index, 1)
+					if(_this.list.length === 0){
+						_this.list.push({
+							name: '',
+							job: '',
+							telephone: '',
+							isDisabled:false		//是否禁止修改
+						})
+					}
+				}
 			},
 			clickCancel() {
 				console.log('取消')
@@ -188,53 +286,73 @@
 			},
 			clickConfirm() {
 				let _this = this
+				let len = _this.list.length
 				_this.isShowDiagnosis = false
 				_this.isFirst = true
 				console.log(_this.list)
 				console.log(_this.enterpriseId)
 				console.log(_this.token)
 				console.log(_this.meetingId)
-				for(let i = 0; i < _this.list.length; i++){
-					if(_this.list[i].name==='' || _this.list[i].job==='' || _this.list[i].telephone===''){
-						uni.showToast({
-							icon: 'none',
-							position: 'bottom',
-							duration: 2000,
-							title: '请填写完整成员信息'
-						})
-						return
+				if(_this.list[len-1].name==='' || _this.list[len-1].job==='' || _this.list[len-1].telephone===''){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						duration: 2000,
+						title: '请填写完整成员信息'
+					})
+					return
+				}
+				let count = 0		//新增加的个数
+				for(let j = 0; j < len; j++){
+					if(!_this.list[j].isDisabled){
+						count++
 					}
-					_this.$request({
-						url:'/customParticipants',
-						data:{
-							token: _this.token,
-							meetingId: _this.meetingId,
-							enterpriseId: _this.enterpriseId,
-							participantName: _this.list[i].name,
-							position: _this.list[i].job,
-							phoneNum: _this.list[i].telephone
-						}
-					}).then(res=>{
-						// console.log(res)
-						let data = res[1].data
-						if(data.statusCode === 2000){
-							console.log('添加与会成员成功')
-							uni.navigateBack({
-								delta:1
-							})
-						}
-						else{
-							uni.showToast({
-								icon: 'none',
-								position: 'bottom',
-								duration: 2000,
-								title: data.statusMsg
-							})
-						}
-					}).catch(err=>{
-						console.log(err)
+				}
+				console.log('要增加的个数:'+count)
+				if(count===0){
+					uni.navigateBack({
+						delta:1
 					})
 				}
+				let flag = 0
+				for(let i = 0; i < len; i++){
+					if(!_this.list[i].isDisabled){		//去掉已经添加的成员
+						console.log(_this.list[i])
+						_this.$request({
+							url:'/customParticipants',
+							data:{
+								token: _this.token,
+								meetingId: _this.meetingId,
+								enterpriseId: _this.enterpriseId,
+								participantName: _this.list[i].name,
+								position: _this.list[i].job,
+								phoneNum: _this.list[i].telephone
+							}
+						}).then(res=>{
+							// console.log(res)
+							let data = res[1].data
+							if(data.statusCode === 2000){
+								flag++
+								if(flag === count){
+									console.log('添加自定义与会成员成功')
+									uni.navigateBack({
+										delta:1
+									})
+								}
+							}
+							else{
+								uni.showToast({
+									icon: 'none',
+									position: 'bottom',
+									duration: 2000,
+									title: data.statusMsg
+								})
+							}
+						}).catch(err=>{
+							console.log(err)
+						})
+					}
+				}				
 			}
 		}
 	}

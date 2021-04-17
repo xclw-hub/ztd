@@ -142,12 +142,13 @@
 	}
 	.body-detail{
 		margin-top: 27rpx;
-		height: 202rpx;
+		/* height: 202rpx; */
 		background: #FFFFFF;
 		box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.15);
 		border-radius: 15rpx;
 		padding-left: 31rpx;
 		padding-right: 31rpx;
+		padding-bottom: 27rpx;
 	}
 	.body-detail .title{
 		height: 79rpx;
