@@ -604,6 +604,7 @@
 	.popList-body-title image{
 		width: 140rpx;
 		height: 140rpx;
+		border-radius: 50%;
 	}
 	.popList-body-title #popList-body-title-name{
 		margin-top: 108rpx;
